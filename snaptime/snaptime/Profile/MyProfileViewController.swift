@@ -12,4 +12,12 @@ final class MyProfileViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func setupLayouts() {
+        super.setupLayouts()
+    }
+    
+    override func setupConstraints() {
+        super.setupConstraints()
+    }
 }

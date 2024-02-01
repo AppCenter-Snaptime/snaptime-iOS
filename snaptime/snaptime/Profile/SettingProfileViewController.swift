@@ -1,14 +1,11 @@
 //
-//  File.swift
+//  SettingProfileViewController.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/1/24.
 //
 
-import UIKit
-import SnapKit
-
-final class JoinIdViewController : BaseViewController {
+final class SettingProfileViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
