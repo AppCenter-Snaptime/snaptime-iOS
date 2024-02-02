@@ -8,11 +8,28 @@
 import UIKit
 import SnapKit
 
+protocol JoinEmailNavigation : AnyObject {
+    func backToPrevious()
+    func presentJoinPassword()
+}
+
 final class JoinEmailViewController : BaseViewController {
+    weak var coordinator : JoinEmailNavigation?
+    
+    init(coordinator: JoinEmailNavigation) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - UI component Config
     private let emailLabel : UILabel = {
         let label = UILabel()
         label.text = "사용하실 이메일 주소를 입력해주세요"
@@ -23,9 +40,28 @@ final class JoinEmailViewController : BaseViewController {
     
     private var emailInputTextField = AuthTextField("abc@example.com")
     
-    private lazy var nextButton = AuthButton("다음")
+//    private lazy var nextButton = AuthButton("다음")
+    private lazy var nextButton : UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("다음", for: .normal)
+        button.addAction(
+            UIAction { _ in
+                self.tabNextButton()
+            }, for: .touchUpInside)
+
+        return button
+    }()
     
+    // MARK: - button click method
+    private func tabNextButton() {
+        coordinator?.presentJoinPassword()
+    }
     
+    // MARK: - setup UI
     override func setupLayouts() {
         [emailLabel,emailInputTextField,nextButton].forEach {
             view.addSubview($0)
@@ -46,6 +82,8 @@ final class JoinEmailViewController : BaseViewController {
         nextButton.snp.makeConstraints {
             $0.top.equalTo(emailInputTextField.snp.bottom).offset(70)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(50)
         }
     }
 }

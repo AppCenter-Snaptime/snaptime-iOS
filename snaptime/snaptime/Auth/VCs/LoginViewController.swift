@@ -8,11 +8,29 @@
 import UIKit
 import SnapKit
 
+protocol LoginNavigation : AnyObject {
+    func presentLogin()
+    func presentHome()
+    func presentJoinEmail()
+}
+
 final class LoginViewController : BaseViewController {
+    weak var coordinator : LoginNavigation?
+    
+    init(coordinator: LoginNavigation) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - UI component Config
     private let loginLabel : UILabel = {
         let label = UILabel()
         label.text = "나만을 위한 인생 네컷 앨범📸"
@@ -34,17 +52,44 @@ final class LoginViewController : BaseViewController {
     private let idInputTextField = AuthTextField("아이디 또는 이메일")
     private let passwordInputTextField = AuthTextField("비밀번호")
     
-    private lazy var loginButton = AuthButton("로그인")
+    private lazy var loginButton : UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("로그인", for: .normal)
+        button.addAction(
+            UIAction { _ in
+                self.tabLoginButton()
+            }, for: .touchUpInside)
+
+        return button
+    }()
     
     private lazy var joinButton : UIButton = {
         let button = UIButton()
         button.setTitle("이메일로 회원가입", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
+        button.addAction(
+            UIAction { _ in
+                self.tabJoinButton()
+        }, for: .touchUpInside)
         
         return button
     }()
     
+    // MARK: - button click method
+    @objc private func tabLoginButton() {
+        coordinator?.presentHome()
+    }
+    
+    private func tabJoinButton() {
+        coordinator?.presentJoinEmail()
+    }
+    
+    // MARK: - setup UI
     override func setupLayouts() {
         super.setupLayouts()
         
@@ -65,7 +110,7 @@ final class LoginViewController : BaseViewController {
         super.setupConstraints()
         
         loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(140)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(45)
         }
         
@@ -77,6 +122,8 @@ final class LoginViewController : BaseViewController {
         loginButton.snp.makeConstraints {
             $0.top.equalTo(inputStackView.snp.bottom).offset(64)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(50)
         }
         
         joinButton.snp.makeConstraints {

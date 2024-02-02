@@ -21,7 +21,7 @@ class AuthButton : UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     private func setupStyles() {
         self.setTitle(customTitle, for: .normal)
         self.setTitleColor(.white, for: .normal)

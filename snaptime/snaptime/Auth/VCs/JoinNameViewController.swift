@@ -8,11 +8,28 @@
 import UIKit
 import SnapKit
 
+protocol JoinNameNavigation : AnyObject {
+    func backToPrevious()
+    func presentID()
+}
+
 final class JoinNameViewController : BaseViewController {
+    weak var coordinator : JoinNameNavigation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    init(coordinator: JoinNameNavigation) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UI component Config
     private let nameLabel : UILabel = {
         let label = UILabel()
         label.text = "이름과 생년월일을 입력해주세요"
@@ -33,8 +50,28 @@ final class JoinNameViewController : BaseViewController {
         return label
     }()
 
-    private lazy var nextButton = AuthButton("다음")
+//    private lazy var nextButton = AuthButton("다음")
+    private lazy var nextButton : UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("다음", for: .normal)
+        button.addAction(
+            UIAction { _ in
+                self.tabNextButton()
+            }, for: .touchUpInside)
+
+        return button
+    }()
     
+    // MARK: - button click method
+    private func tabNextButton() {
+        coordinator?.presentID()
+    }
+
+    // MARK: - setup UI
     override func setupLayouts() {
         [nameLabel,
          nameInputTextField,
@@ -69,6 +106,8 @@ final class JoinNameViewController : BaseViewController {
         nextButton.snp.makeConstraints {
             $0.top.equalTo(birthDateInputTextField.snp.bottom).offset(70)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(50)
         }
     }
 

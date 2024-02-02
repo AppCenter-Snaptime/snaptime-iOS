@@ -8,11 +8,28 @@
 import UIKit
 import SnapKit
 
+protocol JoinPasswordNavigation : AnyObject {
+    func backToPrevious()
+    func presentName()
+}
+
 class JoinPasswordViewController : BaseViewController {
+    weak var coordinator : JoinPasswordNavigation?
+    
+    init(coordinator: JoinPasswordNavigation) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - UI component Config
     private let passwordLabel : UILabel = {
         let label = UILabel()
         label.text = "사용하실 비밀번호를 입력해주세요"
@@ -42,8 +59,28 @@ class JoinPasswordViewController : BaseViewController {
     }()
 
     
-    private lazy var nextButton = AuthButton("다음")
+//    private lazy var nextButton = AuthButton("다음")
+    private lazy var nextButton : UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("다음", for: .normal)
+        button.addAction(
+            UIAction { _ in
+                self.tabNextButton()
+            }, for: .touchUpInside)
+
+        return button
+    }()
     
+    // MARK: - button click method
+    private func tabNextButton() {
+        coordinator?.presentName()
+    }
+    
+    // MARK: - setup UI
     override func setupLayouts() {
         [passwordLabel,
          passwordInputTextField,
@@ -84,6 +121,8 @@ class JoinPasswordViewController : BaseViewController {
         nextButton.snp.makeConstraints {
             $0.top.equalTo(passwordCheckInputTextField.snp.bottom).offset(70)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(50)
         }
     }
 }
