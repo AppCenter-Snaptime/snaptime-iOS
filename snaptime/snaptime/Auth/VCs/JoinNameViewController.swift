@@ -94,7 +94,7 @@ final class JoinNameViewController : BaseViewController {
         }
                 
         birthDateInputTextField.snp.makeConstraints {
-            $0.top.equalTo(nameInputTextField.snp.bottom).offset(40)
+            $0.top.equalTo(nameInputTextField.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
         

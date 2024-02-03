@@ -14,9 +14,17 @@ final class CommunityCoordinator : Coordinator {
     var navigationController: UINavigationController
 
     func start() {
+        presentCommunity()
     }
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+}
+
+extension CommunityCoordinator : CommunityNavigation {
+    func presentCommunity() {
+        let communityVC = CommunityViewController(coordinator: self)
+        navigationController.pushViewController(communityVC, animated: true)
     }
 }

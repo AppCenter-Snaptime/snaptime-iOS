@@ -14,9 +14,17 @@ final class ProfileCoordinator : Coordinator {
     var navigationController: UINavigationController
 
     func start() {
+        presentMyProfile()
     }
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+}
+
+extension ProfileCoordinator : MyProfileNavigation {
+    func presentMyProfile() {
+        let myProfileVC = MyProfileViewController(coordinator: self)
+        navigationController.pushViewController(myProfileVC, animated: true)
     }
 }
