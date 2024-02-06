@@ -10,6 +10,7 @@ import SnapKit
 
 protocol MainAlbumNavigation : AnyObject {
     func presentMainAlbum()
+    func presentDetailAlbum()
 }
 
 final class MainAlbumViewController : BaseViewController {
@@ -39,6 +40,9 @@ final class MainAlbumViewController : BaseViewController {
         let button = UIButton()
         button.setTitle("tab", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.addAction(UIAction { _ in
+            self.coordinator?.presentDetailAlbum()
+        }, for: .touchUpInside)
         
         return button
     }()

@@ -20,14 +20,15 @@ class ButtonStackView : UIView {
         return stackView
     }()
     
-    private let mainButton = CustomTabButton("홈","house")
-    private let communityButton = CustomTabButton("커뮤니티", "magnifyingglass")
-    private let noneButton = CustomTabButton("미정", "square.text.square")
-    private let profileButton = CustomTabButton("프로필", "person")
+    let mainButton = CustomTabButton("홈","house")
+    let communityButton = CustomTabButton("커뮤니티", "magnifyingglass")
+    let noneButton = CustomTabButton("미정", "square.text.square")
+    let profileButton = CustomTabButton("프로필", "person")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,10 @@ class ButtonStackView : UIView {
             stackView.addArrangedSubview($0)
         }
         
+        addSubview(stackView)
+    }
+    
+    private func setupConstraints() {
         [mainButton,
          communityButton,
          noneButton,
@@ -50,8 +55,6 @@ class ButtonStackView : UIView {
                 $0.height.equalTo(40)
             }
         }
-        
-        addSubview(stackView)
         
         stackView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(self)
