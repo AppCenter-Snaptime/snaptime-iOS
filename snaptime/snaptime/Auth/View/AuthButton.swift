@@ -27,7 +27,7 @@ class AuthButton : UIButton {
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         self.layer.cornerRadius = 10
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .snaptimeBlue
     }
     
     private func setupConstraints() {

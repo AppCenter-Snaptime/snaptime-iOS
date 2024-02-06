@@ -20,38 +20,13 @@ class ButtonStackView : UIView {
         return stackView
     }()
     
-    private let mainButton = UIButton()
-    private let settingButton = UIButton()
-    private let listImageButton = UIButton()
-    private let profileButton = UIButton()
-    
-    private func buttonConfig() {
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25,
-                                                      weight: .medium,
-                                                      scale: .small)
-        let mainImage = UIImage(systemName: "house", withConfiguration: imageConfig)
-        let listImage = UIImage(systemName: "hanger", withConfiguration: imageConfig)
-        let settingImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
-        let profileImage = UIImage(systemName: "person", withConfiguration: imageConfig)
-        
-        mainButton.setImage(mainImage, for: .normal)
-        listImageButton.setImage(listImage, for: .normal)
-        settingButton.setImage(settingImage, for: .normal)
-        profileButton.setImage(profileImage, for: .normal)
-        
-        [mainButton,
-         listImageButton,
-         settingButton,
-         profileButton].forEach {
-            $0.layer.cornerRadius = 10
-            $0.backgroundColor = .white
-            $0.imageView?.tintColor = .black
-        }
-    }
-    
+    private let mainButton = CustomTabButton("홈","house")
+    private let communityButton = CustomTabButton("커뮤니티", "magnifyingglass")
+    private let noneButton = CustomTabButton("미정", "square.text.square")
+    private let profileButton = CustomTabButton("프로필", "person")
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        buttonConfig()
         setLayout()
     }
     
@@ -61,15 +36,15 @@ class ButtonStackView : UIView {
     
     private func setLayout(){
         [mainButton,
-         listImageButton,
-         settingButton,
+         communityButton,
+         noneButton,
          profileButton].forEach {
             stackView.addArrangedSubview($0)
         }
         
         [mainButton,
-         listImageButton,
-         settingButton,
+         communityButton,
+         noneButton,
          profileButton].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(40)

@@ -14,14 +14,11 @@ class TabBarController : UITabBarController {
         
         view.backgroundColor = .systemBackground
         configTabBar()
-        self.tabBar.tintColor = .red
-        self.tabBar.backgroundColor = .white
     }
     
     private var buttonStackView = ButtonStackView()
-
+    
     private func configTabBar(){
-        
         tabBar.addSubview(buttonStackView)
         
         buttonStackView.snp.makeConstraints {

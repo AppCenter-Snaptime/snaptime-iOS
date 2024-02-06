@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
+		290585572B7201F500B80F68 /* CustomTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585562B7201F500B80F68 /* CustomTabButton.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
 		292977812B6618FB00FDC799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 292977802B6618FB00FDC799 /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		290585562B7201F500B80F68 /* CustomTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabButton.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		292977792B6618FA00FDC799 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		290585532B71FE8600B80F68 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				290585542B71FE9600B80F68 /* UIColor+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		2929776B2B6618FA00FDC799 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +125,7 @@
 		292977762B6618FA00FDC799 /* snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				290585532B71FE8600B80F68 /* Extension */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				298F7F592B6BA30F00A8DBC5 /* Auth */,
 				298F7F582B6BA30700A8DBC5 /* community */,
@@ -245,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				294FF9FD2B6CB63200EDD005 /* ButtonStackView.swift */,
+				290585562B7201F500B80F68 /* CustomTabButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
+				290585572B7201F500B80F68 /* CustomTabButton.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
@@ -395,6 +410,7 @@
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
+				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
 			);

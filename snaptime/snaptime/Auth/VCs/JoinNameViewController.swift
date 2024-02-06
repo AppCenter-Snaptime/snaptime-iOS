@@ -56,7 +56,7 @@ final class JoinNameViewController : BaseViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.layer.cornerRadius = 10
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .snaptimeBlue
         button.setTitle("다음", for: .normal)
         button.addAction(
             UIAction { _ in
