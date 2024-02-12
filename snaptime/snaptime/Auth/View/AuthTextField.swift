@@ -22,8 +22,15 @@ class AuthTextField : UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let underLine : UIView = {
+        let view = UIView()
+        view.backgroundColor = .snaptimegray
+        
+        return view
+    }()
+    
     private func setupStyles() {
-        self.borderStyle = .roundedRect
+        self.borderStyle = .none
         self.placeholder = customPlaceholder
     }
     
@@ -31,6 +38,14 @@ class AuthTextField : UITextField {
         self.snp.makeConstraints {
             $0.height.equalTo(40)
             $0.width.equalTo(300)
+        }
+        
+        addSubview(underLine)
+        
+        underLine.snp.makeConstraints {
+            $0.top.equalTo(self.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
         }
     }
 }

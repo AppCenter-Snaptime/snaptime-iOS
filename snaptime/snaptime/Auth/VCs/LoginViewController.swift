@@ -28,6 +28,7 @@ final class LoginViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabLoginButton()
     }
     
     // MARK: - UI component Config
@@ -44,7 +45,7 @@ final class LoginViewController : BaseViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 10
+        stackView.spacing = 20
         
         return stackView
     }()
@@ -52,20 +53,7 @@ final class LoginViewController : BaseViewController {
     private let idInputTextField = AuthTextField("아이디 또는 이메일")
     private let passwordInputTextField = AuthTextField("비밀번호")
     
-    private lazy var loginButton : UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .snaptimeBlue
-        button.setTitle("로그인", for: .normal)
-        button.addAction(
-            UIAction { _ in
-                self.tabLoginButton()
-            }, for: .touchUpInside)
-
-        return button
-    }()
+    private lazy var loginButton = AuthButton("로그인")
     
     private lazy var joinButton : UIButton = {
         let button = UIButton()
@@ -82,7 +70,9 @@ final class LoginViewController : BaseViewController {
     
     // MARK: - button click method
     @objc private func tabLoginButton() {
-        coordinator?.presentHome()
+        loginButton.tabButtonAction = { [weak self] in
+            self?.coordinator?.presentHome()
+        }
     }
     
     private func tabJoinButton() {

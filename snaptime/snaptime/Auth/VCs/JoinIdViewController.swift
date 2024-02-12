@@ -18,6 +18,7 @@ final class JoinIdViewController : BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabNextButton()
     }
     
     init(coordinator: JoinIdNavigation) {
@@ -48,25 +49,13 @@ final class JoinIdViewController : BaseViewController {
         return label
     }()
     
-//    private lazy var nextButton = AuthButton("다음")
-    private lazy var nextButton : UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .snaptimeBlue
-        button.setTitle("다음", for: .normal)
-        button.addAction(
-            UIAction { _ in
-                self.tabNextButton()
-            }, for: .touchUpInside)
-
-        return button
-    }()
+    private lazy var nextButton = AuthButton("다음")
     
     // MARK: - button click method
     private func tabNextButton() {
-        coordinator?.backToRoot()
+        nextButton.tabButtonAction = { [weak self] in
+            self?.coordinator?.backToRoot()
+        }
     }
 
     // MARK: - setup UI
@@ -102,6 +91,5 @@ final class JoinIdViewController : BaseViewController {
             $0.height.equalTo(50)
         }
     }
-
 }
 

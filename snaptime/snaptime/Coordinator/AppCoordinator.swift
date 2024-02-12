@@ -46,6 +46,7 @@ final class AppCoordinator : Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.navigationBar.tintColor = .black
     }
     
     func startAuthCoordinator() {

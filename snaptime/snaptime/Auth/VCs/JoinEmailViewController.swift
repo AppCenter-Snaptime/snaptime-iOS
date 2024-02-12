@@ -27,6 +27,7 @@ final class JoinEmailViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabNextButton()
     }
     
     // MARK: - UI component Config
@@ -39,26 +40,14 @@ final class JoinEmailViewController : BaseViewController {
     }()
     
     private var emailInputTextField = AuthTextField("abc@example.com")
-    
-//    private lazy var nextButton = AuthButton("다음")
-    private lazy var nextButton : UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .snaptimeBlue
-        button.setTitle("다음", for: .normal)
-        button.addAction(
-            UIAction { _ in
-                self.tabNextButton()
-            }, for: .touchUpInside)
 
-        return button
-    }()
+    private lazy var nextButton = AuthButton("다음")
     
     // MARK: - button click method
     private func tabNextButton() {
-        coordinator?.presentJoinPassword()
+        nextButton.tabButtonAction = { [weak self] in
+            self?.coordinator?.presentJoinPassword()
+        }
     }
     
     // MARK: - setup UI

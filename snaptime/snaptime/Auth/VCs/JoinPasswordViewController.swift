@@ -27,6 +27,7 @@ class JoinPasswordViewController : BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabNextButton()
     }
     
     // MARK: - UI component Config
@@ -57,27 +58,14 @@ class JoinPasswordViewController : BaseViewController {
         
         return label
     }()
-
     
-//    private lazy var nextButton = AuthButton("다음")
-    private lazy var nextButton : UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .snaptimeBlue
-        button.setTitle("다음", for: .normal)
-        button.addAction(
-            UIAction { _ in
-                self.tabNextButton()
-            }, for: .touchUpInside)
-
-        return button
-    }()
+    private lazy var nextButton = AuthButton("다음")
     
     // MARK: - button click method
     private func tabNextButton() {
-        coordinator?.presentName()
+        nextButton.tabButtonAction = { [weak self] in
+            self?.coordinator?.presentName()
+        }
     }
     
     // MARK: - setup UI

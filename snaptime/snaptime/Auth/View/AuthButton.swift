@@ -10,16 +10,22 @@ import SnapKit
 
 class AuthButton : UIButton {
     private let customTitle: String
+    var tabButtonAction : (() -> ())?
     
     init(_ title: String) {
         self.customTitle = title
         super.init(frame: .zero)
         self.setupStyles()
         self.setupConstraints()
+        self.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func tabButton() {
+        tabButtonAction?()
     }
         
     private func setupStyles() {
@@ -37,3 +43,4 @@ class AuthButton : UIButton {
         }
     }
 }
+
