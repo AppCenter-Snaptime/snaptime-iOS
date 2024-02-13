@@ -133,10 +133,10 @@
 				298F7F562B6BA2FC00A8DBC5 /* Home */,
 				292977772B6618FA00FDC799 /* AppDelegate.swift */,
 				292977792B6618FA00FDC799 /* SceneDelegate.swift */,
+				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
 				292977802B6618FB00FDC799 /* Assets.xcassets */,
 				292977822B6618FB00FDC799 /* LaunchScreen.storyboard */,
 				292977852B6618FB00FDC799 /* Info.plist */,
-				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
 			);
 			path = snaptime;
 			sourceTree = "<group>";

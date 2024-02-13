@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AuthButton : UIButton {
+final class AuthButton : UIButton {
     private let customTitle: String
     var tabButtonAction : (() -> ())?
     
@@ -16,7 +16,6 @@ class AuthButton : UIButton {
         self.customTitle = title
         super.init(frame: .zero)
         self.setupStyles()
-        self.setupConstraints()
         self.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
     }
     
@@ -34,13 +33,6 @@ class AuthButton : UIButton {
         self.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         self.layer.cornerRadius = 10
         self.backgroundColor = .snaptimeBlue
-    }
-    
-    private func setupConstraints() {
-        self.snp.makeConstraints {
-            $0.width.equalTo(300)
-            $0.height.equalTo(50)
-        }
     }
 }
 

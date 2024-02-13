@@ -40,7 +40,6 @@ final class DetailAlbumViewController : BaseViewController {
         button.setTitle("tab", for: .normal)
         button.setTitleColor(.black, for: .normal)
         
-        
         return button
     }()
     

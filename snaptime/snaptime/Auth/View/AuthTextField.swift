@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AuthTextField : UITextField {
+final class AuthTextField : UITextField {
     private let customPlaceholder: String
     
     init(_ placeholder: String) {
@@ -16,6 +16,7 @@ class AuthTextField : UITextField {
         super.init(frame: .zero)
         self.setupStyles()
         self.setupConstraints()
+//        self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidEnd)
     }
     
     required init?(coder: NSCoder) {
@@ -47,5 +48,11 @@ class AuthTextField : UITextField {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
+    }
+}
+
+extension AuthTextField {
+    @objc func editingDidBegin() {
+        underLine.backgroundColor = .snaptimeBlue
     }
 }
