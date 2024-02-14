@@ -29,17 +29,20 @@ final class MainAlbumViewController : BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let homeTestLabel : UILabel = {
+    private let logoTextLabel : UILabel = {
         let label = UILabel()
-        label.text = "home 화면"
+        label.text = "SnapTime"
         
         return label
     }()
     
-    private lazy var contextButton : UIButton = {
+    private lazy var addSnapButton : UIButton = {
         let button = UIButton()
-        button.setTitle("tab", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.image = UIImage(systemName: "plus")
+        config.baseBackgroundColor = .systemBackground
+        config.baseForegroundColor = .black
+        button.configuration = config
         button.addAction(UIAction { _ in
             self.coordinator?.presentDetailAlbum()
         }, for: .touchUpInside)
@@ -47,11 +50,19 @@ final class MainAlbumViewController : BaseViewController {
         return button
     }()
     
+    private lazy var mainAlbumCollectionView : UICollectionView = {
+        let collectionView = UICollectionView()
+        collectionView.backgroundColor = .red
+        return collectionView
+    }()
+    
     override func setupLayouts() {
         super.setupLayouts()
-        
-        [homeTestLabel,
-         contextButton].forEach {
+        [
+            logoTextLabel,
+            addSnapButton,
+            mainAlbumCollectionView
+        ].forEach {
             view.addSubview($0)
         }
     }
@@ -59,14 +70,14 @@ final class MainAlbumViewController : BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        homeTestLabel.snp.makeConstraints {
+        logoTextLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
         }
         
-        contextButton.snp.makeConstraints {
-            $0.top.equalTo(homeTestLabel.snp.bottom).offset(60)
-            $0.centerX.equalToSuperview()
+        addSnapButton.snp.makeConstraints {
+            $0.centerY.equalTo(logoTextLabel.snp.centerY)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
     }
 }
