@@ -11,7 +11,7 @@ import UIKit
 final class SnapCollectionViewCell : UICollectionViewCell {
     private lazy var snapImageView : UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo")
+        imageView.image = UIImage(named: "SnapExample")
         return imageView
     }()
     
@@ -33,7 +33,7 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     }
     
     private func setupLayouts() {
-        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
         self.layer.shadowOpacity = 0.5
         self.layer.shadowRadius = 10
         self.contentView.layer.cornerRadius = 10
@@ -44,7 +44,7 @@ final class SnapCollectionViewCell : UICollectionViewCell {
             snapImageView,
             descriptionLabel
         ].forEach {
-            self.addSubview($0)
+            self.contentView.addSubview($0)
         }
     }
     
