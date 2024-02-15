@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol DetailAlbumNavigation : AnyObject {
-
+    
 }
 
 final class DetailAlbumViewController : BaseViewController {
@@ -31,19 +31,18 @@ final class DetailAlbumViewController : BaseViewController {
     
     private let albumDetailCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 10.0
-        layout.minimumLineSpacing = 10.0
+        layout.minimumLineSpacing = 1.0
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         return collectionView
-        }()
+    }()
 
-        private func collectionViewConfig() {
-        albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
-        albumDetailCollectionView.delegate = self
-        albumDetailCollectionView.dataSource = self
+    private func collectionViewConfig() {
+    albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
+                            forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+    albumDetailCollectionView.delegate = self
+    albumDetailCollectionView.dataSource = self
     }
     
     override func setupLayouts() {
@@ -70,11 +69,17 @@ extension DetailAlbumViewController : UICollectionViewDataSource, UICollectionVi
             return UICollectionViewCell()
         }
             
+        cell.configReuseDateLabel(date: "2024.01.24")
+        cell.configReuseSnapImage(imageURL: "")
+        cell.configReuseTagButtonText(nickname: "with@Lorem")
+        cell.configReuseOneLineDiaryLabel(oneLineDiary: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.")
+        
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+    // 일단 임의로 개수 설정해두었습니다.
+       return 10
     }
 }
 

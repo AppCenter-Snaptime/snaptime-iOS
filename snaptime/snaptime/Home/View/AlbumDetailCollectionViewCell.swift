@@ -9,9 +9,8 @@ import UIKit
 import SnapKit
 
 final class AlbumDetailCollectionViewCell : UICollectionViewCell {
-    private let dateLabel : UILabel = {
+    private var dateLabel : UILabel = {
         let label = UILabel()
-        label.text = "2024.01.24"
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         
         return label
@@ -26,7 +25,6 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
     
     private lazy var tagPeople : UIButton = {
         let button = UIButton()
-        button.setTitle("with@Lorem", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         
@@ -35,7 +33,6 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
     
     private var oneLineDiary : UILabel = {
         let label = UILabel()
-        label.text = "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui."
         label.font = .systemFont(ofSize: 14, weight: .light)
         label.textAlignment = .natural
         label.numberOfLines = 2
@@ -46,7 +43,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
     private lazy var commentButton : UIButton = {
         let button = UIButton()
         button.setTitle("댓글보기", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(.lightGray, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         
         return button
@@ -60,6 +57,30 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.configReuseDateLabel(date: nil)
+        self.configReuseSnapImage(imageURL: nil)
+        self.configReuseTagButtonText(nickname: nil)
+        self.configReuseOneLineDiaryLabel(oneLineDiary: nil)
+    }
+    
+    func configReuseDateLabel(date: String?) {
+        self.dateLabel.text = date
+    }
+    
+    func configReuseSnapImage(imageURL: String?) {
+    
+    }
+    
+    func configReuseTagButtonText(nickname: String?) {
+        self.tagPeople.setTitle(nickname, for: .normal)
+    }
+    
+    func configReuseOneLineDiaryLabel(oneLineDiary: String?) {
+        self.oneLineDiary.text = oneLineDiary
     }
     
     private func setLayouts() {
