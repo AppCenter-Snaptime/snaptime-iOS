@@ -38,6 +38,7 @@
 		298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */; };
 		298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */; };
 		42AB7944914EE0F9CC2015E4 /* Pods_snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B32E15A39E9F6588B693FD0 /* Pods_snaptime.framework */; };
+		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEmailViewController.swift; sourceTree = "<group>"; };
 		344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.debug.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		7B32E15A39E9F6588B693FD0 /* Pods_snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.release.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,6 +264,7 @@
 			children = (
 				294FF9FD2B6CB63200EDD005 /* ButtonStackView.swift */,
 				290585562B7201F500B80F68 /* CustomTabButton.swift */,
+				A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			files = (
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
+				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
