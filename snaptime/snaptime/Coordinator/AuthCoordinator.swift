@@ -2,7 +2,7 @@
 //  AuthCoordinator.swift
 //  snaptime
 //
-//  Created by Bowon Han on 2/2/24.
+//  Created by Bowon Han  on 2/2/24.
 //
 
 import UIKit
