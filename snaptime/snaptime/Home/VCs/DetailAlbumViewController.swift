@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol DetailAlbumNavigation : AnyObject {
-
+    
 }
 
 final class DetailAlbumViewController : BaseViewController {
@@ -17,6 +17,7 @@ final class DetailAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionViewConfig()
     }
     
     init(coordinator: DetailAlbumNavigation) {
@@ -28,42 +29,66 @@ final class DetailAlbumViewController : BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let homeDetailTestLabel : UILabel = {
-        let label = UILabel()
-        label.text = "home detail"
-        
-        return label
+    private let albumDetailCollectionView : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 1.0
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        return collectionView
     }()
-    
-    private lazy var contextButton : UIButton = {
-        let button = UIButton()
-        button.setTitle("tab", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
-        return button
-    }()
+
+    private func collectionViewConfig() {
+    albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
+                            forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+    albumDetailCollectionView.delegate = self
+    albumDetailCollectionView.dataSource = self
+    }
     
     override func setupLayouts() {
         super.setupLayouts()
-        
-        [homeDetailTestLabel,
-         contextButton].forEach {
-            view.addSubview($0)
-        }
+        view.addSubview(albumDetailCollectionView)
     }
     
     override func setupConstraints() {
         super.setupConstraints()
-        
-        homeDetailTestLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            $0.centerX.equalToSuperview()
+        albumDetailCollectionView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
-        contextButton.snp.makeConstraints {
-            $0.top.equalTo(homeDetailTestLabel.snp.bottom).offset(60)
-            $0.centerX.equalToSuperview()
+    }
+}
+
+extension DetailAlbumViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = albumDetailCollectionView.dequeueReusableCell(
+            withReuseIdentifier: AlbumDetailCollectionViewCell.identifier,
+            for: indexPath
+        ) as? AlbumDetailCollectionViewCell else {
+            return UICollectionViewCell()
         }
+            
+        cell.configReuseDateLabel(date: "2024.01.24")
+        cell.configReuseSnapImage(imageURL: "")
+        cell.configReuseTagButtonText(nickname: "with@Lorem")
+        cell.configReuseOneLineDiaryLabel(oneLineDiary: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.")
+        
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    // 일단 임의로 개수 설정해두었습니다.
+       return 10
+    }
+}
+
+extension DetailAlbumViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let heigth : CGFloat = collectionView.frame.width * 1.6
+        let width : CGFloat = collectionView.frame.width - 5.0
+        
+        return CGSize(width: width, height: heigth)
     }
 }
 
