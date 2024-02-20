@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "292977732B6618FA00FDC799"
-               BuildableName = "snaptime.app"
-               BlueprintName = "snaptime"
+               BuildableName = "Snaptime.app"
+               BlueprintName = "Snaptime"
                ReferencedContainer = "container:Snaptime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "292977732B6618FA00FDC799"
-            BuildableName = "snaptime.app"
-            BlueprintName = "snaptime"
+            BuildableName = "Snaptime.app"
+            BlueprintName = "Snaptime"
             ReferencedContainer = "container:Snaptime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "292977732B6618FA00FDC799"
-            BuildableName = "snaptime.app"
-            BlueprintName = "snaptime"
+            BuildableName = "Snaptime.app"
+            BlueprintName = "Snaptime"
             ReferencedContainer = "container:Snaptime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
