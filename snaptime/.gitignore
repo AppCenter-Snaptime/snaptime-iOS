@@ -51,6 +51,7 @@ xcuserdata/
 *.xccheckout
 
 ### Xcode Patch ###
+*.xcworkspace
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
