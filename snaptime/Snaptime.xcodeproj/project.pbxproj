@@ -110,7 +110,7 @@
 		2929776B2B6618FA00FDC799 = {
 			isa = PBXGroup;
 			children = (
-				292977762B6618FA00FDC799 /* snaptime */,
+				292977762B6618FA00FDC799 /* Snaptime */,
 				292977752B6618FA00FDC799 /* Products */,
 				8FD129918791FC4EABDF2316 /* Pods */,
 				0B1A29E961772FF5DF3E3CE7 /* Frameworks */,
@@ -125,7 +125,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		292977762B6618FA00FDC799 /* snaptime */ = {
+		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
 				290585532B71FE8600B80F68 /* Extension */,
@@ -141,7 +141,7 @@
 				292977822B6618FB00FDC799 /* LaunchScreen.storyboard */,
 				292977852B6618FB00FDC799 /* Info.plist */,
 			);
-			path = snaptime;
+			path = Snaptime;
 			sourceTree = "<group>";
 		};
 		294FF9F02B6CA00200EDD005 /* Coordinator */ = {
@@ -260,8 +260,6 @@
 		298F7F732B6BA78A00A8DBC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				294FF9FD2B6CB63200EDD005 /* ButtonStackView.swift */,
-				290585562B7201F500B80F68 /* CustomTabButton.swift */,
 				A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */,
 				292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */,
 			);
@@ -314,7 +312,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2929776F2B6618FA00FDC799 /* Build configuration list for PBXProject "snaptime" */;
+			buildConfigurationList = 2929776F2B6618FA00FDC799 /* Build configuration list for PBXProject "Snaptime" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -614,7 +612,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2929776F2B6618FA00FDC799 /* Build configuration list for PBXProject "snaptime" */ = {
+		2929776F2B6618FA00FDC799 /* Build configuration list for PBXProject "Snaptime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				292977862B6618FB00FDC799 /* Debug */,
