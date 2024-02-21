@@ -17,6 +17,9 @@ final class MyProfileViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabAlbumButton()
+        self.tabTagButton()
     }
     
     init(coordinator: MyProfileNavigation) {
@@ -51,12 +54,70 @@ final class MyProfileViewController : BaseViewController {
     
     private let profileStatusView = ProfileStatusView(target: .myself)
     
+    private let tabButtonStackView : UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        
+        return stackView
+    }()
+    
+    private lazy var albumTabButton = ProfileTabButton("앨범 목록")
+    private lazy var tagTabButton = ProfileTabButton("태그 목록")
+    
+    private let indicatorView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        
+        return view
+    }()
+    
+    private func tabAlbumButton() {
+        albumTabButton.tabButtonAction = { [weak self] in
+            self?.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
+                $0.height.equalTo(0.7)
+                $0.leading.equalToSuperview()
+                $0.width.equalTo(UIScreen.main.bounds.width/2)
+            }
+            
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { self?.view.layoutIfNeeded() }
+            )
+        }
+    }
+    
+    private func tabTagButton() {
+        tagTabButton.tabButtonAction = { [weak self] in
+            self?.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
+                $0.height.equalTo(0.7)
+                $0.trailing.equalToSuperview()
+                $0.width.equalTo(UIScreen.main.bounds.width/2)
+            }
+            
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { self?.view.layoutIfNeeded() }
+            )
+        }
+    }
+    
     override func setupLayouts() {
         super.setupLayouts()
         
+        [albumTabButton,
+         tagTabButton].forEach {
+            tabButtonStackView.addArrangedSubview($0)
+        }
+        
         [iconLabel,
          notificationButton,
-         profileStatusView].forEach {
+         profileStatusView,
+         tabButtonStackView,
+         indicatorView].forEach {
             view.addSubview($0)
         }
     }
@@ -80,6 +141,19 @@ final class MyProfileViewController : BaseViewController {
         profileStatusView.snp.makeConstraints {
             $0.top.equalTo(iconLabel.snp.bottom).offset(10.5)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tabButtonStackView.snp.makeConstraints {
+            $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
+        }
+        
+        indicatorView.snp.makeConstraints {
+            $0.top.equalTo(tabButtonStackView.snp.bottom)
+            $0.height.equalTo(0.7)
+            $0.leading.equalTo(view.safeAreaLayoutGuide)
+            $0.width.equalTo(UIScreen.main.bounds.width/2)
         }
     }
 }

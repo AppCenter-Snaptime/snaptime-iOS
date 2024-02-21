@@ -73,18 +73,6 @@ final class ProfileStatusView : UIView {
         return view
     }()
     
-    private let tabButtonStackView : UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
-        
-        return stackView
-    }()
-    
-    private lazy var albumTabButton = ProfileTabButton("앨범 목록")
-    private lazy var tagTabButton = ProfileTabButton("태그 목록")
-    
     private func setupUI(target: ProfileTarget) {
         switch target {
         case .others:
@@ -118,17 +106,11 @@ final class ProfileStatusView : UIView {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [albumTabButton,
-         tagTabButton].forEach {
-            tabButtonStackView.addArrangedSubview($0)
-        }
-        
         [profileImage,
          nickNameLabel,
          buttonStackView,
          followOrSettingButton,
-         lineView,
-         tabButtonStackView].forEach {
+         lineView].forEach {
             addSubview($0)
         }
     }
@@ -167,15 +149,10 @@ final class ProfileStatusView : UIView {
         }
         
         lineView.snp.makeConstraints {
-            $0.top.equalTo(profileImage.snp.bottom).offset(24)
+            $0.top.equalTo(profileImage.snp.bottom).offset(30)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(3)
-        }
-        
-        tabButtonStackView.snp.makeConstraints {
-            $0.top.equalTo(lineView.snp.bottom).offset(5)
-            $0.leading.trailing.equalTo(self)
-            $0.height.equalTo(40)
+            $0.bottom.equalToSuperview()
         }
     }
 }

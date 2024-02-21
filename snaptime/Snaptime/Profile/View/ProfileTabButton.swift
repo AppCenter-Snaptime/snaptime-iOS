@@ -10,19 +10,21 @@ import SnapKit
 
 final class ProfileTabButton : UIButton {
     private let tabTitle : String
-    
-    private let lineView = UIView()
+    var tabButtonAction : (() -> ())?
     
     init(_ title: String) {
         self.tabTitle = title
         super.init(frame: .zero)
         self.setupStyles()
-        self.setupLayout()
-        self.setupConstrains()
+        self.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func tabButton() {
+        self.tabButtonAction?()
     }
     
     private func setupStyles() {
@@ -36,20 +38,5 @@ final class ProfileTabButton : UIButton {
         config.attributedTitle = titleAttr
         
         self.configuration = config
-        
-        lineView.backgroundColor = .black
-    }
-    
-    private func setupLayout() {
-        addSubview(lineView)
-    }
-    
-    private func setupConstrains() {
-        lineView.snp.makeConstraints {
-            $0.bottom.equalTo(self.snp.bottom)
-            $0.centerX.equalTo(self)
-            $0.height.equalTo(2)
-            $0.width.equalTo(57)
-        }
     }
 }
