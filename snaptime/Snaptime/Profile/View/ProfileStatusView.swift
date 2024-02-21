@@ -5,4 +5,177 @@
 //  Created by Bowon Han on 2/21/24.
 //
 
-import Foundation
+import UIKit
+import SnapKit
+
+final class ProfileStatusView : UIView {
+    enum ProfileTarget {
+        case myself
+        case others
+    }
+    
+    let profileTarget : ProfileTarget
+    
+    init(target: ProfileTarget) {
+        self.profileTarget = target
+        super.init(frame: .zero)
+        self.setupUI(target: target)
+        self.setupLayouts()
+        self.setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
+    }
+    
+    private let profileImage : UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .snaptimeGray
+        
+        return imageView
+    }()
+    
+    private let nickNameLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Jocelyn"
+        label.font = .systemFont(ofSize: 16, weight: .light)
+        label.textAlignment = .left
+        
+        return label
+    }()
+    
+    private let buttonStackView : UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 35
+        
+        return stackView
+    }()
+    
+    private let followOrSettingButton = UIButton()
+    
+    private lazy var postNumber = ProfileStatusButton("사진수", "40")
+    private lazy var followerNumber = ProfileStatusButton("팔로워", "342")
+    private lazy var followingNumber = ProfileStatusButton("팔로잉", "342")
+    
+    private let lineView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .snaptimelightGray
+        
+        return view
+    }()
+    
+    private let tabButtonStackView : UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        
+        return stackView
+    }()
+    
+    private lazy var albumTabButton = ProfileTabButton("앨범 목록")
+    private lazy var tagTabButton = ProfileTabButton("태그 목록")
+    
+    private func setupUI(target: ProfileTarget) {
+        switch target {
+        case .others:
+            var config = UIButton.Configuration.filled()
+            config.baseBackgroundColor = .snaptimeBlue
+            config.baseForegroundColor = .white
+            
+            var titleAttr = AttributedString.init("팔로우")
+            titleAttr.font = .systemFont(ofSize: 12, weight: .light)
+            config.attributedTitle = titleAttr
+            
+            followOrSettingButton.configuration = config
+            
+        case .myself:
+            var config = UIButton.Configuration.filled()
+            config.baseBackgroundColor = .white
+            config.baseForegroundColor = .black
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
+            let setImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
+            config.image = setImage
+            
+            followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
+            followOrSettingButton.configuration = config
+        }
+    }
+    
+    private func setupLayouts() {
+        [postNumber,
+         followerNumber,
+         followingNumber].forEach {
+            buttonStackView.addArrangedSubview($0)
+        }
+        
+        [albumTabButton,
+         tagTabButton].forEach {
+            tabButtonStackView.addArrangedSubview($0)
+        }
+        
+        [profileImage,
+         nickNameLabel,
+         buttonStackView,
+         followOrSettingButton,
+         lineView,
+         tabButtonStackView].forEach {
+            addSubview($0)
+        }
+    }
+    
+    private func setupConstraints() {
+        profileImage.snp.makeConstraints {
+            $0.top.equalTo(self).offset(20)
+            $0.leading.equalTo(self).offset(25)
+            $0.height.width.equalTo(80)
+        }
+        
+        nickNameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImage.snp.top)
+            $0.leading.equalTo(profileImage.snp.trailing).offset(30)
+            $0.width.equalTo(100)
+            $0.height.equalTo(19)
+        }
+        
+        followOrSettingButton.snp.makeConstraints {
+            $0.centerY.equalTo(nickNameLabel.snp.centerY)
+            $0.height.equalTo(25)
+            $0.trailing.equalTo(self).offset(-25)
+            switch profileTarget {
+            case .myself:
+                $0.width.equalTo(25)
+            case .others:
+                $0.width.equalTo(95)
+            }
+        }
+            
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(nickNameLabel.snp.bottom).offset(25)
+            $0.leading.equalTo(profileImage.snp.trailing).offset(15)
+            $0.trailing.equalTo(self).offset(-25)
+            $0.bottom.equalTo(profileImage.snp.bottom)
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(profileImage.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
+        }
+        
+        tabButtonStackView.snp.makeConstraints {
+            $0.top.equalTo(lineView.snp.bottom).offset(5)
+            $0.leading.trailing.equalTo(self)
+            $0.height.equalTo(40)
+        }
+    }
+}

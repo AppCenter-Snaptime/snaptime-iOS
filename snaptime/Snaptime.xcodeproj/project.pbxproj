@@ -36,11 +36,16 @@
 		298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7A2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift */; };
 		298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */; };
 		298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */; };
-		42AB7944914EE0F9CC2015E4 /* Pods_snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B32E15A39E9F6588B693FD0 /* Pods_snaptime.framework */; };
+		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
+		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
+		29F80BF92B85AECB003614AB /* ProfileTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF82B85AECB003614AB /* ProfileTabButton.swift */; };
+		934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,8 +77,11 @@
 		298F7F7A2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPasswordViewController.swift; sourceTree = "<group>"; };
 		298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNameViewController.swift; sourceTree = "<group>"; };
 		298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEmailViewController.swift; sourceTree = "<group>"; };
+		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
+		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
+		29F80BF82B85AECB003614AB /* ProfileTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabButton.swift; sourceTree = "<group>"; };
 		344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.debug.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.debug.xcconfig"; sourceTree = "<group>"; };
-		7B32E15A39E9F6588B693FD0 /* Pods_snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.release.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42AB7944914EE0F9CC2015E4 /* Pods_snaptime.framework in Frameworks */,
+				934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +101,7 @@
 		0B1A29E961772FF5DF3E3CE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B32E15A39E9F6588B693FD0 /* Pods_snaptime.framework */,
+				245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,7 +179,7 @@
 		298F7F572B6BA30200A8DBC5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				298F7F722B6BA78700A8DBC5 /* View */,
+				29F80BF32B8589A2003614AB /* View */,
 				298F7F6E2B6BA76700A8DBC5 /* VCs */,
 			);
 			path = Profile;
@@ -180,7 +188,6 @@
 		298F7F582B6BA30700A8DBC5 /* community */ = {
 			isa = PBXGroup;
 			children = (
-				298F7F712B6BA77A00A8DBC5 /* View */,
 				298F7F6D2B6BA76300A8DBC5 /* VCs */,
 			);
 			path = community;
@@ -243,20 +250,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		298F7F712B6BA77A00A8DBC5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		298F7F722B6BA78700A8DBC5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		298F7F732B6BA78A00A8DBC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,11 +259,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		29F80BF32B8589A2003614AB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29F80BF42B8589AC003614AB /* ProfileStatusView.swift */,
+				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
+				29F80BF82B85AECB003614AB /* ProfileTabButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8FD129918791FC4EABDF2316 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */,
 				AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */,
+				90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */,
+				26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -358,7 +363,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-snaptime-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Snaptime-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -371,15 +376,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-snaptime/Pods-snaptime-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-snaptime/Pods-snaptime-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-snaptime/Pods-snaptime-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -400,6 +405,7 @@
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
+				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
@@ -413,6 +419,8 @@
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */,
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
+				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
+				29F80BF92B85AECB003614AB /* ProfileTabButton.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
@@ -555,7 +563,7 @@
 		};
 		292977892B6618FB00FDC799 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */;
+			baseConfigurationReference = 90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -583,7 +591,7 @@
 		};
 		2929778A2B6618FB00FDC799 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */;
+			baseConfigurationReference = 26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

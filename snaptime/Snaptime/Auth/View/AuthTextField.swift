@@ -25,7 +25,7 @@ final class AuthTextField : UITextField {
     
     private let underLine : UIView = {
         let view = UIView()
-        view.backgroundColor = .snaptimegray
+        view.backgroundColor = .snaptimeGray
         
         return view
     }()
