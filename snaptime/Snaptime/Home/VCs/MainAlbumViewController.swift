@@ -8,25 +8,16 @@
 import UIKit
 import SnapKit
 
-protocol MainAlbumNavigation : AnyObject {
-    func presentMainAlbum()
-    func presentDetailAlbum()
+protocol MainAlbumViewControllerDelegate: AnyObject {
+    func presentDetailView()
 }
 
 final class MainAlbumViewController : BaseViewController {
-    weak var coordinator : MainAlbumNavigation?
+    weak var delegate : MainAlbumViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    init(coordinator: MainAlbumNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        print(delegate)
     }
     
     private let logoTextLabel : UILabel = {
@@ -44,7 +35,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { _ in
-            self.coordinator?.presentDetailAlbum()
+            self.delegate?.presentDetailView()
         }, for: .touchUpInside)
         
         return button
@@ -124,6 +115,12 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
             for: indexPath
         ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("didSelectItemAt")
+        print(delegate)
+        delegate?.presentDetailView()
     }
 }
 
