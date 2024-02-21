@@ -44,7 +44,7 @@ final class MainAlbumViewController : BaseViewController {
     private lazy var mainAlbumLabel : UILabel = {
         let label = UILabel()
         label.text = "모든 앨범"
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
@@ -60,10 +60,21 @@ final class MainAlbumViewController : BaseViewController {
         return collectionView
     }()
     
-    
-    private func loadCollectionView() {
-        
-    }
+    private lazy var addSnapFloatingButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.background.backgroundColor = .snaptimeBlue
+        config.baseForegroundColor = .white
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "plus")
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentDetailView()
+        }, for: .touchUpInside)
+        return button
+    }()
     
     override func setupLayouts() {
         super.setupLayouts()
@@ -71,7 +82,8 @@ final class MainAlbumViewController : BaseViewController {
             logoTextLabel,
             addSnapButton,
             mainAlbumLabel,
-            mainAlbumCollectionView
+            mainAlbumCollectionView,
+            addSnapFloatingButton
         ].forEach {
             view.addSubview($0)
         }
@@ -100,6 +112,13 @@ final class MainAlbumViewController : BaseViewController {
             $0.top.equalTo(mainAlbumLabel.snp.bottom).offset(20)
             $0.left.right.equalTo(mainAlbumLabel)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
+        
+        addSnapFloatingButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.width.equalTo(58)
+            $0.height.equalTo(58)
         }
     }
 }
