@@ -24,7 +24,6 @@ final class HomeCoordinator : Coordinator {
 
 extension HomeCoordinator : MainAlbumViewControllerDelegate, DetailAlbumNavigation {
     func presentDetailView() {
-        print("presentDetailAlbum")
         let detailAlbumVC = DetailAlbumViewController(coordinator: self)
         navigationController.pushViewController(detailAlbumVC, animated: true)
     }

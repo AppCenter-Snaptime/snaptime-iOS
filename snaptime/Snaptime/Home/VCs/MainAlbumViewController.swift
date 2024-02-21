@@ -17,7 +17,6 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(delegate)
     }
     
     private let logoTextLabel : UILabel = {
@@ -54,7 +53,7 @@ final class MainAlbumViewController : BaseViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: "SnapCollectionViewCell")
+        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -130,15 +129,13 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "SnapCollectionViewCell",
+            withReuseIdentifier: SnapCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("didSelectItemAt")
-        print(delegate)
         delegate?.presentDetailView()
     }
 }
