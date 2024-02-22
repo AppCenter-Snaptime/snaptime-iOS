@@ -94,19 +94,18 @@ final class MyProfileViewController : BaseViewController {
         let scrollViewWidth = UIScreen.main.bounds.width
         
         albumTabButton.tabButtonAction = { [weak self] in
-            self?.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
                 $0.height.equalTo(2)
-                $0.leading.equalToSuperview()
                 $0.width.equalTo(scrollViewWidth/6)
+                $0.centerX.equalTo(scrollViewWidth/4)
             }
             
             UIView.animate(
                 withDuration: 0.4,
                 animations: { self?.view.layoutIfNeeded() }
             )
+            self?.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
     
@@ -114,19 +113,19 @@ final class MyProfileViewController : BaseViewController {
         let scrollViewWidth = UIScreen.main.bounds.width
 
         tagTabButton.tabButtonAction = { [weak self] in
-            self?.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
-
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
                 $0.height.equalTo(2)
-                $0.trailing.equalToSuperview()
                 $0.width.equalTo(scrollViewWidth/6)
+                $0.centerX.equalTo(scrollViewWidth*3/4)
             }
             
             UIView.animate(
                 withDuration: 0.4,
                 animations: { self?.view.layoutIfNeeded() }
             )
+            
+            self?.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
         }
     }
     
@@ -218,14 +217,14 @@ final class MyProfileViewController : BaseViewController {
 
 extension MyProfileViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = UIScreen.main.bounds.width/2
+        let width = UIScreen.main.bounds.width
         let offsetX = scrollView.contentOffset.x
         
         self.indicatorView.snp.remakeConstraints {
             $0.top.equalTo(self.tabButtonStackView.snp.bottom)
             $0.height.equalTo(2)
-            $0.centerX.equalTo(offsetX/2 + width/2)
-            $0.width.equalTo(width/3)
+            $0.centerX.equalTo(offsetX/2 + width/4)
+            $0.width.equalTo(width/6)
         }
         
         UIView.animate(
