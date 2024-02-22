@@ -42,6 +42,7 @@
 		29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6D2B8657C0003614AB /* AlbumListView.swift */; };
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
+		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
 		934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -86,6 +87,7 @@
 		29F80C6D2B8657C0003614AB /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
+		29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.debug.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
 				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
 				29F80C6D2B8657C0003614AB /* AlbumListView.swift */,
+				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
 				29F80C6F2B8657C8003614AB /* TagListView.swift */,
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 			);
@@ -437,6 +440,7 @@
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
+				29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,8 @@ import SnapKit
 final class TagListCollectionViewCell : UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setLayouts()
-        self.setConstraints()
+        self.setupLayouts()
+        self.setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -26,11 +26,11 @@ final class TagListCollectionViewCell : UICollectionViewCell {
         return imageView
     }()
     
-    private func setLayouts() {
+    private func setupLayouts() {
         addSubview(tagImageView)
     }
     
-    private func setConstraints() {
+    private func setupConstraints() {
         tagImageView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
