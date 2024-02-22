@@ -42,7 +42,7 @@ final class ProfileStatusButton : UIButton {
         
         config.attributedTitle = titleAttr
         config.attributedSubtitle = numberAttr
-        config.titlePadding = 12
+        config.titlePadding = 3
         config.titleAlignment = .center
         
         self.configuration = config

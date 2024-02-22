@@ -13,6 +13,7 @@ final class TagListView : UIView {
         super.init(frame: frame)
         self.setLayouts()
         self.setConstraints()
+        self.collectionViewConfig()
     }
     
     required init?(coder: NSCoder) {
@@ -30,9 +31,9 @@ final class TagListView : UIView {
         return collectionView
     }()
     
-    private func collectionViewConfig() {
-        tagImageCollectionView.register(AlbumDetailCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+    func collectionViewConfig() {
+        tagImageCollectionView.register(TagListCollectionViewCell.self,
+                                forCellWithReuseIdentifier: TagListCollectionViewCell.identifier)
         tagImageCollectionView.delegate = self
         tagImageCollectionView.dataSource = self
     }
@@ -43,22 +44,33 @@ final class TagListView : UIView {
     
     private func setConstraints() {
         tagImageCollectionView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
 
 extension TagListView : UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = tagImageCollectionView.dequeueReusableCell(
+            withReuseIdentifier: TagListCollectionViewCell.identifier,
+            for: indexPath
+        ) as? TagListCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tagImageCollectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumDetailCollectionViewCell.identifier,
-            for: indexPath
-        ) as? AlbumDetailCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+}
+
+extension TagListView : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width : CGFloat = (collectionView.frame.width / 3) - 1.0
+        let heigth : CGFloat = width * 1.4
+        
+        return CGSize(width: width, height: heigth)
     }
 }

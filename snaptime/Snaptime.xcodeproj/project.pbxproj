@@ -38,7 +38,10 @@
 		298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
-		29F80BF92B85AECB003614AB /* ProfileTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF82B85AECB003614AB /* ProfileTabButton.swift */; };
+		29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */; };
+		29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6D2B8657C0003614AB /* AlbumListView.swift */; };
+		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
+		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -79,7 +82,10 @@
 		298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEmailViewController.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
-		29F80BF82B85AECB003614AB /* ProfileTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabButton.swift; sourceTree = "<group>"; };
+		29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListTabButton.swift; sourceTree = "<group>"; };
+		29F80C6D2B8657C0003614AB /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
+		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.debug.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -264,7 +270,10 @@
 			children = (
 				29F80BF42B8589AC003614AB /* ProfileStatusView.swift */,
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
-				29F80BF82B85AECB003614AB /* ProfileTabButton.swift */,
+				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
+				29F80C6D2B8657C0003614AB /* AlbumListView.swift */,
+				29F80C6F2B8657C8003614AB /* TagListView.swift */,
+				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +410,7 @@
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
 				292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */,
+				29F80C702B8657C8003614AB /* TagListView.swift in Sources */,
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
@@ -408,6 +418,7 @@
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
+				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
@@ -416,11 +427,12 @@
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
+				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */,
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
-				29F80BF92B85AECB003614AB /* ProfileTabButton.swift in Sources */,
+				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,

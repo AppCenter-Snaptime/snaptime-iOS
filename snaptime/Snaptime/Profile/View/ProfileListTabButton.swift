@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ProfileTabButton : UIButton {
+final class ProfileTabListButton : UIButton {
     private let tabTitle : String
     var tabButtonAction : (() -> ())?
     

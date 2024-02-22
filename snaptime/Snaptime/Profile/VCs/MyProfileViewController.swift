@@ -18,6 +18,7 @@ final class MyProfileViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.listScrollView.delegate = self
         self.tabAlbumButton()
         self.tabTagButton()
     }
@@ -63,9 +64,9 @@ final class MyProfileViewController : BaseViewController {
         return stackView
     }()
     
-    private lazy var albumTabButton = ProfileTabButton("앨범 목록")
-    private lazy var tagTabButton = ProfileTabButton("태그 목록")
-    
+    private lazy var albumTabButton = ProfileTabListButton("앨범 목록")
+    private lazy var tagTabButton = ProfileTabListButton("태그 목록")
+        
     private let indicatorView : UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -73,8 +74,24 @@ final class MyProfileViewController : BaseViewController {
         return view
     }()
     
+    private var listScrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isPagingEnabled = true
+        
+        return scrollView
+    }()
+    
+    private let tagListView = TagListView()
+    private let albumListView = AlbumListView()
+    
+    private let contentView = UIView()
+    
+    // MARK: - 메서드
     private func tabAlbumButton() {
         albumTabButton.tabButtonAction = { [weak self] in
+            self?.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
                 $0.height.equalTo(0.7)
@@ -83,7 +100,7 @@ final class MyProfileViewController : BaseViewController {
             }
             
             UIView.animate(
-                withDuration: 0.3,
+                withDuration: 0.4,
                 animations: { self?.view.layoutIfNeeded() }
             )
         }
@@ -91,6 +108,8 @@ final class MyProfileViewController : BaseViewController {
     
     private func tabTagButton() {
         tagTabButton.tabButtonAction = { [weak self] in
+            self?.listScrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width, y: 0), animated: true)
+
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
                 $0.height.equalTo(0.7)
@@ -99,25 +118,34 @@ final class MyProfileViewController : BaseViewController {
             }
             
             UIView.animate(
-                withDuration: 0.3,
+                withDuration: 0.4,
                 animations: { self?.view.layoutIfNeeded() }
             )
         }
     }
     
+    // MARK: - setupUI
     override func setupLayouts() {
         super.setupLayouts()
-        
+                
         [albumTabButton,
          tagTabButton].forEach {
             tabButtonStackView.addArrangedSubview($0)
         }
         
+        [albumListView,
+         tagListView].forEach {
+            contentView.addSubview($0)
+        }
+        
+        listScrollView.addSubview(contentView)
+        
         [iconLabel,
          notificationButton,
          profileStatusView,
          tabButtonStackView,
-         indicatorView].forEach {
+         indicatorView,
+         listScrollView].forEach {
             view.addSubview($0)
         }
     }
@@ -155,5 +183,48 @@ final class MyProfileViewController : BaseViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide)
             $0.width.equalTo(UIScreen.main.bounds.width/2)
         }
+        
+        listScrollView.snp.makeConstraints {
+            $0.top.equalTo(indicatorView.snp.bottom).offset(1)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        let scrollViewWidth = UIScreen.main.bounds.width
+                
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(listScrollView.contentLayoutGuide)
+            $0.height.equalTo(listScrollView.frameLayoutGuide)
+            $0.width.equalTo(scrollViewWidth*2)
+        }
+        
+        albumListView.snp.makeConstraints {
+            $0.top.leading.bottom.equalTo(contentView)
+            $0.width.equalTo(scrollViewWidth)
+        }
+        
+        tagListView.snp.makeConstraints {
+            $0.top.bottom.equalTo(contentView)
+            $0.leading.equalTo(albumListView.snp.trailing)
+            $0.width.equalTo(scrollViewWidth)
+        }
+    }
+}
+
+extension MyProfileViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = UIScreen.main.bounds.width/2
+        let offsetX = scrollView.contentOffset.x
+        
+        self.indicatorView.snp.remakeConstraints {
+            $0.top.equalTo(self.tabButtonStackView.snp.bottom)
+            $0.height.equalTo(0.7)
+            $0.centerX.equalTo(offsetX/2 + width/2)
+            $0.width.equalTo(width)
+        }
+        
+        UIView.animate(
+            withDuration: 0.1,
+            animations: { self.view.layoutIfNeeded() }
+        )
     }
 }
