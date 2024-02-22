@@ -160,25 +160,25 @@ final class MyProfileViewController : BaseViewController {
         
         iconLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(25)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(25)
             $0.width.equalTo(80)
             $0.height.equalTo(32)
         }
         
         notificationButton.snp.makeConstraints {
             $0.centerY.equalTo(iconLabel.snp.centerY)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-25)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-25)
             $0.height.width.equalTo(32)
         }
         
         profileStatusView.snp.makeConstraints {
             $0.top.equalTo(iconLabel.snp.bottom).offset(10.5)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         
         tabButtonStackView.snp.makeConstraints {
             $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(40)
         }
         
@@ -193,7 +193,7 @@ final class MyProfileViewController : BaseViewController {
         
         listScrollView.snp.makeConstraints {
             $0.top.equalTo(indicatorView.snp.bottom).offset(1)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.left.right.bottom.equalToSuperview()
         }
                         
         contentView.snp.makeConstraints {
@@ -203,13 +203,13 @@ final class MyProfileViewController : BaseViewController {
         }
         
         albumListView.snp.makeConstraints {
-            $0.top.leading.bottom.equalTo(contentView)
+            $0.top.left.bottom.equalTo(contentView)
             $0.width.equalTo(scrollViewWidth)
         }
         
         tagListView.snp.makeConstraints {
             $0.top.bottom.equalTo(contentView)
-            $0.leading.equalTo(albumListView.snp.trailing)
+            $0.left.equalTo(albumListView.snp.right)
             $0.width.equalTo(scrollViewWidth)
         }
     }

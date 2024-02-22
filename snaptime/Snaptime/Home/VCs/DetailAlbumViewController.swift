@@ -54,7 +54,7 @@ final class DetailAlbumViewController : BaseViewController {
         super.setupConstraints()
         albumDetailCollectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.left.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }

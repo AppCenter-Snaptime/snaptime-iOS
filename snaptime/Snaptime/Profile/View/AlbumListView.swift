@@ -43,7 +43,7 @@ final class AlbumListView : UIView {
     private func setConstraints() {
         profileAlbumListCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.left.right.bottom.equalToSuperview()
         }
     }
 }

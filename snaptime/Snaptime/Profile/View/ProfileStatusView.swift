@@ -10,7 +10,7 @@ import SnapKit
 
 final class ProfileStatusView : UIView {
     
-    // 타인의 프로필과 나의 프로필 구별하기 위한 enum
+    // 타인의 프로필과 나의 프로필 구별하기 위한enum
     enum ProfileTarget {
         case myself
         case others
@@ -120,13 +120,13 @@ final class ProfileStatusView : UIView {
     private func setupConstraints() {
         profileImage.snp.makeConstraints {
             $0.top.equalTo(self).offset(20)
-            $0.leading.equalTo(self).offset(25)
+            $0.left.equalTo(self).offset(25)
             $0.height.width.equalTo(80)
         }
         
         nickNameLabel.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.top)
-            $0.leading.equalTo(profileImage.snp.trailing).offset(30)
+            $0.left.equalTo(profileImage.snp.right).offset(30)
             $0.width.equalTo(100)
             $0.height.equalTo(19)
         }
@@ -134,7 +134,7 @@ final class ProfileStatusView : UIView {
         followOrSettingButton.snp.makeConstraints {
             $0.centerY.equalTo(nickNameLabel.snp.centerY)
             $0.height.equalTo(25)
-            $0.trailing.equalTo(self).offset(-25)
+            $0.right.equalTo(self).offset(-25)
             switch profileTarget {
             case .myself:
                 $0.width.equalTo(25)
@@ -145,14 +145,14 @@ final class ProfileStatusView : UIView {
             
         buttonStackView.snp.makeConstraints {
             $0.top.equalTo(nickNameLabel.snp.bottom).offset(18)
-            $0.leading.equalTo(profileImage.snp.trailing).offset(15)
-            $0.trailing.equalTo(self).offset(-25)
+            $0.left.equalTo(profileImage.snp.right).offset(15)
+            $0.right.equalTo(self).offset(-25)
             $0.bottom.equalTo(profileImage.snp.bottom)
         }
         
         lineView.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(30)
-            $0.leading.trailing.equalToSuperview()
+            $0.left.right.equalToSuperview()
             $0.height.equalTo(3)
             $0.bottom.equalToSuperview()
         }

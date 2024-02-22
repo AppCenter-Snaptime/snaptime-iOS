@@ -26,7 +26,7 @@ final class ProfileStatusButton : UIButton {
     }
     
     @objc func tabButton() {
-        tabButtonAction?()
+        self.tabButtonAction?()
     }
         
     private func setupStyles() {

@@ -32,7 +32,7 @@ final class TagListCollectionViewCell : UICollectionViewCell {
     
     private func setupConstraints() {
         tagImageView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.right.left.bottom.equalToSuperview()
         }
     }
 }

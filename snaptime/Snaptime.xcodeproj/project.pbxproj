@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
@@ -43,13 +44,11 @@
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
-		934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
+		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,10 +87,9 @@
 		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
-		344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.debug.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.debug.xcconfig"; sourceTree = "<group>"; };
-		90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
-		AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snaptime.release.xcconfig"; path = "Target Support Files/Pods-snaptime/Pods-snaptime.release.xcconfig"; sourceTree = "<group>"; };
+		EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
+		FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,21 +97,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				934A214FCD9AD4594006345B /* Pods_Snaptime.framework in Frameworks */,
+				0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B1A29E961772FF5DF3E3CE7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				245AD326FEB653FDAED96F5F /* Pods_Snaptime.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		290585532B71FE8600B80F68 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,7 +119,7 @@
 				292977762B6618FA00FDC799 /* Snaptime */,
 				292977752B6618FA00FDC799 /* Products */,
 				8FD129918791FC4EABDF2316 /* Pods */,
-				0B1A29E961772FF5DF3E3CE7 /* Frameworks */,
+				FFD7EAAA0B0953A3898BA8DA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -284,12 +274,18 @@
 		8FD129918791FC4EABDF2316 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				344B46D68185013EBF95AF2F /* Pods-snaptime.debug.xcconfig */,
-				AB371C6CF6C883DC94E67745 /* Pods-snaptime.release.xcconfig */,
-				90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */,
-				26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */,
+				2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */,
+				EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FFD7EAAA0B0953A3898BA8DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,11 +295,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 292977882B6618FB00FDC799 /* Build configuration list for PBXNativeTarget "Snaptime" */;
 			buildPhases = (
-				89FF0ABC19A9378AAD521A1E /* [CP] Check Pods Manifest.lock */,
+				3E4C3F4B82221E487297F98A /* [CP] Check Pods Manifest.lock */,
 				292977702B6618FA00FDC799 /* Sources */,
 				292977712B6618FA00FDC799 /* Frameworks */,
 				292977722B6618FA00FDC799 /* Resources */,
-				E27FD6714C92D0F8EF23E16C /* [CP] Embed Pods Frameworks */,
+				66A7F76951620B25F6092E1F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -360,7 +356,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		89FF0ABC19A9378AAD521A1E /* [CP] Check Pods Manifest.lock */ = {
+		3E4C3F4B82221E487297F98A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,7 +378,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E27FD6714C92D0F8EF23E16C /* [CP] Embed Pods Frameworks */ = {
+		66A7F76951620B25F6092E1F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -579,7 +575,7 @@
 		};
 		292977892B6618FB00FDC799 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90AFBA83D8578DB97BB19717 /* Pods-Snaptime.debug.xcconfig */;
+			baseConfigurationReference = 2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -607,7 +603,7 @@
 		};
 		2929778A2B6618FB00FDC799 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26FD6DD5FF5DE9ABE7F1247C /* Pods-Snaptime.release.xcconfig */;
+			baseConfigurationReference = EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

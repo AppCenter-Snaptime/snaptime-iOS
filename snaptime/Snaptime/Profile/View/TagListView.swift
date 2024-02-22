@@ -44,7 +44,7 @@ final class TagListView : UIView {
     
     private func setConstraints() {
         tagImageCollectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.left.right.bottom.equalToSuperview()
         }
     }
 }
