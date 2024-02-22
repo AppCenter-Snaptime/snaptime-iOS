@@ -77,7 +77,9 @@ final class MyProfileViewController : BaseViewController {
     private var listScrollView : UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.isPagingEnabled = true
+        scrollView.isDirectionalLockEnabled = true
         
         return scrollView
     }()
@@ -89,14 +91,16 @@ final class MyProfileViewController : BaseViewController {
     
     // MARK: - 메서드
     private func tabAlbumButton() {
+        let scrollViewWidth = UIScreen.main.bounds.width
+        
         albumTabButton.tabButtonAction = { [weak self] in
             self?.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
 
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
-                $0.height.equalTo(0.7)
+                $0.height.equalTo(2)
                 $0.leading.equalToSuperview()
-                $0.width.equalTo(UIScreen.main.bounds.width/2)
+                $0.width.equalTo(scrollViewWidth/6)
             }
             
             UIView.animate(
@@ -107,14 +111,16 @@ final class MyProfileViewController : BaseViewController {
     }
     
     private func tabTagButton() {
+        let scrollViewWidth = UIScreen.main.bounds.width
+
         tagTabButton.tabButtonAction = { [weak self] in
-            self?.listScrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width, y: 0), animated: true)
+            self?.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
 
             self?.indicatorView.snp.remakeConstraints {
                 $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
-                $0.height.equalTo(0.7)
+                $0.height.equalTo(2)
                 $0.trailing.equalToSuperview()
-                $0.width.equalTo(UIScreen.main.bounds.width/2)
+                $0.width.equalTo(scrollViewWidth/6)
             }
             
             UIView.animate(
@@ -177,20 +183,20 @@ final class MyProfileViewController : BaseViewController {
             $0.height.equalTo(40)
         }
         
+        let scrollViewWidth = UIScreen.main.bounds.width
+
         indicatorView.snp.makeConstraints {
             $0.top.equalTo(tabButtonStackView.snp.bottom)
-            $0.height.equalTo(0.7)
-            $0.leading.equalTo(view.safeAreaLayoutGuide)
-            $0.width.equalTo(UIScreen.main.bounds.width/2)
+            $0.height.equalTo(2)
+            $0.centerX.equalTo(scrollViewWidth/4)
+            $0.width.equalTo(scrollViewWidth/6)
         }
         
         listScrollView.snp.makeConstraints {
             $0.top.equalTo(indicatorView.snp.bottom).offset(1)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        let scrollViewWidth = UIScreen.main.bounds.width
-                
+                        
         contentView.snp.makeConstraints {
             $0.edges.equalTo(listScrollView.contentLayoutGuide)
             $0.height.equalTo(listScrollView.frameLayoutGuide)
@@ -217,9 +223,9 @@ extension MyProfileViewController : UIScrollViewDelegate {
         
         self.indicatorView.snp.remakeConstraints {
             $0.top.equalTo(self.tabButtonStackView.snp.bottom)
-            $0.height.equalTo(0.7)
+            $0.height.equalTo(2)
             $0.centerX.equalTo(offsetX/2 + width/2)
-            $0.width.equalTo(width)
+            $0.width.equalTo(width/3)
         }
         
         UIView.animate(
