@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class ProfileStatusView : UIView {
+    
+    // 타인의 프로필과 나의 프로필 구별하기 위한 enum
     enum ProfileTarget {
         case myself
         case others

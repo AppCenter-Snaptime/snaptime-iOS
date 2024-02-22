@@ -21,9 +21,7 @@ final class TagListCollectionViewCell : UICollectionViewCell {
     
     private var tagImageView : UIImageView = {
         let imageView = UIImageView()
-//        imageView.backgroundColor = .snaptimeGray
         imageView.image = UIImage(named: "SnapExample")
-
         
         return imageView
     }()

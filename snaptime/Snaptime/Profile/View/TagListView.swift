@@ -31,7 +31,7 @@ final class TagListView : UIView {
         return collectionView
     }()
     
-    func collectionViewConfig() {
+    private func collectionViewConfig() {
         tagImageCollectionView.register(TagListCollectionViewCell.self,
                                 forCellWithReuseIdentifier: TagListCollectionViewCell.identifier)
         tagImageCollectionView.delegate = self
