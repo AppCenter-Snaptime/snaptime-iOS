@@ -8,25 +8,15 @@
 import UIKit
 import SnapKit
 
-protocol MainAlbumNavigation : AnyObject {
-    func presentMainAlbum()
-    func presentDetailAlbum()
+protocol MainAlbumViewControllerDelegate: AnyObject {
+    func presentDetailView()
 }
 
 final class MainAlbumViewController : BaseViewController {
-    weak var coordinator : MainAlbumNavigation?
+    weak var delegate : MainAlbumViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    init(coordinator: MainAlbumNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private let logoTextLabel : UILabel = {
@@ -44,7 +34,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { _ in
-            self.coordinator?.presentDetailAlbum()
+            self.delegate?.presentDetailView()
         }, for: .touchUpInside)
         
         return button
@@ -53,7 +43,7 @@ final class MainAlbumViewController : BaseViewController {
     private lazy var mainAlbumLabel : UILabel = {
         let label = UILabel()
         label.text = "모든 앨범"
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
@@ -63,16 +53,27 @@ final class MainAlbumViewController : BaseViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: "SnapCollectionViewCell")
+        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
     }()
     
-    
-    private func loadCollectionView() {
-        
-    }
+    private lazy var addSnapFloatingButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.background.backgroundColor = .snaptimeBlue
+        config.baseForegroundColor = .white
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "plus")
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentDetailView()
+        }, for: .touchUpInside)
+        return button
+    }()
     
     override func setupLayouts() {
         super.setupLayouts()
@@ -80,7 +81,8 @@ final class MainAlbumViewController : BaseViewController {
             logoTextLabel,
             addSnapButton,
             mainAlbumLabel,
-            mainAlbumCollectionView
+            mainAlbumCollectionView,
+            addSnapFloatingButton
         ].forEach {
             view.addSubview($0)
         }
@@ -110,6 +112,13 @@ final class MainAlbumViewController : BaseViewController {
             $0.left.right.equalTo(mainAlbumLabel)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
+        
+        addSnapFloatingButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.width.equalTo(58)
+            $0.height.equalTo(58)
+        }
     }
 }
 
@@ -120,10 +129,14 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "SnapCollectionViewCell",
+            withReuseIdentifier: SnapCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.presentDetailView()
     }
 }
 
