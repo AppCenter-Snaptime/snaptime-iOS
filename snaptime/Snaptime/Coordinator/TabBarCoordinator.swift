@@ -93,12 +93,12 @@ final class TabBarCoordinator : Coordinator {
             parentCoordinator?.childCoordinator.append(communityCoordinator)
             communityCoordinator.start()
             
-        case .none:
-            let noneCoordinator = NoneCoordinator(navigationController: tabNavigationController)
-            noneCoordinator.parentCoordinator = parentCoordinator
+        case .recommend:
+            let recommendCoordinator = RecommendCoordinator(navigationController: tabNavigationController)
+            recommendCoordinator.parentCoordinator = parentCoordinator
             
-            parentCoordinator?.childCoordinator.append(noneCoordinator)
-            noneCoordinator.start()
+            parentCoordinator?.childCoordinator.append(recommendCoordinator)
+            recommendCoordinator.start()
             
         case .profile:
             let profileCoordinator = ProfileCoordinator(navigationController: tabNavigationController)
