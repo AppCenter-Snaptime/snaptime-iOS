@@ -93,7 +93,7 @@ final class TabBarCoordinator : Coordinator {
             parentCoordinator?.childCoordinator.append(communityCoordinator)
             communityCoordinator.start()
             
-        case .none:
+        case .recommend:
             let noneCoordinator = NoneCoordinator(navigationController: tabNavigationController)
             noneCoordinator.parentCoordinator = parentCoordinator
             

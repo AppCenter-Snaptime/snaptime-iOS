@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+/// TagList내부 collectionview의 Custom Cell 
 final class TagListCollectionViewCell : UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+/// 프로필에서의 TagListView
 final class TagListView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)

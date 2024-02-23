@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+/// AlbumList와 TagList를 위한 customButton
 final class ProfileTabListButton : UIButton {
     private let tabTitle : String
     var tabButtonAction : (() -> ())?

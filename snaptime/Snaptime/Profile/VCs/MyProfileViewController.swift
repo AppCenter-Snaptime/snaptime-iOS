@@ -32,6 +32,7 @@ final class MyProfileViewController : BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - configUI
     private let iconLabel : UILabel = {
         let label = UILabel()
         label.text = "Profile"
@@ -90,6 +91,7 @@ final class MyProfileViewController : BaseViewController {
     private let contentView = UIView()
     
     // MARK: - 메서드
+    /// albumList와 tagList button 을 클릭했을때 indicator 바와 아래 scrollView가 scroll되도록하는 메서드
     private func tabAlbumButton() {
         let scrollViewWidth = UIScreen.main.bounds.width
         
@@ -215,7 +217,10 @@ final class MyProfileViewController : BaseViewController {
     }
 }
 
+// MARK: - extension
 extension MyProfileViewController : UIScrollViewDelegate {
+    
+    /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let width = UIScreen.main.bounds.width
         let offsetX = scrollView.contentOffset.x

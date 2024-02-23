@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+/// 프로필에서의 AlbumListView
 final class AlbumListView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +27,7 @@ final class AlbumListView : UIView {
         layout.minimumLineSpacing = 20
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
