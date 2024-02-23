@@ -89,7 +89,7 @@ final class JoinNameViewController : BaseViewController {
         
         birthDateConditionalLabel.snp.makeConstraints {
             $0.top.equalTo(birthDateInputTextField.snp.bottom).offset(3)
-            $0.left.equalTo(birthDateInputTextField.snp.leading)
+            $0.left.equalTo(birthDateInputTextField.snp.left)
         }
         
         nextButton.snp.makeConstraints {

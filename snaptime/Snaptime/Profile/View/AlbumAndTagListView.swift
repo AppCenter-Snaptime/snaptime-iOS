@@ -64,8 +64,10 @@ final class AlbumAndTagListView : UIView {
         let scrollViewWidth = UIScreen.main.bounds.width
 
         albumTabButton.tabButtonAction = { [weak self] in
-            self?.indicatorView.snp.remakeConstraints {
-                $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
+            guard let self = self else { return }
+            
+            self.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo(self.tabButtonStackView.snp.bottom)
                 $0.height.equalTo(2)
                 $0.width.equalTo(scrollViewWidth/6)
                 $0.centerX.equalTo(scrollViewWidth/4)
@@ -73,9 +75,10 @@ final class AlbumAndTagListView : UIView {
 
             UIView.animate(
                 withDuration: 0.4,
-                animations: { self?.layoutIfNeeded() }
+                animations: { self.layoutIfNeeded() }
             )
-            self?.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            
+            self.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
 
@@ -83,8 +86,10 @@ final class AlbumAndTagListView : UIView {
         let scrollViewWidth = UIScreen.main.bounds.width
 
         tagTabButton.tabButtonAction = { [weak self] in
-            self?.indicatorView.snp.remakeConstraints {
-                $0.top.equalTo((self?.tabButtonStackView.snp.bottom)!)
+            guard let self = self else { return }
+            
+            self.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo(self.tabButtonStackView.snp.bottom)
                 $0.height.equalTo(2)
                 $0.width.equalTo(scrollViewWidth/6)
                 $0.centerX.equalTo(scrollViewWidth*3/4)
@@ -92,10 +97,10 @@ final class AlbumAndTagListView : UIView {
 
             UIView.animate(
                 withDuration: 0.4,
-                animations: { self?.layoutIfNeeded() }
+                animations: { self.layoutIfNeeded() }
             )
 
-            self?.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
+            self.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
         }
     }
     

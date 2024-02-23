@@ -24,10 +24,12 @@ final class AlbumListView : UIView {
     private lazy var profileAlbumListCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 20
+        layout.minimumLineSpacing = 30
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isDirectionalLockEnabled = false
         
         return collectionView
     }()
@@ -44,8 +46,7 @@ final class AlbumListView : UIView {
     
     private func setConstraints() {
         profileAlbumListCollectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.left.right.bottom.equalToSuperview()
+            $0.top.left.right.bottom.equalToSuperview()
         }
     }
 }
@@ -71,7 +72,7 @@ extension AlbumListView : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 1
-        let spacing: CGFloat = 24
+        let spacing: CGFloat = 30
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
         

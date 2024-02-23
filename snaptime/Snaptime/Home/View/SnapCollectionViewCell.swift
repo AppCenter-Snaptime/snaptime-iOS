@@ -34,9 +34,10 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     
     private func setupLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowRadius = 10
-        self.contentView.layer.cornerRadius = 10
+        self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 1.5, y: self.bounds.origin.y + 10, width: self.bounds.width + 3, height: self.bounds.height - 7)).cgPath
+        self.layer.shadowOpacity = 0.7
+        self.layer.shadowRadius = 7
+        self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = .white
         

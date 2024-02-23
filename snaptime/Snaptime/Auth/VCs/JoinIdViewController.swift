@@ -81,7 +81,7 @@ final class JoinIdViewController : BaseViewController {
         
         idConditionalLabel.snp.makeConstraints {
             $0.top.equalTo(idInputTextField.snp.bottom).offset(3)
-            $0.left.equalTo(idInputTextField.snp.leading)
+            $0.left.equalTo(idInputTextField.snp.left)
         }
         
         nextButton.snp.makeConstraints {

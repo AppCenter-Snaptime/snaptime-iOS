@@ -28,6 +28,8 @@ final class TagListView : UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isDirectionalLockEnabled = false
+
         
         return collectionView
     }()
