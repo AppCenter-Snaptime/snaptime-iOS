@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */; };
+		0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
@@ -22,7 +22,7 @@
 		294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */; };
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
-		294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */; };
+		294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */; };
 		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
@@ -45,11 +45,17 @@
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
+		5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
-		F04A5B9674D4282A9B96A66D /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1CE3D481FC69735CD5FCEC /* Pods_Snaptime.framework */; };
+		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
+		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
+		A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */; };
+		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
+		052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +73,7 @@
 		294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneCoordinator.swift; sourceTree = "<group>"; };
+		294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -91,8 +97,10 @@
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
-		EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
-		FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
+		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
+		A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
+		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */,
+				0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */,
+				5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +121,7 @@
 			children = (
 				290585542B71FE9600B80F68 /* UIColor+.swift */,
 				292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */,
+				A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -122,7 +132,7 @@
 				292977762B6618FA00FDC799 /* Snaptime */,
 				292977752B6618FA00FDC799 /* Products */,
 				8FD129918791FC4EABDF2316 /* Pods */,
-				FFD7EAAA0B0953A3898BA8DA /* Frameworks */,
+				9B13FC2FC03DCACF64B6A2EF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,15 +147,16 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				A69A81BD2B877719006BAEB2 /* Components */,
 				290585532B71FE8600B80F68 /* Extension */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				298F7F592B6BA30F00A8DBC5 /* Auth */,
 				298F7F582B6BA30700A8DBC5 /* community */,
+				A69A81B92B876DF2006BAEB2 /* Recommend */,
 				298F7F572B6BA30200A8DBC5 /* Profile */,
 				298F7F562B6BA2FC00A8DBC5 /* Home */,
 				292977772B6618FA00FDC799 /* AppDelegate.swift */,
 				292977792B6618FA00FDC799 /* SceneDelegate.swift */,
-				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
 				292977802B6618FB00FDC799 /* Assets.xcassets */,
 				292977822B6618FB00FDC799 /* LaunchScreen.storyboard */,
 				292977852B6618FB00FDC799 /* Info.plist */,
@@ -161,7 +172,7 @@
 				294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */,
 				294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */,
 				294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */,
-				294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */,
+				294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */,
 				294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */,
 				294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */,
 			);
@@ -254,7 +265,6 @@
 		298F7F732B6BA78A00A8DBC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */,
 				292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */,
 			);
 			path = View;
@@ -279,17 +289,52 @@
 			isa = PBXGroup;
 			children = (
 				2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */,
-				EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */,
+				02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		FFD7EAAA0B0953A3898BA8DA /* Frameworks */ = {
+		9B13FC2FC03DCACF64B6A2EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */,
+				052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A69A81B92B876DF2006BAEB2 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				A69A81C02B8777AE006BAEB2 /* View */,
+				A69A81BA2B876E11006BAEB2 /* VCs */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		A69A81BA2B876E11006BAEB2 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		A69A81BD2B877719006BAEB2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */,
+				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A69A81C02B8777AE006BAEB2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */,
+				A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +454,8 @@
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
+				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
+				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
@@ -424,7 +471,8 @@
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
-				294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */,
+				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
+				294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
@@ -439,6 +487,7 @@
 				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
+				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
 				29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */,
@@ -608,7 +657,7 @@
 		};
 		2929778A2B6618FB00FDC799 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF3FB19E36EB46ACD456FBFD /* Pods-Snaptime.release.xcconfig */;
+			baseConfigurationReference = 02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
