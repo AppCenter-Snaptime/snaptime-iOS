@@ -39,10 +39,10 @@ final class DetailAlbumViewController : BaseViewController {
     }()
 
     private func collectionViewConfig() {
-    albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
-                            forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
-    albumDetailCollectionView.delegate = self
-    albumDetailCollectionView.dataSource = self
+        albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+        albumDetailCollectionView.delegate = self
+        albumDetailCollectionView.dataSource = self
     }
     
     override func setupLayouts() {
@@ -52,6 +52,7 @@ final class DetailAlbumViewController : BaseViewController {
     
     override func setupConstraints() {
         super.setupConstraints()
+        
         albumDetailCollectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.trailing.equalTo(view.safeAreaLayoutGuide)

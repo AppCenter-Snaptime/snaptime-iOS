@@ -16,7 +16,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         return label
     }()
     
-    private var snapImage : UIImageView = {
+    private let snapImage : UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
         
