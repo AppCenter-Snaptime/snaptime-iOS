@@ -101,7 +101,7 @@ final class LoginViewController : BaseViewController {
         
         loginLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(45)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(45)
         }
         
         inputStackView.snp.makeConstraints {
