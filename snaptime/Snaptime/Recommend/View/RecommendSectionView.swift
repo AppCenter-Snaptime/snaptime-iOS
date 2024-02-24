@@ -18,7 +18,7 @@ final class RecommendSectionView: UIView {
     private lazy var moreButton: UIButton = {
         let button = UIButton()
         button.setTitle("더보기", for: .normal)
-        button.setTitleColor(.snaptimegray, for: .normal)
+        button.setTitleColor(.snaptimeGray, for: .normal)
         return button
     }()
     
