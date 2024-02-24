@@ -25,7 +25,7 @@ final class AuthTextField : UITextField {
     
     private let underLine : UIView = {
         let view = UIView()
-        view.backgroundColor = .snaptimegray
+        view.backgroundColor = .snaptimeGray
         
         return view
     }()
@@ -45,7 +45,7 @@ final class AuthTextField : UITextField {
         
         underLine.snp.makeConstraints {
             $0.top.equalTo(self.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
+            $0.left.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
     }

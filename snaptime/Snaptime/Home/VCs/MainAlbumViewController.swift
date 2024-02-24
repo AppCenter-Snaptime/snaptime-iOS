@@ -50,10 +50,13 @@ final class MainAlbumViewController : BaseViewController {
     private lazy var mainAlbumCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 30
+        layout.minimumInteritemSpacing = 20
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: "SnapCollectionViewCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -74,7 +77,6 @@ final class MainAlbumViewController : BaseViewController {
         }, for: .touchUpInside)
         return button
     }()
-    
     override func setupLayouts() {
         super.setupLayouts()
         [
@@ -108,8 +110,8 @@ final class MainAlbumViewController : BaseViewController {
         }
         
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(mainAlbumLabel.snp.bottom).offset(20)
-            $0.left.right.equalTo(mainAlbumLabel)
+            $0.top.equalTo(mainAlbumLabel.snp.bottom)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
         
@@ -144,7 +146,7 @@ extension MainAlbumViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
-        let spacing: CGFloat = 18 // width spacing
+        let spacing: CGFloat = 35 // width spacing
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
         return CGSize(width: itemDimension, height: itemDimension + 40)

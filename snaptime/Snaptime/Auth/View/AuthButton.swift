@@ -24,7 +24,7 @@ final class AuthButton : UIButton {
     }
     
     @objc func tabButton() {
-        tabButtonAction?()
+        tabButtonAction?()  
     }
         
     private func setupStyles() {

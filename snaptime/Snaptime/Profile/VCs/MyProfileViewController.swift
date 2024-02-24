@@ -28,26 +28,38 @@ final class MyProfileViewController : BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let profileTestLabel : UILabel = {
+    // MARK: - configUI
+    private let iconLabel : UILabel = {
         let label = UILabel()
-        label.text = "profile 화면"
+        label.text = "Profile"
+        label.textColor = .snaptimeBlue
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
         
         return label
     }()
     
-    private lazy var contextButton : UIButton = {
+    private let notificationButton : UIButton = {
         let button = UIButton()
-        button.setTitle("tab", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .systemBackground
+        config.baseForegroundColor = .black
+        config.image = UIImage(systemName: "bell")
+        button.configuration = config
         
         return button
     }()
     
+    private let profileStatusView = ProfileStatusView(target: .myself)
+    private let albumAndTagListView = AlbumAndTagListView()
+    
+    // MARK: - setupUI
     override func setupLayouts() {
         super.setupLayouts()
-        
-        [profileTestLabel,
-         contextButton].forEach {
+        [iconLabel,
+         notificationButton,
+         profileStatusView,
+         albumAndTagListView].forEach {
             view.addSubview($0)
         }
     }
@@ -55,14 +67,28 @@ final class MyProfileViewController : BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        profileTestLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            $0.centerX.equalToSuperview()
+        iconLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(25)
+            $0.width.equalTo(80)
+            $0.height.equalTo(32)
         }
         
-        contextButton.snp.makeConstraints {
-            $0.top.equalTo(profileTestLabel.snp.bottom).offset(60)
-            $0.centerX.equalToSuperview()
+        notificationButton.snp.makeConstraints {
+            $0.centerY.equalTo(iconLabel.snp.centerY)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-25)
+            $0.height.width.equalTo(32)
+        }
+        
+        profileStatusView.snp.makeConstraints {
+            $0.top.equalTo(iconLabel.snp.bottom).offset(10.5)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        albumAndTagListView.snp.makeConstraints {
+            $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
