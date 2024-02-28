@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
@@ -51,6 +51,8 @@
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
 		A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */; };
 		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
+		A69A81D42B8F766C006BAEB2 /* QRReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */; };
+		A69A81D62B8F77DD006BAEB2 /* AddAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +103,8 @@
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
 		A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderView.swift; sourceTree = "<group>"; };
+		A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */,
+				0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */,
 				5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +253,7 @@
 			children = (
 				298F7F622B6BA3A700A8DBC5 /* MainAlbumViewController.swift */,
 				298F7F662B6BA4D600A8DBC5 /* DetailAlbumViewController.swift */,
+				A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */,
+				A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -451,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69A81D62B8F77DD006BAEB2 /* AddAlbumViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
@@ -465,6 +472,7 @@
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
 				296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */,
+				A69A81D42B8F766C006BAEB2 /* QRReaderView.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,

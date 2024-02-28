@@ -22,10 +22,25 @@ final class HomeCoordinator : Coordinator {
     }
 }
 
-extension HomeCoordinator : MainAlbumViewControllerDelegate, DetailAlbumNavigation {
+extension HomeCoordinator : MainAlbumViewControllerDelegate,
+                            DetailAlbumNavigation,
+                            AddAlbumViewControllerDelegate {
     func presentDetailView() {
         let detailAlbumVC = DetailAlbumViewController(coordinator: self)
         navigationController.pushViewController(detailAlbumVC, animated: true)
+    }
+    
+    func presentAddAlbumView() {
+        let addAlbumVC = AddAlbumViewController()
+        addAlbumVC.delegate = self
+        navigationController.present(addAlbumVC, animated: true)
+//        navigationController.pushViewController(addAlbumVC, animated: true)
+    }
+    
+    func didFinishAddAlbum() {
+        let mainAlbumVC = MainAlbumViewController()
+        mainAlbumVC.delegate = self
+        navigationController.viewControllers = [mainAlbumVC]
     }
     
     func presentMainAlbum() {
