@@ -47,7 +47,7 @@ final class ProfileStatusView : UIView {
         let label = UILabel()
         label.text = "blwxnhan"
         label.font = .systemFont(ofSize: 16, weight: .light)
-        label.textAlignment = .left
+        label.textAlignment = .center
         
         return label
     }()
@@ -56,8 +56,8 @@ final class ProfileStatusView : UIView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.alignment = .center
-        stackView.spacing = 35
+        stackView.alignment = .leading
+        stackView.spacing = 50
         
         return stackView
     }()
@@ -126,7 +126,7 @@ final class ProfileStatusView : UIView {
         
         nickNameLabel.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.top)
-            $0.left.equalTo(profileImage.snp.right).offset(30)
+            $0.left.equalTo(profileImage.snp.right).offset(33)
             $0.width.equalTo(100)
             $0.height.equalTo(19)
         }
@@ -145,9 +145,7 @@ final class ProfileStatusView : UIView {
             
         buttonStackView.snp.makeConstraints {
             $0.top.equalTo(nickNameLabel.snp.bottom).offset(18)
-            $0.left.equalTo(profileImage.snp.right).offset(15)
-            $0.right.equalTo(self).offset(-25)
-            $0.bottom.equalTo(profileImage.snp.bottom)
+            $0.left.equalTo(profileImage.snp.right).offset(33)
         }
         
         lineView.snp.makeConstraints {
