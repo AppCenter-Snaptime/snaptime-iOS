@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
+		2926BC172B8F013B00425CBF /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
 		292977812B6618FB00FDC799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 292977802B6618FB00FDC799 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		292977792B6618FA00FDC799 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				29F80C6F2B8657C8003614AB /* TagListView.swift */,
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 				296E0F662B8859E700758653 /* AlbumAndTagListView.swift */,
+				2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
+				2926BC172B8F013B00425CBF /* TopTapBarCollectionViewCell.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */,

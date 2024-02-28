@@ -24,11 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let navigationController = UINavigationController()
             self.window?.rootViewController = navigationController
             
-            let coordinator = AppCoordinator(navigationController: navigationController)
+//            let coordinator = AppCoordinator(navigationController: navigationController)
             
 //            let coordinator = HomeCoordinator(navigationController: navigationController) // 대현
             
-//            let coordinator = ProfileCoordinator(navigationController: navigationController) // 프로필 화면 시작 (보원)
+            let coordinator = ProfileCoordinator(navigationController: navigationController) // 프로필 화면 시작 (보원)
             coordinator.start()
             
             self.window?.makeKeyAndVisible()
