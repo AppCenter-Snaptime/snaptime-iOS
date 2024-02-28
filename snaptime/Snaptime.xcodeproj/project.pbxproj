@@ -50,6 +50,7 @@
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
+		F04A5B9674D4282A9B96A66D /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1CE3D481FC69735CD5FCEC /* Pods_Snaptime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
