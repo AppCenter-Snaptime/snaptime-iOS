@@ -5,4 +5,10 @@
 //  Created by Bowon Han on 2/28/24.
 //
 
-import Foundation
+import UIKit
+
+extension UITableViewCell {
+    static var identifier: String {
+        return String(describing: self)
+    }
+}

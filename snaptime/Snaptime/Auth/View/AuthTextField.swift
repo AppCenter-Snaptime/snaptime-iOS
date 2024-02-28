@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 
 final class AuthTextField : UITextField {
-    private let customPlaceholder: String
+    private let customPlaceholder: String?
     
-    init(_ placeholder: String) {
+    init(_ placeholder: String?) {
         self.customPlaceholder = placeholder
         super.init(frame: .zero)
         self.setupStyles()
@@ -38,14 +38,14 @@ final class AuthTextField : UITextField {
     private func setupConstraints() {
         self.snp.makeConstraints {
             $0.height.equalTo(40)
-            $0.width.equalTo(300)
         }
         
         addSubview(underLine)
         
         underLine.snp.makeConstraints {
-            $0.top.equalTo(self.snp.bottom)
-            $0.left.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.snp.bottom)
+            $0.left.equalToSuperview()
+            $0.width.equalTo(self.snp.width)
             $0.height.equalTo(1)
         }
     }

@@ -66,6 +66,7 @@ final class JoinEmailViewController : BaseViewController {
         emailInputTextField.snp.makeConstraints {
             $0.top.equalTo(emailLabel.snp.bottom).offset(110)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
         }
         
         nextButton.snp.makeConstraints {

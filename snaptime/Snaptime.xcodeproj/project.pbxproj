@@ -10,6 +10,7 @@
 		0B6C0FFBBF252B0429515B88 /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4652CAAB6257D1137D8874 /* Pods_Snaptime.framework */; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		2926BC172B8F013B00425CBF /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */; };
+		2926BC192B8F3DE700425CBF /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926BC182B8F3DE700425CBF /* EditProfileTextField.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
 		292977812B6618FB00FDC799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 292977802B6618FB00FDC799 /* Assets.xcassets */; };
@@ -17,6 +18,8 @@
 		292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */; };
 		292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
+		294DC75C2B8F672300E60AF3 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294DC75B2B8F672300E60AF3 /* UITableViewCell+.swift */; };
+		294DC75E2B8F677400E60AF3 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294DC75D2B8F677400E60AF3 /* SettingTableViewCell.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
 		294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */; };
@@ -24,7 +27,7 @@
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
 		294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */; };
-		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
+		296E0F672B8859E700758653 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* ProfileListView.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
 		298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */; };
@@ -53,6 +56,7 @@
 		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		2926BC182B8F3DE700425CBF /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		292977792B6618FA00FDC799 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
+		294DC75B2B8F672300E60AF3 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		294DC75D2B8F677400E60AF3 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -69,7 +75,7 @@
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneCoordinator.swift; sourceTree = "<group>"; };
-		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
+		296E0F662B8859E700758653 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +119,7 @@
 			children = (
 				290585542B71FE9600B80F68 /* UIColor+.swift */,
 				292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */,
+				294DC75B2B8F672300E60AF3 /* UITableViewCell+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -227,9 +234,9 @@
 		298F7F6E2B6BA76700A8DBC5 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				298F7F6A2B6BA5DB00A8DBC5 /* EditProfileViewController.swift */,
 				298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */,
 				298F7F682B6BA5CE00A8DBC5 /* SettingProfileViewController.swift */,
-				298F7F6A2B6BA5DB00A8DBC5 /* EditProfileViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -268,11 +275,13 @@
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
 				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
 				29F80C6D2B8657C0003614AB /* AlbumListView.swift */,
-				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
 				29F80C6F2B8657C8003614AB /* TagListView.swift */,
+				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
-				296E0F662B8859E700758653 /* AlbumAndTagListView.swift */,
+				296E0F662B8859E700758653 /* ProfileListView.swift */,
 				2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */,
+				2926BC182B8F3DE700425CBF /* EditProfileTextField.swift */,
+				294DC75D2B8F677400E60AF3 /* SettingTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -419,10 +428,11 @@
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
-				296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */,
+				296E0F672B8859E700758653 /* ProfileListView.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
+				2926BC192B8F3DE700425CBF /* EditProfileTextField.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
@@ -437,12 +447,14 @@
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */,
+				294DC75E2B8F677400E60AF3 /* SettingTableViewCell.swift in Sources */,
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
+				294DC75C2B8F672300E60AF3 /* UITableViewCell+.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
 				29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */,
 			);

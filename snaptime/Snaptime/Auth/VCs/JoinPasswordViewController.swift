@@ -89,6 +89,7 @@ class JoinPasswordViewController : BaseViewController {
         passwordInputTextField.snp.makeConstraints {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(110)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
         }
         
         passwordConditionalLabel.snp.makeConstraints {
@@ -99,6 +100,7 @@ class JoinPasswordViewController : BaseViewController {
         passwordCheckInputTextField.snp.makeConstraints {
             $0.top.equalTo(passwordInputTextField.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
         }
         
         passwordCheckConditionalLabel.snp.makeConstraints {

@@ -77,6 +77,7 @@ final class JoinIdViewController : BaseViewController {
         idInputTextField.snp.makeConstraints {
             $0.top.equalTo(idLabel.snp.bottom).offset(90)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
         }
         
         idConditionalLabel.snp.makeConstraints {

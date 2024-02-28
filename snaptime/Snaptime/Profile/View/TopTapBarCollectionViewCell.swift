@@ -11,7 +11,6 @@ import SnapKit
 final class TopTapBarCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupLayouts()
         self.setupConstraints()
     }
     
@@ -31,12 +30,10 @@ final class TopTapBarCollectionViewCell: UICollectionViewCell {
         self.tapButtonTitle.text = title
     }
     
-    private func setupLayouts() {
-        addSubview(tapButtonTitle)
-    }
-    
     private func setupConstraints() {
-        tapButtonTitle.snp.makeConstraints {        
+        addSubview(tapButtonTitle)
+
+        tapButtonTitle.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

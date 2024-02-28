@@ -29,7 +29,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let coordinator = HomeCoordinator(navigationController: navigationController) // 대현
             
             let coordinator = ProfileCoordinator(navigationController: navigationController) // 프로필 화면 시작 (보원)
-            coordinator.start()
+            
+            coordinator.presentEditProfile()
+//            coordinator.start()
             
             self.window?.makeKeyAndVisible()
         }
