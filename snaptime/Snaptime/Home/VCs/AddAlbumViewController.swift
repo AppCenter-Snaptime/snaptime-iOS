@@ -27,6 +27,11 @@ final class AddAlbumViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillLayoutSubviews() {
+        let rect = CGRect(x: view.center.x - (200 / 2), y: view.center.y - (200 / 2), width: 200, height: 200)
+        QRReaderView.setReadingRect(rect: rect)
+    }
+    
     private func setupLayouts() {
         self.view.backgroundColor = .systemBackground
         [

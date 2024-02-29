@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import SnapKit
 import UIKit
 
 enum ReaderStatus {
@@ -21,6 +22,8 @@ protocol ReaderViewDelegate: AnyObject {
 
 final class QRReaderView: UIView {
     weak var delegate: ReaderViewDelegate?
+    
+    private let previewView = PreviewView()
 
     // 카메라 화면을 보여줄 Layer
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -28,11 +31,12 @@ final class QRReaderView: UIView {
 
     private var cornerLength: CGFloat = 20
     private var cornerLineWidth: CGFloat = 6
-    private var rectOfInterest: CGRect {
-        CGRect(x: (bounds.width / 2) - (200 / 2),
-               y: (bounds.height / 2) - (200 / 2),
-                          width: 200, height: 200)
-    }
+    private var rectOfInterest: CGRect = CGRect(
+        x: (UIScreen.main.bounds.width - 200) / 2,
+        y: (UIScreen.main.bounds.height - 200) / 2,
+        width: 200,
+        height: 200)
+    
     
     var isRunning: Bool {
         guard let captureSession = self.captureSession else {
@@ -46,20 +50,27 @@ final class QRReaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.setupUI()
         self.initialSetupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.setupUI()
         self.initialSetupView()
+    }
+    
+    private func setupUI() {
+        self.addSubview(previewView)
+        previewView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     /// AVCaptureSession을 실행하는 화면을 구성 후 실행합니다.
     private func initialSetupView() {
         self.clipsToBounds = true
         self.captureSession = AVCaptureSession()
-        
-        print("testtt")
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {return}
         
         let videoInput: AVCaptureInput
@@ -70,7 +81,6 @@ final class QRReaderView: UIView {
             print(error.localizedDescription)
             return
         }
-        
         guard let captureSession = self.captureSession else {
             self.fail()
             return
@@ -90,21 +100,33 @@ final class QRReaderView: UIView {
                     
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = self.metadataObjectTypes
+//            metadataOutput.rectOfInterest = self.rectOfInterest // 이 영역만 qr코드를 인식하는 로직인데 테스트중에 잘 안되어서 일단 주석으로 남김...
             
         } else {
             self.fail()
             return
         }
-                
-        self.setPreviewLayer()
-        self.setFocusZoneCornerLayer()
         /*
          // QRCode 인식 범위 설정하기
          metadataOutput.rectOfInterest 는 AVCaptureSession에서 CGRect 크기만큼 인식 구역으로 지정합니다.
          !! 단 해당 값은 먼저 AVCaptureSession를 running 상태로 만든 후 지정해주어야 정상적으로 작동합니다 !!
          */
+        
+        self.setPreviewLayer()
+        self.setFocusZoneCornerLayer()
+        self.previewLayer?.session = captureSession
         self.start()
-        metadataOutput.rectOfInterest = previewLayer!.metadataOutputRectConverted(fromLayerRect: rectOfInterest)
+    }
+    
+    func setReadingRect(rect: CGRect) {
+//        self.rectOfInterest = rect
+//        self.setPreviewLayer()
+//        self.setFocusZoneCornerLayer()
+//        if let output = captureSession?.outputs.first as? AVCaptureMetadataOutput {
+//            print("output found")
+//            output.rectOfInterest = self.previewView.videoPreviewLayer.metadataOutputRectConverted(fromLayerRect: rectOfInterest)
+//        }
+//        
     }
     
     /// 중앙에 사각형의 Focus Zone Layer을 설정합니다.
@@ -118,7 +140,8 @@ final class QRReaderView: UIView {
         /*
          AVCaptureVideoPreviewLayer를 구성.
          */
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewView.videoPreviewLayer.session = captureSession
+        let previewLayer = previewView.videoPreviewLayer
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         previewLayer.frame = self.layer.bounds
 
@@ -132,6 +155,7 @@ final class QRReaderView: UIView {
          ShapeLayer의 모양이 [1. bounds 크기의 사각형, 2. readingRect 크기의 사각형]
          두개가 그려져 있는 것이다.
          */
+        print(readingRect)
         let path = CGMutablePath()
         path.addRect(bounds)
         path.addRect(readingRect)
@@ -153,7 +177,7 @@ final class QRReaderView: UIView {
         
         
         self.layer.addSublayer(previewLayer)
-        self.previewLayer = previewLayer
+//        self.previewLayer = previewLayer
     }
     
     // MARK: - Focus Edge Layer
@@ -207,8 +231,9 @@ final class QRReaderView: UIView {
         shapeLayer.lineWidth = cornerLineWidth
         shapeLayer.lineCap = .square
 
-        self.previewLayer!.addSublayer(shapeLayer)
+        self.previewView.videoPreviewLayer.addSublayer(shapeLayer)
     }
+    
 }
 
 // MARK: - ReaderView Running Method
@@ -252,6 +277,8 @@ extension QRReaderView: AVCaptureMetadataOutputObjectsDelegate {
             found(code: stringValue)
             print("## Found metadata Value\n + \(stringValue)\n")
             stop(isButtonTap: true)
+            // 대현 일단 화면 내려가게
+            delegate?.readerComplete(status: .success(""))
         }
     }
 }

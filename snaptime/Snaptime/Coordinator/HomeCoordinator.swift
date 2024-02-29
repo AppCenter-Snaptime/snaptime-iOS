@@ -10,6 +10,7 @@ import UIKit
 final class HomeCoordinator : Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
+    var presentedViewController: UIViewController? = nil
     
     var navigationController: UINavigationController
 
@@ -33,14 +34,19 @@ extension HomeCoordinator : MainAlbumViewControllerDelegate,
     func presentAddAlbumView() {
         let addAlbumVC = AddAlbumViewController()
         addAlbumVC.delegate = self
+        self.presentedViewController = addAlbumVC
         navigationController.present(addAlbumVC, animated: true)
 //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
     
     func didFinishAddAlbum() {
-        let mainAlbumVC = MainAlbumViewController()
-        mainAlbumVC.delegate = self
-        navigationController.viewControllers = [mainAlbumVC]
+        if let vc = presentedViewController as? AddAlbumViewController {
+            vc.dismiss(animated: true)
+            self.presentedViewController = nil
+        }
+//        let mainAlbumVC = MainAlbumViewController()
+//        mainAlbumVC.delegate = self
+//        navigationController.viewControllers = [mainAlbumVC]
     }
     
     func presentMainAlbum() {
