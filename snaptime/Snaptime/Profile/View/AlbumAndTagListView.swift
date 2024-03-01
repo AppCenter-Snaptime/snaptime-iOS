@@ -1,5 +1,5 @@
 //
-//  AlbumAndTagListView.swift
+//  TopTapBarView.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 2/23/24.
@@ -9,41 +9,42 @@ import UIKit
 import SnapKit
 
 /// 프로필 내부 album, tag list tabButton 과 각각 화면을 나타내는 View
-final class AlbumAndTagListView : UIView {
+final class TopTapBarView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
         self.setupConstraints()
         
         self.listScrollView.delegate = self
-        self.tabAlbumButton()
-        self.tabTagButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tabButtonStackView : UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
+    private lazy var tapBarCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
-        return stackView
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.decelerationRate = .fast
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(TopTapBarCollectionViewCell.self, forCellWithReuseIdentifier: TopTapBarCollectionViewCell.identifier)
+        
+        return collectionView
     }()
-    
-    private lazy var albumTabButton = ProfileTabListButton("앨범 목록")
-    private lazy var tagTabButton = ProfileTabListButton("태그 목록")
         
-    private let indicatorView : UIView = {
+    private lazy var indicatorView : UIView = {
         let view = UIView()
         view.backgroundColor = .black
         
         return view
     }()
     
-    private var listScrollView : UIScrollView = {
+    private lazy var listScrollView : UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -53,64 +54,13 @@ final class AlbumAndTagListView : UIView {
         return scrollView
     }()
     
-    private let tagListView = TagListView()
-    private let albumListView = AlbumListView()
+    private lazy var tagListView = TagListView()
+    private lazy var albumListView = AlbumListView()
     
-    private let contentView = UIView()
-    
-    // MARK: - 메서드
-    /// albumList와 tagList button 을 클릭했을때 indicator 바와 아래 scrollView가 scroll되도록하는 메서드
-    private func tabAlbumButton() {
-        let scrollViewWidth = UIScreen.main.bounds.width
-
-        albumTabButton.tabButtonAction = { [weak self] in
-            guard let self = self else { return }
-            
-            self.indicatorView.snp.remakeConstraints {
-                $0.top.equalTo(self.tabButtonStackView.snp.bottom)
-                $0.height.equalTo(2)
-                $0.width.equalTo(scrollViewWidth/6)
-                $0.centerX.equalTo(scrollViewWidth/4)
-            }
-
-            UIView.animate(
-                withDuration: 0.4,
-                animations: { self.layoutIfNeeded() }
-            )
-            
-            self.listScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }
-    }
-
-    private func tabTagButton() {
-        let scrollViewWidth = UIScreen.main.bounds.width
-
-        tagTabButton.tabButtonAction = { [weak self] in
-            guard let self = self else { return }
-            
-            self.indicatorView.snp.remakeConstraints {
-                $0.top.equalTo(self.tabButtonStackView.snp.bottom)
-                $0.height.equalTo(2)
-                $0.width.equalTo(scrollViewWidth/6)
-                $0.centerX.equalTo(scrollViewWidth*3/4)
-            }
-
-            UIView.animate(
-                withDuration: 0.4,
-                animations: { self.layoutIfNeeded() }
-            )
-
-            self.listScrollView.setContentOffset(CGPoint(x: scrollViewWidth, y: 0), animated: true)
-        }
-    }
+    private lazy var contentView = UIView()
     
     // MARK: - setup UI
     private func setupLayouts() {
-        [albumTabButton,
-         tagTabButton].forEach {
-            tabButtonStackView.addArrangedSubview($0)
-        }
-        
         [albumListView,
          tagListView].forEach {
             contentView.addSubview($0)
@@ -118,7 +68,7 @@ final class AlbumAndTagListView : UIView {
         
         listScrollView.addSubview(contentView)
         
-       [tabButtonStackView,
+       [tapBarCollectionView,
         indicatorView,
         listScrollView].forEach {
            addSubview($0)
@@ -126,7 +76,7 @@ final class AlbumAndTagListView : UIView {
     }
     
     private func setupConstraints() {
-        tabButtonStackView.snp.makeConstraints {
+        tapBarCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
             $0.height.equalTo(40)
@@ -135,7 +85,7 @@ final class AlbumAndTagListView : UIView {
         let scrollViewWidth = UIScreen.main.bounds.width
 
         indicatorView.snp.makeConstraints {
-            $0.top.equalTo(tabButtonStackView.snp.bottom)
+            $0.top.equalTo(tapBarCollectionView.snp.bottom)
             $0.height.equalTo(2)
             $0.centerX.equalTo(scrollViewWidth/4)
             $0.width.equalTo(scrollViewWidth/6)
@@ -166,7 +116,58 @@ final class AlbumAndTagListView : UIView {
 }
 
 // MARK: - extension
-extension AlbumAndTagListView : UIScrollViewDelegate {
+extension TopTapBarView: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = tapBarCollectionView.dequeueReusableCell(
+            withReuseIdentifier: TopTapBarCollectionViewCell.identifier,
+            for: indexPath
+        ) as? TopTapBarCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.configTitle("앨범목록")
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == tapBarCollectionView {
+            guard let cell = tapBarCollectionView.cellForItem(at: indexPath) as? TopTapBarCollectionViewCell else { return }
+            
+            let width = collectionView.bounds.width
+            let scrollViewStart = width * CGFloat(indexPath.row)
+            
+            self.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
+                $0.height.equalTo(2)
+                $0.centerX.equalTo(cell.snp.centerX)
+                $0.width.equalTo(width/6)
+            }
+            
+            UIView.animate(withDuration: 0.3) {
+                self.layoutIfNeeded()
+                self.listScrollView.setContentOffset(CGPoint(x: scrollViewStart, y: 0), animated: false)
+            }
+        }
+    }
+}
+    
+extension TopTapBarView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacing: CGFloat = 10
+        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
+        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
+        return CGSize(width: itemDimension, height: 35)
+    }
+}
+
+extension TopTapBarView: UIScrollViewDelegate {
     
     /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -174,7 +175,7 @@ extension AlbumAndTagListView : UIScrollViewDelegate {
         let offsetX = scrollView.contentOffset.x
         
         self.indicatorView.snp.remakeConstraints {
-            $0.top.equalTo(self.tabButtonStackView.snp.bottom)
+            $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
             $0.height.equalTo(2)
             $0.centerX.equalTo(offsetX/2 + width/4)
             $0.width.equalTo(width/6)
@@ -186,3 +187,4 @@ extension AlbumAndTagListView : UIScrollViewDelegate {
         )
     }
 }
+

@@ -51,7 +51,7 @@ final class MyProfileViewController : BaseViewController {
     }()
     
     private let profileStatusView = ProfileStatusView(target: .myself)
-    private let albumAndTagListView = AlbumAndTagListView()
+    private let albumAndTagListView = TopTapBarView()
     
     // MARK: - setupUI
     override func setupLayouts() {

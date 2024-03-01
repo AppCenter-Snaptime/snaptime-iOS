@@ -23,6 +23,9 @@
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
 		294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */; };
+		2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */; };
+		2958C8C92B91A99D00902027 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */; };
+		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
 		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
@@ -74,6 +77,9 @@
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
+		2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +190,11 @@
 			children = (
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
 				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
+				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
+				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
+				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
+				2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */,
+				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -285,9 +296,7 @@
 				2958C8C52B91A68200902027 /* CustomComponents */,
 				29F80BF42B8589AC003614AB /* ProfileStatusView.swift */,
 				29F80C6D2B8657C0003614AB /* AlbumListView.swift */,
-				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
 				29F80C6F2B8657C8003614AB /* TagListView.swift */,
-				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 				296E0F662B8859E700758653 /* AlbumAndTagListView.swift */,
 			);
 			path = View;
@@ -464,9 +473,11 @@
 				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
+				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
+				2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */,
 				292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */,
 				29F80C702B8657C8003614AB /* TagListView.swift in Sources */,
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
@@ -488,6 +499,7 @@
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
+				2958C8C92B91A99D00902027 /* SettingTableViewCell.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,
 				292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */,
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
