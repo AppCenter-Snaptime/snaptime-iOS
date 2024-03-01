@@ -9,8 +9,7 @@ import UIKit
 import SnapKit
 
 /// 프로필 내부 album, tag list tabButton 과 각각 화면을 나타내는 View
-final class ProfileListView : UIView {
-    
+final class TopTapBarView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -117,7 +116,7 @@ final class ProfileListView : UIView {
 }
 
 // MARK: - extension
-extension ProfileListView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TopTapBarView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = tapBarCollectionView.dequeueReusableCell(
             withReuseIdentifier: TopTapBarCollectionViewCell.identifier,
@@ -157,7 +156,7 @@ extension ProfileListView: UICollectionViewDelegate, UICollectionViewDataSource 
     }
 }
     
-extension ProfileListView: UICollectionViewDelegateFlowLayout {
+extension TopTapBarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
@@ -168,7 +167,7 @@ extension ProfileListView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ProfileListView: UIScrollViewDelegate {
+extension TopTapBarView: UIScrollViewDelegate {
     
     /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -27,7 +27,7 @@
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
 		294FF9FC2B6CB1A700EDD005 /* NoneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */; };
-		296E0F672B8859E700758653 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* ProfileListView.swift */; };
+		296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* TopTapBarView.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
 		298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */; };
@@ -50,7 +50,6 @@
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
-		F04A5B9674D4282A9B96A66D /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1CE3D481FC69735CD5FCEC /* Pods_Snaptime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,7 +75,7 @@
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		294FF9FB2B6CB1A700EDD005 /* NoneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneCoordinator.swift; sourceTree = "<group>"; };
-		296E0F662B8859E700758653 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
+		296E0F662B8859E700758653 /* TopTapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarView.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -269,20 +268,28 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		29DBBA632B9198A900A36C27 /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
+				2926BC182B8F3DE700425CBF /* EditProfileTextField.swift */,
+				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
+				2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */,
+				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
+				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
+				294DC75D2B8F677400E60AF3 /* SettingTableViewCell.swift */,
+			);
+			path = CustomComponents;
+			sourceTree = "<group>";
+		};
 		29F80BF32B8589A2003614AB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				29DBBA632B9198A900A36C27 /* CustomComponents */,
 				29F80BF42B8589AC003614AB /* ProfileStatusView.swift */,
-				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
-				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
 				29F80C6D2B8657C0003614AB /* AlbumListView.swift */,
 				29F80C6F2B8657C8003614AB /* TagListView.swift */,
-				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
-				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
-				296E0F662B8859E700758653 /* ProfileListView.swift */,
-				2926BC162B8F013B00425CBF /* TopTapBarCollectionViewCell.swift */,
-				2926BC182B8F3DE700425CBF /* EditProfileTextField.swift */,
-				294DC75D2B8F677400E60AF3 /* SettingTableViewCell.swift */,
+				296E0F662B8859E700758653 /* TopTapBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -429,7 +436,7 @@
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
-				296E0F672B8859E700758653 /* ProfileListView.swift in Sources */,
+				296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,

@@ -35,7 +35,6 @@ final class SettingTableViewCell: UITableViewCell {
             $0.top.equalToSuperview().offset(15)
             $0.left.equalToSuperview().offset(15)
             $0.bottom.equalToSuperview().offset(-15)
-//            $0.trailing.equalToSuperview().offset(15)
         }
     }
 }

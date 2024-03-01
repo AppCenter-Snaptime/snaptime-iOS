@@ -30,17 +30,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let coordinator = ProfileCoordinator(navigationController: navigationController) // 프로필 화면 시작 (보원)
             
-            coordinator.presentEditProfile()
+            coordinator.presentSettingProfile()
 //            coordinator.start()
             
             self.window?.makeKeyAndVisible()
         }
-
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = TabBarController()
-//        window.makeKeyAndVisible()
-//        self.window = window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

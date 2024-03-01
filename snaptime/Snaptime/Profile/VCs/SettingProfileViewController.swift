@@ -67,24 +67,9 @@ final class SettingProfileViewController : BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
-//        tableView.layer.masksToBounds = false
-//        tableView.layer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor // any value you want
-//        tableView.layer.shadowOpacity = 1 // any value you want
-//        tableView.layer.shadowRadius = 100 // any value you want
-//        tableView.layer.shadowOffset = .init(width: 0, height: 10)
 
         return tableView
     }()
-    
-//    override func setupStyles() {
-//        super.setupStyles()
-//        
-//        self.settingTableView.layer.shadowColor = UIColor.lightGray.cgColor //색상
-//        self.settingTableView.layer.shadowOpacity = 0.3 //alpha값
-//        self.settingTableView.layer.shadowRadius = 5 //반경
-//        self.settingTableView.layer.shadowOffset = CGSize(width: 0, height: 10) //위치조정
-//        self.settingTableView.layer.masksToBounds = false //내부에 속한 요소들이 UIView 밖을 벗어날 때, 잘라낼 것인지. 그림자는 밖에 그려지는 것이므로 false 로 설정
-//    }
     
     override func setupLayouts() {
         super.setupLayouts()
