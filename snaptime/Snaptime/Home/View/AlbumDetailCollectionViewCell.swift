@@ -109,7 +109,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         
         tagPeople.snp.makeConstraints {
             $0.top.equalTo(snapImage.snp.bottom).offset(19)
-            $0.left.equalTo(snapImage.snp.leading)
+            $0.left.equalTo(snapImage.snp.left)
             $0.height.equalTo(16)
         }
         
@@ -122,7 +122,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         
         commentButton.snp.makeConstraints {
             $0.top.equalTo(oneLineDiary.snp.bottom).offset(10)
-            $0.left.equalTo(oneLineDiary.snp.leading)
+            $0.left.equalTo(oneLineDiary.snp.left)
             $0.height.equalTo(16)
         }
     }
