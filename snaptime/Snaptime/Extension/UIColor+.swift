@@ -31,5 +31,6 @@ extension UIColor {
     static let snaptimeYellow : UIColor = UIColor(hexCode: "FFE483")
     static let snaptimeGray : UIColor = UIColor(hexCode: "D0D0D0")
     static let snaptimelightGray : UIColor = UIColor(hexCode: "FAFAFA")
+    static let lightBlue : UIColor = UIColor(hexCode: "3B6DFF")
 }
 

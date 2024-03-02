@@ -23,9 +23,19 @@ final class ProfileCoordinator : Coordinator {
     }
 }
 
-extension ProfileCoordinator : MyProfileNavigation {
+extension ProfileCoordinator : MyProfileNavigation, EditProfileNavigation, SettingProfileNavigation {
     func presentMyProfile() {
         let myProfileVC = MyProfileViewController(coordinator: self)
         navigationController.pushViewController(myProfileVC, animated: true)
+    }
+    
+    func presentEditProfile() {
+        let editProfileVC = EditProfileViewController(coordinator: self)
+        navigationController.pushViewController(editProfileVC, animated: true)
+    }
+    
+    func presentSettingProfile() {
+        let settingProfileVC = SettingProfileViewController(coordinator: self)
+        navigationController.pushViewController(settingProfileVC, animated: true)
     }
 }
