@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
@@ -46,11 +46,14 @@
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
 		5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */; };
+		A624A52E2B8F87E400B605A9 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A624A52D2B8F87E400B605A9 /* PreviewView.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
 		A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */; };
 		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
+		A69A81D42B8F766C006BAEB2 /* QRReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */; };
+		A69A81D62B8F77DD006BAEB2 /* AddAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,11 +99,14 @@
 		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		A624A52D2B8F87E400B605A9 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
 		A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderView.swift; sourceTree = "<group>"; };
+		A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B6C0FFBBF252B0429515B88 /* BuildFile in Frameworks */,
+				0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */,
 				5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +255,7 @@
 			children = (
 				298F7F622B6BA3A700A8DBC5 /* MainAlbumViewController.swift */,
 				298F7F662B6BA4D600A8DBC5 /* DetailAlbumViewController.swift */,
+				A69A81D52B8F77DD006BAEB2 /* AddAlbumViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -266,6 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */,
+				A69A81D32B8F766C006BAEB2 /* QRReaderView.swift */,
+				A624A52D2B8F87E400B605A9 /* PreviewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -451,12 +460,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69A81D62B8F77DD006BAEB2 /* AddAlbumViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
+				A624A52E2B8F87E400B605A9 /* PreviewView.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
 				292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */,
@@ -465,6 +476,7 @@
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
 				296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */,
+				A69A81D42B8F766C006BAEB2 /* QRReaderView.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
@@ -635,11 +647,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 39R4Y76837;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "\"\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -647,7 +661,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bwcompany.Snaptime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inuappcenter.Snaptime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -663,11 +677,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 39R4Y76837;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "\"\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -675,7 +691,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bwcompany.Snaptime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inuappcenter.Snaptime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
