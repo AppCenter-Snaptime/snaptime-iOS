@@ -25,22 +25,22 @@ final class HomeCoordinator : Coordinator {
 
 extension HomeCoordinator : MainAlbumViewControllerDelegate,
                             DetailAlbumNavigation,
-                            AddAlbumViewControllerDelegate {
+                            QRReaderViewControllerDelegate {
     func presentDetailView() {
         let detailAlbumVC = DetailAlbumViewController(coordinator: self)
         navigationController.pushViewController(detailAlbumVC, animated: true)
     }
     
-    func presentAddAlbumView() {
-        let addAlbumVC = AddAlbumViewController()
-        addAlbumVC.delegate = self
-        self.presentedViewController = addAlbumVC
-        navigationController.present(addAlbumVC, animated: true)
+    func presentQRReaderView() {
+        let qrReaderVC = QRReaderViewController()
+        qrReaderVC.delegate = self
+        self.presentedViewController = qrReaderVC
+        navigationController.present(qrReaderVC, animated: true)
 //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
     
     func didFinishAddAlbum() {
-        if let vc = presentedViewController as? AddAlbumViewController {
+        if let vc = presentedViewController as? QRReaderViewController {
             vc.dismiss(animated: true)
             self.presentedViewController = nil
         }
