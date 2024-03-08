@@ -111,10 +111,11 @@ final class QRReaderView: UIView {
          metadataOutput.rectOfInterest 는 AVCaptureSession에서 CGRect 크기만큼 인식 구역으로 지정합니다.
          !! 단 해당 값은 먼저 AVCaptureSession를 running 상태로 만든 후 지정해주어야 정상적으로 작동합니다 !!
          */
-        
-        self.setPreviewLayer()
+        let rectConverted = self.setPreviewLayer()
         self.setFocusZoneCornerLayer()
-        self.previewLayer?.session = captureSession
+        self.previewLayer!.session = captureSession
+        print(rectConverted)
+//        metadataOutput.rectOfInterest = rectConverted
         self.start()
     }
     
@@ -130,21 +131,28 @@ final class QRReaderView: UIView {
     }
     
     /// 중앙에 사각형의 Focus Zone Layer을 설정합니다.
-    private func setPreviewLayer() {
+    private func setPreviewLayer() -> CGRect {
+        print("setPreviewLayer1")
         let readingRect = rectOfInterest
         
-        guard let captureSession = self.captureSession else {
-            return
+        guard let captureSession = self.captureSession
+        else {
+            print("error")
+            return CGRect(x: 0, y: 0, width: 1, height: 1)
         }
         
+        print("setPreviewLayer2")
         /*
          AVCaptureVideoPreviewLayer를 구성.
          */
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewView.videoPreviewLayer.session = captureSession
-        let previewLayer = previewView.videoPreviewLayer
+//        let previewLayer = previewView.videoPreviewLayer
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         previewLayer.frame = self.layer.bounds
 
+        
+        print("setPreviewLayer3")
         // MARK: - Scan Focus Mask
         /*
          Scan 할 사각형(Focus Zone)을 구성하고 해당 자리만 dimmed 처리를 하지 않음.
@@ -175,9 +183,12 @@ final class QRReaderView: UIView {
 
         previewLayer.addSublayer(maskLayer)
         
-        
         self.layer.addSublayer(previewLayer)
-//        self.previewLayer = previewLayer
+        self.previewLayer = previewLayer
+        
+        
+        print("setPreviewLayer4")
+        return previewLayer.metadataOutputRectConverted(fromLayerRect: self.rectOfInterest)
     }
     
     // MARK: - Focus Edge Layer
