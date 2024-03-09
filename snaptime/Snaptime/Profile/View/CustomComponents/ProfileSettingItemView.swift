@@ -31,21 +31,22 @@ final class ProfileSettingItemView: UIView {
         var iconConfig = UIButton.Configuration.filled()
         iconConfig.baseBackgroundColor = .white
         iconConfig.baseForegroundColor = .black
-
-        var titleAttr = AttributedString.init(customDescription)
-        titleAttr.font = .systemFont(ofSize: 15.0, weight: .medium)
         
-        iconConfig.attributedTitle = titleAttr
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
+        let setImage = UIImage(systemName: customIconName, withConfiguration: imageConfig)
+        iconConfig.image = setImage
         
         iconButton.configuration = iconConfig
+        
         
         var descriptionConfig = UIButton.Configuration.filled()
         descriptionConfig.baseBackgroundColor = .white
         descriptionConfig.baseForegroundColor = .black
+
+        var titleAttr = AttributedString.init(customDescription)
+        titleAttr.font = .systemFont(ofSize: 15.0, weight: .medium)
         
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
-        let setImage = UIImage(systemName: customIconName, withConfiguration: imageConfig)
-        descriptionConfig.image = setImage
+        descriptionConfig.attributedTitle = titleAttr
         
         settingDescriptionButton.configuration = descriptionConfig
     }
@@ -57,14 +58,14 @@ final class ProfileSettingItemView: UIView {
         }
         
         iconButton.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.width.height.equalTo(40)
         }
         
         settingDescriptionButton.snp.makeConstraints {
-            $0.leading.equalTo(iconButton.snp.right).offset(20)
-            $0.centerY.equalToSuperview()
+            $0.left.equalTo(iconButton.snp.right).offset(5)
+            $0.top.bottom.equalTo(iconButton)
             $0.height.equalTo(40)
         }
     }
