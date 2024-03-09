@@ -61,6 +61,8 @@ final class SettingProfileViewController : BaseViewController {
     }()
     
     private let settingProfileView1 = ProfileSettingView()
+    private let settingProfileView2 = ProfileSettingView()
+    private let settingProfileView3 = ProfileSettingView()
 
     override func setupLayouts() {
         super.setupLayouts()
@@ -68,7 +70,9 @@ final class SettingProfileViewController : BaseViewController {
         [iconLabel,
          settingProfileImage,
          nicknameLabel,
-         settingProfileView1].forEach {
+         settingProfileView1,
+         settingProfileView2,
+         settingProfileView3].forEach {
             view.addSubview($0)
         }
     }
@@ -94,6 +98,18 @@ final class SettingProfileViewController : BaseViewController {
         
         settingProfileView1.snp.makeConstraints {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(50)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
+        
+        settingProfileView2.snp.makeConstraints {
+            $0.top.equalTo(settingProfileView1.snp.bottom).offset(30)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
+        
+        settingProfileView3.snp.makeConstraints {
+            $0.top.equalTo(settingProfileView2.snp.bottom).offset(30)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
