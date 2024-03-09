@@ -16,6 +16,8 @@ final class ProfileStatusView : UIView {
         case others
     }
     
+    var tabButtonAction : (() -> ())?
+
     let profileTarget : ProfileTarget
     
     init(target: ProfileTarget) {
@@ -36,14 +38,14 @@ final class ProfileStatusView : UIView {
         profileImage.clipsToBounds = true
     }
     
-    private let profileImage : UIImageView = {
+    private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
         
         return imageView
     }()
     
-    private let nickNameLabel : UILabel = {
+    private let nickNameLabel: UILabel = {
         let label = UILabel()
         label.text = "blwxnhan"
         label.font = .systemFont(ofSize: 16, weight: .light)
@@ -52,7 +54,7 @@ final class ProfileStatusView : UIView {
         return label
     }()
     
-    private let buttonStackView : UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -74,6 +76,10 @@ final class ProfileStatusView : UIView {
         
         return view
     }()
+    
+    @objc private func tabButton() {
+        tabButtonAction?()
+    }
     
     private func setupUI(target: ProfileTarget) {
         switch target {
