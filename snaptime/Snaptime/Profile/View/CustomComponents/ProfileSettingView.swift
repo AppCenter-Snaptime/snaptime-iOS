@@ -9,5 +9,7 @@ import UIKit
 import SnapKit
 
 final class ProfileSettingView: UIView {
-    
+//    init(_ items: []){
+//        
+//    }
 }

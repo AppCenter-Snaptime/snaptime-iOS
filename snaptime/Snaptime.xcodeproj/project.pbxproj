@@ -15,6 +15,8 @@
 		292977842B6618FB00FDC799 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 292977822B6618FB00FDC799 /* LaunchScreen.storyboard */; };
 		292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */; };
 		292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */; };
+		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
+		2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
@@ -72,6 +74,8 @@
 		292977852B6618FB00FDC799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingItemView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
 				2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */,
 				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
+				2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */,
+				2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
+				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
 				A624A52E2B8F87E400B605A9 /* PreviewView.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
@@ -508,6 +515,7 @@
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
+				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
