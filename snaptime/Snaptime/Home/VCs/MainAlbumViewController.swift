@@ -10,7 +10,7 @@ import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
     func presentDetailView()
-    func presentAddAlbumView()
+    func presentQRReaderView()
 }
 
 final class MainAlbumViewController : BaseViewController {
@@ -35,7 +35,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentAddAlbumView()
+            self?.delegate?.presentQRReaderView()
         }, for: .touchUpInside)
         
         return button
@@ -74,7 +74,7 @@ final class MainAlbumViewController : BaseViewController {
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentAddAlbumView()
+            self?.delegate?.presentQRReaderView()
         }, for: .touchUpInside)
         return button
     }()
