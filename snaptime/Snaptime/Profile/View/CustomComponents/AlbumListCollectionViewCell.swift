@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// AlbumList내부 collectionview의 Custom Cell -> MainAlbum의 CollectionViewCell과 합쳐 하나로 만드는 과정 필요!!
-final class AlbumCollectionViewCell : UICollectionViewCell {
+final class AlbumListCollectionViewCell : UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()

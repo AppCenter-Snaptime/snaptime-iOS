@@ -10,6 +10,7 @@ import SnapKit
 
 protocol MyProfileNavigation : AnyObject {
     func presentMyProfile()
+    func presentSettingProfile()
 }
 
 final class MyProfileViewController : BaseViewController {
@@ -17,6 +18,7 @@ final class MyProfileViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabSettingButton()
     }
     
     init(coordinator: MyProfileNavigation) {
@@ -52,6 +54,12 @@ final class MyProfileViewController : BaseViewController {
     
     private let profileStatusView = ProfileStatusView(target: .myself)
     private let albumAndTagListView = TopTapBarView()
+    
+    @objc private func tabSettingButton() {
+        profileStatusView.tabButtonAction = { [weak self] in
+            self?.coordinator?.presentSettingProfile()
+        }
+    }
     
     // MARK: - setupUI
     override func setupLayouts() {

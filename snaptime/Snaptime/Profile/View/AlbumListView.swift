@@ -35,7 +35,7 @@ final class AlbumListView : UIView {
     }()
     
     private func collectionViewConfig() {
-        profileAlbumListCollectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
+        profileAlbumListCollectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
         profileAlbumListCollectionView.dataSource = self
         profileAlbumListCollectionView.delegate = self
     }
@@ -54,9 +54,9 @@ final class AlbumListView : UIView {
 extension AlbumListView : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = profileAlbumListCollectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumCollectionViewCell.identifier,
+            withReuseIdentifier: AlbumListCollectionViewCell.identifier,
             for: indexPath
-        ) as? AlbumCollectionViewCell else {
+        ) as? AlbumListCollectionViewCell else {
             return UICollectionViewCell()
         }
         

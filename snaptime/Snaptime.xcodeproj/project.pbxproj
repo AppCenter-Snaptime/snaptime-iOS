@@ -15,6 +15,8 @@
 		292977842B6618FB00FDC799 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 292977822B6618FB00FDC799 /* LaunchScreen.storyboard */; };
 		292A4D652B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */; };
 		292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */; };
+		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
+		2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
@@ -47,7 +49,7 @@
 		29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6D2B8657C0003614AB /* AlbumListView.swift */; };
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
-		29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */; };
+		29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */; };
 		5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */; };
 		A624A52E2B8F87E400B605A9 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A624A52D2B8F87E400B605A9 /* PreviewView.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
@@ -72,6 +74,8 @@
 		292977852B6618FB00FDC799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		292A4D642B7CBD1F002FCC57 /* AlbumDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingItemView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -104,7 +108,7 @@
 		29F80C6D2B8657C0003614AB /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
-		29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListCollectionViewCell.swift; sourceTree = "<group>"; };
 		A624A52D2B8F87E400B605A9 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
@@ -196,11 +200,13 @@
 			children = (
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
 				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
-				29F80C752B8767AC003614AB /* AlbumCollectionViewCell.swift */,
+				29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */,
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
 				2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */,
 				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
+				2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */,
+				2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
+				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
 				A624A52E2B8F87E400B605A9 /* PreviewView.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
@@ -508,6 +515,7 @@
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
+				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
@@ -522,7 +530,7 @@
 				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
-				29F80C762B8767AC003614AB /* AlbumCollectionViewCell.swift in Sources */,
+				29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

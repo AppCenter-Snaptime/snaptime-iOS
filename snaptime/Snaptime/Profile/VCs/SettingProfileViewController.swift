@@ -60,24 +60,19 @@ final class SettingProfileViewController : BaseViewController {
         return label
     }()
     
-    private lazy var settingTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
-        tableView.backgroundColor = .white
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+    private let settingProfileView1 = ProfileSettingView()
+    private let settingProfileView2 = ProfileSettingView()
+    private let settingProfileView3 = ProfileSettingView()
 
-        return tableView
-    }()
-    
     override func setupLayouts() {
         super.setupLayouts()
         
         [iconLabel,
          settingProfileImage,
          nicknameLabel,
-         settingTableView].forEach {
+         settingProfileView1,
+         settingProfileView2,
+         settingProfileView3].forEach {
             view.addSubview($0)
         }
     }
@@ -101,32 +96,22 @@ final class SettingProfileViewController : BaseViewController {
             $0.centerX.equalTo(settingProfileImage.snp.centerX)
         }
         
-        settingTableView.snp.makeConstraints {
-            $0.top.equalTo(nicknameLabel.snp.bottom).offset(41)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        settingProfileView1.snp.makeConstraints {
+            $0.top.equalTo(nicknameLabel.snp.bottom).offset(50)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
-    }
-}
-
-extension SettingProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = settingTableView.dequeueReusableCell(
-            withIdentifier: SettingTableViewCell.identifier,
-            for: indexPath
-        ) as? SettingTableViewCell else {
-            return UITableViewCell()
+        
+        settingProfileView2.snp.makeConstraints {
+            $0.top.equalTo(settingProfileView1.snp.bottom).offset(30)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
-        cell.configSettingTitle("프로필 수정")
-    
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        
+        settingProfileView3.snp.makeConstraints {
+            $0.top.equalTo(settingProfileView2.snp.bottom).offset(30)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
     }
 }
