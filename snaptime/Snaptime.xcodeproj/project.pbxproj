@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
+		290FD03E2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */; };
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
 		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
@@ -67,6 +68,7 @@
 		052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 		2924E8182BA82FF70025AAA9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
+				290FD03E2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,

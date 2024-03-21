@@ -83,7 +83,6 @@ final class CommentView: UIView {
         timeInformation.snp.makeConstraints {
             $0.bottom.equalTo(commentTitle.snp.bottom)
             $0.left.equalTo(commentTitle.snp.right).offset(8)
-            $0.right.equalToSuperview()
             $0.height.equalTo(14)
         }
         

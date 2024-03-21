@@ -19,33 +19,85 @@ final class NotificationViewController: BaseViewController {
         super.viewDidLoad()
     }
     
-    private lazy var notificationView = CommentView()
-    private lazy var previewImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
+    private lazy var topTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "알림"
+        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.textColor = UIColor.init(hexCode: "003E6E")
         
-        return imageView
+        return label
+    }()
+    
+    private lazy var topBackButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private lazy var notificationCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 1
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(NotificationCollectionViewCell.self, 
+                                forCellWithReuseIdentifier: NotificationCollectionViewCell.identifier)
+        
+        return collectionView
     }()
     
     override func setupLayouts() {
         super.setupLayouts()
         
-        [notificationView,
-         previewImage].forEach {
+        [topBackButton,
+         topTextLabel,
+         notificationCollectionView].forEach {
             view.addSubview($0)
         }
         
-        notificationView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(14)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.right.equalTo(previewImage.snp.left).offset(-15)
+        topTextLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.left.equalTo(topBackButton.snp.right).offset(20)
         }
         
-        previewImage.snp.makeConstraints {
-            $0.centerY.equalTo(notificationView.snp.centerY)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.height.equalTo(55)
-            $0.width.equalTo(49)
+        topBackButton.snp.makeConstraints {
+            $0.centerY.equalTo(topTextLabel.snp.centerY)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
+        
+        notificationCollectionView.snp.makeConstraints {
+            $0.top.equalTo(topTextLabel.snp.bottom).offset(20)
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+extension NotificationViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = notificationCollectionView.dequeueReusableCell(
+            withReuseIdentifier: NotificationCollectionViewCell.identifier,
+            for: indexPath) as? NotificationCollectionViewCell
+        else {
+            return UICollectionViewCell()
+        }
+        
+        return cell
+    }
+}
+
+extension NotificationViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        /// 수정필요
+        let height: CGFloat = 86
+        let width : CGFloat = collectionView.frame.width
+        
+        return CGSize(width: width, height: height)
     }
 }
