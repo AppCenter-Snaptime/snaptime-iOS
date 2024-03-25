@@ -23,9 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             let navigationController = UINavigationController()
             self.window?.rootViewController = navigationController
-            
-            let coordinator = CommunityCoordinator(navigationController: navigationController)
-            coordinator.presentNotification()
+          
+            let coordinator = AppCoordinator(navigationController: navigationController)
+                        coordinator.start()
+//            let coordinator = ProfileCoordinator(navigationController: navigationController)
+//            coordinator.presentSettingProfile()
             
             self.window?.makeKeyAndVisible()
         }
