@@ -5,6 +5,7 @@
 //  Created by Bowon Han on 2/1/24.
 //
 
+import Alamofire
 import UIKit
 import SnapKit
 
@@ -14,12 +15,6 @@ protocol MainAlbumViewControllerDelegate: AnyObject {
 }
 
 final class MainAlbumViewController : BaseViewController {
-    weak var delegate : MainAlbumViewControllerDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     private let logoTextLabel : UILabel = {
         let label = UILabel()
         label.text = "SnapTime"
@@ -78,6 +73,19 @@ final class MainAlbumViewController : BaseViewController {
         }, for: .touchUpInside)
         return button
     }()
+    
+    weak var delegate : MainAlbumViewControllerDelegate?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    // MARK: -- Fetch Data
+    private func fetchAlbumList() {
+        
+    }
+    
+    // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
         [
