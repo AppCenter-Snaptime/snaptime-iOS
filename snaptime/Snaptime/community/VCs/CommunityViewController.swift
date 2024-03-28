@@ -19,35 +19,39 @@ final class CommunityViewController : BaseViewController {
         super.viewDidLoad()
     }
     
-    init(coordinator: CommunityCoordinator) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private let communityTestLabel : UILabel = {
+    private let titleLabel : UILabel = {
         let label = UILabel()
-        label.text = "community 화면"
+        label.textColor = .snaptimeBlue
+        label.font = .systemFont(ofSize: 20)
+        label.text = "커뮤니티"
         
         return label
     }()
     
-    private lazy var contextButton : UIButton = {
+    private lazy var notificationButton : UIButton = {
         let button = UIButton()
-        button.setTitle("tab", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
+        button.setImage(UIImage(systemName: "bell"), for: .normal)
+        button.tintColor = .black
         return button
+    }()
+    
+    private lazy var contentCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.register(CommunityCollectionViewCell.self, forCellWithReuseIdentifier: CommunityCollectionViewCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        return collectionView
     }()
     
     override func setupLayouts() {
         super.setupLayouts()
         
-        [communityTestLabel,
-         contextButton].forEach {
+        [titleLabel,
+         notificationButton,
+         contentCollectionView].forEach {
             view.addSubview($0)
         }
     }
@@ -55,14 +59,40 @@ final class CommunityViewController : BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        communityTestLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            $0.centerX.equalToSuperview()
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(25)
         }
         
-        contextButton.snp.makeConstraints {
-            $0.top.equalTo(communityTestLabel.snp.bottom).offset(60)
-            $0.centerX.equalToSuperview()
+        notificationButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-25)
+            $0.width.height.equalTo(24)
         }
+        
+        contentCollectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+extension CommunityViewController:
+    UICollectionViewDataSource,
+    UICollectionViewDelegate,
+    UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommunityCollectionViewCell.identifier, for: indexPath) as? CommunityCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 1.33 + 210) // 디바이스에 따라 이미지 비율에 맞춰 높이 설정
     }
 }
