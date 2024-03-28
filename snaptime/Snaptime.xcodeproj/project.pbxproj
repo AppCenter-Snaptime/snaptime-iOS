@@ -55,6 +55,8 @@
 		29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */; };
 		5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */; };
 		A652BD7A2B9AA5C500CA9F37 /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */; };
+		A661F3F82BB157B00093336A /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */; };
+		A661F3FA2BB159010093336A /* UserPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F92BB159010093336A /* UserPostView.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
@@ -115,6 +117,8 @@
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListCollectionViewCell.swift; sourceTree = "<group>"; };
 		A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
+		A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
+		A661F3F92BB159010093336A /* UserPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostView.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
@@ -245,7 +249,7 @@
 		298F7F582B6BA30700A8DBC5 /* community */ = {
 			isa = PBXGroup;
 			children = (
-				2924E8182BA82FF70025AAA9 /* View */,
+				A661F3F62BB157930093336A /* View */,
 				298F7F6D2B6BA76300A8DBC5 /* VCs */,
 			);
 			path = community;
@@ -345,6 +349,15 @@
 				052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A661F3F62BB157930093336A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */,
+				A661F3F92BB159010093336A /* UserPostView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A69A81B92B876DF2006BAEB2 /* Recommend */ = {
@@ -523,6 +536,8 @@
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
+				A661F3FA2BB159010093336A /* UserPostView.swift in Sources */,
+				A661F3F82BB157B00093336A /* CommunityCollectionViewCell.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */,
