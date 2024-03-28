@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
-		290FD03E2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */; };
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
 		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
@@ -21,6 +20,7 @@
 		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
 		2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
+		294F81462BB57431001E68B3 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
 		294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */; };
@@ -84,6 +84,7 @@
 		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingItemView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
+		294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationCollectionViewCell.swift; path = ../../../../../../Downloads/NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -151,14 +152,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		2924E8182BA82FF70025AAA9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		2929776B2B6618FA00FDC799 = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +159,7 @@
 				292977752B6618FA00FDC799 /* Products */,
 				8FD129918791FC4EABDF2316 /* Pods */,
 				9B13FC2FC03DCACF64B6A2EF /* Frameworks */,
+				294F81422BB5666B001E68B3 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +189,14 @@
 				292977852B6618FB00FDC799 /* Info.plist */,
 			);
 			path = Snaptime;
+			sourceTree = "<group>";
+		};
+		294F81422BB5666B001E68B3 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		294FF9F02B6CA00200EDD005 /* Coordinator */ = {
@@ -354,6 +356,7 @@
 		A661F3F62BB157930093336A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */,
 				A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */,
 				A661F3F92BB159010093336A /* UserPostView.swift */,
 			);
@@ -511,7 +514,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
-				290FD03E2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
@@ -544,6 +546,7 @@
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
+				294F81462BB57431001E68B3 /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
@@ -706,7 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39R4Y76837;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
@@ -736,7 +739,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39R4Y76837;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
