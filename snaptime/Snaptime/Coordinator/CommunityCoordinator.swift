@@ -19,12 +19,19 @@ final class CommunityCoordinator : Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.isNavigationBarHidden = true
     }
 }
 
-extension CommunityCoordinator : CommunityNavigation {
+extension CommunityCoordinator : CommunityNavigation, NotificationViewControllerDelegate {
     func presentCommunity() {
         let communityVC = CommunityViewController()
         navigationController.pushViewController(communityVC, animated: true)
+    }
+    
+    func presentNotification() {
+        let notificationVC = NotificationViewController()
+        notificationVC.delegate = self
+        navigationController.pushViewController(notificationVC, animated: true)
     }
 }
