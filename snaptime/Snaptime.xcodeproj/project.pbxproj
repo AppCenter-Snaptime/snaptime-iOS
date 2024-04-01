@@ -20,7 +20,6 @@
 		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
 		2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
-		294F81462BB57431001E68B3 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
 		294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */; };
@@ -57,6 +56,7 @@
 		A652BD7A2B9AA5C500CA9F37 /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */; };
 		A661F3F82BB157B00093336A /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */; };
 		A661F3FA2BB159010093336A /* UserPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F92BB159010093336A /* UserPostView.swift */; };
+		A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
@@ -84,7 +84,6 @@
 		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		2936B8E12B9C6E1A00568E24 /* ProfileSettingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingItemView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
-		294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationCollectionViewCell.swift; path = ../../../../../../Downloads/NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -120,6 +119,7 @@
 		A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
 		A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
 		A661F3F92BB159010093336A /* UserPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostView.swift; sourceTree = "<group>"; };
+		A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 		A661F3F62BB157930093336A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				294F81452BB57431001E68B3 /* NotificationCollectionViewCell.swift */,
+				A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */,
 				A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */,
 				A661F3F92BB159010093336A /* UserPostView.swift */,
 			);
@@ -546,7 +546,7 @@
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* DetailAlbumViewController.swift in Sources */,
-				294F81462BB57431001E68B3 /* NotificationCollectionViewCell.swift in Sources */,
+				A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
@@ -709,7 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 39R4Y76837;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
@@ -739,7 +739,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F7GYZYWC6V;
+				DEVELOPMENT_TEAM = 39R4Y76837;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"QR 코드 인식을 위한 카메라 사용\"";
