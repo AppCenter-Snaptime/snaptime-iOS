@@ -21,13 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
 
-            let navigationController = UINavigationController()
-            self.window?.rootViewController = navigationController
-          
-            let coordinator = AppCoordinator(navigationController: navigationController)
-                        coordinator.start()
-//            let coordinator = ProfileCoordinator(navigationController: navigationController)
-//            coordinator.presentSettingProfile()
+//            let navigationController = UINavigationController()
+            
+            self.window?.rootViewController = CommentViewController()
+//            self.window?.rootViewController = navigationController
+//          
+//            let coordinator = AppCoordinator(navigationController: navigationController)
+//            coordinator.start()
             
             self.window?.makeKeyAndVisible()
         }

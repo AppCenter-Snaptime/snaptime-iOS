@@ -57,6 +57,11 @@
 		A661F3F82BB157B00093336A /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */; };
 		A661F3FA2BB159010093336A /* UserPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661F3F92BB159010093336A /* UserPostView.swift */; };
 		A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */; };
+		A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C41342BBC40FC00AC4284 /* CommentViewController.swift */; };
+		A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C41372BBC4D5700AC4284 /* SingleCommentView.swift */; };
+		A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C41392BBC4D8A00AC4284 /* CommentCollectionViewCell.swift */; };
+		A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */; };
+		A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
@@ -120,6 +125,11 @@
 		A661F3F72BB157B00093336A /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
 		A661F3F92BB159010093336A /* UserPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostView.swift; sourceTree = "<group>"; };
 		A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
+		A66C41342BBC40FC00AC4284 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		A66C41372BBC4D5700AC4284 /* SingleCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCommentView.swift; sourceTree = "<group>"; };
+		A66C41392BBC4D8A00AC4284 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryHeaderView.swift; sourceTree = "<group>"; };
+		A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryFooterView.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				298F7F592B6BA30F00A8DBC5 /* Auth */,
 				298F7F582B6BA30700A8DBC5 /* community */,
+				A66C41322BBC40DC00AC4284 /* Comment */,
 				A69A81B92B876DF2006BAEB2 /* Recommend */,
 				298F7F572B6BA30200A8DBC5 /* Profile */,
 				298F7F562B6BA2FC00A8DBC5 /* Home */,
@@ -363,6 +374,34 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A66C41322BBC40DC00AC4284 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				A66C41362BBC4D1F00AC4284 /* View */,
+				A66C41332BBC40EF00AC4284 /* VCs */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		A66C41332BBC40EF00AC4284 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				A66C41342BBC40FC00AC4284 /* CommentViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		A66C41362BBC4D1F00AC4284 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A66C41372BBC4D5700AC4284 /* SingleCommentView.swift */,
+				A66C41392BBC4D8A00AC4284 /* CommentCollectionViewCell.swift */,
+				A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */,
+				A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A69A81B92B876DF2006BAEB2 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,12 +554,14 @@
 			files = (
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
+				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
+				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
 				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
 				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
@@ -537,9 +578,12 @@
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
+				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				A661F3FA2BB159010093336A /* UserPostView.swift in Sources */,
+				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
 				A661F3F82BB157B00093336A /* CommunityCollectionViewCell.swift in Sources */,
+				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */,
