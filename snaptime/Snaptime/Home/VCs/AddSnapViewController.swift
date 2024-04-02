@@ -10,6 +10,7 @@ import SnapKit
 
 protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
+    func presentSnapTagList()
 }
 
 final class AddSnapViewController: BaseViewController {
@@ -73,6 +74,9 @@ final class AddSnapViewController: BaseViewController {
         config.background.strokeColor = .snaptimeGray
         
         button.configuration = config
+        button.addAction(UIAction { _ in
+            self.delegate?.presentSnapTagList()
+        }, for: .touchUpInside)
         
         return button
     }()

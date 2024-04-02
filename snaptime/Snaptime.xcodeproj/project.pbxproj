@@ -32,6 +32,8 @@
 		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
 		296167AA2BBBC7A7003CA89C /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */; };
 		296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */; };
+		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
+		296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */; };
 		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
@@ -98,6 +100,8 @@
 		2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
 		296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 		296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSnapViewController.swift; sourceTree = "<group>"; };
+		296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapTagListViewController.swift; sourceTree = "<group>"; };
+		296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 				A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */,
 				296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */,
 				296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */,
+				296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				292A4D642B7CBD1F002FCC57 /* AlbumSnapCollectionViewCell.swift */,
+				296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -566,7 +572,9 @@
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
+				296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
+				296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,

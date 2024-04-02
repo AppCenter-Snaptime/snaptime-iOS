@@ -28,7 +28,8 @@ extension HomeCoordinator : MainAlbumViewControllerDelegate,
                             AlbumSnapViewControllerDelegate,
                             QRReaderViewControllerDelegate,
                             AlbumDetailViewControllerDelegate,
-                            AddSnapViewControllerDelegate {
+                            AddSnapViewControllerDelegate,
+                            SnapTagListViewControllerDelegate {
     
     func presentAddSnap() {
         let addSnapVC = AddSnapViewController()
@@ -71,5 +72,11 @@ extension HomeCoordinator : MainAlbumViewControllerDelegate,
         let albumDetailVC = AlbumDetailViewController()
         albumDetailVC.delegate = self
         navigationController.pushViewController(albumDetailVC, animated: true)
+    }
+    
+    func presentSnapTagList() {
+        let snapTagListVC = SnapTagListViewController()
+        snapTagListVC.delegate = self
+        navigationController.pushViewController(snapTagListVC, animated: true)
     }
 }
