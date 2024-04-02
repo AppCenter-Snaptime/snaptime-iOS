@@ -12,7 +12,7 @@ protocol DetailAlbumNavigation : AnyObject {
     
 }
 
-final class DetailAlbumViewController : BaseViewController {
+final class AlbumSnapViewController : BaseViewController {
     weak var coordinator : DetailAlbumNavigation?
     
     override func viewDidLoad() {
@@ -60,7 +60,7 @@ final class DetailAlbumViewController : BaseViewController {
     }
 }
 
-extension DetailAlbumViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension AlbumSnapViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = albumDetailCollectionView.dequeueReusableCell(
             withReuseIdentifier: AlbumDetailCollectionViewCell.identifier,
@@ -83,7 +83,7 @@ extension DetailAlbumViewController : UICollectionViewDataSource, UICollectionVi
     }
 }
 
-extension DetailAlbumViewController : UICollectionViewDelegateFlowLayout {
+extension AlbumSnapViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let heigth : CGFloat = collectionView.frame.width * 1.6
         let width : CGFloat = collectionView.frame.width - 5.0

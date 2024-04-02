@@ -27,7 +27,7 @@ extension HomeCoordinator : MainAlbumViewControllerDelegate,
                             DetailAlbumNavigation,
                             QRReaderViewControllerDelegate {
     func presentDetailView() {
-        let detailAlbumVC = DetailAlbumViewController(coordinator: self)
+        let detailAlbumVC = AlbumSnapViewController(coordinator: self)
         navigationController.pushViewController(detailAlbumVC, animated: true)
     }
     
