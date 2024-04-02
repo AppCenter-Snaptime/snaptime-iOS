@@ -22,12 +22,14 @@ final class AlbumSnapViewController : BaseViewController {
     private lazy var albumDetailCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 1.0
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 30, right: 20)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(AlbumSnapCollectionViewCell.self,
                                 forCellWithReuseIdentifier: AlbumSnapCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView
     }()

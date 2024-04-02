@@ -37,6 +37,7 @@ final class AddSnapViewController: BaseViewController {
         textView.text = "글을 입력하세요."
         textView.textColor = .snaptimeGray
         textView.font = .systemFont(ofSize: 16, weight: .regular)
+        textView.isScrollEnabled = false
         textView.delegate = self
         
         return textView
@@ -116,14 +117,14 @@ final class AddSnapViewController: BaseViewController {
             $0.top.equalTo(profileImage.snp.top)
             $0.left.equalTo(profileImage.snp.right).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.height.equalTo(40)
+            $0.height.lessThanOrEqualTo(200)
         }
         
         addImageButton.snp.makeConstraints {
             $0.top.equalTo(oneLineDiaryTextView.snp.bottom).offset(10)
             $0.left.equalTo(oneLineDiaryTextView.snp.left)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-15)
             $0.height.equalTo(454)
-            $0.width.equalTo(297)
         }
         
         addTagButton.snp.makeConstraints {
@@ -152,6 +153,51 @@ extension AddSnapViewController: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = "메세지를 입력하세요"
             textView.textColor = .snaptimeGray
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        guard let text = textView.text else { return }
+                
+        // 글자수 제한
+//        let maxLength = 100
+//        if text.count > maxLength {
+//            textView.text = String(text.prefix(maxLength))
+//        }
+        
+        // 줄바꿈(들여쓰기) 제한
+        let maxNumberOfLines = 8
+        let lineBreakCharacter = "\n"
+        let lines = text.components(separatedBy: lineBreakCharacter)
+        var consecutiveLineBreakCount = 0 // 연속된 줄 바꿈 횟수
+
+        for line in lines {
+            if line.isEmpty { // 빈 줄이면 연속된 줄 바꿈으로 간주
+                consecutiveLineBreakCount += 1
+            } else {
+                consecutiveLineBreakCount = 0
+            }
+
+            if consecutiveLineBreakCount > maxNumberOfLines {
+                textView.text = String(text.dropLast()) // 마지막 입력 문자를 제거
+                break
+            }
+        }
+        
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+          /// 180 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 180 {
+                
+            }
+            
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
         }
     }
 }
