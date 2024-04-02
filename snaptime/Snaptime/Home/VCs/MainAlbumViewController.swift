@@ -12,6 +12,7 @@ import SnapKit
 protocol MainAlbumViewControllerDelegate: AnyObject {
     func presentAlbumDetail()
     func presentQRReaderView()
+    func presentAddSnap()
 }
 
 final class MainAlbumViewController : BaseViewController {
@@ -30,7 +31,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentQRReaderView()
+            self?.delegate?.presentAddSnap()
         }, for: .touchUpInside)
         
         return button

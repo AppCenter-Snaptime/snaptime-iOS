@@ -49,7 +49,7 @@ final class JoinIdViewController : BaseViewController {
         return label
     }()
     
-    private lazy var nextButton = AuthButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음")
     
     // MARK: - button click method
     private func tabNextButton() {

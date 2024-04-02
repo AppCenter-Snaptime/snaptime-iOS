@@ -1,5 +1,5 @@
 //
-//  DetailAlbumViewController.swift
+//  AlbumSnapViewController.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/1/24.
@@ -24,8 +24,8 @@ final class AlbumSnapViewController : BaseViewController {
         layout.minimumLineSpacing = 1.0
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(AlbumDetailCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+        collectionView.register(AlbumSnapCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AlbumSnapCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -50,9 +50,9 @@ final class AlbumSnapViewController : BaseViewController {
 extension AlbumSnapViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = albumDetailCollectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumDetailCollectionViewCell.identifier,
+            withReuseIdentifier: AlbumSnapCollectionViewCell.identifier,
             for: indexPath
-        ) as? AlbumDetailCollectionViewCell else {
+        ) as? AlbumSnapCollectionViewCell else {
             return UICollectionViewCell()
         }
 

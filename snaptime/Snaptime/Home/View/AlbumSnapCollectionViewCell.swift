@@ -1,5 +1,5 @@
 //
-//  AlbumDetailCollectionViewCell.swift
+//  AlbumSnapCollectionViewCell.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/14/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AlbumDetailCollectionViewCell : UICollectionViewCell {
+final class AlbumSnapCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayouts()
