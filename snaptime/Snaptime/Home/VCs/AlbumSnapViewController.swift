@@ -8,25 +8,16 @@
 import UIKit
 import SnapKit
 
-protocol DetailAlbumNavigation : AnyObject {
+protocol AlbumSnapViewControllerDelegate : AnyObject {
     
 }
 
 final class AlbumSnapViewController : BaseViewController {
-    weak var coordinator : DetailAlbumNavigation?
+    weak var delegate : AlbumSnapViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewConfig()
-    }
-    
-    init(coordinator: DetailAlbumNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private let albumDetailCollectionView : UICollectionView = {

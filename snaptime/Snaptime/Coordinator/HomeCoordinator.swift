@@ -20,15 +20,19 @@ final class HomeCoordinator : Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.navigationBar.tintColor = .black
     }
 }
 
 extension HomeCoordinator : MainAlbumViewControllerDelegate,
-                            DetailAlbumNavigation,
-                            QRReaderViewControllerDelegate {
-    func presentDetailView() {
-        let detailAlbumVC = AlbumSnapViewController(coordinator: self)
-        navigationController.pushViewController(detailAlbumVC, animated: true)
+                            AlbumSnapViewControllerDelegate,
+                            QRReaderViewControllerDelegate,
+                            AlbumDetailViewControllerDelegate {
+    
+    func presentAlbumSnap() {
+        let albumSnapVC = AlbumSnapViewController()
+        albumSnapVC.delegate = self
+        navigationController.pushViewController(albumSnapVC, animated: true)
     }
     
     func presentQRReaderView() {
@@ -53,5 +57,11 @@ extension HomeCoordinator : MainAlbumViewControllerDelegate,
         let mainAlbumVC = MainAlbumViewController()
         mainAlbumVC.delegate = self
         navigationController.pushViewController(mainAlbumVC, animated: true)
+    }
+    
+    func presentAlbumDetail() {
+        let albumDetailVC = AlbumDetailViewController()
+        albumDetailVC.delegate = self
+        navigationController.pushViewController(albumDetailVC, animated: true)
     }
 }

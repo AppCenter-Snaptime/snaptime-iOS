@@ -50,14 +50,17 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     }
     
     private func setupConstraints() {
+        let imageHeight = contentView.bounds.height-36
+        
         snapImageView.snp.makeConstraints {
-            $0.left.top.right.equalTo(self.safeAreaLayoutGuide)
-            $0.height.equalTo(snapImageView.snp.width)
+            $0.left.top.right.equalToSuperview()
+            $0.height.equalTo(imageHeight)
+            
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
-            $0.centerY.equalTo(snapImageView.snp.bottom).offset(20)
+            $0.centerY.equalTo(snapImageView.snp.bottom).offset(17)
         }
     }
 }
