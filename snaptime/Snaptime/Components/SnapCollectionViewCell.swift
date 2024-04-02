@@ -18,7 +18,7 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     private lazy var descriptionLabel : UILabel = {
         let label = UILabel()
         label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
