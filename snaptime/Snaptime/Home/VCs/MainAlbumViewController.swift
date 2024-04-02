@@ -48,7 +48,7 @@ final class MainAlbumViewController : BaseViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 30
         layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 30, bottom: 20, right: 30)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
@@ -119,7 +119,7 @@ final class MainAlbumViewController : BaseViewController {
         }
         
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(mainAlbumLabel.snp.bottom)
+            $0.top.equalTo(mainAlbumLabel.snp.bottom).offset(10)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
