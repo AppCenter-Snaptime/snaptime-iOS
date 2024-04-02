@@ -17,36 +17,32 @@ final class AlbumSnapViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionViewConfig()
     }
     
-    private let albumDetailCollectionView : UICollectionView = {
+    private lazy var albumDetailCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 1.0
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
+        collectionView.register(AlbumDetailCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         return collectionView
     }()
 
-    private func collectionViewConfig() {
-    albumDetailCollectionView.register(AlbumDetailCollectionViewCell.self,
-                            forCellWithReuseIdentifier: AlbumDetailCollectionViewCell.identifier)
-    albumDetailCollectionView.delegate = self
-    albumDetailCollectionView.dataSource = self
-    }
-    
     override func setupLayouts() {
         super.setupLayouts()
+        
         view.addSubview(albumDetailCollectionView)
     }
-    
+        
     override func setupConstraints() {
         super.setupConstraints()
+        
         albumDetailCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.left.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -59,27 +55,29 @@ extension AlbumSnapViewController : UICollectionViewDataSource, UICollectionView
         ) as? AlbumDetailCollectionViewCell else {
             return UICollectionViewCell()
         }
-            
-        cell.configReuseDateLabel(date: "2024.01.24")
-        cell.configReuseSnapImage(imageURL: "")
-        cell.configReuseTagButtonText(nickname: "with@Lorem")
-        cell.configReuseOneLineDiaryLabel(oneLineDiary: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.")
+
+        cell.configureData(date: "2024.01.24",
+                           imageURL: "SnapExample",
+                           nickname: "with@Lorem",
+                           oneLineDiary: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.")
         
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    // 일단 임의로 개수 설정해두었습니다.
-       return 10
+       return 25
     }
 }
 
 extension AlbumSnapViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let heigth : CGFloat = collectionView.frame.width * 1.6
-        let width : CGFloat = collectionView.frame.width - 5.0
         
-        return CGSize(width: width, height: heigth)
+        let width = collectionView.bounds.width
+        let numberOfItemsPerRow: CGFloat = 1
+        let spacing: CGFloat = 20
+        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
+        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
+        return CGSize(width: itemDimension, height: itemDimension+290)
     }
 }
 
