@@ -59,11 +59,6 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         return button
     }()
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-////        self.configReuseDateLabel(date: nil)
-//    }
-    
     func configureData(date: String,
                        imageURL: String,
                        nickname: String?,
