@@ -74,7 +74,7 @@ final class AddSnapViewController: BaseViewController {
         config.background.strokeColor = .snaptimeGray
         
         button.configuration = config
-        button.addAction(UIAction { _ in
+        button.addAction(UIAction { [weak self] in
             self.delegate?.presentSnapTagList()
         }, for: .touchUpInside)
         
