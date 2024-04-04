@@ -10,8 +10,9 @@ import UIKit
 import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
-    func presentDetailView()
+    func presentAlbumDetail()
     func presentQRReaderView()
+    func presentAddSnap()
 }
 
 final class MainAlbumViewController : BaseViewController {
@@ -30,7 +31,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentQRReaderView()
+            self?.delegate?.presentAddSnap()
         }, for: .touchUpInside)
         
         return button
@@ -48,7 +49,7 @@ final class MainAlbumViewController : BaseViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 30
         layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 20, right: 20)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
@@ -74,7 +75,7 @@ final class MainAlbumViewController : BaseViewController {
         return button
     }()
     
-    weak var delegate : MainAlbumViewControllerDelegate?
+    weak var delegate: MainAlbumViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,9 +120,9 @@ final class MainAlbumViewController : BaseViewController {
         }
         
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(mainAlbumLabel.snp.bottom)
+            $0.top.equalTo(mainAlbumLabel.snp.bottom).offset(10)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         addSnapFloatingButton.snp.makeConstraints {
@@ -147,7 +148,7 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentDetailView()
+        delegate?.presentAlbumDetail()
     }
 }
 
@@ -155,7 +156,7 @@ extension MainAlbumViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
-        let spacing: CGFloat = 35 // width spacing
+        let spacing: CGFloat = 23
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
         return CGSize(width: itemDimension, height: itemDimension + 40)

@@ -19,11 +19,14 @@ final class ProfileCoordinator : Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.isNavigationBarHidden = true
+        self.navigationController.navigationBar.tintColor = .black
     }
 }
 
-extension ProfileCoordinator : MyProfileNavigation, EditProfileNavigation, SettingProfileNavigation {
+extension ProfileCoordinator : MyProfileNavigation, 
+                                EditProfileNavigation,
+                                SettingProfileNavigation {
+    
     func presentMyProfile() {
         let myProfileVC = MyProfileViewController(coordinator: self)
         navigationController.pushViewController(myProfileVC, animated: true)

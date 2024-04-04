@@ -45,9 +45,29 @@ final class TabBarCoordinator : Coordinator {
         // home의 index로 TabBar Index 세팅
         self.tabBarController.selectedIndex = TabBarItemType.home.toInt()
         // TabBar 스타일 지정
-        self.tabBarController.view.backgroundColor = .systemBackground
-        self.tabBarController.tabBar.backgroundColor = .systemBackground
-        self.tabBarController.tabBar.tintColor = UIColor.snaptimeBlue
+        
+        let appearance = UITabBarAppearance()
+        // set tabbar opacity
+        appearance.configureWithOpaqueBackground()
+
+        // remove tabbar border line
+        appearance.shadowColor = UIColor.clear
+
+        self.tabBarController.tabBar.standardAppearance = appearance
+
+        if #available(iOS 15.0, *) {
+                // set tabbar opacity
+            self.tabBarController.tabBar.scrollEdgeAppearance = self.tabBarController.tabBar.standardAppearance
+        }
+
+        // set tabbar shadow
+        self.tabBarController.tabBar.layer.masksToBounds = false
+        self.tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
+        self.tabBarController.tabBar.layer.shadowOpacity = 0.1
+        self.tabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.tabBarController.tabBar.layer.shadowRadius = 6
+        
+        self.tabBarController.tabBar.tintColor = .snaptimeBlue
     }
     
     private func addTabBarController(){

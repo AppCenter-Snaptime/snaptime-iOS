@@ -53,7 +53,7 @@ final class LoginViewController : BaseViewController {
     private let idInputTextField = AuthTextField("아이디 또는 이메일")
     private let passwordInputTextField = AuthTextField("비밀번호")
     
-    private lazy var loginButton = AuthButton("로그인")
+    private lazy var loginButton = SnapTimeCustomButton("로그인")
     
     private lazy var joinButton : UIButton = {
         let button = UIButton()

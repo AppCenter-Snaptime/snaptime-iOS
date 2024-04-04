@@ -18,7 +18,7 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     private lazy var descriptionLabel : UILabel = {
         let label = UILabel()
         label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
@@ -51,13 +51,14 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     
     private func setupConstraints() {
         snapImageView.snp.makeConstraints {
-            $0.left.top.right.equalTo(self.safeAreaLayoutGuide)
-            $0.height.equalTo(snapImageView.snp.width)
+            $0.left.top.right.equalToSuperview()
+            $0.height.equalTo(contentView.bounds.height-36)
+            
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
-            $0.centerY.equalTo(snapImageView.snp.bottom).offset(20)
+            $0.centerY.equalTo(snapImageView.snp.bottom).offset(17)
         }
     }
 }
