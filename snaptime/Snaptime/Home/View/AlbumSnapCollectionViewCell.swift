@@ -1,5 +1,5 @@
 //
-//  AlbumDetailCollectionViewCell.swift
+//  AlbumSnapCollectionViewCell.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/14/24.
@@ -8,7 +8,17 @@
 import UIKit
 import SnapKit
 
-final class AlbumDetailCollectionViewCell : UICollectionViewCell {
+final class AlbumSnapCollectionViewCell: UICollectionViewCell {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setLayouts()
+        setConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private var dateLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -18,7 +28,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
     
     private var snapImage : UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .snaptimeGray
+        imageView.image = UIImage(named: "SnapExample")
         
         return imageView
     }()
@@ -49,37 +59,13 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setLayouts()
-        setConstraints()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.configReuseDateLabel(date: nil)
-        self.configReuseSnapImage(imageURL: nil)
-        self.configReuseTagButtonText(nickname: nil)
-        self.configReuseOneLineDiaryLabel(oneLineDiary: nil)
-    }
-    
-    func configReuseDateLabel(date: String?) {
+    func configureData(date: String,
+                       imageURL: String,
+                       nickname: String?,
+                       oneLineDiary: String) {
         self.dateLabel.text = date
-    }
-    
-    func configReuseSnapImage(imageURL: String?) {
-    
-    }
-    
-    func configReuseTagButtonText(nickname: String?) {
         self.tagPeople.setTitle(nickname, for: .normal)
-    }
-    
-    func configReuseOneLineDiaryLabel(oneLineDiary: String?) {
+        self.snapImage.image = UIImage(named: imageURL)
         self.oneLineDiary.text = oneLineDiary
     }
     
@@ -103,8 +89,8 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         snapImage.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.height.equalTo(440)
+            $0.width.equalTo(353)
+            $0.height.equalTo(500)
         }
         
         tagPeople.snp.makeConstraints {
@@ -115,7 +101,7 @@ final class AlbumDetailCollectionViewCell : UICollectionViewCell {
         
         oneLineDiary.snp.makeConstraints {
             $0.top.equalTo(tagPeople.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(tagPeople.snp.left)
             $0.width.equalTo(300)
             $0.height.equalTo(40)
         }

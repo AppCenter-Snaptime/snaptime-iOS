@@ -16,7 +16,7 @@ final class ProfileStatusView : UIView {
         case others
     }
     
-    var tabButtonAction : (() -> ())?
+    var tabButtonAction : (() -> ()) = {}
 
     let profileTarget : ProfileTarget
     
@@ -35,12 +35,12 @@ final class ProfileStatusView : UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.height/2
-        profileImage.clipsToBounds = true
     }
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -77,10 +77,6 @@ final class ProfileStatusView : UIView {
         return view
     }()
     
-    @objc private func tabButton() {
-        tabButtonAction?()
-    }
-    
     private func setupUI(target: ProfileTarget) {
         switch target {
         case .others:
@@ -93,6 +89,9 @@ final class ProfileStatusView : UIView {
             config.attributedTitle = titleAttr
             
             followOrSettingButton.configuration = config
+            followOrSettingButton.addAction(UIAction { _ in
+                self.tabButtonAction()
+            }, for: .touchUpInside)
             
         case .myself:
             var config = UIButton.Configuration.filled()
@@ -104,6 +103,9 @@ final class ProfileStatusView : UIView {
             
             followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
             followOrSettingButton.configuration = config
+            followOrSettingButton.addAction(UIAction { _ in
+                self.tabButtonAction()
+            }, for: .touchUpInside)
         }
     }
     

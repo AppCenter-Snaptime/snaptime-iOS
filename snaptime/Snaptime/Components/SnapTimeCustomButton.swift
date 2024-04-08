@@ -1,5 +1,5 @@
 //
-//  AuthButton.swift
+//  SnapTimeCustomButton.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/1/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AuthButton : UIButton {
+final class SnapTimeCustomButton: UIButton {
     private let customTitle: String
     var tabButtonAction : (() -> ())?
     
