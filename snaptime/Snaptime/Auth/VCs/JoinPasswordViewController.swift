@@ -8,22 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinPasswordNavigation : AnyObject {
+protocol JoinPasswordViewControllerDelegate : AnyObject {
     func backToPrevious()
     func presentName()
 }
 
 class JoinPasswordViewController : BaseViewController {
-    weak var coordinator : JoinPasswordNavigation?
-    
-    init(coordinator: JoinPasswordNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var delegate : JoinPasswordViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +55,7 @@ class JoinPasswordViewController : BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
-            self?.coordinator?.presentName()
+            self?.delegate?.presentName()
         }
     }
     

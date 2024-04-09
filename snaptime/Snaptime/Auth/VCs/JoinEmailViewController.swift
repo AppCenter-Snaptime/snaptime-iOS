@@ -8,22 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinEmailNavigation : AnyObject {
+protocol JoinEmailViewControllerDelegate : AnyObject {
     func backToPrevious()
     func presentJoinPassword()
 }
 
 final class JoinEmailViewController : BaseViewController {
-    weak var coordinator : JoinEmailNavigation?
-    
-    init(coordinator: JoinEmailNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var delegate : JoinEmailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +37,7 @@ final class JoinEmailViewController : BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
-            self?.coordinator?.presentJoinPassword()
+            self?.delegate?.presentJoinPassword()
         }
     }
     

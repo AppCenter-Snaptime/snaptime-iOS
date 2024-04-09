@@ -25,10 +25,10 @@ final class AuthCoordinator : Coordinator {
 
 // MARK: - coodinator와 연결된 VC의 navigation
 extension AuthCoordinator : LoginViewControllerDelegate,
-                            JoinEmailNavigation,
-                            JoinIdNavigation,
-                            JoinPasswordNavigation,
-                            JoinNameNavigation {
+                            JoinEmailViewControllerDelegate,
+                            JoinIdViewControllerDelegate,
+                            JoinPasswordViewControllerDelegate,
+                            JoinNameViewControllerDelegate {
     
     // tabBarCoordinator 시작 지점
     func presentHome() {
@@ -47,25 +47,29 @@ extension AuthCoordinator : LoginViewControllerDelegate,
     
     // join 이메일
     func presentJoinEmail() {
-        let joinEmailVC = JoinEmailViewController(coordinator: self)
+        let joinEmailVC = JoinEmailViewController()
+        joinEmailVC.delegate = self
         navigationController.pushViewController(joinEmailVC, animated: true)
     }
     
     // join 비밀번호
     func presentJoinPassword() {
-        let joinPasswordVC = JoinPasswordViewController(coordinator: self)
+        let joinPasswordVC = JoinPasswordViewController()
+        joinPasswordVC.delegate = self
         navigationController.pushViewController(joinPasswordVC, animated: true)
     }
     
     // join 이름
     func presentName() {
-        let joinNameVC = JoinNameViewController(coordinator: self)
+        let joinNameVC = JoinNameViewController()
+        joinNameVC.delegate = self
         navigationController.pushViewController(joinNameVC, animated: true)
     }
     
     // join 아이디
     func presentID() {
-        let joinIdVC = JoinIdViewController(coordinator: self)
+        let joinIdVC = JoinIdViewController()
+        joinIdVC.delegate = self
         navigationController.pushViewController(joinIdVC, animated: true)
     }
     

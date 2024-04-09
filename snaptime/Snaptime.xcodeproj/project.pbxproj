@@ -30,6 +30,7 @@
 		2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */; };
 		2958C8C92B91A99D00902027 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */; };
 		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
+		295DF0502BC500C400112DE7 /* SnapTimeCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */; };
 		296167AA2BBBC7A7003CA89C /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */; };
 		296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */; };
 		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
@@ -44,7 +45,6 @@
 		298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F682B6BA5CE00A8DBC5 /* SettingProfileViewController.swift */; };
 		298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F6A2B6BA5DB00A8DBC5 /* EditProfileViewController.swift */; };
 		298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F742B6BA79C00A8DBC5 /* AuthTextField.swift */; };
-		298F7F772B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */; };
 		298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F782B6BA7E600A8DBC5 /* LoginViewController.swift */; };
 		298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7A2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift */; };
 		298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */; };
@@ -564,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295DF0502BC500C400112DE7 /* SnapTimeCustomButton.swift in Sources */,
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,
@@ -574,8 +575,6 @@
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
-				298F7F772B6BA7BD00A8DBC5 /* AuthButton.swift in Sources */,
-				298F7F772B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift in Sources */,
 				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,

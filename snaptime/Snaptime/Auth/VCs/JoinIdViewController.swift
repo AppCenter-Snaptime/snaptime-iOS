@@ -8,26 +8,17 @@
 import UIKit
 import SnapKit
 
-protocol JoinIdNavigation : AnyObject {
+protocol JoinIdViewControllerDelegate : AnyObject {
     func backToPrevious()
     func backToRoot()
 }
 
 final class JoinIdViewController : BaseViewController {
-    weak var coordinator : JoinIdNavigation?
+    weak var delegate : JoinIdViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
-    }
-    
-    init(coordinator: JoinIdNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI component Config
@@ -54,7 +45,7 @@ final class JoinIdViewController : BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
-            self?.coordinator?.backToRoot()
+            self?.delegate?.backToRoot()
         }
     }
 
