@@ -19,6 +19,7 @@ final class JoinIdViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
+        textFieldEditing()
     }
     
     // MARK: - UI component Config
@@ -41,13 +42,18 @@ final class JoinIdViewController: BaseViewController {
         return label
     }()
     
-    private lazy var nextButton = SnapTimeCustomButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음", false)
     
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
             self?.delegate?.backToRoot()
         }
+    }
+    
+    private func textFieldEditing() {
+        idInputTextField.delegate = self
+        idInputTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
 
     // MARK: - setup UI
@@ -86,3 +92,23 @@ final class JoinIdViewController: BaseViewController {
     }
 }
 
+extension JoinIdViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+         
+        guard
+            let id = idInputTextField.text, !id.isEmpty
+        else {
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            return
+        }
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
+    }
+}

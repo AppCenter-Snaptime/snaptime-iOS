@@ -19,6 +19,7 @@ final class JoinNameViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
+        textFieldEditing()
     }
     
     // MARK: - UI component Config
@@ -43,12 +44,19 @@ final class JoinNameViewController: BaseViewController {
         return label
     }()
 
-    private lazy var nextButton = SnapTimeCustomButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음", false)
     
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
             self?.delegate?.presentJoinID()
+        }
+    }
+    
+    private func textFieldEditing() {
+        [nameInputTextField, birthDateInputTextField].forEach {
+            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         }
     }
 
@@ -92,5 +100,27 @@ final class JoinNameViewController: BaseViewController {
             $0.right.equalTo(birthDateInputTextField.snp.right)
             $0.height.equalTo(50)
         }
+    }
+}
+
+extension JoinNameViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        
+        guard
+            let name = nameInputTextField.text, !name.isEmpty,
+            let birthDate = birthDateInputTextField.text, !birthDate.isEmpty
+        else {
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            return
+        }
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
     }
 }

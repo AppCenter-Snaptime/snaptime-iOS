@@ -19,6 +19,7 @@ final class JoinPasswordViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
+        textFieldEditing()
     }
     
     // MARK: - UI component Config
@@ -73,7 +74,7 @@ final class JoinPasswordViewController: BaseViewController {
         return label
     }()
     
-    private lazy var nextButton = SnapTimeCustomButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음", false)
     
     // MARK: - button click method
     private func tabNextButton() {
@@ -85,6 +86,13 @@ final class JoinPasswordViewController: BaseViewController {
     /// Switch password secure mode
     private func tapPassWordSecureModeSetting(textField: AuthTextField) {
         textField.isSecureTextEntry.toggle()
+    }
+    
+    private func textFieldEditing() {
+        [passwordInputTextField, passwordCheckInputTextField].forEach {
+            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        }
     }
     
     // MARK: - setup UI
@@ -147,5 +155,28 @@ final class JoinPasswordViewController: BaseViewController {
             $0.right.equalTo(passwordCheckInputTextField.snp.right)
             $0.height.equalTo(50)
         }
+    }
+}
+
+extension JoinPasswordViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        
+        guard
+            let password = passwordInputTextField.text, !password.isEmpty,
+            let passwordCheck = passwordCheckInputTextField.text, !passwordCheck.isEmpty
+        else {
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            return
+        }
+        
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
     }
 }

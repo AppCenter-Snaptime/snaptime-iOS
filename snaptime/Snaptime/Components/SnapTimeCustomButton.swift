@@ -10,10 +10,12 @@ import SnapKit
 
 final class SnapTimeCustomButton: UIButton {
     private let customTitle: String
+    private let buttonEnabled: Bool
     var tabButtonAction : (() -> ())?
     
-    init(_ title: String) {
+    init(_ title: String, _ enabled: Bool = true) {
         self.customTitle = title
+        self.buttonEnabled = enabled
         super.init(frame: .zero)
         self.setupStyles()
         self.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
@@ -32,8 +34,14 @@ final class SnapTimeCustomButton: UIButton {
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
         self.layer.cornerRadius = 10
-        self.backgroundColor = .snaptimeBlue
-        self.isEnabled = false
+        self.isEnabled = buttonEnabled
+        
+        switch buttonEnabled {
+        case true:
+            self.backgroundColor = .snaptimeBlue
+        case false:
+            self.backgroundColor = .snaptimeGray
+        }
     }
 }
 

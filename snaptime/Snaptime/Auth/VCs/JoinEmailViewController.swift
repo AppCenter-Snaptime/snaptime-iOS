@@ -19,6 +19,7 @@ final class JoinEmailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
+        textFieldEditing()
     }
     
     // MARK: - UI component Config
@@ -33,13 +34,18 @@ final class JoinEmailViewController: BaseViewController {
     
     private var emailInputTextField = AuthTextField("abc@example.com")
 
-    private lazy var nextButton = SnapTimeCustomButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음", false)
     
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
             self?.delegate?.presentJoinPassword()
         }
+    }
+    
+    private func textFieldEditing() {
+        emailInputTextField.delegate = self
+        emailInputTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
     
     // MARK: - setup UI
@@ -69,5 +75,25 @@ final class JoinEmailViewController: BaseViewController {
             $0.right.equalTo(emailInputTextField.snp.right)
             $0.height.equalTo(50)
         }
+    }
+}
+
+extension JoinEmailViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if self.emailInputTextField.text?.count == 1 {
+            if self.emailInputTextField.text?.first == " " {
+                self.emailInputTextField.text = ""
+                return
+            }
+        }
+        guard
+            let email = self.emailInputTextField.text, !email.isEmpty
+        else {
+            self.nextButton.backgroundColor = .snaptimeGray
+            self.nextButton.isEnabled = false
+            return
+        }
+        self.nextButton.backgroundColor = .snaptimeBlue
+        self.nextButton.isEnabled = true
     }
 }
