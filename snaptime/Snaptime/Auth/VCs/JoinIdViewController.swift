@@ -27,7 +27,7 @@ final class JoinIdViewController: BaseViewController {
         let label = UILabel()
         label.text = "사용하실 아이디를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.textAlignment = .left
+        label.textAlignment = .center
         
         return label
     }()
@@ -37,7 +37,6 @@ final class JoinIdViewController: BaseViewController {
         let label = UILabel()
         label.text = "소문자 영어와 숫자로 구성해주세요"
         label.font = .systemFont(ofSize: 10)
-        label.textColor = .blue
         
         return label
     }()

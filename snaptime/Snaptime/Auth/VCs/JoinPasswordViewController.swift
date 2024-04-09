@@ -48,7 +48,7 @@ final class JoinPasswordViewController: BaseViewController {
         let label = UILabel()
         label.text = "8~10자의 영문, 숫자를 조합해주세요"
         label.font = .systemFont(ofSize: 10)
-        label.textColor = .blue
+        label.textColor = .init(hexCode: "3B6DFF")
         
         return label
     }()
@@ -67,7 +67,6 @@ final class JoinPasswordViewController: BaseViewController {
     
     private let passwordCheckConditionalLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호가 일치하지 않습니다"
         label.font = .systemFont(ofSize: 10)
         label.textColor = .red
         
@@ -176,7 +175,14 @@ extension JoinPasswordViewController: UITextFieldDelegate {
             return
         }
         
-        nextButton.backgroundColor = .snaptimeBlue
-        nextButton.isEnabled = true
+        if password != passwordCheck {
+            passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."
+        }
+        
+        else {
+            passwordCheckConditionalLabel.text = ""
+            nextButton.backgroundColor = .snaptimeBlue
+            nextButton.isEnabled = true
+        }
     }
 }

@@ -37,7 +37,6 @@ final class JoinNameViewController: BaseViewController {
     private var birthDateInputTextField = AuthTextField("생년월일 입력")
     private let birthDateConditionalLabel: UILabel = {
         let label = UILabel()
-        label.text = "생년월일 양식이 잘못되었습니다"
         label.font = .systemFont(ofSize: 10)
         label.textColor = .red
         
@@ -120,7 +119,15 @@ extension JoinNameViewController: UITextFieldDelegate {
             nextButton.isEnabled = false
             return
         }
-        nextButton.backgroundColor = .snaptimeBlue
-        nextButton.isEnabled = true
+        
+        /// 날짜 형식에 맞지 않을때
+        if birthDate == "123" {
+            birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
+        }
+        else {
+            birthDateConditionalLabel.text = ""
+            nextButton.backgroundColor = .snaptimeBlue
+            nextButton.isEnabled = true
+        }
     }
 }
