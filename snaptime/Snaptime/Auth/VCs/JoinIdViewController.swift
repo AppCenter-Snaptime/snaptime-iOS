@@ -26,6 +26,7 @@ final class JoinIdViewController: BaseViewController {
         let label = UILabel()
         label.text = "사용하실 아이디를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textAlignment = .left
         
         return label
     }()
@@ -61,13 +62,14 @@ final class JoinIdViewController: BaseViewController {
     
     override func setupConstraints() {
         idLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(130)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
             $0.centerX.equalToSuperview()
         }
         
         idInputTextField.snp.makeConstraints {
-            $0.top.equalTo(idLabel.snp.bottom).offset(90)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(idLabel.snp.bottom).offset(106)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(48)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-48)
         }
         
         idConditionalLabel.snp.makeConstraints {
@@ -76,9 +78,9 @@ final class JoinIdViewController: BaseViewController {
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(idInputTextField.snp.bottom).offset(70)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.top.equalTo(idConditionalLabel.snp.bottom).offset(58)
+            $0.left.equalTo(idInputTextField.snp.left)
+            $0.right.equalTo(idInputTextField.snp.right)
             $0.height.equalTo(50)
         }
     }

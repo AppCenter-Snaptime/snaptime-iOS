@@ -25,8 +25,11 @@ final class LoginViewController: BaseViewController {
     // MARK: - UI component Config
     private let loginLabel: UILabel = {
         let label = UILabel()
-        label.text = "나만을 위한 인생 네컷 앨범📸"
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.text = "나만을 위한\n인생 네컷 커뮤니티,\nSnapTime"
+        label.setLineSpacing(lineSpacing: 20)
+        label.textAlignment = .left
+        label.numberOfLines = 3
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         
         return label
     }()
@@ -36,7 +39,7 @@ final class LoginViewController: BaseViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 20
+        stackView.spacing = 35
         
         return stackView
     }()
@@ -92,23 +95,24 @@ final class LoginViewController: BaseViewController {
         
         loginLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(45)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
         inputStackView.snp.makeConstraints {
-            $0.top.equalTo(loginLabel.snp.bottom).offset(100)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(loginLabel.snp.bottom).offset(63)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }
                 
         loginButton.snp.makeConstraints {
             $0.top.equalTo(inputStackView.snp.bottom).offset(64)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.left.equalTo(inputStackView.snp.left)
+            $0.right.equalTo(inputStackView.snp.right)
             $0.height.equalTo(50)
         }
         
         joinButton.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(30)
+            $0.top.equalTo(loginButton.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
         }
     }

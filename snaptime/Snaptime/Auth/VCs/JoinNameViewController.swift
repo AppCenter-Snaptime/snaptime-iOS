@@ -10,7 +10,7 @@ import SnapKit
 
 protocol JoinNameViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentID()
+    func presentJoinID()
 }
 
 final class JoinNameViewController: BaseViewController {
@@ -25,6 +25,7 @@ final class JoinNameViewController: BaseViewController {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름과 생년월일을 입력해주세요"
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         
         return label
@@ -47,7 +48,7 @@ final class JoinNameViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
-            self?.delegate?.presentID()
+            self?.delegate?.presentJoinID()
         }
     }
 
@@ -64,18 +65,20 @@ final class JoinNameViewController: BaseViewController {
     
     override func setupConstraints() {
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(130)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
             $0.centerX.equalToSuperview()
         }
         
         nameInputTextField.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(110)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(48)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-48)
         }
                 
         birthDateInputTextField.snp.makeConstraints {
             $0.top.equalTo(nameInputTextField.snp.bottom).offset(25)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(nameInputTextField.snp.left)
+            $0.right.equalTo(nameInputTextField.snp.right)
         }
         
         birthDateConditionalLabel.snp.makeConstraints {
@@ -84,11 +87,10 @@ final class JoinNameViewController: BaseViewController {
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(birthDateInputTextField.snp.bottom).offset(70)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.top.equalTo(birthDateConditionalLabel.snp.bottom).offset(44)
+            $0.left.equalTo(birthDateInputTextField.snp.left)
+            $0.right.equalTo(birthDateInputTextField.snp.right)
             $0.height.equalTo(50)
         }
     }
-
 }

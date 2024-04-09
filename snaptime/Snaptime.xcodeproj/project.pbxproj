@@ -31,6 +31,7 @@
 		2958C8C92B91A99D00902027 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */; };
 		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
 		295DF0502BC500C400112DE7 /* SnapTimeCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */; };
+		295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DF0512BC505A100112DE7 /* UILabel+.swift */; };
 		296167AA2BBBC7A7003CA89C /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */; };
 		296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */; };
 		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
@@ -103,6 +104,7 @@
 		2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		2958C8C82B91A99D00902027 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
+		295DF0512BC505A100112DE7 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		296167A92BBBC7A7003CA89C /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 		296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSnapViewController.swift; sourceTree = "<group>"; };
 		296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapTagListViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */,
 				A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */,
 				A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */,
+				295DF0512BC505A100112DE7 /* UILabel+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				296167AA2BBBC7A7003CA89C /* AlbumDetailViewController.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
+				295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* AlbumSnapViewController.swift in Sources */,
 				A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,

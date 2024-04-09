@@ -38,14 +38,14 @@ final class AuthTextField: UITextField {
     private func setupConstraints() {
         self.snp.makeConstraints {
             $0.height.equalTo(40)
-            $0.width.equalTo(300)
+//            $0.width.equalTo(300)
         }
         
         addSubview(underLine)
         
         underLine.snp.makeConstraints {
             $0.top.equalTo(self.snp.bottom)
-            $0.left.trailing.equalToSuperview()
+            $0.left.right.equalToSuperview()
             $0.height.equalTo(1)
         }
     }

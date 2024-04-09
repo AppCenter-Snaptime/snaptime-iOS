@@ -30,7 +30,7 @@ final class SnapTimeCustomButton: UIButton {
     private func setupStyles() {
         self.setTitle(customTitle, for: .normal)
         self.setTitleColor(.white, for: .normal)
-        self.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        self.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
         self.layer.cornerRadius = 10
         self.backgroundColor = .snaptimeBlue
     }

@@ -25,6 +25,7 @@ final class JoinEmailViewController: BaseViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "사용하실 이메일 주소를 입력해주세요"
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         
         return label
@@ -43,26 +44,29 @@ final class JoinEmailViewController: BaseViewController {
     
     // MARK: - setup UI
     override func setupLayouts() {
-        [emailLabel,emailInputTextField,nextButton].forEach {
+        [emailLabel,
+         emailInputTextField,
+         nextButton].forEach {
             view.addSubview($0)
         }
     }
     
     override func setupConstraints() {
         emailLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(130)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
             $0.centerX.equalToSuperview()
         }
         
         emailInputTextField.snp.makeConstraints {
             $0.top.equalTo(emailLabel.snp.bottom).offset(110)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(48)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-48)
         }
         
         nextButton.snp.makeConstraints {
             $0.top.equalTo(emailInputTextField.snp.bottom).offset(70)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.left.equalTo(emailInputTextField.snp.left)
+            $0.right.equalTo(emailInputTextField.snp.right)
             $0.height.equalTo(50)
         }
     }

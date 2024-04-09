@@ -15,7 +15,7 @@ final class AuthCoordinator: Coordinator {
 
     // AuthCoordinator 가 시작될 때 호출되는 메서드
     func start() {
-        presentLogin()
+        presentLogin() 
     }
     
     init(navigationController: UINavigationController) {
@@ -60,14 +60,14 @@ extension AuthCoordinator: LoginViewControllerDelegate,
     }
     
     // join 이름
-    func presentName() {
+    func presentJoinName() {
         let joinNameVC = JoinNameViewController()
         joinNameVC.delegate = self
         navigationController.pushViewController(joinNameVC, animated: true)
     }
     
     // join 아이디
-    func presentID() {
+    func presentJoinID() {
         let joinIdVC = JoinIdViewController()
         joinIdVC.delegate = self
         navigationController.pushViewController(joinIdVC, animated: true)
