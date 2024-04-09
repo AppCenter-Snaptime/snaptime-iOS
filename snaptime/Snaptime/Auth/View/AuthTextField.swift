@@ -50,6 +50,10 @@ final class AuthTextField: UITextField {
         underLine.backgroundColor = .snaptimeGray
     }
     
+    func setLineColorPasswordFalse() {
+        underLine.backgroundColor = .red
+    }
+    
     private func setupConstraints() {
         self.snp.makeConstraints {
             $0.height.equalTo(40)

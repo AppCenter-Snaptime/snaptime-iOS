@@ -53,6 +53,8 @@ final class JoinNameViewController: BaseViewController {
     }
     
     private func textFieldEditing() {
+        birthDateInputTextField.keyboardType = UIKeyboardType.numberPad
+
         [nameInputTextField, birthDateInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)

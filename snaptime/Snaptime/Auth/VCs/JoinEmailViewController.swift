@@ -44,6 +44,7 @@ final class JoinEmailViewController: BaseViewController {
     }
     
     private func textFieldEditing() {
+        emailInputTextField.keyboardType = UIKeyboardType.emailAddress
         emailInputTextField.delegate = self
         emailInputTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }

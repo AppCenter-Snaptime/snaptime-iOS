@@ -132,7 +132,7 @@ final class JoinPasswordViewController: BaseViewController {
         }
         
         passwordCheckInputTextField.snp.makeConstraints {
-            $0.top.equalTo(passwordInputTextField.snp.bottom).offset(40)
+            $0.top.equalTo(passwordInputTextField.snp.bottom).offset(49)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(48)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-48)
         }
@@ -175,7 +175,7 @@ extension JoinPasswordViewController: UITextFieldDelegate {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
             passwordInputTextField.setLineColorFalse()
-            passwordCheckInputTextField.setLineColorFalse()
+            passwordCheckInputTextField.setLineColorPasswordFalse()
             return
         }
         passwordCheckConditionalLabel.text = ""
