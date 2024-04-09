@@ -105,9 +105,11 @@ extension JoinIdViewController: UITextFieldDelegate {
         else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
+            idInputTextField.setLineColorFalse()
             return
         }
         nextButton.backgroundColor = .snaptimeBlue
         nextButton.isEnabled = true
+        idInputTextField.setLineColorTrue()
     }
 }

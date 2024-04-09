@@ -168,21 +168,20 @@ extension JoinPasswordViewController: UITextFieldDelegate {
         
         guard
             let password = passwordInputTextField.text, !password.isEmpty,
-            let passwordCheck = passwordCheckInputTextField.text, !passwordCheck.isEmpty
+            let passwordCheck = passwordCheckInputTextField.text, !passwordCheck.isEmpty,
+            password == passwordCheck
         else {
+            passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
+            passwordInputTextField.setLineColorFalse()
+            passwordCheckInputTextField.setLineColorFalse()
             return
         }
-        
-        if password != passwordCheck {
-            passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."
-        }
-        
-        else {
-            passwordCheckConditionalLabel.text = ""
-            nextButton.backgroundColor = .snaptimeBlue
-            nextButton.isEnabled = true
-        }
+        passwordCheckConditionalLabel.text = ""
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
+        passwordInputTextField.setLineColorTrue()
+        passwordCheckInputTextField.setLineColorTrue()
     }
 }

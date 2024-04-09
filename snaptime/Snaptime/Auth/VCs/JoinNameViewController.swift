@@ -113,21 +113,30 @@ extension JoinNameViewController: UITextFieldDelegate {
         
         guard
             let name = nameInputTextField.text, !name.isEmpty,
-            let birthDate = birthDateInputTextField.text, !birthDate.isEmpty
+            let birthDate = birthDateInputTextField.text, !birthDate.isEmpty,
+            birthDate != "123"
         else {
+            birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
+            nameInputTextField.setLineColorFalse()
+            birthDateInputTextField.setLineColorFalse()
             return
         }
         
         /// 날짜 형식에 맞지 않을때
-        if birthDate == "123" {
-            birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
-        }
-        else {
+//        if birthDate == "123" {
+//            nextButton.backgroundColor = .snaptimeGray
+//            nextButton.isEnabled = false
+//            nameInputTextField.setLineColorFalse()
+//            birthDateInputTextField.setLineColorFalse()
+//        }
+//        else {
             birthDateConditionalLabel.text = ""
             nextButton.backgroundColor = .snaptimeBlue
             nextButton.isEnabled = true
-        }
+            nameInputTextField.setLineColorTrue()
+            birthDateInputTextField.setLineColorTrue()
+//        }
     }
 }

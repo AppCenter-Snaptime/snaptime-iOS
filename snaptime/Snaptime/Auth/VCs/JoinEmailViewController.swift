@@ -81,19 +81,21 @@ final class JoinEmailViewController: BaseViewController {
 extension JoinEmailViewController: UITextFieldDelegate {
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         if self.emailInputTextField.text?.count == 1 {
-            if self.emailInputTextField.text?.first == " " {
-                self.emailInputTextField.text = ""
+            if emailInputTextField.text?.first == " " {
+                emailInputTextField.text = ""
                 return
             }
         }
         guard
             let email = self.emailInputTextField.text, !email.isEmpty
         else {
-            self.nextButton.backgroundColor = .snaptimeGray
-            self.nextButton.isEnabled = false
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            emailInputTextField.setLineColorFalse()
             return
         }
-        self.nextButton.backgroundColor = .snaptimeBlue
-        self.nextButton.isEnabled = true
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
+        emailInputTextField.setLineColorTrue()
     }
 }

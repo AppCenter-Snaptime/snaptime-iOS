@@ -11,6 +11,8 @@ import SnapKit
 final class AuthTextField: UITextField {
     private let customPlaceholder: String
     private let secureToggle: Bool
+    
+//    var lineColorToggle: Bool?
 
     init(_ placeholder: String, secureToggle: Bool = false) {
         self.customPlaceholder = placeholder
@@ -38,6 +40,14 @@ final class AuthTextField: UITextField {
         if secureToggle == true {
             self.isSecureTextEntry = true
         }
+    }
+    
+    func setLineColorTrue() {
+        underLine.backgroundColor = .init(hexCode: "3B6DFF")
+    }
+    
+    func setLineColorFalse() {
+        underLine.backgroundColor = .snaptimeGray
     }
     
     private func setupConstraints() {
