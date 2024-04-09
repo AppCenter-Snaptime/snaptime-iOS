@@ -33,6 +33,7 @@ final class SnapTimeCustomButton: UIButton {
         self.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
         self.layer.cornerRadius = 10
         self.backgroundColor = .snaptimeBlue
+        self.isEnabled = false
     }
 }
 

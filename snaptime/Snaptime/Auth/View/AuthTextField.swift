@@ -10,13 +10,14 @@ import SnapKit
 
 final class AuthTextField: UITextField {
     private let customPlaceholder: String
-    
-    init(_ placeholder: String) {
+    private let secureToggle: Bool
+
+    init(_ placeholder: String, secureToggle: Bool = false) {
         self.customPlaceholder = placeholder
+        self.secureToggle = secureToggle
         super.init(frame: .zero)
         self.setupStyles()
         self.setupConstraints()
-//        self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidEnd)
     }
     
     required init?(coder: NSCoder) {
@@ -33,12 +34,15 @@ final class AuthTextField: UITextField {
     private func setupStyles() {
         self.borderStyle = .none
         self.placeholder = customPlaceholder
+        
+        if secureToggle == true {
+            self.isSecureTextEntry = true
+        }
     }
     
     private func setupConstraints() {
         self.snp.makeConstraints {
             $0.height.equalTo(40)
-//            $0.width.equalTo(300)
         }
         
         addSubview(underLine)
@@ -48,11 +52,5 @@ final class AuthTextField: UITextField {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(1)
         }
-    }
-}
-
-extension AuthTextField {
-    @objc func editingDidBegin() {
-        underLine.backgroundColor = .snaptimeBlue
     }
 }
