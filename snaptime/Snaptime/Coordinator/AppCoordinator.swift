@@ -41,8 +41,7 @@ final class AppCoordinator : Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-//        startAuthCoordinator()
-        startTabbarCoordinator() // 대현
+        startAuthCoordinator()
     }
     
     init(navigationController: UINavigationController) {

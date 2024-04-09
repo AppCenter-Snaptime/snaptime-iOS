@@ -24,7 +24,7 @@ final class AuthCoordinator : Coordinator {
 }
 
 // MARK: - coodinator와 연결된 VC의 navigation
-extension AuthCoordinator : LoginNavigation,
+extension AuthCoordinator : LoginViewControllerDelegate,
                             JoinEmailNavigation,
                             JoinIdNavigation,
                             JoinPasswordNavigation,
@@ -40,7 +40,8 @@ extension AuthCoordinator : LoginNavigation,
     // 나타날 화면 구성
     // login 화면
     func presentLogin() {
-        let loginVC = LoginViewController(coordinator: self)
+        let loginVC = LoginViewController()
+        loginVC.delegate = self
         navigationController.pushViewController(loginVC, animated: true)
     }
     
