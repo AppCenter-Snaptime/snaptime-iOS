@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecommendCoordinator : Coordinator {
+final class RecommendCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     

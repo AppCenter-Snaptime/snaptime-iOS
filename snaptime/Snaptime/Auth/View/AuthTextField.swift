@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AuthTextField : UITextField {
+final class AuthTextField: UITextField {
     private let customPlaceholder: String
     
     init(_ placeholder: String) {

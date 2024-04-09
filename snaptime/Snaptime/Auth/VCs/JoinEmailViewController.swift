@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinEmailViewControllerDelegate : AnyObject {
+protocol JoinEmailViewControllerDelegate: AnyObject {
     func backToPrevious()
     func presentJoinPassword()
 }
 
-final class JoinEmailViewController : BaseViewController {
-    weak var delegate : JoinEmailViewControllerDelegate?
+final class JoinEmailViewController: BaseViewController {
+    weak var delegate: JoinEmailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ final class JoinEmailViewController : BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let emailLabel : UILabel = {
+    private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "사용하실 이메일 주소를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)

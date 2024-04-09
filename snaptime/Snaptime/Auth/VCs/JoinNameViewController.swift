@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinNameViewControllerDelegate : AnyObject {
+protocol JoinNameViewControllerDelegate: AnyObject {
     func backToPrevious()
     func presentID()
 }
 
-final class JoinNameViewController : BaseViewController {
-    weak var delegate : JoinNameViewControllerDelegate?
+final class JoinNameViewController: BaseViewController {
+    weak var delegate: JoinNameViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ final class JoinNameViewController : BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let nameLabel : UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름과 생년월일을 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -33,7 +33,7 @@ final class JoinNameViewController : BaseViewController {
     private var nameInputTextField = AuthTextField("이름")
 
     private var birthDateInputTextField = AuthTextField("생년월일 입력")
-    private let birthDateConditionalLabel : UILabel = {
+    private let birthDateConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "생년월일 양식이 잘못되었습니다"
         label.font = .systemFont(ofSize: 10)

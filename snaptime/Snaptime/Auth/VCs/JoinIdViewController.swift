@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinIdViewControllerDelegate : AnyObject {
+protocol JoinIdViewControllerDelegate: AnyObject {
     func backToPrevious()
     func backToRoot()
 }
 
-final class JoinIdViewController : BaseViewController {
-    weak var delegate : JoinIdViewControllerDelegate?
+final class JoinIdViewController: BaseViewController {
+    weak var delegate: JoinIdViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ final class JoinIdViewController : BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let idLabel : UILabel = {
+    private let idLabel: UILabel = {
         let label = UILabel()
         label.text = "사용하실 아이디를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -31,7 +31,7 @@ final class JoinIdViewController : BaseViewController {
     }()
     
     private var idInputTextField = AuthTextField("@snaptime123")
-    private let idConditionalLabel : UILabel = {
+    private let idConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "소문자 영어와 숫자로 구성해주세요"
         label.font = .systemFont(ofSize: 10)

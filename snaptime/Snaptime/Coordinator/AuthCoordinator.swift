@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AuthCoordinator : Coordinator {
+final class AuthCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -24,7 +24,7 @@ final class AuthCoordinator : Coordinator {
 }
 
 // MARK: - coodinator와 연결된 VC의 navigation
-extension AuthCoordinator : LoginViewControllerDelegate,
+extension AuthCoordinator: LoginViewControllerDelegate,
                             JoinEmailViewControllerDelegate,
                             JoinIdViewControllerDelegate,
                             JoinPasswordViewControllerDelegate,

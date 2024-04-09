@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeCoordinator : Coordinator {
+final class HomeCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     var presentedViewController: UIViewController? = nil
@@ -24,7 +24,7 @@ final class HomeCoordinator : Coordinator {
     }
 }
 
-extension HomeCoordinator : MainAlbumViewControllerDelegate,
+extension HomeCoordinator: MainAlbumViewControllerDelegate,
                             AlbumSnapViewControllerDelegate,
                             QRReaderViewControllerDelegate,
                             AlbumDetailViewControllerDelegate,

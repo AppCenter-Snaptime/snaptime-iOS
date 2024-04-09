@@ -8,14 +8,14 @@
 import UIKit
 import SnapKit
 
-protocol LoginViewControllerDelegate : AnyObject {
+protocol LoginViewControllerDelegate: AnyObject {
     func presentLogin()
     func presentHome()
     func presentJoinEmail()
 }
 
-final class LoginViewController : BaseViewController {
-    weak var delegate : LoginViewControllerDelegate?
+final class LoginViewController: BaseViewController {
+    weak var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ final class LoginViewController : BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let loginLabel : UILabel = {
+    private let loginLabel: UILabel = {
         let label = UILabel()
         label.text = "나만을 위한 인생 네컷 앨범📸"
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -31,7 +31,7 @@ final class LoginViewController : BaseViewController {
         return label
     }()
     
-    private let inputStackView : UIStackView = {
+    private let inputStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -46,7 +46,7 @@ final class LoginViewController : BaseViewController {
     
     private lazy var loginButton = SnapTimeCustomButton("로그인")
     
-    private lazy var joinButton : UIButton = {
+    private lazy var joinButton: UIButton = {
         let button = UIButton()
         button.setTitle("이메일로 회원가입", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)

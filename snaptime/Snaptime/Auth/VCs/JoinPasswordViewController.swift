@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol JoinPasswordViewControllerDelegate : AnyObject {
+protocol JoinPasswordViewControllerDelegate: AnyObject {
     func backToPrevious()
     func presentName()
 }
 
-class JoinPasswordViewController : BaseViewController {
-    weak var delegate : JoinPasswordViewControllerDelegate?
+final class JoinPasswordViewController: BaseViewController {
+    weak var delegate: JoinPasswordViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class JoinPasswordViewController : BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let passwordLabel : UILabel = {
+    private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "사용하실 비밀번호를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -31,7 +31,7 @@ class JoinPasswordViewController : BaseViewController {
     }()
     
     private var passwordInputTextField = AuthTextField("비밀번호")
-    private let passwordConditionalLabel : UILabel = {
+    private let passwordConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "8~10자의 영문, 숫자를 조합해주세요"
         label.font = .systemFont(ofSize: 10)
@@ -41,7 +41,7 @@ class JoinPasswordViewController : BaseViewController {
     }()
     
     private var passwordCheckInputTextField = AuthTextField("비밀번호 재입력")
-    private let passwordCheckConditionalLabel : UILabel = {
+    private let passwordCheckConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호가 일치하지 않습니다"
         label.font = .systemFont(ofSize: 10)
