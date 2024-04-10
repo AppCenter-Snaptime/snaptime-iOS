@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol AlbumSnapCollectionViewCellDelegate: AnyObject {
+    func didTapCommentButton()
+}
+
 final class AlbumSnapCollectionViewCell: UICollectionViewCell {
+    weak var delegate: AlbumSnapCollectionViewCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayouts()
@@ -55,7 +61,9 @@ final class AlbumSnapCollectionViewCell: UICollectionViewCell {
         button.setTitle("댓글보기", for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
-        
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.didTapCommentButton()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -75,7 +83,7 @@ final class AlbumSnapCollectionViewCell: UICollectionViewCell {
          tagPeople,
          oneLineDiary,
          commentButton].forEach {
-            addSubview($0)
+            self.contentView.addSubview($0)
         }
     }
     
@@ -110,6 +118,7 @@ final class AlbumSnapCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(oneLineDiary.snp.bottom).offset(10)
             $0.left.equalTo(oneLineDiary.snp.left)
             $0.height.equalTo(16)
+            $0.bottom.equalToSuperview().offset(-20)
         }
     }
 }

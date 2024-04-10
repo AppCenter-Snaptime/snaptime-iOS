@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol AlbumSnapViewControllerDelegate : AnyObject {
-    
+    func presentCommentView()
 }
 
 final class AlbumSnapViewController : BaseViewController {
@@ -58,6 +58,7 @@ extension AlbumSnapViewController : UICollectionViewDataSource, UICollectionView
             return UICollectionViewCell()
         }
 
+        cell.delegate = self
         cell.configureData(date: "2024.01.24",
                            imageURL: "SnapExample",
                            nickname: "with@Lorem",
@@ -83,3 +84,8 @@ extension AlbumSnapViewController : UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension AlbumSnapViewController: AlbumSnapCollectionViewCellDelegate {
+    func didTapCommentButton() {
+        delegate?.presentCommentView()
+    }
+}

@@ -118,7 +118,6 @@ final class CommentViewController: BaseViewController {
             if kind == "header" {
                 return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             } else {
-                print(kind)
                 return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
             }
         }
