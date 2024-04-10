@@ -41,6 +41,7 @@ final class CommentViewController: BaseViewController {
                         widthDimension: .fractionalWidth(1.0),
                         heightDimension: .estimated(1)),
                     subitems: [item])
+                containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
                 // 그룹을 section에 추가
                 let section = NSCollectionLayoutSection(group: containerGroup)
@@ -49,7 +50,7 @@ final class CommentViewController: BaseViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(40)
+                        heightDimension: .estimated(10)
                     ),
                     elementKind: "header",
                     alignment: .top
@@ -59,10 +60,11 @@ final class CommentViewController: BaseViewController {
                 let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(10)
+                        heightDimension: .estimated(40)
                     ),
                     elementKind: "footer",
                     alignment: .bottom)
+                sectionFooter.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
                 // section에 header와 footer 추가
                 section.boundarySupplementaryItems = [sectionHeader, sectionFooter]
@@ -116,6 +118,7 @@ final class CommentViewController: BaseViewController {
             if kind == "header" {
                 return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             } else {
+                print(kind)
                 return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
             }
         }

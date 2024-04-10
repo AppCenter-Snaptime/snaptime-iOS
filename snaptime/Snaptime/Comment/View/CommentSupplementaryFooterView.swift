@@ -11,12 +11,16 @@ import UIKit
 final class CommentSupplementaryFooterView: UICollectionReusableView {
     private lazy var replyShowingLabel: UILabel = {
         let label = UILabel()
-        label.text = "답글 3개 더 보기"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = UIColor(hexCode: "747474")
+        label.text = "----- 답글 가리기"
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setLayout()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -24,9 +28,6 @@ final class CommentSupplementaryFooterView: UICollectionReusableView {
     }
     
     private func setLayout() {
-        // TODO: test
-        self.backgroundColor = .blue
-        
         self.addSubview(replyShowingLabel)
     }
     
