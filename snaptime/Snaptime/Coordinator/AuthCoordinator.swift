@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AuthCoordinator : Coordinator {
+final class AuthCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -15,7 +15,7 @@ final class AuthCoordinator : Coordinator {
 
     // AuthCoordinator 가 시작될 때 호출되는 메서드
     func start() {
-        presentLogin()
+        presentLogin() 
     }
     
     init(navigationController: UINavigationController) {
@@ -24,11 +24,11 @@ final class AuthCoordinator : Coordinator {
 }
 
 // MARK: - coodinator와 연결된 VC의 navigation
-extension AuthCoordinator : LoginNavigation,
-                            JoinEmailNavigation,
-                            JoinIdNavigation,
-                            JoinPasswordNavigation,
-                            JoinNameNavigation {
+extension AuthCoordinator: LoginViewControllerDelegate,
+                            JoinEmailViewControllerDelegate,
+                            JoinIdViewControllerDelegate,
+                            JoinPasswordViewControllerDelegate,
+                            JoinNameViewControllerDelegate {
     
     // tabBarCoordinator 시작 지점
     func presentHome() {
@@ -40,31 +40,36 @@ extension AuthCoordinator : LoginNavigation,
     // 나타날 화면 구성
     // login 화면
     func presentLogin() {
-        let loginVC = LoginViewController(coordinator: self)
+        let loginVC = LoginViewController()
+        loginVC.delegate = self
         navigationController.pushViewController(loginVC, animated: true)
     }
     
     // join 이메일
     func presentJoinEmail() {
-        let joinEmailVC = JoinEmailViewController(coordinator: self)
+        let joinEmailVC = JoinEmailViewController()
+        joinEmailVC.delegate = self
         navigationController.pushViewController(joinEmailVC, animated: true)
     }
     
     // join 비밀번호
     func presentJoinPassword() {
-        let joinPasswordVC = JoinPasswordViewController(coordinator: self)
+        let joinPasswordVC = JoinPasswordViewController()
+        joinPasswordVC.delegate = self
         navigationController.pushViewController(joinPasswordVC, animated: true)
     }
     
     // join 이름
-    func presentName() {
-        let joinNameVC = JoinNameViewController(coordinator: self)
+    func presentJoinName() {
+        let joinNameVC = JoinNameViewController()
+        joinNameVC.delegate = self
         navigationController.pushViewController(joinNameVC, animated: true)
     }
     
     // join 아이디
-    func presentID() {
-        let joinIdVC = JoinIdViewController(coordinator: self)
+    func presentJoinID() {
+        let joinIdVC = JoinIdViewController()
+        joinIdVC.delegate = self
         navigationController.pushViewController(joinIdVC, animated: true)
     }
     

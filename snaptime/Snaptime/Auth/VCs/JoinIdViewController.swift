@@ -8,54 +8,51 @@
 import UIKit
 import SnapKit
 
-protocol JoinIdNavigation : AnyObject {
+protocol JoinIdViewControllerDelegate: AnyObject {
     func backToPrevious()
     func backToRoot()
 }
 
-final class JoinIdViewController : BaseViewController {
-    weak var coordinator : JoinIdNavigation?
+final class JoinIdViewController: BaseViewController {
+    weak var delegate: JoinIdViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
-    }
-    
-    init(coordinator: JoinIdNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        textFieldEditing()
     }
     
     // MARK: - UI component Config
-    private let idLabel : UILabel = {
+    private let idLabel: UILabel = {
         let label = UILabel()
         label.text = "사용하실 아이디를 입력해주세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textAlignment = .center
         
         return label
     }()
     
     private var idInputTextField = AuthTextField("@snaptime123")
-    private let idConditionalLabel : UILabel = {
+    private let idConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "소문자 영어와 숫자로 구성해주세요"
         label.font = .systemFont(ofSize: 10)
-        label.textColor = .blue
         
         return label
     }()
     
-    private lazy var nextButton = SnapTimeCustomButton("다음")
+    private lazy var nextButton = SnapTimeCustomButton("다음", false)
     
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.tabButtonAction = { [weak self] in
-            self?.coordinator?.backToRoot()
+            self?.delegate?.backToRoot()
         }
+    }
+    
+    private func textFieldEditing() {
+        idInputTextField.delegate = self
+        idInputTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
 
     // MARK: - setup UI
@@ -70,13 +67,14 @@ final class JoinIdViewController : BaseViewController {
     
     override func setupConstraints() {
         idLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(130)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
             $0.centerX.equalToSuperview()
         }
         
         idInputTextField.snp.makeConstraints {
-            $0.top.equalTo(idLabel.snp.bottom).offset(90)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(idLabel.snp.bottom).offset(106)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(48)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-48)
         }
         
         idConditionalLabel.snp.makeConstraints {
@@ -85,11 +83,33 @@ final class JoinIdViewController : BaseViewController {
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(idInputTextField.snp.bottom).offset(70)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.top.equalTo(idConditionalLabel.snp.bottom).offset(58)
+            $0.left.equalTo(idInputTextField.snp.left)
+            $0.right.equalTo(idInputTextField.snp.right)
             $0.height.equalTo(50)
         }
     }
 }
 
+extension JoinIdViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+         
+        guard
+            let id = idInputTextField.text, !id.isEmpty
+        else {
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            idInputTextField.setLineColorFalse()
+            return
+        }
+        nextButton.backgroundColor = .snaptimeBlue
+        nextButton.isEnabled = true
+        idInputTextField.setLineColorTrue()
+    }
+}
