@@ -24,12 +24,15 @@ class SingleCommentView: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Jocelyn"
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
     private lazy var beforeDateLabel: UILabel = {
         let label = UILabel()
         label.text = "30분 전"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = UIColor(hexCode: "747474")
         return label
     }()
     
@@ -37,12 +40,15 @@ class SingleCommentView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui.Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui."
+        label.font = .systemFont(ofSize: 13)
         return label
     }()
     
     private lazy var replyLabel: UILabel = {
         let label = UILabel()
         label.text = "답글 달기"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = UIColor(hexCode: "747474")
         return label
     }()
     
@@ -86,17 +92,7 @@ class SingleCommentView: UIView {
             $0.left.equalTo(profileImageView.snp.right).offset(15)
             $0.top.equalTo(profileImageView).offset(-3)
         }
-//        
-//        nameLabel.snp.makeConstraints {
-//            $0.left.equalTo(profileImageView.snp.right).offset(15)
-//            $0.top.equalTo(profileImageView).offset(-3)
-//        }
-//        
-//        beforeDateLabel.snp.makeConstraints {
-//            $0.top.equalTo(nameLabel)
-//            $0.left.equalTo(nameLabel.snp.right).offset(<#T##amount: any ConstraintOffsetTarget##any ConstraintOffsetTarget#>)
-//        }
-        
+
         commentLabel.snp.makeConstraints {
             $0.left.equalTo(upperStackView)
             $0.top.equalTo(upperStackView.snp.bottom).offset(2)
@@ -106,6 +102,7 @@ class SingleCommentView: UIView {
         replyLabel.snp.makeConstraints {
             $0.top.equalTo(commentLabel.snp.bottom).offset(4)
             $0.left.equalTo(commentLabel)
+            $0.bottom.equalToSuperview().offset(-10)
         }
     }
 }
