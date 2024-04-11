@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileCoordinator : Coordinator {
+final class ProfileCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CommunityCoordinator : Coordinator {
+final class CommunityCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -23,7 +23,7 @@ final class CommunityCoordinator : Coordinator {
     }
 }
 
-extension CommunityCoordinator : CommunityNavigation, NotificationViewControllerDelegate {
+extension CommunityCoordinator: CommunityNavigation, NotificationViewControllerDelegate {
     func presentCommunity() {
         let communityVC = CommunityViewController()
         navigationController.pushViewController(communityVC, animated: true)
