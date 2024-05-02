@@ -82,6 +82,14 @@ final class MainAlbumViewController : BaseViewController {
     }
     
     // MARK: -- Fetch Data
+    var albumData: [Album] = [
+        Album(name: "최근 항목", photoURL: ""),
+        Album(name: "2024", photoURL: ""),
+        Album(name: "2023", photoURL: ""),
+        Album(name: "2022", photoURL: ""),
+        Album(name: "Alone", photoURL: "")
+    ]
+    
     private func fetchAlbumList() {
         
     }
@@ -136,7 +144,7 @@ final class MainAlbumViewController : BaseViewController {
 
 extension MainAlbumViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return albumData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -144,6 +152,7 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
             withReuseIdentifier: SnapCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
+        cell.setupUI(albumData[indexPath.row])
         return cell
     }
     

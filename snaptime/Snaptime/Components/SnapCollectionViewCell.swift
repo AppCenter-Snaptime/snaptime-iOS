@@ -22,6 +22,10 @@ final class SnapCollectionViewCell : UICollectionViewCell {
         return label
     }()
     
+    func setupUI(_ album: Album) {
+        descriptionLabel.text = album.name
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayouts()
