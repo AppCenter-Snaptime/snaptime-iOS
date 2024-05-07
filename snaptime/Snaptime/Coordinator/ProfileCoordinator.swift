@@ -28,17 +28,20 @@ extension ProfileCoordinator : MyProfileNavigation,
                                 SettingProfileNavigation {
     
     func presentMyProfile() {
-        let myProfileVC = MyProfileViewController(coordinator: self)
+        let myProfileVC = MyProfileViewController()
+        myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
     
     func presentEditProfile() {
-        let editProfileVC = EditProfileViewController(coordinator: self)
+        let editProfileVC = EditProfileViewController()
+        editProfileVC.delegate = self
         navigationController.pushViewController(editProfileVC, animated: true)
     }
     
     func presentSettingProfile() {
-        let settingProfileVC = SettingProfileViewController(coordinator: self)
+        let settingProfileVC = SettingProfileViewController()
+        settingProfileVC.delegate = self
         navigationController.pushViewController(settingProfileVC, animated: true)
     }
 }

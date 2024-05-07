@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// 프로필 내부 album, tag list tabButton 과 각각 화면을 나타내는 View
-final class TopTapBarView : UIView {
+final class TopTapBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -37,14 +37,14 @@ final class TopTapBarView : UIView {
         return collectionView
     }()
         
-    private lazy var indicatorView : UIView = {
+    private lazy var indicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         
         return view
     }()
     
-    private lazy var listScrollView : UIScrollView = {
+    private lazy var listScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false

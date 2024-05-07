@@ -8,33 +8,24 @@
 import UIKit
 import SnapKit
 
-protocol EditProfileNavigation : AnyObject {
+protocol EditProfileNavigation: AnyObject {
     func presentEditProfile()
 }
 
-final class EditProfileViewController : BaseViewController {
-    weak var coordinator : EditProfileNavigation?
+final class EditProfileViewController: BaseViewController {
+    weak var delegate: EditProfileNavigation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    init(coordinator: EditProfileNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         editProfileImage.layer.cornerRadius = editProfileImage.frame.height/2
     }
     
-    private lazy var titleLabel : UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "프로필 편집"
         label.font = .systemFont(ofSize: 20, weight: .bold)

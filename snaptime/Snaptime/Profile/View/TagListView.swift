@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// 프로필에서의 TagListView
-final class TagListView : UIView {
+final class TagListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setLayouts()
@@ -21,7 +21,7 @@ final class TagListView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tagImageCollectionView : UICollectionView = {
+    private let tagImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
@@ -52,7 +52,7 @@ final class TagListView : UIView {
     }
 }
 
-extension TagListView : UICollectionViewDelegate, UICollectionViewDataSource {
+extension TagListView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = tagImageCollectionView.dequeueReusableCell(
             withReuseIdentifier: TagListCollectionViewCell.identifier,
@@ -69,10 +69,10 @@ extension TagListView : UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension TagListView : UICollectionViewDelegateFlowLayout {
+extension TagListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width : CGFloat = (collectionView.frame.width / 3) - 1.0
-        let heigth : CGFloat = width * 1.4
+        let width: CGFloat = (collectionView.frame.width / 3) - 1.0
+        let heigth: CGFloat = width * 1.4
         
         return CGSize(width: width, height: heigth)
     }

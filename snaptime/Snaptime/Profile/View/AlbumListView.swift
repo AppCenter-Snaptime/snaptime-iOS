@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// 프로필에서의 AlbumListView
-final class AlbumListView : UIView {
+final class AlbumListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setLayouts()
@@ -21,7 +21,7 @@ final class AlbumListView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var profileAlbumListCollectionView : UICollectionView = {
+    private lazy var profileAlbumListCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 30
@@ -51,7 +51,7 @@ final class AlbumListView : UIView {
     }
 }
 
-extension AlbumListView : UICollectionViewDelegate, UICollectionViewDataSource {
+extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = profileAlbumListCollectionView.dequeueReusableCell(
             withReuseIdentifier: AlbumListCollectionViewCell.identifier,
@@ -68,7 +68,7 @@ extension AlbumListView : UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension AlbumListView : UICollectionViewDelegateFlowLayout {
+extension AlbumListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 1

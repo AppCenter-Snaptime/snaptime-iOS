@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 /// 팔로워, 팔로잉, 게시글 수를 나타내기 위한 customButton class
-final class ProfileStatusButton : UIButton {
+final class ProfileStatusButton: UIButton {
     private let customTitle: String
-    private let customNumber : String
-    var tabButtonAction : (() -> ())?
+    private let customNumber: String
+    var tabButtonAction: (() -> ())?
     
     init(_ title: String, _ number: String) {
         self.customTitle = title

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// AlbumList내부 collectionview의 Custom Cell -> MainAlbum의 CollectionViewCell과 합쳐 하나로 만드는 과정 필요!!
-final class AlbumListCollectionViewCell : UICollectionViewCell {
+final class AlbumListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -20,7 +20,7 @@ final class AlbumListCollectionViewCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var imageStackView : UIStackView = {
+    private var imageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -29,21 +29,21 @@ final class AlbumListCollectionViewCell : UICollectionViewCell {
         return stackView
     }()
     
-    private var snapImageView1 : UIImageView = {
+    private var snapImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SnapExample")
         
         return imageView
     }()
     
-    private var snapImageView2 : UIImageView = {
+    private var snapImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SnapExample")
         
         return imageView
     }()
     
-    private var descriptionLabel : UILabel = {
+    private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "최근항목"
         label.font = .systemFont(ofSize: 12, weight: .semibold)

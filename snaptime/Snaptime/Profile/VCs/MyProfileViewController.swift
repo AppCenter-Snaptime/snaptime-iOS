@@ -8,30 +8,21 @@
 import UIKit
 import SnapKit
 
-protocol MyProfileNavigation : AnyObject {
+protocol MyProfileNavigation: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
 }
 
-final class MyProfileViewController : BaseViewController {
-    weak var coordinator : MyProfileNavigation?
+final class MyProfileViewController: BaseViewController {
+    weak var delegate: MyProfileNavigation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabSettingButton()
     }
     
-    init(coordinator: MyProfileNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - configUI
-    private let iconLabel : UILabel = {
+    private let iconLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue
@@ -41,7 +32,7 @@ final class MyProfileViewController : BaseViewController {
         return label
     }()
     
-    private let notificationButton : UIButton = {
+    private let notificationButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .systemBackground
@@ -57,7 +48,7 @@ final class MyProfileViewController : BaseViewController {
     
     private func tabSettingButton() {
         profileStatusView.tabButtonAction = { [weak self] in
-            self?.coordinator?.presentSettingProfile()
+            self?.delegate?.presentSettingProfile()
         }
     }
     
