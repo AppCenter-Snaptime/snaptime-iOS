@@ -79,6 +79,7 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchAlbumList() // 앨범목록 서버 통신
     }
     
     // MARK: -- Fetch Data
@@ -91,7 +92,31 @@ final class MainAlbumViewController : BaseViewController {
     ]
     
     private func fetchAlbumList() {
-        
+        let url = "http://na2ru2.me:6308/album/albumListWithThumbnail"
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlb2d1czQ2NTgiLCJ0eXBlIjoiYWNjZXNzIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcxNjE4MzI4NywiZXhwIjoxNzE2MjY5Njg3fQ.G7H9EwwQ2ZmSMGyjBpfWbI_CXCJfXB9EehtpLWlA0Pw",
+            "accept": "*/*"
+        ]
+        AF.request(
+            url,
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+            print(String(data: response.data!, encoding: .utf8))
+            switch response.result {
+            case .success(let data):
+                print("success")
+                print(data)
+            case .failure(let error):
+                print("error")
+                print(error)
+                print(error.errorDescription)
+            }
+        }
     }
     
     // MARK: -- Layout & Constraints
