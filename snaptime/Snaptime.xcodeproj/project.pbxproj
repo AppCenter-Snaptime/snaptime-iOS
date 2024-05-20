@@ -68,6 +68,7 @@
 		A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C41392BBC4D8A00AC4284 /* CommentCollectionViewCell.swift */; };
 		A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */; };
 		A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */; };
+		A68184F82BFB5DC800ECBDE3 /* AlbumSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
@@ -142,6 +143,7 @@
 		A66C41392BBC4D8A00AC4284 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryHeaderView.swift; sourceTree = "<group>"; };
 		A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryFooterView.swift; sourceTree = "<group>"; };
+		A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSnapResDto.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				A62FE22A2BE24CD600BACF77 /* Album.swift */,
+				A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,
+				A68184F82BFB5DC800ECBDE3 /* AlbumSnapResDto.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				A62FE22B2BE24CD600BACF77 /* Album.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,

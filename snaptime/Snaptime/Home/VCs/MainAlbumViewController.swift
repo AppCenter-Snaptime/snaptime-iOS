@@ -106,15 +106,25 @@ final class MainAlbumViewController : BaseViewController {
         )
         .validate(statusCode: 200..<300)
         .responseJSON { response in
-            print(String(data: response.data!, encoding: .utf8))
             switch response.result {
             case .success(let data):
                 print("success")
                 print(data)
+                guard let data = response.data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(AlbumListResponse.self, from: data)
+                    print(result)
+                    self.albumData = result.result.map { Album($0) }
+                    DispatchQueue.main.async {
+                        self.mainAlbumCollectionView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
             case .failure(let error):
-                print("error")
-                print(error)
-                print(error.errorDescription)
+                print(String(describing: error.errorDescription))
             }
         }
     }
