@@ -5,6 +5,7 @@
 //  Created by 이대현 on 2/15/24.
 //
 
+import Kingfisher
 import SnapKit
 import UIKit
 
@@ -24,6 +25,24 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     
     func setupUI(_ album: Album) {
         descriptionLabel.text = album.name
+        if let photoURL = album.photoURL,
+           let url = URL(string: photoURL) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
+            snapImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(let value):
+                    print("success")
+                case .failure(let error):
+                    print("error")
+                    print(error)
+                }
+            }
+        }
     }
     
     override init(frame: CGRect) {

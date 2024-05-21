@@ -69,6 +69,7 @@
 		A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */; };
 		A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */; };
 		A68184F82BFB5DC800ECBDE3 /* AlbumSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */; };
+		A68184FA2BFC496800ECBDE3 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F92BFC496800ECBDE3 /* AccessToken.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
 		A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */; };
@@ -144,6 +145,7 @@
 		A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryHeaderView.swift; sourceTree = "<group>"; };
 		A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryFooterView.swift; sourceTree = "<group>"; };
 		A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSnapResDto.swift; sourceTree = "<group>"; };
+		A68184F92BFC496800ECBDE3 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		A69A81BE2B8777A8006BAEB2 /* RecommendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSectionView.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
 				298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */,
 				2924E8192BA830190025AAA9 /* CommentView.swift */,
+				A68184F92BFC496800ECBDE3 /* AccessToken.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
 				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
+				A68184FA2BFC496800ECBDE3 /* AccessToken.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
 				2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */,

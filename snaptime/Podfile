@@ -8,6 +8,7 @@ target 'Snaptime' do
   # Pods for Snaptime
   pod 'SnapKit','~> 5.6.0'
   pod 'Alamofire', '~>5.6.4'
+  pod 'Kingfisher', '~> 7.0'
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|
