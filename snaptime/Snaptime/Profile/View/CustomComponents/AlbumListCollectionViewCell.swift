@@ -69,13 +69,13 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue("Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeWVvbjAwMDAiLCJ0eXBlIjoiYWNjZXNzIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcxNjI2Nzc2NSwiZXhwIjoxNzE2MzU0MTY1fQ.DPkjIuDdfq7D9CvuAgnCbNnMil4pnW9pwE3oNThVfYA", forHTTPHeaderField: "Authorization")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
                 return r
             }
             
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
-                case .success(let value):
+                case .success(_):
                     print("이미지 불러오기 성공")
                 case .failure(let error):
                     print("error")

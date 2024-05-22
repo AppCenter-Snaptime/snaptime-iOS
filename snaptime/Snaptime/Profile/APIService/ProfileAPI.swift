@@ -25,22 +25,22 @@ extension ProfileAPI {
     var path: String {
         switch self {
         case .fetchUserProfile(let loginId):
-            "/profile?loginId=\(loginId)"
+            "/profile?login_id=\(loginId)"
         
         case .fetchUserProfileCount(let loginId):
-            "/profile/count?loginId=\(loginId)"
+            "/profile/count?login_id=\(loginId)"
             
         case .fetchUserAlbum(let loginId):
-            "/albumSnap?loginId=\(loginId)"
+            "/album_snap?login_id=\(loginId)"
         }
     }
     
-    var method: String {
+    var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
             .fetchUserProfileCount,
             .fetchUserAlbum:
-            "GET"
+                .get
         }
     }
     
@@ -49,13 +49,14 @@ extension ProfileAPI {
     }
     
     var headers: HTTPHeaders {
-        ["Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeWVvbjAwMDAiLCJ0eXBlIjoiYWNjZXNzIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcxNjI2Nzc2NSwiZXhwIjoxNzE2MzU0MTY1fQ.DPkjIuDdfq7D9CvuAgnCbNnMil4pnW9pwE3oNThVfYA", "accept": "*/*"]
+        ["Authorization": ACCESS_TOKEN, "accept": "*/*"]
     }
         
     func performRequest(completion: @escaping (Result<Any, Error>) -> Void) {
+        print(url)
         AF.request(
                     url,
-                    method: .get,
+                    method: method,
                     parameters: nil,
                     encoding: URLEncoding.default,
                     headers: headers
@@ -63,7 +64,7 @@ extension ProfileAPI {
                 .validate(statusCode: 200..<300)
                 .responseJSON { response in
                     switch response.result {
-                    case .success(let data):
+                    case .success(_):
                         guard let data = response.data else { return }
                         
                         do {

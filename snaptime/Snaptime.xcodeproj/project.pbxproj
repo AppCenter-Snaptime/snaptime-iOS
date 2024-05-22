@@ -52,6 +52,7 @@
 		298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7A2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift */; };
 		298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */; };
 		298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */; };
+		29A83AC52BFE38DC00D810C3 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A83AC42BFE38DC00D810C3 /* Token.swift */; };
 		29AA37AF2BF23B95009EF296 /* ProfileAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37AE2BF23B95009EF296 /* ProfileAPI.swift */; };
 		29AA37B12BF23CB9009EF296 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */; };
 		29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B22BF23D81009EF296 /* UserProfileManager.swift */; };
@@ -134,6 +135,7 @@
 		298F7F7A2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPasswordViewController.swift; sourceTree = "<group>"; };
 		298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNameViewController.swift; sourceTree = "<group>"; };
 		298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEmailViewController.swift; sourceTree = "<group>"; };
+		29A83AC42BFE38DC00D810C3 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		29AA37AE2BF23B95009EF296 /* ProfileAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAPI.swift; sourceTree = "<group>"; };
 		29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		29AA37B22BF23D81009EF296 /* UserProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */,
 				29AA38082BF26218009EF296 /* UserProfileCountManager.swift */,
 				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
+				29A83AC42BFE38DC00D810C3 /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* AlbumSnapViewController.swift in Sources */,
+				29A83AC52BFE38DC00D810C3 /* Token.swift in Sources */,
 				A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,
