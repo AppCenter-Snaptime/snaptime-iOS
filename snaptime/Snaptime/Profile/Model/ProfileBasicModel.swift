@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct ProfileBasicModel: Codable {
+    var loginId: String
+}

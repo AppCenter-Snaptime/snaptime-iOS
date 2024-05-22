@@ -15,10 +15,49 @@ protocol MyProfileNavigation: AnyObject {
 
 final class MyProfileViewController: BaseViewController {
     weak var delegate: MyProfileNavigation?
+    private let count: UserProfileCountModel.Result? = nil
+    private let loginId = "bowon0000"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabSettingButton()
+        
+        ProfileAPI.fetchUserProfile(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfile):
+                    if let profile = userProfile as? UserProfileModel {
+                        self.profileStatusView.setupUserProfile(profile.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+        ProfileAPI.fetchUserProfileCount(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfileCount):
+                    if let profileCount = userProfileCount as? UserProfileCountModel {
+                        self.profileStatusView.setupUserNumber(profileCount.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+        ProfileAPI.fetchUserAlbum(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.albumAndTagListView.reloadAlbumListView()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     // MARK: - configUI
@@ -44,6 +83,7 @@ final class MyProfileViewController: BaseViewController {
     }()
     
     private let profileStatusView = ProfileStatusView(target: .myself)
+    
     private let albumAndTagListView = TopTapBarView()
     
     private func tabSettingButton() {

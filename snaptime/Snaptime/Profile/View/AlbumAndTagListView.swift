@@ -59,6 +59,10 @@ final class TopTapBarView: UIView {
     
     private lazy var contentView = UIView()
     
+    func reloadAlbumListView() {
+        albumListView.reloadData()
+    }
+    
     // MARK: - setup UI
     private func setupLayouts() {
         [albumListView,

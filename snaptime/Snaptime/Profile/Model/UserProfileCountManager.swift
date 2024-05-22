@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class UserProfileCountManager {
+    var profileCount = UserProfileCountModel(msg: "", result: UserProfileCountModel.Result(snapCnt: 0, followerCnt: 0, followingCnt: 0))
+    
+    static let shared = UserProfileCountManager()
+    
+    private init() {}
+}

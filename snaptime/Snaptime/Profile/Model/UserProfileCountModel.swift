@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct UserProfileCountModel: Decodable {
+    let msg: String
+    var result: Result
+    
+    struct Result: Decodable {
+        var snapCnt: Int
+        var followerCnt: Int
+        var followingCnt: Int
+    }
+}

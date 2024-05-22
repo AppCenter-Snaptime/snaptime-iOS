@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+class UserProfileManager {
+    var profile = UserProfileModel(msg: "", result: UserProfileModel.Result(userId: 0, userName: "", profileURL: ""))
+    
+    static let shared = UserProfileManager()
+    
+    private init() {}
+    
+    func fetchUserProfile() {
+        
+    }
+}
