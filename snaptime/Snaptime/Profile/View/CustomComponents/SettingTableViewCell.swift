@@ -8,15 +8,11 @@ import UIKit
 import SnapKit
 
 final class SettingTableViewCell: UITableViewCell {
-    private lazy var settingTitleLabel : UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
+    private lazy var settingTitleLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setLayout()
+        self.setLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {

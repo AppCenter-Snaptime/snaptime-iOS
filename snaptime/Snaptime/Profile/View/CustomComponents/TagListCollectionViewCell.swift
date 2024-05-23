@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 /// TagList내부 collectionview의 Custom Cell 
-final class TagListCollectionViewCell : UICollectionViewCell {
+final class TagListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -20,7 +20,7 @@ final class TagListCollectionViewCell : UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    private var tagImageView : UIImageView = {
+    private var tagImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SnapExample")
         

@@ -9,19 +9,21 @@ import UIKit
 import SnapKit
 
 /// 프로필에서의 AlbumListView
-final class AlbumListView : UIView {
+final class AlbumListView: UIView {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setLayouts()
         self.setConstraints()
-        self.collectionViewConfig()
+        self.setupCollectionView()
+        self.profileAlbumListCollectionView.reloadData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var profileAlbumListCollectionView : UICollectionView = {
+    private lazy var profileAlbumListCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 30
@@ -30,16 +32,22 @@ final class AlbumListView : UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = false
+        collectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
         
         return collectionView
     }()
     
-    private func collectionViewConfig() {
-        profileAlbumListCollectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
+    private func setupCollectionView() {
         profileAlbumListCollectionView.dataSource = self
         profileAlbumListCollectionView.delegate = self
+        profileAlbumListCollectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
     }
     
+    func reloadData() {
+        profileAlbumListCollectionView.reloadData()
+    }
+    
+    // MARK: - set Layouts
     private func setLayouts() {
         addSubview(profileAlbumListCollectionView)
     }
@@ -51,7 +59,7 @@ final class AlbumListView : UIView {
     }
 }
 
-extension AlbumListView : UICollectionViewDelegate, UICollectionViewDataSource {
+extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = profileAlbumListCollectionView.dequeueReusableCell(
             withReuseIdentifier: AlbumListCollectionViewCell.identifier,
@@ -59,16 +67,18 @@ extension AlbumListView : UICollectionViewDelegate, UICollectionViewDataSource {
         ) as? AlbumListCollectionViewCell else {
             return UICollectionViewCell()
         }
+                
+        cell.setCellData(data: UserAlbumManager.shared.userAlbumList.result[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return UserAlbumManager.shared.userAlbumList.result.count
     }
 }
 
-extension AlbumListView : UICollectionViewDelegateFlowLayout {
+extension AlbumListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 1
@@ -76,6 +86,6 @@ extension AlbumListView : UICollectionViewDelegateFlowLayout {
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
         
-        return CGSize(width: itemDimension, height: itemDimension * 216/343)
+        return CGSize(width: itemDimension, height: itemDimension * 215/345)
     }
 }
