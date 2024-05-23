@@ -79,11 +79,54 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchAlbumList() // 앨범목록 서버 통신
     }
     
     // MARK: -- Fetch Data
+    var albumData: [Album] = [
+        Album(name: "최근 항목", photoURL: ""),
+        Album(name: "2024", photoURL: ""),
+        Album(name: "2023", photoURL: ""),
+        Album(name: "2022", photoURL: ""),
+        Album(name: "Alone", photoURL: "")
+    ]
+    
     private func fetchAlbumList() {
-        
+        let url = "http://na2ru2.me:6308/album/albumListWithThumbnail"
+        let headers: HTTPHeaders = [
+            "Authorization": ACCESS_TOKEN,
+            "accept": "*/*"
+        ]
+        AF.request(
+            url,
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                print("success")
+                print(data)
+                guard let data = response.data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(AlbumListResponse.self, from: data)
+                    print(result)
+                    self.albumData = result.result.map { Album($0) }
+                    DispatchQueue.main.async {
+                        self.mainAlbumCollectionView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
+            case .failure(let error):
+                print(String(describing: error.errorDescription))
+            }
+        }
     }
     
     // MARK: -- Layout & Constraints
@@ -136,7 +179,7 @@ final class MainAlbumViewController : BaseViewController {
 
 extension MainAlbumViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return albumData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -144,6 +187,7 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
             withReuseIdentifier: SnapCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
+        cell.setupUI(albumData[indexPath.row])
         return cell
     }
     
