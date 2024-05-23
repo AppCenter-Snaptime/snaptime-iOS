@@ -287,7 +287,6 @@
 		298F7F572B6BA30200A8DBC5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				29AA37AD2BF23B88009EF296 /* APIService */,
 				29AA37AC2BF23B73009EF296 /* Model */,
 				29F80BF32B8589A2003614AB /* View */,
 				298F7F6E2B6BA76700A8DBC5 /* VCs */,
@@ -386,13 +385,6 @@
 				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		29AA37AD2BF23B88009EF296 /* APIService */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = APIService;
 			sourceTree = "<group>";
 		};
 		29F80BF32B8589A2003614AB /* View */ = {
