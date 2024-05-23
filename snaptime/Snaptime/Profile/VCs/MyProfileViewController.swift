@@ -22,7 +22,7 @@ final class MyProfileViewController: BaseViewController {
         super.viewDidLoad()
         self.tabSettingButton()
         
-        ProfileAPI.fetchUserProfile(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
@@ -35,7 +35,7 @@ final class MyProfileViewController: BaseViewController {
             }
         }
         
-        ProfileAPI.fetchUserProfileCount(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfileCount(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
@@ -48,7 +48,7 @@ final class MyProfileViewController: BaseViewController {
             }
         }
         
-        ProfileAPI.fetchUserAlbum(loginId: loginId).performRequest { result in
+        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
