@@ -7,9 +7,10 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 /// AlbumList내부 collectionview의 Custom Cell -> MainAlbum의 CollectionViewCell과 합쳐 하나로 만드는 과정 필요!!
-final class AlbumListCollectionViewCell : UICollectionViewCell {
+final class AlbumListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -20,7 +21,7 @@ final class AlbumListCollectionViewCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var imageStackView : UIStackView = {
+    private var imageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -29,27 +30,60 @@ final class AlbumListCollectionViewCell : UICollectionViewCell {
         return stackView
     }()
     
-    private var snapImageView1 : UIImageView = {
+    private var snapImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
+        imageView.backgroundColor = .snaptimeGray
         
         return imageView
     }()
     
-    private var snapImageView2 : UIImageView = {
+    private var snapImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
+        imageView.backgroundColor = .snaptimeGray
         
         return imageView
     }()
     
-    private var descriptionLabel : UILabel = {
+    private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근항목"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         
         return label
     }()
+    
+    func setCellData(data: UserAlbumModel.Result) {
+        descriptionLabel.text = data.albumName
+        
+        if data.snapUrlList.count == 2 {
+            loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
+            loadImage(data: data.snapUrlList[1], imageView: snapImageView2)
+        }
+        
+        else if data.snapUrlList.count == 1 {
+            loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
+        }
+    }
+    
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
+            
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("이미지 불러오기 성공")
+                case .failure(let error):
+                    print("error")
+                    print(error)
+                }
+            }
+        }
+    }
     
     //MARK: - setup UI
     private func setupLayouts() {

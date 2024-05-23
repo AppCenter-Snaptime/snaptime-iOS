@@ -10,15 +10,15 @@ import SnapKit
 
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
 /// // 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
-final class ProfileStatusView : UIView {
+final class ProfileStatusView: UIView {
     enum ProfileTarget {
         case myself
         case others
     }
     
-    var tabButtonAction : (() -> ()) = {}
+    var tabButtonAction: (() -> ()) = {}
 
-    let profileTarget : ProfileTarget
+    let profileTarget: ProfileTarget
     
     init(target: ProfileTarget) {
         self.profileTarget = target
@@ -37,7 +37,7 @@ final class ProfileStatusView : UIView {
         profileImage.layer.cornerRadius = profileImage.frame.height/2
     }
     
-    private let profileImage: UIImageView = {
+    private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
         imageView.clipsToBounds = true
@@ -45,10 +45,9 @@ final class ProfileStatusView : UIView {
         return imageView
     }()
     
-    private let nickNameLabel: UILabel = {
+    private lazy var nickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "blwxnhan"
-        label.font = .systemFont(ofSize: 16, weight: .light)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textAlignment = .left
         
         return label
@@ -57,7 +56,7 @@ final class ProfileStatusView : UIView {
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.spacing = 35
         
@@ -66,9 +65,9 @@ final class ProfileStatusView : UIView {
     
     private let followOrSettingButton = UIButton()
     
-    private lazy var postNumber = ProfileStatusButton("사진수", "40")
-    private lazy var followerNumber = ProfileStatusButton("팔로워", "342")
-    private lazy var followingNumber = ProfileStatusButton("팔로잉", "342")
+    private lazy var postNumber = ProfileStatusButton("사진수", action: UIAction {[weak self] _ in})
+    private lazy var followerNumber = ProfileStatusButton("팔로워", action: UIAction {[weak self] _ in})
+    private lazy var followingNumber = ProfileStatusButton("팔로잉", action: UIAction {[weak self] _ in})
     
     private let lineView : UIView = {
         let view = UIView()
@@ -77,6 +76,7 @@ final class ProfileStatusView : UIView {
         return view
     }()
     
+    // MARK: - target에 따른 button UI 세팅하는 함수
     private func setupUI(target: ProfileTarget) {
         switch target {
         case .others:
@@ -109,6 +109,34 @@ final class ProfileStatusView : UIView {
         }
     }
     
+    // MARK: - 이름과 프로필 이미지 세팅하는 함수
+    func setupUserProfile(_ userProfile: UserProfileModel.Result) {
+        self.loadImage(data: userProfile.profileURL)
+        self.nickNameLabel.text = userProfile.userName
+    }
+    
+    func setupUserNumber(_ userProfileCount: UserProfileCountModel.Result) {
+        self.postNumber.setupNumber(number: userProfileCount.snapCnt)
+        self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
+        self.followingNumber.setupNumber(number: userProfileCount.followingCnt)
+    }
+    
+    // MARK: - 네트워크로부터 이미지 받아오는 함수
+    private func loadImage(data: String) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.profileImage.image = UIImage(data: data)
+            }
+        }
+    }
+    
+    // MARK: - view 계층
     private func setupLayouts() {
         [postNumber,
          followerNumber,
@@ -125,6 +153,7 @@ final class ProfileStatusView : UIView {
         }
     }
     
+    // MARK: - constraint
     private func setupConstraints() {
         profileImage.snp.makeConstraints {
             $0.top.equalTo(self).offset(20)

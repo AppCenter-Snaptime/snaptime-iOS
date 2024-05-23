@@ -8,24 +8,15 @@
 import UIKit
 import SnapKit
 
-protocol SettingProfileNavigation : AnyObject {
+protocol SettingProfileNavigation: AnyObject {
     func presentSettingProfile()
 }
 
-final class SettingProfileViewController : BaseViewController {
-    weak var coordinator : SettingProfileNavigation?
+final class SettingProfileViewController: BaseViewController {
+    weak var delegate: SettingProfileNavigation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    init(coordinator: SettingProfileNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,7 +25,7 @@ final class SettingProfileViewController : BaseViewController {
         settingProfileImage.layer.cornerRadius = settingProfileImage.frame.height/2
     }
     
-    private lazy var iconLabel : UILabel = {
+    private lazy var iconLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue

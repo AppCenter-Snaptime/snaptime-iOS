@@ -8,30 +8,60 @@
 import UIKit
 import SnapKit
 
-protocol MyProfileNavigation : AnyObject {
+protocol MyProfileNavigation: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
 }
 
-final class MyProfileViewController : BaseViewController {
-    weak var coordinator : MyProfileNavigation?
+final class MyProfileViewController: BaseViewController {
+    weak var delegate: MyProfileNavigation?
+    private let count: UserProfileCountModel.Result? = nil
+    private let loginId = "bowon0000"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabSettingButton()
-    }
-    
-    init(coordinator: MyProfileNavigation) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        ProfileAPI.fetchUserProfile(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfile):
+                    if let profile = userProfile as? UserProfileModel {
+                        self.profileStatusView.setupUserProfile(profile.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+        ProfileAPI.fetchUserProfileCount(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfileCount):
+                    if let profileCount = userProfileCount as? UserProfileCountModel {
+                        self.profileStatusView.setupUserNumber(profileCount.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+        ProfileAPI.fetchUserAlbum(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.albumAndTagListView.reloadAlbumListView()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     // MARK: - configUI
-    private let iconLabel : UILabel = {
+    private let iconLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue
@@ -41,7 +71,7 @@ final class MyProfileViewController : BaseViewController {
         return label
     }()
     
-    private let notificationButton : UIButton = {
+    private let notificationButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .systemBackground
@@ -53,11 +83,12 @@ final class MyProfileViewController : BaseViewController {
     }()
     
     private let profileStatusView = ProfileStatusView(target: .myself)
+    
     private let albumAndTagListView = TopTapBarView()
     
     private func tabSettingButton() {
         profileStatusView.tabButtonAction = { [weak self] in
-            self?.coordinator?.presentSettingProfile()
+            self?.delegate?.presentSettingProfile()
         }
     }
     
