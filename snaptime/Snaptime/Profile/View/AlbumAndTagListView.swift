@@ -15,7 +15,7 @@ final class TopTapBarView: UIView {
         self.setupLayouts()
         self.setupConstraints()
         
-        self.listScrollView.delegate = self
+//        self.listScrollView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -44,37 +44,36 @@ final class TopTapBarView: UIView {
         return view
     }()
     
-    private lazy var listScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.isPagingEnabled = true
-        scrollView.isDirectionalLockEnabled = true
-        
-        return scrollView
-    }()
-        
-    private lazy var tagListView = TagListView()
-    private lazy var albumListView = AlbumListView()
+//    private lazy var listScrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        scrollView.showsHorizontalScrollIndicator = false
+//        scrollView.showsVerticalScrollIndicator = false
+//        scrollView.isPagingEnabled = true
+//        scrollView.isDirectionalLockEnabled = true
+//        
+//        return scrollView
+//    }()
+//        
+//    private lazy var tagListView = TagListView()
+//    private lazy var albumListView = AlbumListView()
     
-    private lazy var contentView = UIView()
+//    private lazy var contentView = UIView()
     
-    func reloadAlbumListView() {
-        albumListView.reloadData()
-    }
+//    func reloadAlbumListView() {
+//        albumListView.reloadData()
+//    }
     
     // MARK: - setup UI    
     private func setupLayouts() {
-        [albumListView,
-         tagListView].forEach {
-            contentView.addSubview($0)
-        }
-        
-        listScrollView.addSubview(contentView)
+//        [albumListView,
+//         tagListView].forEach {
+//            contentView.addSubview($0)
+//        }
+//        
+//        listScrollView.addSubview(contentView)
         
        [tapBarCollectionView,
-        indicatorView,
-        listScrollView].forEach {
+        indicatorView].forEach {
            addSubview($0)
        }
     }
@@ -95,27 +94,27 @@ final class TopTapBarView: UIView {
             $0.width.equalTo(scrollViewWidth/6)
         }
         
-        listScrollView.snp.makeConstraints {
-            $0.top.equalTo(indicatorView.snp.bottom).offset(1)
-            $0.left.right.bottom.equalToSuperview()
-        }
-                        
-        contentView.snp.makeConstraints {
-            $0.edges.equalTo(listScrollView.contentLayoutGuide)
-            $0.height.equalTo(listScrollView.frameLayoutGuide)
-            $0.width.equalTo(scrollViewWidth*2)
-        }
-        
-        albumListView.snp.makeConstraints {
-            $0.top.left.bottom.equalTo(contentView)
-            $0.width.equalTo(scrollViewWidth)
-        }
-        
-        tagListView.snp.makeConstraints {
-            $0.top.bottom.equalTo(contentView)
-            $0.left.equalTo(albumListView.snp.right)
-            $0.width.equalTo(scrollViewWidth)
-        }
+//        listScrollView.snp.makeConstraints {
+//            $0.top.equalTo(indicatorView.snp.bottom).offset(1)
+//            $0.left.right.bottom.equalToSuperview()
+//        }
+//                        
+//        contentView.snp.makeConstraints {
+//            $0.edges.equalTo(listScrollView.contentLayoutGuide)
+//            $0.height.equalTo(listScrollView.frameLayoutGuide)
+//            $0.width.equalTo(scrollViewWidth*2)
+//        }
+//        
+//        albumListView.snp.makeConstraints {
+//            $0.top.left.bottom.equalTo(contentView)
+//            $0.width.equalTo(scrollViewWidth)
+//        }
+//        
+//        tagListView.snp.makeConstraints {
+//            $0.top.bottom.equalTo(contentView)
+//            $0.left.equalTo(albumListView.snp.right)
+//            $0.width.equalTo(scrollViewWidth)
+//        }
     }
 }
 
@@ -129,7 +128,8 @@ extension TopTapBarView: UICollectionViewDelegate, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configTitle("앨범목록")
+        let title = ["앨범목록", "태그목록"]
+        cell.configTitle(title[indexPath.row])
         
         return cell
     }
@@ -152,10 +152,10 @@ extension TopTapBarView: UICollectionViewDelegate, UICollectionViewDataSource {
                 $0.width.equalTo(width/6)
             }
             
-            UIView.animate(withDuration: 0.3) {
-                self.layoutIfNeeded()
-                self.listScrollView.setContentOffset(CGPoint(x: scrollViewStart, y: 0), animated: false)
-            }
+//            UIView.animate(withDuration: 0.3) {
+//                self.layoutIfNeeded()
+//                self.listScrollView.setContentOffset(CGPoint(x: scrollViewStart, y: 0), animated: false)
+//            }
         }
     }
 }

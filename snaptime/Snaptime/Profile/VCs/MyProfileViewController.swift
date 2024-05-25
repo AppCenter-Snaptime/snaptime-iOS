@@ -16,13 +16,16 @@ protocol MyProfileViewControllerDelegate: AnyObject {
 
 final class MyProfileViewController: BaseViewController {
     weak var delegate: MyProfileViewControllerDelegate?
+        
     private let count: UserProfileCountModel.Result? = nil
     private let loginId = "bowon0000"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sendFlow()
         
+        self.albumListView.flow = sendFlow
+        self.listScrollView.delegate = self
+
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
@@ -53,7 +56,7 @@ final class MyProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self.albumAndTagListView.reloadAlbumListView()
+                    self.albumListView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
@@ -86,26 +89,46 @@ final class MyProfileViewController: BaseViewController {
     private lazy var profileStatusView = ProfileStatusView(target: .myself,
                                                            action: UIAction { _ in
         self.delegate?.presentSettingProfile()
-        print("클릭은 됨?")
     })
     
     private lazy var albumAndTagListView = TopTapBarView()
     
-    /// 작동 안됨
+    private lazy var listScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.isPagingEnabled = true
+        scrollView.isDirectionalLockEnabled = true
+        
+        return scrollView
+    }()
+        
+    private lazy var tagListView = TagListView()
+    private lazy var albumListView = AlbumListView()
+    
+    private lazy var contentView = UIView()
+
+    
     private func sendFlow() {
-        print("호출됨")
-        albumAndTagListView.flow = { [weak self] in
-            self?.delegate?.presentAlbumDetail()
-        }
+        self.delegate?.presentAlbumDetail()
     }
     
     // MARK: - setupUI
     override func setupLayouts() {
         super.setupLayouts()
+        
+        [albumListView,
+         tagListView].forEach {
+            contentView.addSubview($0)
+        }
+        
+        listScrollView.addSubview(contentView)
+        
         [iconLabel,
          notificationButton,
          profileStatusView,
-         albumAndTagListView].forEach {
+         albumAndTagListView,
+         listScrollView].forEach {
             view.addSubview($0)
         }
     }
@@ -134,7 +157,52 @@ final class MyProfileViewController: BaseViewController {
         albumAndTagListView.snp.makeConstraints {
             $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(43)
         }
+        
+        let scrollViewWidth = UIScreen.main.bounds.width
+
+        listScrollView.snp.makeConstraints {
+            $0.top.equalTo(albumAndTagListView.snp.bottom).offset(1)
+            $0.left.right.bottom.equalToSuperview()
+        }
+                        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(listScrollView.contentLayoutGuide)
+            $0.height.equalTo(listScrollView.frameLayoutGuide)
+            $0.width.equalTo(scrollViewWidth*2)
+        }
+        
+        albumListView.snp.makeConstraints {
+            $0.top.left.bottom.equalTo(contentView)
+            $0.width.equalTo(scrollViewWidth)
+        }
+        
+        tagListView.snp.makeConstraints {
+            $0.top.bottom.equalTo(contentView)
+            $0.left.equalTo(albumListView.snp.right)
+            $0.width.equalTo(scrollViewWidth)
+        }
+    }
+}
+
+extension MyProfileViewController: UIScrollViewDelegate {
+    
+    /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let width = UIScreen.main.bounds.width
+//        let offsetX = scrollView.contentOffset.x
+        
+//        self.indicatorView.snp.remakeConstraints {
+//            $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
+//            $0.height.equalTo(2)
+//            $0.centerX.equalTo(offsetX/2 + width/4)
+//            $0.width.equalTo(width/6)
+//        }
+        
+        UIView.animate(
+            withDuration: 0.1,
+            animations: { self.listScrollView.layoutIfNeeded() }
+        )
     }
 }
