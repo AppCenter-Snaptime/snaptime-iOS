@@ -30,7 +30,7 @@ final class AlbumDetailViewController: BaseViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
+        collectionView.register(SnapPreviewCollectionViewCell.self, forCellWithReuseIdentifier: SnapPreviewCollectionViewCell.identifier)
         
         return collectionView
     }()
@@ -53,9 +53,9 @@ final class AlbumDetailViewController: BaseViewController {
 extension AlbumDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SnapCollectionViewCell.identifier,
+            withReuseIdentifier: SnapPreviewCollectionViewCell.identifier,
             for: indexPath
-        ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
+        ) as? SnapPreviewCollectionViewCell else { return UICollectionViewCell() }
         return cell
     }
     

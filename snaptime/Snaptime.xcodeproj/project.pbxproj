@@ -57,6 +57,7 @@
 		29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */; };
 		29AA38072BF261E5009EF296 /* UserProfileCountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */; };
 		29AA38092BF26218009EF296 /* UserProfileCountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38082BF26218009EF296 /* UserProfileCountManager.swift */; };
+		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
@@ -142,6 +143,7 @@
 		29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBasicModel.swift; sourceTree = "<group>"; };
 		29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountModel.swift; sourceTree = "<group>"; };
 		29AA38082BF26218009EF296 /* UserProfileCountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountManager.swift; sourceTree = "<group>"; };
+		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				2924E8192BA830190025AAA9 /* CommentView.swift */,
 				A68184F92BFC496800ECBDE3 /* AccessToken.swift */,
 				29E6EA122BFF8B13004F154F /* APIService.swift */,
+				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */,
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
+				29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */,
 				296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */,

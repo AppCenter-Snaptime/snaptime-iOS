@@ -1,15 +1,15 @@
 //
-//  SnapCollectionViewCell.swift
-//  snaptime
+//  AlbumPreviewCollectionViewCell.swift
+//  Snaptime
 //
-//  Created by 이대현 on 2/15/24.
+//  Created by Bowon Han on 5/25/24.
 //
 
 import Kingfisher
 import SnapKit
 import UIKit
 
-final class SnapCollectionViewCell: UICollectionViewCell {
+final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -74,9 +74,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = .white
- 
+        
         [snapImageView,
-        descriptionLabel].forEach {
+        descriptionLabel,
+        date].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -84,12 +85,18 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private func setupConstraints() {
         snapImageView.snp.makeConstraints {
             $0.left.top.right.equalToSuperview()
-            $0.height.equalTo(contentView.bounds.height-36)
+            $0.height.equalTo(contentView.bounds.height-50)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
-            $0.centerY.equalTo(snapImageView.snp.bottom).offset(17)
+            $0.top.equalTo(snapImageView.snp.bottom).offset(10)
+        }
+        
+        date.snp.makeConstraints {
+            $0.right.equalTo(snapImageView).offset(-15)
+            $0.bottom.equalToSuperview().offset(-3)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(5)
         }
     }
 }

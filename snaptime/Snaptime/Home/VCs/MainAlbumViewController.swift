@@ -196,13 +196,13 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     }
 }
 
-extension MainAlbumViewController : UICollectionViewDelegateFlowLayout {
+extension MainAlbumViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
         let spacing: CGFloat = 23
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
-        return CGSize(width: itemDimension, height: itemDimension + 40)
+        return CGSize(width: itemDimension, height: itemDimension + 50)
     }
 }
