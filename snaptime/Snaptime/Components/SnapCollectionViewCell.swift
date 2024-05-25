@@ -9,8 +9,8 @@ import Kingfisher
 import SnapKit
 import UIKit
 
-final class SnapCollectionViewCell : UICollectionViewCell {
-    private lazy var snapImageView : UIImageView = {
+final class SnapCollectionViewCell: UICollectionViewCell {
+    private lazy var snapImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SnapExample")
         return imageView
@@ -47,8 +47,8 @@ final class SnapCollectionViewCell : UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayouts()
-        setupConstraints()
+        self.setupLayouts()
+        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {

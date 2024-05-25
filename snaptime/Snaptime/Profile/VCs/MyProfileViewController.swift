@@ -8,19 +8,20 @@
 import UIKit
 import SnapKit
 
-protocol MyProfileNavigation: AnyObject {
+protocol MyProfileViewControllerDelegate: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
+    func presentAlbumDetail()
 }
 
 final class MyProfileViewController: BaseViewController {
-    weak var delegate: MyProfileNavigation?
+    weak var delegate: MyProfileViewControllerDelegate?
     private let count: UserProfileCountModel.Result? = nil
     private let loginId = "bowon0000"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabSettingButton()
+        self.sendFlow()
         
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
@@ -82,13 +83,19 @@ final class MyProfileViewController: BaseViewController {
         return button
     }()
     
-    private let profileStatusView = ProfileStatusView(target: .myself)
+    private lazy var profileStatusView = ProfileStatusView(target: .myself,
+                                                           action: UIAction { _ in
+        self.delegate?.presentSettingProfile()
+        print("클릭은 됨?")
+    })
     
-    private let albumAndTagListView = TopTapBarView()
+    private lazy var albumAndTagListView = TopTapBarView()
     
-    private func tabSettingButton() {
-        profileStatusView.tabButtonAction = { [weak self] in
-            self?.delegate?.presentSettingProfile()
+    /// 작동 안됨
+    private func sendFlow() {
+        print("호출됨")
+        albumAndTagListView.flow = { [weak self] in
+            self?.delegate?.presentAlbumDetail()
         }
     }
     

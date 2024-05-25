@@ -9,13 +9,15 @@ import UIKit
 import SnapKit
 
 /// 프로필에서의 AlbumListView
-final class AlbumListViewController: UIView {
+final class AlbumListView: UIView {
+    var flow: (() -> ()) = {}
+
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         self.setLayouts()
         self.setConstraints()
         self.setupCollectionView()
-        self.profileAlbumListCollectionView.reloadData()
+        self.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -58,7 +60,7 @@ final class AlbumListViewController: UIView {
     }
 }
 
-extension AlbumListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = profileAlbumListCollectionView.dequeueReusableCell(
             withReuseIdentifier: AlbumListCollectionViewCell.identifier,
@@ -77,11 +79,11 @@ extension AlbumListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.flow()
     }
 }
 
-extension AlbumListViewController: UICollectionViewDelegateFlowLayout {
+extension AlbumListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 1
