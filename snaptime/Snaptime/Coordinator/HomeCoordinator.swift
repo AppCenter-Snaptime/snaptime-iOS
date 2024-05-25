@@ -25,7 +25,7 @@ final class HomeCoordinator: Coordinator {
 }
 
 extension HomeCoordinator: MainAlbumViewControllerDelegate,
-                            AlbumSnapViewControllerDelegate,
+                            SnapListViewControllerDelegate,
                             QRReaderViewControllerDelegate,
                             AlbumDetailViewControllerDelegate,
                             AddSnapViewControllerDelegate,
@@ -39,7 +39,7 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
     
     
     func presentAlbumSnap() {
-        let albumSnapVC = AlbumSnapViewController()
+        let albumSnapVC = SnapListViewController()
         albumSnapVC.delegate = self
         navigationController.pushViewController(albumSnapVC, animated: true)
     }

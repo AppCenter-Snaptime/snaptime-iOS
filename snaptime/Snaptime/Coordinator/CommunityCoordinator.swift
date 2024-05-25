@@ -23,9 +23,10 @@ final class CommunityCoordinator: Coordinator {
     }
 }
 
-extension CommunityCoordinator: CommunityNavigation, NotificationViewControllerDelegate {
+extension CommunityCoordinator: CommunityViewControllerDelegate, NotificationViewControllerDelegate {
     func presentCommunity() {
         let communityVC = CommunityViewController()
+        communityVC.delegate = self
         navigationController.pushViewController(communityVC, animated: true)
     }
     

@@ -12,6 +12,7 @@ protocol MyProfileViewControllerDelegate: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
     func presentAlbumDetail()
+    func presentNotification()
 }
 
 final class MyProfileViewController: BaseViewController {
@@ -22,9 +23,7 @@ final class MyProfileViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.albumListView.flow = sendFlow
-        self.listScrollView.delegate = self
+        self.albumAndTagListView.send = sendFlow
 
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
@@ -56,7 +55,7 @@ final class MyProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self.albumListView.reloadData()
+                    self.albumAndTagListView.reloadAlbumListView()
                 case .failure(let error):
                     print(error)
                 }
@@ -75,13 +74,16 @@ final class MyProfileViewController: BaseViewController {
         return label
     }()
     
-    private let notificationButton: UIButton = {
+    private lazy var notificationButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .systemBackground
         config.baseForegroundColor = .black
         config.image = UIImage(systemName: "bell")
         button.configuration = config
+        button.addAction(UIAction{ [weak self] _ in
+            self?.delegate?.presentNotification()
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -91,23 +93,7 @@ final class MyProfileViewController: BaseViewController {
         self.delegate?.presentSettingProfile()
     })
     
-    private lazy var albumAndTagListView = TopTapBarView()
-    
-    private lazy var listScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.isPagingEnabled = true
-        scrollView.isDirectionalLockEnabled = true
-        
-        return scrollView
-    }()
-        
-    private lazy var tagListView = TagListView()
-    private lazy var albumListView = AlbumListView()
-    
-    private lazy var contentView = UIView()
-
+    private let albumAndTagListView = TopTapBarView()
     
     private func sendFlow() {
         self.delegate?.presentAlbumDetail()
@@ -117,18 +103,10 @@ final class MyProfileViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
-        [albumListView,
-         tagListView].forEach {
-            contentView.addSubview($0)
-        }
-        
-        listScrollView.addSubview(contentView)
-        
         [iconLabel,
          notificationButton,
          profileStatusView,
-         albumAndTagListView,
-         listScrollView].forEach {
+         albumAndTagListView].forEach {
             view.addSubview($0)
         }
     }
@@ -157,52 +135,7 @@ final class MyProfileViewController: BaseViewController {
         albumAndTagListView.snp.makeConstraints {
             $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(43)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
-        let scrollViewWidth = UIScreen.main.bounds.width
-
-        listScrollView.snp.makeConstraints {
-            $0.top.equalTo(albumAndTagListView.snp.bottom).offset(1)
-            $0.left.right.bottom.equalToSuperview()
-        }
-                        
-        contentView.snp.makeConstraints {
-            $0.edges.equalTo(listScrollView.contentLayoutGuide)
-            $0.height.equalTo(listScrollView.frameLayoutGuide)
-            $0.width.equalTo(scrollViewWidth*2)
-        }
-        
-        albumListView.snp.makeConstraints {
-            $0.top.left.bottom.equalTo(contentView)
-            $0.width.equalTo(scrollViewWidth)
-        }
-        
-        tagListView.snp.makeConstraints {
-            $0.top.bottom.equalTo(contentView)
-            $0.left.equalTo(albumListView.snp.right)
-            $0.width.equalTo(scrollViewWidth)
-        }
-    }
-}
-
-extension MyProfileViewController: UIScrollViewDelegate {
-    
-    /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let width = UIScreen.main.bounds.width
-//        let offsetX = scrollView.contentOffset.x
-        
-//        self.indicatorView.snp.remakeConstraints {
-//            $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
-//            $0.height.equalTo(2)
-//            $0.centerX.equalTo(offsetX/2 + width/4)
-//            $0.width.equalTo(width/6)
-//        }
-        
-        UIView.animate(
-            withDuration: 0.1,
-            animations: { self.listScrollView.layoutIfNeeded() }
-        )
     }
 }

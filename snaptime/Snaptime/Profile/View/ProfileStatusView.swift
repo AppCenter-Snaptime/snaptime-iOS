@@ -90,9 +90,6 @@ final class ProfileStatusView: UIView {
             config.attributedTitle = titleAttr
             
             followOrSettingButton.configuration = config
-//            followOrSettingButton.addAction(UIAction { _ in
-//                self.tabButtonAction()
-//            }, for: .touchUpInside)
             
         case .myself:
             var config = UIButton.Configuration.filled()
@@ -104,9 +101,6 @@ final class ProfileStatusView: UIView {
             
             followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
             followOrSettingButton.configuration = config
-//            followOrSettingButton.addAction(UIAction { _ in
-//                self.tabButtonAction()
-//            }, for: .touchUpInside)
         }
     }
     

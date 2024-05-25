@@ -1,15 +1,15 @@
 //
-//  AlbumPreviewCollectionViewCell.swift
-//  Snaptime
+//  SnapCollectionViewCell.swift
+//  snaptime
 //
-//  Created by Bowon Han on 5/25/24.
+//  Created by 이대현 on 2/15/24.
 //
 
 import Kingfisher
 import SnapKit
 import UIKit
 
-final class SnapPreviewCollectionViewCell: UICollectionViewCell {
+final class AlbumCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayouts()
@@ -67,17 +67,16 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     
     // MARK: - setup Layouts
     private func setupLayouts() {
-        self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
+        self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 1.5, y: self.bounds.origin.y + 10, width: self.bounds.width + 3, height: self.bounds.height - 7)).cgPath
         self.layer.shadowOpacity = 0.7
         self.layer.shadowRadius = 7
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = .white
-        
+ 
         [snapImageView,
-        descriptionLabel,
-        date].forEach {
+        descriptionLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -85,18 +84,12 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     private func setupConstraints() {
         snapImageView.snp.makeConstraints {
             $0.left.top.right.equalToSuperview()
-            $0.height.equalTo(contentView.bounds.height-50)
+            $0.height.equalTo(contentView.bounds.height-36)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
-            $0.top.equalTo(snapImageView.snp.bottom).offset(10)
-        }
-        
-        date.snp.makeConstraints {
-            $0.right.equalTo(snapImageView).offset(-15)
-            $0.bottom.equalToSuperview().offset(-3)
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(5)
+            $0.centerY.equalTo(snapImageView.snp.bottom).offset(17)
         }
     }
 }

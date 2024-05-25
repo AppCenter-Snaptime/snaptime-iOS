@@ -8,18 +8,19 @@
 import UIKit
 import SnapKit
 
-protocol CommunityNavigation : AnyObject {
+protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
+    func presentNotification()
 }
 
-final class CommunityViewController : BaseViewController {
-    weak var coordinator : CommunityCoordinator?
+final class CommunityViewController: BaseViewController {
+    weak var delegate: CommunityViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    private let titleLabel : UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .snaptimeBlue
         label.font = .systemFont(ofSize: 20)
@@ -28,21 +29,27 @@ final class CommunityViewController : BaseViewController {
         return label
     }()
     
-    private lazy var notificationButton : UIButton = {
+    private lazy var notificationButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "bell"), for: .normal)
         button.tintColor = .black
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentNotification()
+        }, for: .touchUpInside)
+        
         return button
     }()
     
     private lazy var contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.minimumLineSpacing = 30
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
         
-        collectionView.register(CommunityCollectionViewCell.self, forCellWithReuseIdentifier: CommunityCollectionViewCell.identifier)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         return collectionView
     }()
     
@@ -77,22 +84,26 @@ final class CommunityViewController : BaseViewController {
     }
 }
 
-extension CommunityViewController:
-    UICollectionViewDataSource,
-    UICollectionViewDelegate,
-    UICollectionViewDelegateFlowLayout {
+extension CommunityViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommunityCollectionViewCell.identifier, for: indexPath) as? CommunityCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SnapCollectionViewCell.identifier, for: indexPath) as? SnapCollectionViewCell else {
             return UICollectionViewCell()
         }
         return cell
     }
-    
+}
+
+extension CommunityViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 1.33 + 210) // 디바이스에 따라 이미지 비율에 맞춰 높이 설정
+        let width = collectionView.bounds.width
+        let numberOfItemsPerRow: CGFloat = 1
+        let spacing: CGFloat = 20
+        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
+        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
+        return CGSize(width: itemDimension, height: itemDimension+300)
     }
 }

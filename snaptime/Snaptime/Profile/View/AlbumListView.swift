@@ -10,7 +10,7 @@ import SnapKit
 
 /// 프로필에서의 AlbumListView
 final class AlbumListView: UIView {
-    var flow: (() -> ())?
+    var send: (() -> ())?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -79,7 +79,7 @@ extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let flow = self.flow {
+        if let flow = self.send {
             flow()
         }
     }

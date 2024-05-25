@@ -53,7 +53,7 @@ final class MainAlbumViewController : BaseViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: "SnapCollectionViewCell")
+        collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -184,9 +184,9 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SnapCollectionViewCell.identifier,
+            withReuseIdentifier: AlbumCollectionViewCell.identifier,
             for: indexPath
-        ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
+        ) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
         cell.setupUI(albumData[indexPath.row])
         return cell
     }
