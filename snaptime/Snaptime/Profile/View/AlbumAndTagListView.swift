@@ -10,11 +10,19 @@ import SnapKit
 
 /// 프로필 내부 album, tag list tabButton 과 각각 화면을 나타내는 View
 final class TopTapBarView: UIView {
+    var send: (()->())? {
+        didSet {
+            if let send = send {
+                self.albumListView.send = send
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         self.setupLayouts()
         self.setupConstraints()
-        
+    
         self.listScrollView.delegate = self
     }
     
@@ -53,9 +61,9 @@ final class TopTapBarView: UIView {
         
         return scrollView
     }()
-    
-    private lazy var tagListView = TagListView()
-    private lazy var albumListView = AlbumListView()
+        
+    private let tagListView = TagListView()
+    private let albumListView = AlbumListView()
     
     private lazy var contentView = UIView()
     
@@ -63,7 +71,7 @@ final class TopTapBarView: UIView {
         albumListView.reloadData()
     }
     
-    // MARK: - setup UI
+    // MARK: - setup UI    
     private func setupLayouts() {
         [albumListView,
          tagListView].forEach {
@@ -129,7 +137,8 @@ extension TopTapBarView: UICollectionViewDelegate, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configTitle("앨범목록")
+        let title = ["앨범목록", "태그목록"]
+        cell.configTitle(title[indexPath.row])
         
         return cell
     }

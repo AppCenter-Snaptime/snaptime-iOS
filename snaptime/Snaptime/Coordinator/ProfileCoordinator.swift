@@ -19,14 +19,16 @@ final class ProfileCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.isNavigationBarHidden = true
+        self.navigationController.navigationBar.tintColor = .black
     }
 }
 
-extension ProfileCoordinator : MyProfileNavigation, 
+extension ProfileCoordinator: MyProfileViewControllerDelegate,
                                 EditProfileNavigation,
-                                SettingProfileNavigation {
-    
+                                SettingProfileNavigation,
+                               AlbumDetailViewControllerDelegate,
+                               SnapListViewControllerDelegate,
+                              NotificationViewControllerDelegate {
     func presentMyProfile() {
         let myProfileVC = MyProfileViewController()
         myProfileVC.delegate = self
@@ -43,5 +45,27 @@ extension ProfileCoordinator : MyProfileNavigation,
         let settingProfileVC = SettingProfileViewController()
         settingProfileVC.delegate = self
         navigationController.pushViewController(settingProfileVC, animated: true)
+    }
+    
+    func presentAlbumDetail() {
+        let albumDetailVC = AlbumDetailViewController()
+        albumDetailVC.delegate = self
+        navigationController.pushViewController(albumDetailVC, animated: true)
+    }
+    
+    func presentAlbumSnap() {
+        let albumSnapVC = SnapListViewController()
+        albumSnapVC.delegate = self
+        navigationController.pushViewController(albumSnapVC, animated: true)
+    }
+    
+    func presentCommentView() {
+        
+    }
+    
+    func presentNotification() {
+        let notificationVC = NotificationViewController()
+        notificationVC.delegate = self
+        navigationController.pushViewController(notificationVC, animated: true)
     }
 }

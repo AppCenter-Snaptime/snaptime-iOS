@@ -10,13 +10,14 @@ import SnapKit
 
 /// 프로필에서의 AlbumListView
 final class AlbumListView: UIView {
-    
+    var send: (() -> ())?
+
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         self.setLayouts()
         self.setConstraints()
         self.setupCollectionView()
-        self.profileAlbumListCollectionView.reloadData()
+        self.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -75,6 +76,12 @@ extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return UserAlbumManager.shared.userAlbumList.result.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let flow = self.send {
+            flow()
+        }
     }
 }
 

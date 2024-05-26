@@ -1,87 +1,213 @@
 //
-//  SnapCollectionViewCell.swift
+//  AlbumSnapCollectionViewCell.swift
 //  snaptime
 //
-//  Created by 이대현 on 2/15/24.
+//  Created by Bowon Han on 2/14/24.
 //
 
-import Kingfisher
-import SnapKit
 import UIKit
+import SnapKit
 
-final class SnapCollectionViewCell : UICollectionViewCell {
-    private lazy var snapImageView : UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
-        return imageView
-    }()
-    
-    private lazy var descriptionLabel : UILabel = {
-        let label = UILabel()
-        label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
-        return label
-    }()
-    
-    func setupUI(_ album: Album) {
-        descriptionLabel.text = album.name
-        if let photoURL = album.photoURL,
-           let url = URL(string: photoURL) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            snapImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(let value):
-                    print("success")
-                case .failure(let error):
-                    print("error")
-                    print(error)
-                }
-            }
-        }
-    }
+protocol AlbumSnapCollectionViewCellDelegate: AnyObject {
+    func didTapCommentButton()
+}
+
+final class SnapCollectionViewCell: UICollectionViewCell {
+    /// 버튼 event 전달 delegate
+    weak var delegate: AlbumSnapCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayouts()
-        setupConstraints()
+        self.setLayouts()
+        self.setConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
-    private func setupLayouts() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        userImageView.layer.cornerRadius = userImageView.frame.height/2
+    }
+        
+    private lazy var userImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .snaptimeGray
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
+    
+    private lazy var userNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Jocelyn"
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        
+        return label
+    }()
+    
+    private lazy var tagLabel: UILabel = {
+        let label = UILabel()
+        label.text = "with @Lorem"
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.textColor = UIColor.init(hexCode: "#909090")
+        
+        return label
+    }()
+    
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private lazy var photoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "SnapExample")
+        
+        return imageView
+    }()
+    
+    private lazy var commentButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "message"), for: .normal)
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private lazy var shareButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private lazy var postLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.numberOfLines = 0 // NOTE: 글이 너무 길어지면 곤란하니까 최대 몇줄까지 보여줄 지 정하는 게 좋을듯
+        label.text = "Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui.Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui."
+        
+        return label
+    }()
+    
+    private lazy var commentCheckButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("댓글보기", for: .normal)
+        button.setTitleColor(UIColor.init(hexCode: "#B2B2B2"), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
+        
+        return button
+    }()
+    
+    private lazy var postDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .black
+        label.text = "24.01.15"
+        
+        return label
+    }()
+    
+    func configureData(profileImageURL: String,
+                       name: String,
+                       tagList: String?,
+                       postImageURL: String,
+                       postContent: String,
+                       date: String) {
+        userNameLabel.text = name
+        if let tagList = tagList {
+            tagLabel.text = "with @\(tagList)"
+        }
+        
+        postLabel.text = postContent
+        postDateLabel.text = date
+    }
+    
+    private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 1.5, y: self.bounds.origin.y + 10, width: self.bounds.width + 3, height: self.bounds.height - 7)).cgPath
-        self.layer.shadowOpacity = 0.7
-        self.layer.shadowRadius = 7
+        self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 0.5, y: self.bounds.origin.y , width: self.bounds.width + 0.5, height: self.bounds.height + 0.5)).cgPath
+        self.layer.shadowOpacity = 20
+        self.layer.shadowRadius = 6
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
-        self.contentView.backgroundColor = .white
+        self.contentView.backgroundColor = UIColor.init(hexCode: "#F8F8F8")
         
-        [
-            snapImageView,
-            descriptionLabel
-        ].forEach {
+        [userImageView,
+         userNameLabel,
+         tagLabel,
+         editButton,
+         photoImageView,
+         commentButton,
+         shareButton,
+         postLabel,
+         commentCheckButton,
+         postDateLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
     
-    private func setupConstraints() {
-        snapImageView.snp.makeConstraints {
-            $0.left.top.right.equalToSuperview()
-            $0.height.equalTo(contentView.bounds.height-36)
-            
+    private func setConstraints() {
+        userImageView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(20)
+            $0.width.height.equalTo(32)
         }
         
-        descriptionLabel.snp.makeConstraints {
-            $0.left.equalTo(snapImageView).offset(15)
-            $0.centerY.equalTo(snapImageView.snp.bottom).offset(17)
+        userNameLabel.snp.makeConstraints {
+            $0.left.equalTo(userImageView.snp.right).offset(10)
+            $0.top.equalTo(userImageView)
+        }
+        
+        tagLabel.snp.makeConstraints {
+            $0.left.equalTo(userNameLabel)
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(5)
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-20)
+            $0.centerY.equalTo(userImageView)
+            $0.width.height.equalTo(32)
+        }
+        
+        photoImageView.snp.makeConstraints {
+            $0.top.equalTo(editButton.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(photoImageView.snp.width).multipliedBy(1.33) // 4:3 비율로 설정
+        }
+        
+        commentButton.snp.makeConstraints {
+            $0.left.equalTo(photoImageView.snp.left)
+            $0.top.equalTo(photoImageView.snp.bottom).offset(8)
+            $0.width.height.equalTo(24)
+        }
+        
+        shareButton.snp.makeConstraints {
+            $0.right.equalTo(photoImageView.snp.right)
+            $0.top.equalTo(commentButton)
+            $0.width.height.equalTo(24)
+        }
+        
+        postLabel.snp.makeConstraints {
+            $0.top.equalTo(commentButton.snp.bottom).offset(8)
+            $0.left.right.equalTo(photoImageView)
+        }
+        
+        commentCheckButton.snp.makeConstraints {
+            $0.top.equalTo(postLabel.snp.bottom).offset(10)
+            $0.left.equalTo(photoImageView.snp.left)
+            $0.height.equalTo(postDateLabel)
+        }
+        
+        postDateLabel.snp.makeConstraints {
+            $0.top.equalTo(postLabel.snp.bottom).offset(10)
+            $0.right.equalTo(photoImageView.snp.right)
         }
     }
 }

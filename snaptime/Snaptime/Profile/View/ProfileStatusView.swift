@@ -16,16 +16,17 @@ final class ProfileStatusView: UIView {
         case others
     }
     
-    var tabButtonAction: (() -> ()) = {}
-
+    var tabButtonAction: UIAction
     let profileTarget: ProfileTarget
     
-    init(target: ProfileTarget) {
+    init(target: ProfileTarget, action: UIAction) {
         self.profileTarget = target
+        self.tabButtonAction = action
         super.init(frame: .zero)
         self.setupUI(target: target)
         self.setupLayouts()
         self.setupConstraints()
+        self.followOrSettingButton.addAction(tabButtonAction, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +64,7 @@ final class ProfileStatusView: UIView {
         return stackView
     }()
     
-    private let followOrSettingButton = UIButton()
+    private lazy var followOrSettingButton = UIButton()
     
     private lazy var postNumber = ProfileStatusButton("사진수", action: UIAction {[weak self] _ in})
     private lazy var followerNumber = ProfileStatusButton("팔로워", action: UIAction {[weak self] _ in})
@@ -89,9 +90,6 @@ final class ProfileStatusView: UIView {
             config.attributedTitle = titleAttr
             
             followOrSettingButton.configuration = config
-            followOrSettingButton.addAction(UIAction { _ in
-                self.tabButtonAction()
-            }, for: .touchUpInside)
             
         case .myself:
             var config = UIButton.Configuration.filled()
@@ -103,9 +101,6 @@ final class ProfileStatusView: UIView {
             
             followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
             followOrSettingButton.configuration = config
-            followOrSettingButton.addAction(UIAction { _ in
-                self.tabButtonAction()
-            }, for: .touchUpInside)
         }
     }
     

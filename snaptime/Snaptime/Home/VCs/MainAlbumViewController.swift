@@ -53,7 +53,7 @@ final class MainAlbumViewController : BaseViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: "SnapCollectionViewCell")
+        collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -184,9 +184,9 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SnapCollectionViewCell.identifier,
+            withReuseIdentifier: AlbumCollectionViewCell.identifier,
             for: indexPath
-        ) as? SnapCollectionViewCell else { return UICollectionViewCell() }
+        ) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
         cell.setupUI(albumData[indexPath.row])
         return cell
     }
@@ -196,13 +196,13 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     }
 }
 
-extension MainAlbumViewController : UICollectionViewDelegateFlowLayout {
+extension MainAlbumViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
         let spacing: CGFloat = 23
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
-        return CGSize(width: itemDimension, height: itemDimension + 40)
+        return CGSize(width: itemDimension, height: itemDimension + 50)
     }
 }
