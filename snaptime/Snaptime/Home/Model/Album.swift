@@ -8,16 +8,25 @@
 import Foundation
 
 struct Album {
-    init(name: String, photoURL: String?) {
+    init(id: Int, name: String, photoURL: String?) {
+        self.id = id
         self.name = name
         self.photoURL = photoURL
     }
     
     init(_ dto: AlbumSnapResDto) {
+        self.id = dto.id
         self.name = dto.name
         self.photoURL = dto.photoUrl
     }
     
+    init(_ dto: FindSnapResDto) {
+        self.id = dto.id
+        self.name = dto.oneLineJournal
+        self.photoURL = dto.photoURL
+    }
+    
+    let id: Int
     let name: String
     let photoURL: String?
 }

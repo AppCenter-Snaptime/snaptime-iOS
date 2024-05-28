@@ -5,6 +5,7 @@
 //  Created by Bowon Han on 4/2/24.
 //
 
+import Alamofire
 import UIKit
 import SnapKit
 
@@ -14,10 +15,67 @@ protocol AlbumDetailViewControllerDelegate: AnyObject {
 
 final class AlbumDetailViewController: BaseViewController {
     weak var delegate: AlbumDetailViewControllerDelegate?
+    private let albumID: Int
+    private var albumData: [Album] = [
+        Album(id: 0, name: "손흥민 개쩐다", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
+        Album(id: 1, name: "손흥민 개쩐다2", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
+        Album(id: 2, name: "손흥민 개쩐다3", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
+        Album(id: 3, name: "손흥민 개쩐다4", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
+        Album(id: 4, name: "손흥민 개쩐다5", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false")
+    ]
+    
+    init(albumID: Int) {
+        self.albumID = albumID
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "최근항목"
+        self.fetchAlbumDetail(id: self.albumID)
+    }
+    
+    private func fetchAlbumDetail(id: Int) {
+        let url = "http://na2ru2.me:6308/album/\(id)?album_id=\(id)"
+        print(url)
+        let headers: HTTPHeaders = [
+            "Authorization": ACCESS_TOKEN,
+            "accept": "*/*"
+        ]
+        AF.request(
+            url,
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                print("success")
+                print(data)
+                guard let data = response.data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(CommonResponseDtoFindAlbumResDto.self, from: data)
+                    print(result)
+                    self.albumData = result.result.snap.map { Album($0) }
+                    DispatchQueue.main.async {
+                        self.albumDetailCollectionView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
+            case .failure(let error):
+                print(String(describing: error.errorDescription))
+            }
+        }
     }
     
     private lazy var albumDetailCollectionView: UICollectionView = {
@@ -56,11 +114,12 @@ extension AlbumDetailViewController: UICollectionViewDelegate, UICollectionViewD
             withReuseIdentifier: SnapPreviewCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapPreviewCollectionViewCell else { return UICollectionViewCell() }
+        cell.setupUI(albumData[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return albumData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
