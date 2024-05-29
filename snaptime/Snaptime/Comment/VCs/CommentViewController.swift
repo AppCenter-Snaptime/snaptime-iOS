@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CommentViewControllerDelegate: AnyObject {
+    func presentCommentVC()
+}
+
 final class CommentViewController: BaseViewController {
+    weak var delegate: CommentViewControllerDelegate?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "댓글"

@@ -19,11 +19,13 @@ final class CommunityCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.isNavigationBarHidden = true
+        self.navigationController.navigationBar.isHidden = true
     }
 }
 
-extension CommunityCoordinator: CommunityViewControllerDelegate, NotificationViewControllerDelegate {
+extension CommunityCoordinator: CommunityViewControllerDelegate,
+                                NotificationViewControllerDelegate,
+                                    CommentViewControllerDelegate {
     func presentCommunity() {
         let communityVC = CommunityViewController()
         communityVC.delegate = self
@@ -34,5 +36,12 @@ extension CommunityCoordinator: CommunityViewControllerDelegate, NotificationVie
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    func presentCommentVC() {
+        let commentVC = CommentViewController()
+        commentVC.delegate = self
+        commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
+        navigationController.present(commentVC, animated: true, completion: nil)
     }
 }
