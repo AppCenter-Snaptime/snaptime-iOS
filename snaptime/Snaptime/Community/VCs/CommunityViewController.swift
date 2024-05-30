@@ -11,6 +11,7 @@ import SnapKit
 protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
     func presentNotification()
+    func presentCommentVC()
 }
 
 final class CommunityViewController: BaseViewController {
@@ -18,6 +19,17 @@ final class CommunityViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        APIService.fetchCommunitySnap(pageNum: 1).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.contentCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     private let titleLabel: UILabel = {
@@ -86,13 +98,16 @@ final class CommunityViewController: BaseViewController {
 
 extension CommunityViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return CommunitySnapManager.shared.snap.result.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SnapCollectionViewCell.identifier, for: indexPath) as? SnapCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.delegate = self
+        cell.configureData(data: CommunitySnapManager.shared.snap.result[indexPath.row])
         return cell
     }
 }
@@ -104,6 +119,12 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
         let spacing: CGFloat = 20
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
-        return CGSize(width: itemDimension, height: itemDimension+300)
+        return CGSize(width: itemDimension, height: itemDimension + 280)
+    }
+}
+
+extension CommunityViewController: SnapCollectionViewCellDelegate {
+    func didTapCommentButton() {
+        delegate?.presentCommentVC()
     }
 }

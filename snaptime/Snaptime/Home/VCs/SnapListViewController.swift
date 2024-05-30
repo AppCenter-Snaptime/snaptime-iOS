@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol SnapListViewControllerDelegate: AnyObject {
-    func presentCommentView()
+    func presentCommentVC()
 }
 
 final class SnapListViewController: BaseViewController {
@@ -60,7 +60,7 @@ extension SnapListViewController: UICollectionViewDataSource, UICollectionViewDe
         }
 
         cell.delegate = self
-        cell.configureData(profileImageURL: "SnapExample", name: "Jocelyn", tagList: "Lorem", postImageURL: "SnapExample", postContent: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.", date: "2024.01.24")
+//        cell.configureData(profileImageURL: "SnapExample", name: "Jocelyn", tagList: "Lorem", postImageURL: "SnapExample", postContent: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.", date: "2024.01.24")
         
         return cell
     }
@@ -82,8 +82,8 @@ extension SnapListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension SnapListViewController: AlbumSnapCollectionViewCellDelegate {
+extension SnapListViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton() {
-        delegate?.presentCommentView()
+        delegate?.presentCommentVC()
     }
 }

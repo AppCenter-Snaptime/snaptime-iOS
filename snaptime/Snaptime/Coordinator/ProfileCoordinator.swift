@@ -28,7 +28,15 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
                                 SettingProfileNavigation,
                                AlbumDetailViewControllerDelegate,
                                SnapListViewControllerDelegate,
-                              NotificationViewControllerDelegate {
+                              NotificationViewControllerDelegate,
+                              CommentViewControllerDelegate {
+    func presentCommentVC() {
+        let commentVC = CommentViewController()
+        commentVC.delegate = self
+        commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
+        navigationController.present(commentVC, animated: true, completion: nil)
+    }
+    
     func presentMyProfile() {
         let myProfileVC = MyProfileViewController()
         myProfileVC.delegate = self
@@ -57,10 +65,6 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         let albumSnapVC = SnapListViewController()
         albumSnapVC.delegate = self
         navigationController.pushViewController(albumSnapVC, animated: true)
-    }
-    
-    func presentCommentView() {
-        
     }
     
     func presentNotification() {

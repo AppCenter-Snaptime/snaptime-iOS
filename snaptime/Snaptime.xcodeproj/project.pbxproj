@@ -11,6 +11,8 @@
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		291FB1142BF63E7D0050AB90 /* UserAlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291FB1132BF63E7D0050AB90 /* UserAlbumModel.swift */; };
 		291FB1162BF63EB50050AB90 /* UserAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */; };
+		2920B7A42C0764AC002A7688 /* CommunitySnapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920B7A32C0764AC002A7688 /* CommunitySnapModel.swift */; };
+		2920B7A62C07651E002A7688 /* CommunitySnapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920B7A52C07651E002A7688 /* CommunitySnapManager.swift */; };
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
 		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
@@ -94,6 +96,8 @@
 		290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		291FB1132BF63E7D0050AB90 /* UserAlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlbumModel.swift; sourceTree = "<group>"; };
 		291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlbumManager.swift; sourceTree = "<group>"; };
+		2920B7A32C0764AC002A7688 /* CommunitySnapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitySnapModel.swift; sourceTree = "<group>"; };
+		2920B7A52C07651E002A7688 /* CommunitySnapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitySnapManager.swift; sourceTree = "<group>"; };
 		2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +197,15 @@
 				295DF0512BC505A100112DE7 /* UILabel+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		2920B7A22C07645A002A7688 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2920B7A32C0764AC002A7688 /* CommunitySnapModel.swift */,
+				2920B7A52C07651E002A7688 /* CommunitySnapManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2929776B2B6618FA00FDC799 = {
@@ -297,6 +310,7 @@
 		298F7F582B6BA30700A8DBC5 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				2920B7A22C07645A002A7688 /* Model */,
 				A661F3F62BB157930093336A /* View */,
 				298F7F6D2B6BA76300A8DBC5 /* VCs */,
 			);
@@ -656,6 +670,7 @@
 				29AA38092BF26218009EF296 /* UserProfileCountManager.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
+				2920B7A42C0764AC002A7688 /* CommunitySnapModel.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */,
 				296167AA2BBBC7A7003CA89C /* AlbumDetailViewController.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
@@ -665,6 +680,7 @@
 				29E6EA132BFF8B13004F154F /* APIService.swift in Sources */,
 				295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* SnapListViewController.swift in Sources */,
+				2920B7A62C07651E002A7688 /* CommunitySnapManager.swift in Sources */,
 				A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */,
 				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
 				2936B8E22B9C6E1A00568E24 /* ProfileSettingItemView.swift in Sources */,

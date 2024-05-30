@@ -29,8 +29,9 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
                             QRReaderViewControllerDelegate,
                             AlbumDetailViewControllerDelegate,
                             AddSnapViewControllerDelegate,
-                            SnapTagListViewControllerDelegate {
-    
+                            SnapTagListViewControllerDelegate,
+                           CommentViewControllerDelegate {
+
     func presentAddSnap() {
         let addSnapVC = AddSnapViewController()
         addSnapVC.delegate = self
@@ -80,8 +81,10 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.pushViewController(snapTagListVC, animated: true)
     }
     
-    func presentCommentView() {
+    func presentCommentVC() {
         let commentVC = CommentViewController()
-        navigationController.pushViewController(commentVC, animated: true)
+        commentVC.delegate = self
+        commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
+        navigationController.present(commentVC, animated: true, completion: nil)
     }
 }

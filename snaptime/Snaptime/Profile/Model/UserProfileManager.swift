@@ -13,8 +13,4 @@ class UserProfileManager {
     static let shared = UserProfileManager()
     
     private init() {}
-    
-    func fetchUserProfile() {
-        
-    }
 }

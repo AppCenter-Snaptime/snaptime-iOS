@@ -1,5 +1,5 @@
 //
-//  AlbumSnapCollectionViewCell.swift
+//  SnapCollectionViewCell.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/14/24.
@@ -7,14 +7,15 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
-protocol AlbumSnapCollectionViewCellDelegate: AnyObject {
+protocol SnapCollectionViewCellDelegate: AnyObject {
     func didTapCommentButton()
 }
 
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
-    weak var delegate: AlbumSnapCollectionViewCellDelegate?
+    weak var delegate: SnapCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,6 +77,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(systemName: "message"), for: .normal)
         button.tintColor = .black
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.didTapCommentButton()
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -90,9 +94,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var postLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0 // NOTE: 글이 너무 길어지면 곤란하니까 최대 몇줄까지 보여줄 지 정하는 게 좋을듯
-        label.text = "Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui.Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui."
         
         return label
     }()
@@ -102,6 +105,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         button.setTitle("댓글보기", for: .normal)
         button.setTitleColor(UIColor.init(hexCode: "#B2B2B2"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.didTapCommentButton()
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -115,19 +121,39 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configureData(profileImageURL: String,
-                       name: String,
-                       tagList: String?,
-                       postImageURL: String,
-                       postContent: String,
-                       date: String) {
-        userNameLabel.text = name
-        if let tagList = tagList {
-            tagLabel.text = "with @\(tagList)"
+    func configureData(data: CommunitySnapModel.Result) {
+        self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
+        userNameLabel.text = data.userName
+//        if let tagList = data {
+//            tagLabel.text = "with @\(tagList)"
+//        }
+        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
+        postLabel.text = data.oneLineJournal
+//        postDateLabel.text = data.snapCreatedDate
+        postDateLabel.text = "2024.01.09"
+    }
+
+    
+    
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
+            
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("이미지 불러오기 성공")
+                case .failure(let error):
+                    print("error")
+                    print(error)
+                }
+            }
         }
-        
-        postLabel.text = postContent
-        postDateLabel.text = date
     }
     
     private func setLayouts() {
