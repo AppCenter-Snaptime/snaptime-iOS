@@ -11,7 +11,7 @@ import SnapKit
 protocol MyProfileViewControllerDelegate: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
-    func presentAlbumDetail()
+    func presentAlbumDetail(albumId: Int)
     func presentNotification()
 }
 
@@ -96,7 +96,7 @@ final class MyProfileViewController: BaseViewController {
     private let albumAndTagListView = TopTapBarView()
     
     private func sendFlow() {
-        self.delegate?.presentAlbumDetail()
+        self.delegate?.presentAlbumDetail(albumId: 0) // test
     }
     
     // MARK: - setupUI

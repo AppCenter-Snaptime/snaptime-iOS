@@ -69,8 +69,8 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.pushViewController(mainAlbumVC, animated: true)
     }
     
-    func presentAlbumDetail() {
-        let albumDetailVC = AlbumDetailViewController()
+    func presentAlbumDetail(albumID: Int) {
+        let albumDetailVC = AlbumDetailViewController(albumID: albumID)
         albumDetailVC.delegate = self
         navigationController.pushViewController(albumDetailVC, animated: true)
     }
