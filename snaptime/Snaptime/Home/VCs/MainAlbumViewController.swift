@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
-    func presentAlbumDetail()
+    func presentAlbumDetail(albumID: Int)
     func presentQRReaderView()
     func presentAddSnap()
 }
@@ -84,11 +84,11 @@ final class MainAlbumViewController : BaseViewController {
     
     // MARK: -- Fetch Data
     var albumData: [Album] = [
-        Album(name: "최근 항목", photoURL: ""),
-        Album(name: "2024", photoURL: ""),
-        Album(name: "2023", photoURL: ""),
-        Album(name: "2022", photoURL: ""),
-        Album(name: "Alone", photoURL: "")
+        Album(id: 0, name: "최근 항목", photoURL: ""),
+        Album(id: 1, name: "2024", photoURL: ""),
+        Album(id: 2, name: "2023", photoURL: ""),
+        Album(id: 3, name: "2022", photoURL: ""),
+        Album(id: 4, name: "Alone", photoURL: "")
     ]
     
     private func fetchAlbumList() {
@@ -192,7 +192,7 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentAlbumDetail()
+        delegate?.presentAlbumDetail(albumID: albumData[indexPath.row].id)
     }
 }
 

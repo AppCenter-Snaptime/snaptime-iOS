@@ -47,8 +47,8 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         navigationController.pushViewController(settingProfileVC, animated: true)
     }
     
-    func presentAlbumDetail() {
-        let albumDetailVC = AlbumDetailViewController()
+    func presentAlbumDetail(albumId: Int) {
+        let albumDetailVC = AlbumDetailViewController(albumID: albumId)
         albumDetailVC.delegate = self
         navigationController.pushViewController(albumDetailVC, animated: true)
     }
