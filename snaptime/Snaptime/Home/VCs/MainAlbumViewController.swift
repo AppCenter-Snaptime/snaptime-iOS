@@ -16,17 +16,10 @@ protocol MainAlbumViewControllerDelegate: AnyObject {
 }
 
 final class MainAlbumViewController : BaseViewController {
-    private let logoTextLabel : UILabel = {
-        let label = UILabel()
-        label.text = "SnapTime"
-        
-        return label
-    }()
-    
     private lazy var addSnapButton : UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.image = UIImage(systemName: "plus")
+        config.image = UIImage(systemName: "folder")
         config.baseBackgroundColor = .systemBackground
         config.baseForegroundColor = .black
         button.configuration = config
@@ -35,13 +28,6 @@ final class MainAlbumViewController : BaseViewController {
         }, for: .touchUpInside)
         
         return button
-    }()
-    
-    private lazy var mainAlbumLabel : UILabel = {
-        let label = UILabel()
-        label.text = "모든 앨범"
-        label.font = .systemFont(ofSize: 16, weight: .bold)
-        return label
     }()
     
     private lazy var mainAlbumCollectionView : UICollectionView = {
@@ -133,37 +119,26 @@ final class MainAlbumViewController : BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         [
-            logoTextLabel,
             addSnapButton,
-            mainAlbumLabel,
             mainAlbumCollectionView,
             addSnapFloatingButton
         ].forEach {
             view.addSubview($0)
         }
+        
+        self.setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "Logo")))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addSnapButton)
     }
     
     override func setupConstraints() {
         super.setupConstraints()
-        
-        logoTextLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(13)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-        }
-        
-        addSnapButton.snp.makeConstraints {
-            $0.centerY.equalTo(logoTextLabel.snp.centerY)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
-        }
-        
-        mainAlbumLabel.snp.makeConstraints {
-            $0.top.equalTo(logoTextLabel.snp.bottom).offset(30)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
-        }
-        
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(mainAlbumLabel.snp.bottom).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
