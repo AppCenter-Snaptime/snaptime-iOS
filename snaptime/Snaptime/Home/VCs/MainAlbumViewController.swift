@@ -16,11 +16,13 @@ protocol MainAlbumViewControllerDelegate: AnyObject {
 }
 
 final class MainAlbumViewController : BaseViewController {
+    private let contentView = UIView()
+    
     private lazy var addSnapButton : UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.image = UIImage(systemName: "folder")
-        config.baseBackgroundColor = .systemBackground
+        config.baseBackgroundColor = .white.withAlphaComponent(0)
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in
@@ -45,6 +47,14 @@ final class MainAlbumViewController : BaseViewController {
         return collectionView
     }()
     
+    private lazy var floatingStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .trailing
+        stackView.spacing = 7
+        return stackView
+    }()
+    
     private lazy var addSnapFloatingButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.plain()
@@ -56,10 +66,84 @@ final class MainAlbumViewController : BaseViewController {
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentQRReaderView()
+            self?.isAddButtonActive.toggle()
+            self?.onTouchAddButton()
         }, for: .touchUpInside)
         return button
     }()
+    
+    private lazy var postFloatingStackView: UIStackView = {
+        let stackView = UIStackView()
+        let label = UILabel()
+        label.text = "글쓰기"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .white
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.background.backgroundColor = .white
+        config.baseForegroundColor = .snaptimeBlue
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "pencil")
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentAddSnap()
+        }, for: .touchUpInside)
+        button.snp.makeConstraints { make in
+            make.width.height.equalTo(50)
+        }
+        
+        [label, button].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        stackView.alignment = .center
+        stackView.bounds = view.frame.insetBy(dx: 8, dy: 0)
+        stackView.isHidden = true
+        return stackView
+    }()
+    
+    private lazy var qrFloatingStackView: UIStackView = {
+        let stackView = UIStackView()
+        let label = UILabel()
+        label.text = "QR인식하기"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .white
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.background.backgroundColor = .white
+        config.baseForegroundColor = .snaptimeBlue
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "qrcode.viewfinder")
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentQRReaderView()
+        }, for: .touchUpInside)
+        button.snp.makeConstraints { make in
+            make.width.height.equalTo(50)
+        }
+        
+        [label, button].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        stackView.alignment = .center
+        stackView.bounds = view.frame.insetBy(dx: 8, dy: 0)
+        stackView.isHidden = true
+        return stackView
+    }()
+    
+    private lazy var floatingBackView: UIView = {
+        let view = UIView(frame: self.view.frame)
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.alpha = 0
+        view.isHidden = true
+        self.view.insertSubview(view, belowSubview: self.floatingStackView)
+        return view
+    }()
+    
+    private var isAddButtonActive: Bool = false
     
     weak var delegate: MainAlbumViewControllerDelegate?
     
@@ -115,15 +199,95 @@ final class MainAlbumViewController : BaseViewController {
         }
     }
     
+    // MARK: -- UI
+    
+    // + Floating Button 클릭시 실행
+    private func onTouchAddButton() {
+        rotateFloatingButton()
+        setAdditionButtons()
+        setBackground()
+    }
+    
+    // 글쓰기, QR 버튼 띄우기
+    private func setAdditionButtons() {
+        if isAddButtonActive {
+            [
+                self.postFloatingStackView,
+                self.qrFloatingStackView
+            ].forEach { [weak self] view in
+                view.isHidden = false
+                view.alpha = 0
+                UIView.animate(withDuration: 0.3) {
+                    view.alpha = 1
+                    self?.view.layoutIfNeeded()
+                }
+            }
+        } else {
+            [
+                self.postFloatingStackView,
+                self.qrFloatingStackView
+            ].reversed().forEach { [weak self] view in
+                UIView.animate(withDuration: 0.3) {
+                    view.isHidden = true
+                    self?.view.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
+    // 배경 어둡게 하기
+    private func setBackground() {
+        if isAddButtonActive {
+            self.floatingBackView.isHidden = false
+            UIView.animate(withDuration: 0.3) {
+                self.floatingBackView.alpha = 1
+            }
+            
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.floatingBackView.alpha = 0
+            }) { _ in
+                self.floatingBackView.isHidden = true
+            }
+        }
+    }
+    
+    // 버튼 + <-> x 모양으로 회전
+    private func rotateFloatingButton() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let fromValue = isAddButtonActive ? 0 : CGFloat.pi / 4
+        let toValue = isAddButtonActive ? CGFloat.pi / 4 : 0
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.duration = 0.3
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        addSnapFloatingButton.layer.add(animation, forKey: nil)
+    }
+    
     // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
         [
             addSnapButton,
             mainAlbumCollectionView,
-            addSnapFloatingButton
+        ].forEach {
+            contentView.addSubview($0)
+        }
+        
+        [
+            contentView,
+            floatingStackView
         ].forEach {
             view.addSubview($0)
+        }
+        
+        [
+            postFloatingStackView,
+            qrFloatingStackView,
+            addSnapFloatingButton
+        ].forEach {
+            floatingStackView.addArrangedSubview($0)
         }
         
         self.setupNavigationBar()
@@ -137,17 +301,32 @@ final class MainAlbumViewController : BaseViewController {
     
     override func setupConstraints() {
         super.setupConstraints()
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(contentView).offset(25)
+            $0.left.right.equalTo(contentView)
+            $0.bottom.equalTo(contentView)
+        }
+        
+        floatingStackView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
         
         addSnapFloatingButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
-            $0.width.equalTo(58)
-            $0.height.equalTo(58)
+            $0.width.height.equalTo(64)
+        }
+        
+        postFloatingStackView.snp.makeConstraints {
+            $0.width.equalTo(92)
+            $0.height.equalTo(50)
+        }
+        
+        qrFloatingStackView.snp.makeConstraints {
+            $0.width.equalTo(120)
+            $0.height.equalTo(50)
         }
     }
 }
