@@ -9,12 +9,12 @@ import Alamofire
 import UIKit
 import SnapKit
 
-protocol AlbumDetailViewControllerDelegate: AnyObject {
+protocol SnapPreviewViewControllerDelegate: AnyObject {
     func presentAlbumSnap()
 }
 
-final class AlbumDetailViewController: BaseViewController {
-    weak var delegate: AlbumDetailViewControllerDelegate?
+final class SnapPreviewViewController: BaseViewController {
+    weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
     private var albumData: [Album] = [
         Album(id: 0, name: "손흥민 개쩐다", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
@@ -108,7 +108,7 @@ final class AlbumDetailViewController: BaseViewController {
     }
 }
 
-extension AlbumDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: SnapPreviewCollectionViewCell.identifier,
@@ -127,7 +127,7 @@ extension AlbumDetailViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
 
-extension AlbumDetailViewController : UICollectionViewDelegateFlowLayout {
+extension SnapPreviewViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2
