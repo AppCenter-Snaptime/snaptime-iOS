@@ -68,8 +68,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
-        
+        imageView.backgroundColor = .snaptimeGray
+
         return imageView
     }()
     
@@ -133,7 +133,19 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         postDateLabel.text = "2024.01.09"
     }
 
-    
+    /// 임시
+    func configureDataForHome(data: FindSnapResDto) {
+//        let profileData = UserProfileManager.shared.profile.result
+        self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
+        userNameLabel.text = UserProfileManager.shared.profile.result.userName
+//        if let tagList = data {
+//            tagLabel.text = "with @\(tagList)"
+//        }
+        self.loadImage(data: data.photoURL, imageView: photoImageView)
+        postLabel.text = data.oneLineJournal
+//        postDateLabel.text = data.snapCreatedDate
+        postDateLabel.text = "2024.01.09"
+    }
     
     private func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data) {
@@ -147,7 +159,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("이미지 불러오기 성공")
+                    print("success fetch image")
                 case .failure(let error):
                     print("error")
                     print(error)

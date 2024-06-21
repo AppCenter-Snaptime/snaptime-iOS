@@ -10,7 +10,7 @@ import SnapKit
 
 /// 프로필에서의 AlbumListView
 final class AlbumListView: UIView {
-    var send: (() -> ())?
+    var send: ((Int) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -80,7 +80,7 @@ extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let flow = self.send {
-            flow()
+            flow(UserAlbumManager.shared.userAlbumList.result[indexPath.row].albumId)
         }
     }
 }

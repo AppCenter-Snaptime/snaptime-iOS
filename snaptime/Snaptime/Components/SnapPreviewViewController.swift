@@ -10,19 +10,13 @@ import UIKit
 import SnapKit
 
 protocol SnapPreviewViewControllerDelegate: AnyObject {
-    func presentAlbumSnap()
+    func presentSnap(snapId: Int)
 }
 
 final class SnapPreviewViewController: BaseViewController {
     weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
-    private var albumData: [Album] = [
-        Album(id: 0, name: "손흥민 개쩐다", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
-        Album(id: 1, name: "손흥민 개쩐다2", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
-        Album(id: 2, name: "손흥민 개쩐다3", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
-        Album(id: 3, name: "손흥민 개쩐다4", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false"),
-        Album(id: 4, name: "손흥민 개쩐다5", photoURL: "http://na2ru2.me:6308/photo?fileName=0522232351169_1153062499_IMG_0008.jpeg&isEncrypted=false")
-    ]
+    private var albumData: [Album] = []
     
     init(albumID: Int) {
         self.albumID = albumID
@@ -123,7 +117,7 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentAlbumSnap()
+        delegate?.presentSnap(snapId: albumData[indexPath.row].id)
     }
 }
 
