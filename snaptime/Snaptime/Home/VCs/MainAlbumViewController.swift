@@ -16,6 +16,19 @@ protocol MainAlbumViewControllerDelegate: AnyObject {
 }
 
 final class MainAlbumViewController : BaseViewController {
+    private var isAddButtonActive: Bool = false
+    
+    weak var delegate: MainAlbumViewControllerDelegate?
+    
+    // MARK: -- Fetch Data
+    var albumData: [Album] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.fetchAlbumList() // 앨범목록 서버 통신
+        self.fetchUserProfile(loginId: "bowon0000")
+    }
+    
     private let contentView = UIView()
     
     private lazy var addSnapButton : UIButton = {
@@ -143,23 +156,18 @@ final class MainAlbumViewController : BaseViewController {
         return view
     }()
     
-    private var isAddButtonActive: Bool = false
-    
-    weak var delegate: MainAlbumViewControllerDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchAlbumList() // 앨범목록 서버 통신
+    private func fetchUserProfile(loginId: String) {
+        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfile):
+                    print("사용자 데이터 불러오기")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
-    
-    // MARK: -- Fetch Data
-    var albumData: [Album] = [
-        Album(id: 0, name: "최근 항목", photoURL: ""),
-        Album(id: 1, name: "2024", photoURL: ""),
-        Album(id: 2, name: "2023", photoURL: ""),
-        Album(id: 3, name: "2022", photoURL: ""),
-        Album(id: 4, name: "Alone", photoURL: "")
-    ]
     
     private func fetchAlbumList() {
         let url = "http://na2ru2.me:6308/album/albumListWithThumbnail"

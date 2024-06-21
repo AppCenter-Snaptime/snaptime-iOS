@@ -22,7 +22,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     
     private lazy var snapImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
+        imageView.backgroundColor = .snaptimeGray
         return imageView
     }()
     
@@ -56,7 +56,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
             snapImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("success")
+                    print("success fetch image")
                 case .failure(let error):
                     print("error")
                     print(error)
@@ -91,6 +91,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
             $0.top.equalTo(snapImageView.snp.bottom).offset(10)
+            $0.right.equalTo(snapImageView).offset(-15)
         }
         
         date.snp.makeConstraints {
