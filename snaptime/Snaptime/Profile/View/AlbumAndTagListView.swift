@@ -10,7 +10,7 @@ import SnapKit
 
 /// 프로필 내부 album, tag list tabButton 과 각각 화면을 나타내는 View
 final class TopTapBarView: UIView {
-    var send: (()->())? {
+    var send: ((Int) -> Void)? {
         didSet {
             if let send = send {
                 self.albumListView.send = send

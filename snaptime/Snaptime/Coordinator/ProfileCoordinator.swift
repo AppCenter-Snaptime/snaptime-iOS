@@ -26,10 +26,11 @@ final class ProfileCoordinator: Coordinator {
 extension ProfileCoordinator: MyProfileViewControllerDelegate,
                                 EditProfileNavigation,
                                 SettingProfileNavigation,
-                               AlbumDetailViewControllerDelegate,
-                               SnapListViewControllerDelegate,
+                               SnapPreviewViewControllerDelegate,
+                               SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
                               CommentViewControllerDelegate {
+    
     func presentCommentVC() {
         let commentVC = CommentViewController()
         commentVC.delegate = self
@@ -55,14 +56,14 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         navigationController.pushViewController(settingProfileVC, animated: true)
     }
     
-    func presentAlbumDetail(albumId: Int) {
-        let albumDetailVC = AlbumDetailViewController(albumID: albumId)
+    func presentSnapPreview(albumId: Int) {
+        let albumDetailVC = SnapPreviewViewController(albumID: albumId)
         albumDetailVC.delegate = self
         navigationController.pushViewController(albumDetailVC, animated: true)
     }
     
-    func presentAlbumSnap() {
-        let albumSnapVC = SnapListViewController()
+    func presentSnap(snapId: Int) {
+        let albumSnapVC = SnapViewController(snapId: snapId)
         albumSnapVC.delegate = self
         navigationController.pushViewController(albumSnapVC, animated: true)
     }

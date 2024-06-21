@@ -11,7 +11,7 @@ import SnapKit
 protocol MyProfileViewControllerDelegate: AnyObject {
     func presentMyProfile()
     func presentSettingProfile()
-    func presentAlbumDetail(albumId: Int)
+    func presentSnapPreview(albumId: Int)
     func presentNotification()
 }
 
@@ -24,43 +24,11 @@ final class MyProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.albumAndTagListView.send = sendFlow
+        self.setupNavigationBar()
 
-        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let userProfile):
-                    if let profile = userProfile as? UserProfileModel {
-                        self.profileStatusView.setupUserProfile(profile.result)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
-        APIService.fetchUserProfileCount(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? UserProfileCountModel {
-                        self.profileStatusView.setupUserNumber(profileCount.result)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
-        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.albumAndTagListView.reloadAlbumListView()
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
+        self.fetchUserAlbum(loginId: loginId)
+        self.fetchUserProfile(loginId: loginId)
+        self.fetchUserProfileCount(loginId: loginId)
     }
     
     // MARK: - configUI
@@ -68,7 +36,7 @@ final class MyProfileViewController: BaseViewController {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
         
         return label
@@ -94,18 +62,68 @@ final class MyProfileViewController: BaseViewController {
     })
     
     private let albumAndTagListView = TopTapBarView()
+        
+    private var sendFlow: (Int) -> Void {
+        return { [weak self] albumId in
+            self?.delegate?.presentSnapPreview(albumId: albumId)
+        }
+    }
     
-    private func sendFlow() {
-        self.delegate?.presentAlbumDetail(albumId: 0) // test
+    private func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
+    }
+
+    
+    private func fetchUserProfile(loginId: String) {
+        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfile):
+                    if let profile = userProfile as? UserProfileModel {
+                        self.profileStatusView.setupUserProfile(profile.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func fetchUserProfileCount(loginId: String) {
+        APIService.fetchUserProfileCount(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfileCount):
+                    if let profileCount = userProfileCount as? UserProfileCountModel {
+                        self.profileStatusView.setupUserNumber(profileCount.result)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func fetchUserAlbum(loginId: String) {
+        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.albumAndTagListView.reloadAlbumListView()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     // MARK: - setupUI
     override func setupLayouts() {
         super.setupLayouts()
         
-        [iconLabel,
-         notificationButton,
-         profileStatusView,
+        [profileStatusView,
          albumAndTagListView].forEach {
             view.addSubview($0)
         }
@@ -114,21 +132,8 @@ final class MyProfileViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        iconLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(25)
-            $0.width.equalTo(80)
-            $0.height.equalTo(32)
-        }
-        
-        notificationButton.snp.makeConstraints {
-            $0.centerY.equalTo(iconLabel.snp.centerY)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-25)
-            $0.height.width.equalTo(32)
-        }
-        
         profileStatusView.snp.makeConstraints {
-            $0.top.equalTo(iconLabel.snp.bottom).offset(10.5)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10.5)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         

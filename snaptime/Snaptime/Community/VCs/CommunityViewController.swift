@@ -20,6 +20,8 @@ final class CommunityViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupNavigationBar()
+        
         APIService.fetchCommunitySnap(pageNum: 1).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
@@ -35,8 +37,8 @@ final class CommunityViewController: BaseViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 20)
-        label.text = "커뮤니티"
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.text = "Community"
         
         return label
     }()
@@ -65,12 +67,17 @@ final class CommunityViewController: BaseViewController {
         return collectionView
     }()
     
+    private func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
+    }
+
+    
     override func setupLayouts() {
         super.setupLayouts()
         
-        [titleLabel,
-         notificationButton,
-         contentCollectionView].forEach {
+        [contentCollectionView].forEach {
             view.addSubview($0)
         }
     }
@@ -78,19 +85,8 @@ final class CommunityViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(25)
-        }
-        
-        notificationButton.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel.snp.centerY)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-25)
-            $0.width.height.equalTo(24)
-        }
-        
         contentCollectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }

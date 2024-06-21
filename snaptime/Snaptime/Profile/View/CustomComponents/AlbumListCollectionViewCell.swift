@@ -76,7 +76,7 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("이미지 불러오기 성공")
+                    print("success fetch image")
                 case .failure(let error):
                     print("error")
                     print(error)
@@ -116,7 +116,7 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(imageStackView).offset(15)
-            $0.centerY.equalTo(imageStackView.snp.bottom).offset(25)
+            $0.centerY.equalTo(imageStackView.snp.bottom).offset(18)
         }
     }
 }
