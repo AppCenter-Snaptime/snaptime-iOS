@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-protocol SnapListViewControllerDelegate: AnyObject {
+protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC()
 }
 
-final class SnapListViewController: BaseViewController {
-    weak var delegate : SnapListViewControllerDelegate?
+final class SnapViewController: BaseViewController {
+    weak var delegate: SnapViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ final class SnapListViewController: BaseViewController {
     }
 }
 
-extension SnapListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = snapCollectionView.dequeueReusableCell(
             withReuseIdentifier: SnapCollectionViewCell.identifier,
@@ -60,7 +60,6 @@ extension SnapListViewController: UICollectionViewDataSource, UICollectionViewDe
         }
 
         cell.delegate = self
-//        cell.configureData(profileImageURL: "SnapExample", name: "Jocelyn", tagList: "Lorem", postImageURL: "SnapExample", postContent: "Lorem ipsum dolor sit amet consectetur. Vitae sed malesuada ornare enim eu sed tortor dui.", date: "2024.01.24")
         
         return cell
     }
@@ -70,7 +69,7 @@ extension SnapListViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 }
 
-extension SnapListViewController: UICollectionViewDelegateFlowLayout {
+extension SnapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = collectionView.bounds.width
@@ -82,7 +81,7 @@ extension SnapListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension SnapListViewController: SnapCollectionViewCellDelegate {
+extension SnapViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton() {
         delegate?.presentCommentVC()
     }
