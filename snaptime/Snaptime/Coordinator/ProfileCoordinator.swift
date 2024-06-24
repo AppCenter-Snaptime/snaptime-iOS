@@ -25,7 +25,7 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: MyProfileViewControllerDelegate,
                                 EditProfileNavigation,
-                                SettingProfileNavigation,
+                                SettingProfileDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,

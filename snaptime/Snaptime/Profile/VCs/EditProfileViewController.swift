@@ -23,6 +23,7 @@ final class EditProfileViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         
         editProfileImage.layer.cornerRadius = editProfileImage.frame.height/2
+        editProfileImageButton.layer.cornerRadius = editProfileImageButton.frame.height/2
     }
     
     private lazy var titleLabel: UILabel = {
@@ -35,7 +36,7 @@ final class EditProfileViewController: BaseViewController {
         
     private lazy var editProfileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .snaptimeGray
+        imageView.backgroundColor = .snaptimeBlue
         imageView.clipsToBounds = true
 
         return imageView
@@ -43,8 +44,17 @@ final class EditProfileViewController: BaseViewController {
     
     private lazy var editProfileImageButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "camera"), for: .normal)
-        button.tintColor = .lightBlue
+        var descriptionConfig = UIButton.Configuration.filled()
+        descriptionConfig.baseBackgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
+        descriptionConfig.baseForegroundColor = .white
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
+        let setImage = UIImage(systemName: "camera", withConfiguration: imageConfig)
+        
+        descriptionConfig.image = setImage
+        
+        button.configuration = descriptionConfig
+        button.clipsToBounds = true
         
         return button
     }()
@@ -97,8 +107,10 @@ final class EditProfileViewController: BaseViewController {
         }
         
         editProfileImageButton.snp.makeConstraints {
-            $0.right.equalTo(editProfileImage.snp.right)
+            $0.top.equalTo(editProfileImage.snp.top)
             $0.bottom.equalTo(editProfileImage.snp.bottom)
+            $0.left.equalTo(editProfileImage.snp.left)
+            $0.right.equalTo(editProfileImage.snp.right)
         }
          
         stackView.snp.makeConstraints {

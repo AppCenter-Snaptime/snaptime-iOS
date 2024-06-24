@@ -8,12 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol SettingProfileNavigation: AnyObject {
+protocol SettingProfileDelegate: AnyObject {
     func presentSettingProfile()
+    func presentEditProfile()
 }
 
 final class SettingProfileViewController: BaseViewController {
-    weak var delegate: SettingProfileNavigation?
+    weak var delegate: SettingProfileDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +52,25 @@ final class SettingProfileViewController: BaseViewController {
         return label
     }()
     
-    private let settingProfileView1 = ProfileSettingView()
-    private let settingProfileView2 = ProfileSettingView()
-    private let settingProfileView3 = ProfileSettingView()
+    private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
+                                                         second: "알림",
+                                                         firstAction: UIAction {  _ in
+        self.delegate?.presentEditProfile()
+    },
+                                                         secondAction: UIAction { _ in
+    })
+    private let settingProfileView2 = ProfileSettingView(first: "Help&Support", 
+                                                         second: "FAQ",
+                                                         firstAction: UIAction {  _ in
+    },
+                                                         secondAction: UIAction { _ in
+    })
+    private let settingProfileView3 = ProfileSettingView(first: "보안 정책", 
+                                                         second: "수정",
+                                                         firstAction: UIAction { _ in
+    },
+                                                         secondAction: UIAction { _ in
+    })
 
     override func setupLayouts() {
         super.setupLayouts()
