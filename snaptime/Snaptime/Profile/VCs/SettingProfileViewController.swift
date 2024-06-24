@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol SettingProfileDelegate: AnyObject {
     func presentSettingProfile()
@@ -15,15 +16,21 @@ protocol SettingProfileDelegate: AnyObject {
 
 final class SettingProfileViewController: BaseViewController {
     weak var delegate: SettingProfileDelegate?
+    private var userProfile = UserProfileManager.shared.profile.result
+    
+    private let loginId = "bowon0000"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.nicknameLabel.text = userProfile.userName
+        self.loadImage(data: userProfile.profileURL)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        settingProfileImage.layer.cornerRadius = settingProfileImage.frame.height/2
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
     }
     
     private lazy var iconLabel: UILabel = {
@@ -36,7 +43,7 @@ final class SettingProfileViewController: BaseViewController {
         return label
     }()
     
-    private lazy var settingProfileImage: UIImageView = {
+    private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
         imageView.clipsToBounds = true
@@ -46,7 +53,6 @@ final class SettingProfileViewController: BaseViewController {
     
     private lazy var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.text = "blwxnhan"
         label.font = .systemFont(ofSize: 24, weight: .bold)
         
         return label
@@ -71,12 +77,27 @@ final class SettingProfileViewController: BaseViewController {
     },
                                                          secondAction: UIAction { _ in
     })
+    
+    private func loadImage(data: String) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.profileImage.image = UIImage(data: data)
+            }
+        }
+    }
 
+    // MARK: - Set Layouts
     override func setupLayouts() {
         super.setupLayouts()
         
         [iconLabel,
-         settingProfileImage,
+         profileImage,
          nicknameLabel,
          settingProfileView1,
          settingProfileView2,
@@ -93,15 +114,15 @@ final class SettingProfileViewController: BaseViewController {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
         }
         
-        settingProfileImage.snp.makeConstraints {
+        profileImage.snp.makeConstraints {
             $0.top.equalTo(iconLabel.snp.bottom).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.height.width.equalTo(120)
         }
         
         nicknameLabel.snp.makeConstraints {
-            $0.top.equalTo(settingProfileImage.snp.bottom).offset(20)
-            $0.centerX.equalTo(settingProfileImage.snp.centerX)
+            $0.top.equalTo(profileImage.snp.bottom).offset(20)
+            $0.centerX.equalTo(profileImage.snp.centerX)
         }
         
         settingProfileView1.snp.makeConstraints {

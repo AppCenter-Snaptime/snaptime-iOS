@@ -30,6 +30,7 @@
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
 		294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */; };
+		2954EAD12C298A3600994F15 /* UserProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954EAD02C298A3600994F15 /* UserProfileInfoModel.swift */; };
 		2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */; };
 		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
 		295DF0502BC500C400112DE7 /* SnapTimeCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */; };
@@ -116,6 +117,7 @@
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
+		2954EAD02C298A3600994F15 /* UserProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoModel.swift; sourceTree = "<group>"; };
 		2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
 		295DF0512BC505A100112DE7 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */,
 				29AA38082BF26218009EF296 /* UserProfileCountManager.swift */,
 				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
+				2954EAD02C298A3600994F15 /* UserProfileInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				295DF0502BC500C400112DE7 /* SnapTimeCustomButton.swift in Sources */,
+				2954EAD12C298A3600994F15 /* UserProfileInfoModel.swift in Sources */,
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,

@@ -30,7 +30,7 @@ final class EditProfileTextField: UIView {
         return label
     }()
     
-    private let editTextField = AuthTextField("")
+    let editTextField = AuthTextField("")
     
     private func setupStyles() {
         self.descriptionLabel.text = customDescription
