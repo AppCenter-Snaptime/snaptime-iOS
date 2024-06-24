@@ -36,7 +36,7 @@ final class MyProfileViewController: BaseViewController {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = .systemFont(ofSize: 25, weight: .semibold)
         label.textAlignment = .left
         
         return label

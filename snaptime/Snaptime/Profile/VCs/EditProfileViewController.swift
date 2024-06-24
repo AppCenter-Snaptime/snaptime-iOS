@@ -8,12 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol EditProfileNavigation: AnyObject {
+protocol EditProfileDelegate: AnyObject {
     func presentEditProfile()
+    func backToRoot()
 }
 
 final class EditProfileViewController: BaseViewController {
-    weak var delegate: EditProfileNavigation?
+    weak var delegate: EditProfileDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,9 @@ final class EditProfileViewController: BaseViewController {
         buttonConfig.attributedTitle = titleAttr
         
         button.configuration = buttonConfig
+        button.addAction(UIAction{ [weak self] _ in
+            self?.delegate?.backToRoot()
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -92,6 +96,7 @@ final class EditProfileViewController: BaseViewController {
     private let editDateOfBirthTextField = EditProfileTextField("생년월일")
     private let editNameTextField = EditProfileTextField("이름")
     
+    // MARK: - 사용자 정보 서버에서 불러오기
     private func fetchUserInfo() {
         APIService.fetchUserInfo.performRequest { result in
             DispatchQueue.main.async {
@@ -110,6 +115,7 @@ final class EditProfileViewController: BaseViewController {
         }
     }
     
+    // MARK: - 이미지 변환 로직
     private func loadImage(data: String) {
         guard let url = URL(string: data)  else { return }
         
@@ -124,10 +130,15 @@ final class EditProfileViewController: BaseViewController {
         }
     }
     
+    // MARK: - navigationBar 설정
     private func setNavigationBar() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: fixButton)
+        self.navigationItem.title = "프로필 편집"
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .regular)]
     }
     
+    // MARK: - Set Layout
     override func setupLayouts() {
         super.setupLayouts()
          
@@ -138,8 +149,7 @@ final class EditProfileViewController: BaseViewController {
             stackView.addArrangedSubview($0)
         }
         
-        [titleLabel,
-         editProfileImage,
+        [editProfileImage,
          editProfileImageButton,
          stackView].forEach {
             view.addSubview($0)
@@ -149,13 +159,8 @@ final class EditProfileViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            $0.centerX.equalToSuperview()
-        }
-        
         editProfileImage.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(22)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.height.width.equalTo(120)
         }

@@ -12,6 +12,7 @@ import Kingfisher
 protocol SettingProfileDelegate: AnyObject {
     func presentSettingProfile()
     func presentEditProfile()
+    func backToPrevious()
 }
 
 final class SettingProfileViewController: BaseViewController {
@@ -25,6 +26,7 @@ final class SettingProfileViewController: BaseViewController {
         
         self.idLabel.text = userProfile.userName
         self.loadImage(data: userProfile.profileURL)
+        self.setNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,14 +35,30 @@ final class SettingProfileViewController: BaseViewController {
         profileImage.layer.cornerRadius = profileImage.frame.height/2
     }
     
-    private lazy var iconLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Profile"
-        label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 24, weight: .regular)
-        label.textAlignment = .left
+    private lazy var iconButton: UIButton = {
+        let button = UIButton()
+
+        var buttonConfig = UIButton.Configuration.filled()
+        buttonConfig.baseBackgroundColor = .white
+        buttonConfig.baseForegroundColor = .snaptimeBlue
         
-        return label
+        var titleAttr = AttributedString.init("Profile")
+        titleAttr.font = .systemFont(ofSize: 25, weight: .medium)
+        let imageConfig = UIImage.SymbolConfiguration(hierarchicalColor: .black)
+
+        let setImage = UIImage(systemName: "chevron.backward", withConfiguration: imageConfig)
+        
+        buttonConfig.attributedTitle = titleAttr
+        buttonConfig.image = setImage
+        buttonConfig.imagePlacement = .leading
+        buttonConfig.imagePadding = 5
+        
+        button.configuration = buttonConfig
+        button.addAction(UIAction{ [weak self] _ in
+            self?.delegate?.backToPrevious()
+        }, for: .touchUpInside)
+                
+        return button
     }()
     
     private lazy var profileImage: UIImageView = {
@@ -60,22 +78,22 @@ final class SettingProfileViewController: BaseViewController {
     
     private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
                                                          second: "알림",
-                                                         firstAction: UIAction {  _ in
-        self.delegate?.presentEditProfile()
+                                                         firstAction: UIAction { [weak self] _ in
+        self?.delegate?.presentEditProfile()
     },
-                                                         secondAction: UIAction { _ in
+                                                         secondAction: UIAction { [weak self] _ in
     })
-    private let settingProfileView2 = ProfileSettingView(first: "Help&Support", 
+    private lazy var settingProfileView2 = ProfileSettingView(first: "Help&Support",
                                                          second: "FAQ",
-                                                         firstAction: UIAction {  _ in
+                                                         firstAction: UIAction { [weak self] _ in
     },
-                                                         secondAction: UIAction { _ in
+                                                         secondAction: UIAction { [weak self] _ in
     })
-    private let settingProfileView3 = ProfileSettingView(first: "보안 정책", 
+    private lazy var settingProfileView3 = ProfileSettingView(first: "보안 정책",
                                                          second: "수정",
-                                                         firstAction: UIAction { _ in
+                                                         firstAction: UIAction { [weak self] _ in
     },
-                                                         secondAction: UIAction { _ in
+                                                         secondAction: UIAction { [weak self] _ in
     })
     
     private func loadImage(data: String) {
@@ -91,13 +109,16 @@ final class SettingProfileViewController: BaseViewController {
             }
         }
     }
+    
+    private func setNavigationBar() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconButton)
+    }
 
     // MARK: - Set Layouts
     override func setupLayouts() {
         super.setupLayouts()
         
-        [iconLabel,
-         profileImage,
+        [profileImage,
          idLabel,
          settingProfileView1,
          settingProfileView2,
@@ -109,13 +130,8 @@ final class SettingProfileViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        iconLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
-        }
-        
         profileImage.snp.makeConstraints {
-            $0.top.equalTo(iconLabel.snp.bottom).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.height.width.equalTo(120)
         }

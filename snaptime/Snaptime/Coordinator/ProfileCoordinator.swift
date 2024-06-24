@@ -24,7 +24,7 @@ final class ProfileCoordinator: Coordinator {
 }
 
 extension ProfileCoordinator: MyProfileViewControllerDelegate,
-                                EditProfileNavigation,
+                                EditProfileDelegate,
                                 SettingProfileDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
@@ -72,5 +72,13 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    func backToPrevious() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func backToRoot() {
+        navigationController.popToRootViewController(animated: true)
     }
 }
