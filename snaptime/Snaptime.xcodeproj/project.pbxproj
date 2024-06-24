@@ -56,8 +56,7 @@
 		29AA37B12BF23CB9009EF296 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */; };
 		29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B22BF23D81009EF296 /* UserProfileManager.swift */; };
 		29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */; };
-		29AA38072BF261E5009EF296 /* UserProfileCountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */; };
-		29AA38092BF26218009EF296 /* UserProfileCountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38082BF26218009EF296 /* UserProfileCountManager.swift */; };
+		29AA38072BF261E5009EF296 /* UserProfileCountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */; };
 		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
@@ -143,8 +142,7 @@
 		29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		29AA37B22BF23D81009EF296 /* UserProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
 		29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBasicModel.swift; sourceTree = "<group>"; };
-		29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountModel.swift; sourceTree = "<group>"; };
-		29AA38082BF26218009EF296 /* UserProfileCountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountManager.swift; sourceTree = "<group>"; };
+		29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountResponse.swift; sourceTree = "<group>"; };
 		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
@@ -389,8 +387,7 @@
 				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
 				291FB1132BF63E7D0050AB90 /* UserAlbumModel.swift */,
 				291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */,
-				29AA38062BF261E5009EF296 /* UserProfileCountModel.swift */,
-				29AA38082BF26218009EF296 /* UserProfileCountManager.swift */,
+				29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */,
 				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
 				2954EAD02C298A3600994F15 /* UserProfileInfoModel.swift */,
 			);
@@ -649,7 +646,7 @@
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
-				29AA38072BF261E5009EF296 /* UserProfileCountModel.swift in Sources */,
+				29AA38072BF261E5009EF296 /* UserProfileCountResponse.swift in Sources */,
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
@@ -677,7 +674,6 @@
 				29AA37B12BF23CB9009EF296 /* UserProfileModel.swift in Sources */,
 				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
 				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
-				29AA38092BF26218009EF296 /* UserProfileCountManager.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				2920B7A42C0764AC002A7688 /* CommunitySnapModel.swift in Sources */,

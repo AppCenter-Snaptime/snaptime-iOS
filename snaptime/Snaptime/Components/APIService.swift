@@ -84,19 +84,18 @@ extension APIService {
                         
                         do {
                             if case .fetchUserProfile = self {
-                                let userProfile = try JSONDecoder().decode(UserProfileModel.self, from: data)
+                                let userProfile = try JSONDecoder().decode(UserProfileResponse.self, from: data)
                                 UserProfileManager.shared.profile = userProfile
                                 completion(.success(userProfile))
                             }
                             
                             else if case .fetchUserProfileCount = self {
-                                let userProfileCount = try JSONDecoder().decode(UserProfileCountModel.self, from: data)
-                                UserProfileCountManager.shared.profileCount = userProfileCount
+                                let userProfileCount = try JSONDecoder().decode(UserProfileCountResponse.self, from: data)
                                 completion(.success(userProfileCount))
                             }
                             
                             else if case .fetchUserAlbum = self {
-                                let userAlbum = try JSONDecoder().decode(UserAlbumModel.self, from: data)
+                                let userAlbum = try JSONDecoder().decode(UserAlbumResponse.self, from: data)
                                 UserAlbumManager.shared.userAlbumList = userAlbum
                                 completion(.success(userAlbum))
                             }

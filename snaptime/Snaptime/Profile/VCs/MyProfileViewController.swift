@@ -18,7 +18,7 @@ protocol MyProfileViewControllerDelegate: AnyObject {
 final class MyProfileViewController: BaseViewController {
     weak var delegate: MyProfileViewControllerDelegate?
         
-    private let count: UserProfileCountModel.Result? = nil
+    private let count: UserProfileCountResDTO? = nil
     private let loginId = "bowon0000"
     
     override func viewDidLoad() {
@@ -74,14 +74,13 @@ final class MyProfileViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
-
     
     private func fetchUserProfile(loginId: String) {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? UserProfileModel {
+                    if let profile = userProfile as? UserProfileResponse {
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):
@@ -96,7 +95,7 @@ final class MyProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? UserProfileCountModel {
+                    if let profileCount = userProfileCount as? UserProfileCountResponse {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
                 case .failure(let error):

@@ -23,7 +23,7 @@ final class SettingProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.nicknameLabel.text = userProfile.userName
+        self.idLabel.text = userProfile.userName
         self.loadImage(data: userProfile.profileURL)
     }
     
@@ -51,7 +51,7 @@ final class SettingProfileViewController: BaseViewController {
         return imageView
     }()
     
-    private lazy var nicknameLabel: UILabel = {
+    private lazy var idLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
         
@@ -98,7 +98,7 @@ final class SettingProfileViewController: BaseViewController {
         
         [iconLabel,
          profileImage,
-         nicknameLabel,
+         idLabel,
          settingProfileView1,
          settingProfileView2,
          settingProfileView3].forEach {
@@ -120,13 +120,13 @@ final class SettingProfileViewController: BaseViewController {
             $0.height.width.equalTo(120)
         }
         
-        nicknameLabel.snp.makeConstraints {
+        idLabel.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(20)
             $0.centerX.equalTo(profileImage.snp.centerX)
         }
         
         settingProfileView1.snp.makeConstraints {
-            $0.top.equalTo(nicknameLabel.snp.bottom).offset(50)
+            $0.top.equalTo(idLabel.snp.bottom).offset(50)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
