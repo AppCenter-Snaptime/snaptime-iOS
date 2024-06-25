@@ -34,38 +34,17 @@ final class SnapPreviewViewController: BaseViewController {
     }
     
     private func fetchAlbumDetail(id: Int) {
-        let url = "http://na2ru2.me:6308/album/\(id)?album_id=\(id)"
-        print(url)
-        let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
-            "accept": "*/*"
-        ]
-        AF.request(
-            url,
-            method: .get,
-            parameters: nil,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                print("success")
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoFindAlbumResDto.self, from: data)
-                    self.albumData = result.result.snap.map { Album($0) }
-                    DispatchQueue.main.async {
-                        self.albumDetailCollectionView.reloadData()
+        APIService.fetchSnapPreview(albumId: id).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let snapPreview):
+                    if let snapPreview = snapPreview as? CommonResponseDtoFindAlbumResDto {
+                        self.albumData = snapPreview.result.snap.map { Album($0) }
                     }
-                } catch {
+                    self.albumDetailCollectionView.reloadData()
+                case .failure(let error):
                     print(error)
                 }
-            case .failure(let error):
-                print(String(describing: error.errorDescription))
             }
         }
     }

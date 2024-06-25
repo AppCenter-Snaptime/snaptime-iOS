@@ -160,7 +160,7 @@ final class MainAlbumViewController : BaseViewController {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let userProfile):
+                case .success(_):
                     print("사용자 데이터 불러오기")
                 case .failure(let error):
                     print(error)
@@ -170,36 +170,18 @@ final class MainAlbumViewController : BaseViewController {
     }
     
     private func fetchAlbumList() {
-        let url = "http://na2ru2.me:6308/album/albumListWithThumbnail"
-        let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
-            "accept": "*/*"
-        ]
-        AF.request(
-            url,
-            method: .get,
-            parameters: nil,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(AlbumListResponse.self, from: data)
-                    self.albumData = result.result.map { Album($0) }
-                    DispatchQueue.main.async {
-                        self.mainAlbumCollectionView.reloadData()
+        APIService.fetchAlbumList.performRequest { result in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let albumList):
+                    if let albumList = albumList as? AlbumListResponse{
+                        self.albumData = albumList.result.map { Album($0) }
                     }
-                } catch {
+                    
+                    self.mainAlbumCollectionView.reloadData()
+                case .failure(let error):
                     print(error)
                 }
-            case .failure(let error):
-                print(String(describing: error.errorDescription))
             }
         }
     }

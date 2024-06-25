@@ -35,38 +35,17 @@ final class SnapViewController: BaseViewController {
     }
     
     private func fetchSnap(id: Int) {
-        let url = "http://na2ru2.me:6308/snap/\(id)"
-        let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
-            "accept": "*/*"
-        ]
-        
-        AF.request(
-            url,
-            method: .get,
-            parameters: nil,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                print("success")
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoFindSnapResDto.self, from: data)
-                    self.snap = result.result
-                    DispatchQueue.main.async {
-                        self.snapCollectionView.reloadData()
+        APIService.fetchSnap(albumId: id).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let snap):
+                    if let snap = snap as? CommonResponseDtoFindSnapResDto {
+                        self.snap = snap.result
                     }
-                } catch {
+                    self.snapCollectionView.reloadData()
+                case .failure(let error):
                     print(error)
                 }
-            case .failure(let error):
-                print(String(describing: error.errorDescription))
             }
         }
     }
@@ -102,6 +81,7 @@ final class SnapViewController: BaseViewController {
     }
 }
 
+// MARK: - extension
 extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = snapCollectionView.dequeueReusableCell(
@@ -112,7 +92,7 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
 
         cell.delegate = self
-        cell.configureDataForHome(data: snap) // 서버 측에 snap을 반환하는 데이터 형식 동일하게 보내줄 수 있는지 요청
+        cell.configureDataForHome(data: self.snap)
         
         return cell
     }

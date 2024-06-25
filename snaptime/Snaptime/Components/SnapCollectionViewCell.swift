@@ -133,7 +133,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         postDateLabel.text = "2024.01.09"
     }
 
-    /// 임시
     func configureDataForHome(data: FindSnapResDto) {
         self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
         userNameLabel.text = UserProfileManager.shared.profile.result.userName

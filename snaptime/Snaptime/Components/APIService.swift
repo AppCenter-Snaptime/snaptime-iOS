@@ -22,6 +22,8 @@ enum APIService {
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
     case fetchUserInfo
+    case fetchSnapPreview(albumId: Int)
+    case fetchAlbumList
 }
 
 extension APIService {
@@ -39,11 +41,17 @@ extension APIService {
         case .fetchCommunitySnap(let pageNum):
             "/snaps/community/\(pageNum)"
             
-        case .fetchSnap(let albumId):
-            "/album/\(albumId)?album_id=\(albumId)"
+        case .fetchSnap(let snapId):
+            "/snap/\(snapId)"
             
         case .fetchUserInfo:
             "/users"
+            
+        case .fetchSnapPreview(let albumId):
+            "/album/\(albumId)?album_id=\(albumId)"
+            
+        case .fetchAlbumList:
+            "/album/albumListWithThumbnail"
         }
     }
     
@@ -54,7 +62,9 @@ extension APIService {
             .fetchUserAlbum,
             .fetchCommunitySnap,
             .fetchSnap,
-            .fetchUserInfo:
+            .fetchUserInfo,
+            .fetchSnapPreview,
+            .fetchAlbumList:
                 .get
         }
     }
@@ -101,17 +111,27 @@ extension APIService {
                             
                             else if case .fetchCommunitySnap = self {
                                 let snap = try JSONDecoder().decode(CommunitySnapResponse.self, from: data)
-//                                CommunitySnapManager.shared.snap = snap
                                 completion(.success(snap))
                             }
                             
                             else if case .fetchSnap = self {
-                                let snap = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
+                                let snap = try JSONDecoder().decode(CommonResponseDtoFindSnapResDto.self, from: data)
+                                completion(.success(snap))
                             }
                             
                             else if case .fetchUserInfo = self {
                                 let profileInfo = try JSONDecoder().decode(UserProfileInfoResponse.self, from: data)
                                 completion(.success(profileInfo))
+                            }
+                            
+                            else if case .fetchSnapPreview = self {
+                                let snapPreview = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
+                                completion(.success(snapPreview))
+                            }
+                            
+                            else if case .fetchAlbumList = self {
+                                let albumList = try JSONDecoder().decode(AlbumListResponse.self, from: data)
+                                completion(.success(albumList))
                             }
                         } catch {
                             completion(.failure(FetchError.jsonDecodeError))
