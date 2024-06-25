@@ -121,7 +121,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configureData(data: CommunitySnapModel.Result) {
+    func configureDataForCommunity(data: CommunitySnapResDTO) {
+        print(data.profilePhotoURL)
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.userName
 //        if let tagList = data {
@@ -129,13 +130,11 @@ final class SnapCollectionViewCell: UICollectionViewCell {
 //        }
         self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
-//        postDateLabel.text = data.snapCreatedDate
         postDateLabel.text = "2024.01.09"
     }
 
     /// 임시
     func configureDataForHome(data: FindSnapResDto) {
-//        let profileData = UserProfileManager.shared.profile.result
         self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
         userNameLabel.text = UserProfileManager.shared.profile.result.userName
 //        if let tagList = data {
@@ -161,7 +160,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
                 case .success(_):
                     print("success fetch image")
                 case .failure(let error):
-                    print("error")
                     print(error)
                 }
             }

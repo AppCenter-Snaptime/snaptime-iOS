@@ -68,7 +68,6 @@ extension APIService {
     }
         
     func performRequest(completion: @escaping (Result<Any, Error>) -> Void) {
-        print(url)
         AF.request(
                     url,
                     method: method,
@@ -101,8 +100,8 @@ extension APIService {
                             }
                             
                             else if case .fetchCommunitySnap = self {
-                                let snap = try JSONDecoder().decode(CommunitySnapModel.self, from: data)
-                                CommunitySnapManager.shared.snap = snap
+                                let snap = try JSONDecoder().decode(CommunitySnapResponse.self, from: data)
+//                                CommunitySnapManager.shared.snap = snap
                                 completion(.success(snap))
                             }
                             

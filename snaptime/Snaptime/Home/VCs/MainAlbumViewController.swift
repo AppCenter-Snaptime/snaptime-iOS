@@ -186,14 +186,11 @@ final class MainAlbumViewController : BaseViewController {
         .responseJSON { response in
             switch response.result {
             case .success(let data):
-                print("success")
-                print(data)
                 guard let data = response.data else { return }
                 
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(AlbumListResponse.self, from: data)
-                    print(result)
                     self.albumData = result.result.map { Album($0) }
                     DispatchQueue.main.async {
                         self.mainAlbumCollectionView.reloadData()

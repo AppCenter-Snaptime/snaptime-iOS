@@ -7,10 +7,10 @@
 
 import Foundation
 
-class CommunitySnapManager {
-    var snap = CommunitySnapModel(msg: "", result: [])
-    
-    static let shared = CommunitySnapManager()
-    
-    private init() {}
-}
+//class CommunitySnapManager {
+//    var snap = CommunitySnapModel(msg: "", result: [])
+//    
+//    static let shared = CommunitySnapManager()
+//    
+//    private init() {}
+//}

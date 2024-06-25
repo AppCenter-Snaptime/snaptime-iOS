@@ -36,7 +36,6 @@ final class SnapViewController: BaseViewController {
     
     private func fetchSnap(id: Int) {
         let url = "http://na2ru2.me:6308/snap/\(id)"
-        print(url)
         let headers: HTTPHeaders = [
             "Authorization": ACCESS_TOKEN,
             "accept": "*/*"
@@ -54,13 +53,11 @@ final class SnapViewController: BaseViewController {
             switch response.result {
             case .success(let data):
                 print("success")
-                print(data)
                 guard let data = response.data else { return }
                 
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(CommonResponseDtoFindSnapResDto.self, from: data)
-                    print(result)
                     self.snap = result.result
                     DispatchQueue.main.async {
                         self.snapCollectionView.reloadData()
