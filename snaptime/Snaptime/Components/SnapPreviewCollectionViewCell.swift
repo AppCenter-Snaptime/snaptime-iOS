@@ -42,10 +42,9 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupUI(_ album: Album) {
-        descriptionLabel.text = album.name
-        if let photoURL = album.photoURL,
-           let url = URL(string: photoURL) {
+    func setupUI(_ snapPreiviews: CommunitySnapResDTO) {
+        descriptionLabel.text = snapPreiviews.oneLineJournal
+        if let url = URL(string: snapPreiviews.snapPhotoURL) {
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
@@ -76,8 +75,8 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         self.contentView.backgroundColor = .white
         
         [snapImageView,
-        descriptionLabel,
-        date].forEach {
+         descriptionLabel,
+         date].forEach {
             self.contentView.addSubview($0)
         }
     }

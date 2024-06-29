@@ -9,17 +9,17 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-protocol SettingProfileDelegate: AnyObject {
+protocol SettingProfileViewControllerDelegate: AnyObject {
     func presentSettingProfile()
     func presentEditProfile()
     func backToPrevious()
 }
 
 final class SettingProfileViewController: BaseViewController {
-    weak var delegate: SettingProfileDelegate?
+    weak var delegate: SettingProfileViewControllerDelegate?
     private var userProfile = UserProfileManager.shared.profile.result
     
-    private let loginId = "bowon0000"
+    private let loginId = ProfileBasicModel.profile.loginId
     
     override func viewDidLoad() {
         super.viewDidLoad()

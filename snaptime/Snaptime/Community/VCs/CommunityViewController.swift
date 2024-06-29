@@ -110,7 +110,7 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.delegate = self
-        cell.configureDataForCommunity(data: self.snaps[indexPath.row])
+        cell.configureData(data: self.snaps[indexPath.row])
         return cell
     }
 }

@@ -16,7 +16,7 @@ protocol SnapPreviewViewControllerDelegate: AnyObject {
 final class SnapPreviewViewController: BaseViewController {
     weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
-    private var albumData: [Album] = []
+    private var snapPreviews: [CommunitySnapResDTO] = []
     
     init(albumID: Int) {
         self.albumID = albumID
@@ -39,7 +39,7 @@ final class SnapPreviewViewController: BaseViewController {
                 switch result {
                 case .success(let snapPreview):
                     if let snapPreview = snapPreview as? CommonResponseDtoFindAlbumResDto {
-                        self.albumData = snapPreview.result.snap.map { Album($0) }
+                        self.snapPreviews = snapPreview.result.snap
                     }
                     self.albumDetailCollectionView.reloadData()
                 case .failure(let error):
@@ -85,16 +85,16 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
             withReuseIdentifier: SnapPreviewCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapPreviewCollectionViewCell else { return UICollectionViewCell() }
-        cell.setupUI(albumData[indexPath.row])
+        cell.setupUI(snapPreviews[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumData.count
+        return snapPreviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentSnap(snapId: albumData[indexPath.row].id)
+        delegate?.presentSnap(snapId: snapPreviews[indexPath.row].snapId)
     }
 }
 

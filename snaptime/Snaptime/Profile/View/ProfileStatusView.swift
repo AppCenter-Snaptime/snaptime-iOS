@@ -11,11 +11,6 @@ import SnapKit
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
 /// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
 final class ProfileStatusView: UIView {
-    enum ProfileTarget {
-        case myself
-        case others
-    }
-    
     var tabButtonAction: UIAction
     let profileTarget: ProfileTarget
     

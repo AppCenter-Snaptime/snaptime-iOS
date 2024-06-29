@@ -8,18 +8,34 @@
 import UIKit
 import SnapKit
 
-protocol MyProfileViewControllerDelegate: AnyObject {
-    func presentMyProfile()
+protocol ProfileViewControllerDelegate: AnyObject {
+    func presentMyProfile(target: ProfileTarget)
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
 }
 
-final class MyProfileViewController: BaseViewController {
-    weak var delegate: MyProfileViewControllerDelegate?
+enum ProfileTarget {
+    case myself
+    case others
+}
+
+final class ProfileViewController: BaseViewController {
+    weak var delegate: ProfileViewControllerDelegate?
         
     private let count: UserProfileCountResDTO? = nil
-    private let loginId = "bowon0000"
+    private let loginId = ProfileBasicModel.profile.loginId
+    
+    private let target: ProfileTarget
+    
+    init(target: ProfileTarget) {
+        self.target = target
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -39,7 +39,7 @@
 		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
 		296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */; };
 		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
-		298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */; };
+		298F7F5D2B6BA34700A8DBC5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
 		298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */; };
 		298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F622B6BA3A700A8DBC5 /* MainAlbumViewController.swift */; };
@@ -123,7 +123,7 @@
 		296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapTagListViewController.swift; sourceTree = "<group>"; };
 		296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
-		298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		298F7F622B6BA3A700A8DBC5 /* MainAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlbumViewController.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 		298F7F6E2B6BA76700A8DBC5 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				298F7F5C2B6BA34700A8DBC5 /* MyProfileViewController.swift */,
+				298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */,
 				298F7F682B6BA5CE00A8DBC5 /* SettingProfileViewController.swift */,
 				298F7F6A2B6BA5DB00A8DBC5 /* EditProfileViewController.swift */,
 			);
@@ -684,7 +684,7 @@
 				295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* SnapViewController.swift in Sources */,
 				A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */,
-				298F7F5D2B6BA34700A8DBC5 /* MyProfileViewController.swift in Sources */,
+				298F7F5D2B6BA34700A8DBC5 /* ProfileViewController.swift in Sources */,
 				298F7F652B6BA3FE00A8DBC5 /* JoinIdViewController.swift in Sources */,
 				296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,

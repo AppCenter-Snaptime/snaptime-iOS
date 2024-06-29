@@ -48,7 +48,7 @@ extension APIService {
             "/users"
             
         case .fetchSnapPreview(let albumId):
-            "/album/\(albumId)?album_id=\(albumId)"
+            "/album/\(albumId)"
             
         case .fetchAlbumList:
             "/album/albumListWithThumbnail"

@@ -15,13 +15,5 @@ struct CommonResponseDtoFindAlbumResDto: Codable {
 struct FindAlbumResDto: Codable {
     let id: Int
     let name: String
-    let snap: [FindSnapResDto]
-}
-
-struct FindSnapResDto: Codable {
-    let id: Int
-    let oneLineJournal: String
-    let photoURL: String
-    let albumName: String
-    let userUid: String
+    let snap: [CommunitySnapResDTO]
 }

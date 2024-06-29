@@ -9,5 +9,5 @@ import Foundation
 
 struct CommonResponseDtoFindSnapResDto: Codable {
     let msg: String
-    let result: FindSnapResDto
+    let result: CommunitySnapResDTO
 }

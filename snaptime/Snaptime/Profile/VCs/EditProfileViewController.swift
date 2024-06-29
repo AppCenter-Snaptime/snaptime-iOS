@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol EditProfileDelegate: AnyObject {
+protocol EditProfileViewControllerDelegate: AnyObject {
     func presentEditProfile()
     func backToRoot()
 }
 
 final class EditProfileViewController: BaseViewController {
-    weak var delegate: EditProfileDelegate?
+    weak var delegate: EditProfileViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

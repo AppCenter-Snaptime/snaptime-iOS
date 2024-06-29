@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentMyProfile()
+        presentMyProfile(target: .myself)
     }
     
     init(navigationController: UINavigationController) {
@@ -23,9 +23,9 @@ final class ProfileCoordinator: Coordinator {
     }
 }
 
-extension ProfileCoordinator: MyProfileViewControllerDelegate,
-                                EditProfileDelegate,
-                                SettingProfileDelegate,
+extension ProfileCoordinator: ProfileViewControllerDelegate,
+                                EditProfileViewControllerDelegate,
+                                SettingProfileViewControllerDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
@@ -38,8 +38,8 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         navigationController.present(commentVC, animated: true, completion: nil)
     }
     
-    func presentMyProfile() {
-        let myProfileVC = MyProfileViewController()
+    func presentMyProfile(target: ProfileTarget) {
+        let myProfileVC = ProfileViewController(target: target)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
