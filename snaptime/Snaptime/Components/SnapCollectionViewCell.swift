@@ -131,7 +131,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         print("partnerProfileTap")
     }
 
-    func configureData(data: CommunitySnapResDTO) {
+    func configureData(data: SnapResDTO) {
         self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
         userNameLabel.text = UserProfileManager.shared.profile.result.userName
 

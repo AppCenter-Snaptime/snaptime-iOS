@@ -17,7 +17,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
 final class CommunityViewController: BaseViewController {
     weak var delegate: CommunityViewControllerDelegate?
     
-    private var snaps: [CommunitySnapResDTO] = []
+    private var snaps: [SnapResDTO] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
