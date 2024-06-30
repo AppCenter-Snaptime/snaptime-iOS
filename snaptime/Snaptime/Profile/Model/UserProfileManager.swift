@@ -8,7 +8,7 @@
 import Foundation
 
 class UserProfileManager {
-    var profile = UserProfileModel(msg: "", result: UserProfileModel.Result(userId: 0, userName: "", profileURL: ""))
+    var profile = UserProfileResponse(msg: "", result: UserProfileResDTO(userId: 0, userName: "", profileURL: ""))
     
     static let shared = UserProfileManager()
     

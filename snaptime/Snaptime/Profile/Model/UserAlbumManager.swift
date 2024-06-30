@@ -8,7 +8,7 @@
 import Foundation
 
 class UserAlbumManager {
-    var userAlbumList = UserAlbumModel(msg: "", result: [])
+    var userAlbumList = UserAlbumResponse(msg: "", result: [])
     
     static let shared = UserAlbumManager()
     

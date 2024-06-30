@@ -8,10 +8,20 @@
 import UIKit
 import SnapKit
 
-final class ProfileSettingView: UIView {
-    override init(frame: CGRect) {
+final class ProfileSettingView: UIView {    
+    private let firstTitle: String
+    private let secondTitle: String
+    private let firstAction: UIAction
+    private let secondAction: UIAction
+    
+    init(first: String, second: String, firstAction: UIAction, secondAction: UIAction) {
+        self.firstTitle = first
+        self.secondTitle = second
+        self.firstAction = firstAction
+        self.secondAction = secondAction
         super.init(frame: .zero)
         self.setupLayouts()
+        self.setupStyles()
     }
     
     required init?(coder: NSCoder) {
@@ -30,8 +40,46 @@ final class ProfileSettingView: UIView {
         return stackView
     }()
     
-    private let profileSettingItem1 = ProfileSettingItemView(iconName: "bell", description: "알림")
-    private let profileSettingItem2 = ProfileSettingItemView(iconName: "person", description: "프로필 수정")
+    private let profileSettingItem1 = UIButton()
+    private let profileSettingItem2 = UIButton()
+    
+    private func setupStyles() {
+        var descriptionConfig = UIButton.Configuration.filled()
+        descriptionConfig.baseBackgroundColor = .white
+        descriptionConfig.baseForegroundColor = .black
+        descriptionConfig.imagePadding = 10
+        descriptionConfig.imagePlacement = .leading
+
+        var titleAttr = AttributedString.init(self.firstTitle)
+        titleAttr.font = .systemFont(ofSize: 15.0, weight: .medium)
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
+        let setImage = UIImage(systemName: "bell", withConfiguration: imageConfig)
+        
+        descriptionConfig.image = setImage
+        descriptionConfig.attributedTitle = titleAttr
+        
+        profileSettingItem1.configuration = descriptionConfig
+        profileSettingItem1.addAction(firstAction, for: .touchUpInside)
+        
+        var description2Config = UIButton.Configuration.filled()
+        description2Config.baseBackgroundColor = .white
+        description2Config.baseForegroundColor = .black
+        description2Config.imagePadding = 10
+        description2Config.imagePlacement = .leading
+
+        var title2Attr = AttributedString.init(self.secondTitle)
+        title2Attr.font = .systemFont(ofSize: 15.0, weight: .medium)
+        
+        let image2Config = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
+        let setImage2 = UIImage(systemName: "person", withConfiguration: image2Config)
+        
+        description2Config.image = setImage2
+        description2Config.attributedTitle = title2Attr
+        
+        profileSettingItem2.configuration = description2Config
+        profileSettingItem2.addAction(secondAction, for: .touchUpInside)
+    }
     
     private func setupLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
