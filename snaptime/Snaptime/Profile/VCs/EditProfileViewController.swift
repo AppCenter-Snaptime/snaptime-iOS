@@ -85,7 +85,17 @@ final class EditProfileViewController: BaseViewController {
         
         button.configuration = buttonConfig
         button.addAction(UIAction{ [weak self] _ in
-            self?.delegate?.backToRoot()
+            if let id = self?.editIDTextField.editTextField.text,
+               let email = self?.editEmailTextField.editTextField.text,
+               let birthDate = self?.editDateOfBirthTextField.editTextField.text,
+               let name = self?.editNameTextField.editTextField.text {
+                let param = UserProfileInfoReqDTO(name: name, loginId: id, email: email, birthDay: birthDate)
+                
+                print(param)
+                self?.modifyUserInfo(userInfo: param)
+                
+                self?.delegate?.backToRoot()
+            }
         }, for: .touchUpInside)
         
         return button
@@ -108,6 +118,19 @@ final class EditProfileViewController: BaseViewController {
                         self.editDateOfBirthTextField.editTextField.text = profile.result.birthDay
                         self.editNameTextField.editTextField.text = profile.result.name
                     }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func modifyUserInfo(userInfo: UserProfileInfoReqDTO) {
+        APIService.modifyUserInfo.performRequest(with: userInfo) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("modify user information")
                 case .failure(let error):
                     print(error)
                 }

@@ -1,5 +1,5 @@
 //
-//  UserProfileInfo.swift
+//  UserProfileInfoResponse.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 6/24/24.
