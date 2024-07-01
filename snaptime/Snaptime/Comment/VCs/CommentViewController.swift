@@ -26,7 +26,19 @@ final class CommentViewController: BaseViewController {
         return view
     }()
     
-    private lazy var commentColelctionView: UICollectionView = {
+    private lazy var separatorView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexCode: "dddddd")
+        return view
+    }()
+    
+    private lazy var separatorView3: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexCode: "dddddd")
+        return view
+    }()
+    
+    private lazy var commentCollectionView: UICollectionView = {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         let layout = UICollectionViewCompositionalLayout(
             sectionProvider: {(
@@ -82,6 +94,37 @@ final class CommentViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var replyImageView: UIImageView = {
+        let imageView = RoundImageView()
+        imageView.image = UIImage(systemName: "person")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private lazy var replyTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .systemGray5
+        textField.placeholder = "Jocelyn에게 댓글달기"
+        textField.font = .systemFont(ofSize: 12)
+        textField.addLeftPadding(16)
+        return textField
+    }()
+    
+    private lazy var replySubmitButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
+        button.tintColor = .snaptimeBlue
+        return button
+    }()
+    
+    private lazy var replyStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 16
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
@@ -99,7 +142,7 @@ final class CommentViewController: BaseViewController {
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, Int>(
-            collectionView: commentColelctionView, 
+            collectionView: commentCollectionView, 
             cellProvider: ({(
                 collectionView: UICollectionView,
                 indexPath: IndexPath,
@@ -122,9 +165,9 @@ final class CommentViewController: BaseViewController {
         
         dataSource.supplementaryViewProvider = {(view, kind, index) in
             if kind == "header" {
-                return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+                return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             } else {
-                return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
+                return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
             }
         }
         
@@ -149,14 +192,28 @@ final class CommentViewController: BaseViewController {
     // MARK: -- Setup UI
     override func setupLayouts() {
         self.view.backgroundColor = .systemBackground
-        
+        [
+            replyImageView,
+            replyTextField,
+            replySubmitButton
+        ].forEach {
+            replyStackView.addArrangedSubview($0)
+        }
         [
             titleLabel,
             separatorView,
-            commentColelctionView
+            separatorView2,
+            separatorView3,
+            commentCollectionView,
+            replyStackView
         ].forEach {
             self.view.addSubview($0)
         }
+        
+        // setup UI
+        
+        replyTextField.layer.cornerRadius = 15
+        replyTextField.clipsToBounds = true
     }
     
     override func setupConstraints() {
@@ -171,10 +228,41 @@ final class CommentViewController: BaseViewController {
             $0.height.equalTo(1)
         }
         
-        commentColelctionView.snp.makeConstraints {
+        replyImageView.snp.makeConstraints {
+            $0.width.height.equalTo(32)
+        }
+        
+        replyTextField.snp.makeConstraints {
+            $0.height.equalTo(30)
+        }
+        
+        replySubmitButton.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        
+        replyStackView.snp.makeConstraints {
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(60)
+        }
+        
+        separatorView2.snp.makeConstraints {
+            $0.top.equalTo(replyStackView.snp.top)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(1)
+        }
+        
+        separatorView3.snp.makeConstraints {
+            $0.top.equalTo(replyStackView.snp.bottom)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(1)
+        }
+        
+        commentCollectionView.snp.makeConstraints {
             $0.top.equalTo(separatorView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(replyStackView.snp.top)
         }
     }
 }
