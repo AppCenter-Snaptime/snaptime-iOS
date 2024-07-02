@@ -11,7 +11,7 @@ import SnapKit
 protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
     func presentNotification()
-    func presentCommentVC()
+    func presentCommentVC(id: Int)
 }
 
 final class CommunityViewController: BaseViewController {
@@ -121,6 +121,7 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
 
 extension CommunityViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton() {
-        delegate?.presentCommentVC()
+        // TODO: snap id 추가하기
+        delegate?.presentCommentVC(id: 1)
     }
 }

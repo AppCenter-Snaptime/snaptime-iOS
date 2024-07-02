@@ -81,8 +81,8 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.pushViewController(snapTagListVC, animated: true)
     }
     
-    func presentCommentVC() {
-        let commentVC = CommentViewController()
+    func presentCommentVC(id: Int) {
+        let commentVC = CommentViewController(snapID: id)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)

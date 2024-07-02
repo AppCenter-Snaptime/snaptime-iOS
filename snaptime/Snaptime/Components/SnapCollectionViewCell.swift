@@ -141,7 +141,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
 //        if let tagList = data {
 //            tagLabel.text = "with @\(tagList)"
 //        }
-        self.loadImage(data: data.photoURL, imageView: photoImageView)
+        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
 //        postDateLabel.text = data.snapCreatedDate
         postDateLabel.text = "2024.01.09"

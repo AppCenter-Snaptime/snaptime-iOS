@@ -5,13 +5,26 @@
 //  Created by 이대현 on 4/2/24.
 //
 
+import Alamofire
 import UIKit
 
+
 protocol CommentViewControllerDelegate: AnyObject {
-    func presentCommentVC()
+    func presentCommentVC(id: Int)
 }
 
 final class CommentViewController: BaseViewController {
+    init(snapID: Int) {
+        self.snapID = snapID
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let snapID: Int
+    private var parentComments: [FindReplyResDto] = []
     weak var delegate: CommentViewControllerDelegate?
     
     private lazy var titleLabel: UILabel = {
@@ -26,13 +39,30 @@ final class CommentViewController: BaseViewController {
         return view
     }()
     
-    private lazy var commentColelctionView: UICollectionView = {
+    private lazy var separatorView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexCode: "dddddd")
+        return view
+    }()
+    
+    private lazy var separatorView3: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexCode: "dddddd")
+        return view
+    }()
+    
+    private lazy var commentCollectionView: UICollectionView = {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         let layout = UICollectionViewCompositionalLayout(
             sectionProvider: {(
             sectionIndex: Int,
             layoutEnvironment: NSCollectionLayoutEnvironment
             ) -> NSCollectionLayoutSection? in
+                /*
+                 원 댓글 : Header
+                 답글 : item
+                 답글 추가/가리기 : Footer
+                 */
                 // 대댓글 item
                 let item = NSCollectionLayoutItem(
                     layoutSize: NSCollectionLayoutSize(
@@ -82,11 +112,88 @@ final class CommentViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var replyImageView: UIImageView = {
+        let imageView = RoundImageView()
+        imageView.image = UIImage(systemName: "person")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private lazy var replyTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .systemGray5
+        textField.placeholder = "Jocelyn에게 댓글달기"
+        textField.font = .systemFont(ofSize: 12)
+        textField.addLeftPadding(16)
+        return textField
+    }()
+    
+    private lazy var replySubmitButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
+        button.tintColor = .snaptimeBlue
+        return button
+    }()
+    
+    private lazy var replyStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 16
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
+        self.fetchComment()
     }
     
+    
+    // MARK: -- 댓글 목록 서버 통신
+    private func fetchComment() {
+        // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
+        
+        let url = "http://na2ru2.me:6308/parent-replies/1"
+        let headers: HTTPHeaders = [
+            "Authorization": ACCESS_TOKEN,
+            "accept": "*/*"
+        ]
+        let parameters: Parameters = [
+            "snapId" : self.snapID,
+            "pageNum" : 1
+        ]
+        AF.request(
+            url,
+            method: .get,
+            parameters: parameters,
+            encoding: URLEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                print("success")
+                print(data)
+                guard let data = response.data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(ParentReplyResDto.self, from: data)
+                    print(result)
+                    self.parentComments = result.result
+                    DispatchQueue.main.async {
+                        self.applySnapShot(data: result.result)
+                    }
+                } catch {
+                    print(error)
+                }
+            case .failure(let error):
+                print(String(describing: error.errorDescription))
+            }
+        }
+    }
     // MARK: -- Setup CollectionView
     
     // collectionView dataSource
@@ -95,11 +202,11 @@ final class CommentViewController: BaseViewController {
     private func setupDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, Int> {
             (cell, indexPath, identifier) in
-            // cell.nickName.text = "haha"
+            cell.setupUI(comment: identifier)
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, Int>(
-            collectionView: commentColelctionView, 
+            collectionView: commentCollectionView, 
             cellProvider: ({(
                 collectionView: UICollectionView,
                 indexPath: IndexPath,
@@ -114,6 +221,7 @@ final class CommentViewController: BaseViewController {
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<CommentSupplementaryHeaderView>(elementKind: "header") { supplementaryView, elementKind, indexPath in
             // header 세팅
+            supplementaryView.setupUI(comment: self.parentComments[indexPath.section])
         }
         
         let footerRegistration = UICollectionView.SupplementaryRegistration<CommentSupplementaryFooterView>(elementKind: "footer") { supplementaryView, elementKind, indexPath in
@@ -122,18 +230,20 @@ final class CommentViewController: BaseViewController {
         
         dataSource.supplementaryViewProvider = {(view, kind, index) in
             if kind == "header" {
-                return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+                return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             } else {
-                return self.commentColelctionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
+                return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
             }
         }
-        
+    }
+    
+    private func applySnapShot(data: [FindReplyResDto]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         
         var identifierOffset = 0 // 아이템의 identifier
-        let itemPerSection = 3
+        let itemPerSection = 3 // 답글의 개수, 테스트 데이터로 추가 가능
         
-        for idx in 0...10 {
+        for idx in 0..<data.count {
             snapshot.appendSections([idx])
             
             let maxIdentifier = identifierOffset + itemPerSection
@@ -149,14 +259,28 @@ final class CommentViewController: BaseViewController {
     // MARK: -- Setup UI
     override func setupLayouts() {
         self.view.backgroundColor = .systemBackground
-        
+        [
+            replyImageView,
+            replyTextField,
+            replySubmitButton
+        ].forEach {
+            replyStackView.addArrangedSubview($0)
+        }
         [
             titleLabel,
             separatorView,
-            commentColelctionView
+            separatorView2,
+            separatorView3,
+            commentCollectionView,
+            replyStackView
         ].forEach {
             self.view.addSubview($0)
         }
+        
+        // setup UI
+        
+        replyTextField.layer.cornerRadius = 15
+        replyTextField.clipsToBounds = true
     }
     
     override func setupConstraints() {
@@ -171,10 +295,41 @@ final class CommentViewController: BaseViewController {
             $0.height.equalTo(1)
         }
         
-        commentColelctionView.snp.makeConstraints {
+        replyImageView.snp.makeConstraints {
+            $0.width.height.equalTo(32)
+        }
+        
+        replyTextField.snp.makeConstraints {
+            $0.height.equalTo(30)
+        }
+        
+        replySubmitButton.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        
+        replyStackView.snp.makeConstraints {
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(60)
+        }
+        
+        separatorView2.snp.makeConstraints {
+            $0.top.equalTo(replyStackView.snp.top)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(1)
+        }
+        
+        separatorView3.snp.makeConstraints {
+            $0.top.equalTo(replyStackView.snp.bottom)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(1)
+        }
+        
+        commentCollectionView.snp.makeConstraints {
             $0.top.equalTo(separatorView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(replyStackView.snp.top)
         }
     }
 }
