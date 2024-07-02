@@ -21,9 +21,9 @@ struct Album {
     }
     
     init(_ dto: FindSnapResDto) {
-        self.id = dto.id
+        self.id = dto.snapId
         self.name = dto.oneLineJournal
-        self.photoURL = dto.photoURL
+        self.photoURL = dto.snapPhotoURL
     }
     
     let id: Int

@@ -21,6 +21,7 @@ enum APIService {
     case fetchUserAlbum(loginId: String)
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
+    case fetchComment(snapId: Int, pageNum: Int)
 }
 
 extension APIService {
@@ -40,6 +41,9 @@ extension APIService {
             
         case .fetchSnap(let albumId):
             "/album/\(albumId)?album_id=\(albumId)"
+            
+        case .fetchComment(_, let pageNum):
+            "/parent_replies/\(pageNum)"
         }
     }
     
@@ -49,7 +53,8 @@ extension APIService {
             .fetchUserProfileCount,
             .fetchUserAlbum,
             .fetchCommunitySnap,
-            .fetchSnap:
+            .fetchSnap,
+            .fetchComment:
                 .get
         }
     }
@@ -105,6 +110,11 @@ extension APIService {
                             else if case .fetchSnap = self {
                                 let snap = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
                                 
+                            }
+                            
+                            else if case .fetchComment = self {
+                                let comment = try JSONDecoder().decode(ParentReplyResDto.self, from: data)
+                                completion(.success(comment))
                             }
                         } catch {
                             completion(.failure(FetchError.jsonDecodeError))
