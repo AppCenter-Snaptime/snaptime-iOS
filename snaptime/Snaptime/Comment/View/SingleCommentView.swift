@@ -5,11 +5,12 @@
 //  Created by 이대현 on 4/2/24.
 //
 
+import Kingfisher
 import UIKit
 
 class SingleCommentView: UIView {
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var profileImageView: RoundImageView = {
+        let imageView = RoundImageView()
         imageView.image = UIImage(systemName: "person")
         return imageView
     }()
@@ -62,6 +63,31 @@ class SingleCommentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupUI(comment: FindReplyResDto) {
+        self.nameLabel.text = comment.writerUserName
+        self.commentLabel.text = comment.content
+        if let url = URL(string: comment.writerProfilePhotoURL) {
+            
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
+            
+            self.profileImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("success fetch image")
+                case .failure(let error):
+                    print("error")
+                    print(error)
+                }
+            }
+            
+        }
+    }
+    
     private func setLayout() {
         
         [
@@ -74,7 +100,7 @@ class SingleCommentView: UIView {
         }
         
         [
-            nameLabel, 
+            nameLabel,
             beforeDateLabel
         ].forEach {
             self.upperStackView.addArrangedSubview($0)
@@ -92,7 +118,7 @@ class SingleCommentView: UIView {
             $0.left.equalTo(profileImageView.snp.right).offset(15)
             $0.top.equalTo(profileImageView).offset(-3)
         }
-
+        
         commentLabel.snp.makeConstraints {
             $0.left.equalTo(upperStackView)
             $0.top.equalTo(upperStackView.snp.bottom).offset(2)
