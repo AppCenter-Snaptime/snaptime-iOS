@@ -21,7 +21,7 @@ final class CommentSupplementaryHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI(comment: FindReplyResDto) {
+    func setupUI(comment: FindParentReplyResDto) {
         contentView.setupUI(comment: comment)
     }
     

@@ -63,7 +63,7 @@ class SingleCommentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI(comment: FindReplyResDto) {
+    func setupUI(comment: FindParentReplyResDto) {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
         if let url = URL(string: comment.writerProfilePhotoURL) {

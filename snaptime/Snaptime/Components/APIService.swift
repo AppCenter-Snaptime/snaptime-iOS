@@ -113,7 +113,7 @@ extension APIService {
                             }
                             
                             else if case .fetchComment = self {
-                                let comment = try JSONDecoder().decode(ParentReplyResDto.self, from: data)
+                                let comment = try JSONDecoder().decode(FindParentReplyResDto.self, from: data)
                                 completion(.success(comment))
                             }
                         } catch {

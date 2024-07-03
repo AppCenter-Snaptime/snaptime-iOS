@@ -24,7 +24,7 @@ final class CommentViewController: BaseViewController {
     }
     
     private let snapID: Int
-    private var parentComments: [FindReplyResDto] = []
+    private var parentComments: [FindParentReplyResDto] = []
     weak var delegate: CommentViewControllerDelegate?
     
     private lazy var titleLabel: UILabel = {
@@ -180,7 +180,7 @@ final class CommentViewController: BaseViewController {
                 
                 do {
                     let decoder = JSONDecoder()
-                    let result = try decoder.decode(ParentReplyResDto.self, from: data)
+                    let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
                     self.parentComments = result.result
                     DispatchQueue.main.async {
@@ -237,7 +237,7 @@ final class CommentViewController: BaseViewController {
         }
     }
     
-    private func applySnapShot(data: [FindReplyResDto]) {
+    private func applySnapShot(data: [FindParentReplyResDto]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         
         var identifierOffset = 0 // 아이템의 identifier
