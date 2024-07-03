@@ -134,7 +134,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     func configureData(data: SnapResDTO) {
         self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
         userNameLabel.text = UserProfileManager.shared.profile.result.userName
-
         self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
         postDateLabel.text = "2024.01.09"

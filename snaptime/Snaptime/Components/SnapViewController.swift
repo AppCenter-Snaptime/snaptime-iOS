@@ -10,14 +10,23 @@ import SnapKit
 import Alamofire
 
 protocol SnapViewControllerDelegate: AnyObject {
-    func presentCommentVC()
+    func presentCommentVC(id: Int)
 }
 
 final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
     
-    private var snap: SnapResDTO = SnapResDTO(snapId: 0, oneLineJournal: "", snapPhotoURL: "", snapCreatedDate: "'", snapModifiedDate: "", loginId: "", profilePhotoURL: "", userName: "")
+    private var snap: FindSnapResDto = FindSnapResDto(
+        snapId: 0,
+        oneLineJournal: "",
+        snapPhotoURL: "",
+        snapCreatedDate: "",
+        snapModifiedDate: "",
+        loginId: "",
+        profilePhotoURL: "",
+        userName: ""
+    )
     
     init(snapId: Int) {
         self.snapId = snapId
@@ -116,6 +125,6 @@ extension SnapViewController: UICollectionViewDelegateFlowLayout {
 
 extension SnapViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton() {
-        delegate?.presentCommentVC()
+        delegate?.presentCommentVC(id: self.snapId)
     }
 }

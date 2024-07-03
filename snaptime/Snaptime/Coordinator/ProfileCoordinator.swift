@@ -31,8 +31,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                               NotificationViewControllerDelegate,
                               CommentViewControllerDelegate {
     
-    func presentCommentVC() {
-        let commentVC = CommentViewController()
+    func presentCommentVC(id: Int) {
+        let commentVC = CommentViewController(snapID: id)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)
