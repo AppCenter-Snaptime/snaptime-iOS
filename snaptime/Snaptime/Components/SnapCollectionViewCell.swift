@@ -16,6 +16,7 @@ protocol SnapCollectionViewCellDelegate: AnyObject {
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
     weak var delegate: SnapCollectionViewCellDelegate?
+    var action: (()->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +38,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
         imageView.clipsToBounds = true
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: action))
+//        imageView.addGestureRecognizer(tapGesture)
+//        imageView.isUserInteractionEnabled = true
         
         return imageView
     }()
@@ -69,6 +74,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        
 
         return imageView
     }()
@@ -121,29 +127,15 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configureData(data: CommunitySnapModel.Result) {
-        self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
-        userNameLabel.text = data.userName
-//        if let tagList = data {
-//            tagLabel.text = "with @\(tagList)"
-//        }
-        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
-        postLabel.text = data.oneLineJournal
-//        postDateLabel.text = data.snapCreatedDate
-        postDateLabel.text = "2024.01.09"
+    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+        print("partnerProfileTap")
     }
 
-    /// 임시
-    func configureDataForHome(data: FindSnapResDto) {
-//        let profileData = UserProfileManager.shared.profile.result
+    func configureData(data: SnapResDTO) {
         self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
         userNameLabel.text = UserProfileManager.shared.profile.result.userName
-//        if let tagList = data {
-//            tagLabel.text = "with @\(tagList)"
-//        }
-        self.loadImage(data: data.photoURL, imageView: photoImageView)
+        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
-//        postDateLabel.text = data.snapCreatedDate
         postDateLabel.text = "2024.01.09"
     }
     
@@ -161,7 +153,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
                 case .success(_):
                     print("success fetch image")
                 case .failure(let error):
-                    print("error")
                     print(error)
                 }
             }

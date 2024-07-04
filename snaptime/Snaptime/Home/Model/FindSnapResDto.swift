@@ -19,9 +19,12 @@ struct FindAlbumResDto: Codable {
 }
 
 struct FindSnapResDto: Codable {
-    let id: Int
+    let snapId: Int
     let oneLineJournal: String
-    let photoURL: String
-    let albumName: String
-    let userUid: String
+    let snapPhotoURL: String
+    let snapCreatedDate: String
+    let snapModifiedDate: String
+    let loginId: String
+    let profilePhotoURL: String
+    let userName: String
 }

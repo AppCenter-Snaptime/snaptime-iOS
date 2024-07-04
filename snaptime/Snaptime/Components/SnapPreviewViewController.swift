@@ -16,7 +16,7 @@ protocol SnapPreviewViewControllerDelegate: AnyObject {
 final class SnapPreviewViewController: BaseViewController {
     weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
-    private var albumData: [Album] = []
+    private var snapPreviews: [SnapResDTO] = []
     
     init(albumID: Int) {
         self.albumID = albumID
@@ -34,40 +34,17 @@ final class SnapPreviewViewController: BaseViewController {
     }
     
     private func fetchAlbumDetail(id: Int) {
-        let url = "http://na2ru2.me:6308/album/\(id)?album_id=\(id)"
-        print(url)
-        let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
-            "accept": "*/*"
-        ]
-        AF.request(
-            url,
-            method: .get,
-            parameters: nil,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                print("success")
-                print(data)
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoFindAlbumResDto.self, from: data)
-                    print(result)
-                    self.albumData = result.result.snap.map { Album($0) }
-                    DispatchQueue.main.async {
-                        self.albumDetailCollectionView.reloadData()
+        APIService.fetchSnapPreview(albumId: id).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let snapPreview):
+                    if let snapPreview = snapPreview as? CommonResponseDtoFindAlbumResDto {
+                        self.snapPreviews = snapPreview.result.snap
                     }
-                } catch {
+                    self.albumDetailCollectionView.reloadData()
+                case .failure(let error):
                     print(error)
                 }
-            case .failure(let error):
-                print(String(describing: error.errorDescription))
             }
         }
     }
@@ -108,16 +85,16 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
             withReuseIdentifier: SnapPreviewCollectionViewCell.identifier,
             for: indexPath
         ) as? SnapPreviewCollectionViewCell else { return UICollectionViewCell() }
-        cell.setupUI(albumData[indexPath.row])
+        cell.setupUI(snapPreviews[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumData.count
+        return snapPreviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentSnap(snapId: albumData[indexPath.row].id)
+        delegate?.presentSnap(snapId: snapPreviews[indexPath.row].snapId)
     }
 }
 

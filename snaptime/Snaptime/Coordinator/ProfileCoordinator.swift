@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentMyProfile()
+        presentMyProfile(target: .myself)
     }
     
     init(navigationController: UINavigationController) {
@@ -23,23 +23,23 @@ final class ProfileCoordinator: Coordinator {
     }
 }
 
-extension ProfileCoordinator: MyProfileViewControllerDelegate,
-                                EditProfileNavigation,
-                                SettingProfileNavigation,
+extension ProfileCoordinator: ProfileViewControllerDelegate,
+                                EditProfileViewControllerDelegate,
+                                SettingProfileViewControllerDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
                               CommentViewControllerDelegate {
     
-    func presentCommentVC() {
-        let commentVC = CommentViewController()
+    func presentCommentVC(id: Int) {
+        let commentVC = CommentViewController(snapID: id)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)
     }
     
-    func presentMyProfile() {
-        let myProfileVC = MyProfileViewController()
+    func presentMyProfile(target: ProfileTarget) {
+        let myProfileVC = ProfileViewController(target: target)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
@@ -72,5 +72,13 @@ extension ProfileCoordinator: MyProfileViewControllerDelegate,
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    func backToPrevious() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func backToRoot() {
+        navigationController.popToRootViewController(animated: true)
     }
 }

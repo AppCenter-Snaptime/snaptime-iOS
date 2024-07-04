@@ -9,13 +9,8 @@ import UIKit
 import SnapKit
 
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
-/// // 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
+/// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
 final class ProfileStatusView: UIView {
-    enum ProfileTarget {
-        case myself
-        case others
-    }
-    
     var tabButtonAction: UIAction
     let profileTarget: ProfileTarget
     
@@ -105,12 +100,12 @@ final class ProfileStatusView: UIView {
     }
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
-    func setupUserProfile(_ userProfile: UserProfileModel.Result) {
+    func setupUserProfile(_ userProfile: UserProfileResDTO) {
         self.loadImage(data: userProfile.profileURL)
         self.nickNameLabel.text = userProfile.userName
     }
     
-    func setupUserNumber(_ userProfileCount: UserProfileCountModel.Result) {
+    func setupUserNumber(_ userProfileCount: UserProfileCountResDTO) {
         self.postNumber.setupNumber(number: userProfileCount.snapCnt)
         self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
         self.followingNumber.setupNumber(number: userProfileCount.followingCnt)

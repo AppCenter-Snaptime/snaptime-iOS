@@ -8,18 +8,34 @@
 import UIKit
 import SnapKit
 
-protocol MyProfileViewControllerDelegate: AnyObject {
-    func presentMyProfile()
+protocol ProfileViewControllerDelegate: AnyObject {
+    func presentMyProfile(target: ProfileTarget)
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
 }
 
-final class MyProfileViewController: BaseViewController {
-    weak var delegate: MyProfileViewControllerDelegate?
+enum ProfileTarget {
+    case myself
+    case others
+}
+
+final class ProfileViewController: BaseViewController {
+    weak var delegate: ProfileViewControllerDelegate?
         
-    private let count: UserProfileCountModel.Result? = nil
-    private let loginId = "bowon0000"
+    private let count: UserProfileCountResDTO? = nil
+    private let loginId = ProfileBasicModel.profile.loginId
+    
+    private let target: ProfileTarget
+    
+    init(target: ProfileTarget) {
+        self.target = target
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +52,7 @@ final class MyProfileViewController: BaseViewController {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = .systemFont(ofSize: 25, weight: .semibold)
         label.textAlignment = .left
         
         return label
@@ -74,14 +90,13 @@ final class MyProfileViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
-
     
     private func fetchUserProfile(loginId: String) {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? UserProfileModel {
+                    if let profile = userProfile as? UserProfileResponse {
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):
@@ -96,7 +111,7 @@ final class MyProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? UserProfileCountModel {
+                    if let profileCount = userProfileCount as? UserProfileCountResponse {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
                 case .failure(let error):

@@ -11,27 +11,19 @@ import SnapKit
 protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
     func presentNotification()
-    func presentCommentVC()
+    func presentCommentVC(id: Int)
 }
 
 final class CommunityViewController: BaseViewController {
     weak var delegate: CommunityViewControllerDelegate?
     
+    private var snaps: [SnapResDTO] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupNavigationBar()
-        
-        APIService.fetchCommunitySnap(pageNum: 1).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.contentCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
+        self.fetchSnaps(pageNum: 1)
     }
     
     private let titleLabel: UILabel = {
@@ -67,12 +59,27 @@ final class CommunityViewController: BaseViewController {
         return collectionView
     }()
     
+    private func fetchSnaps(pageNum: Int) {
+        APIService.fetchCommunitySnap(pageNum: pageNum).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let snap):
+                    if let snap = snap as? CommunitySnapResponse {
+                        self.snaps = snap.result
+                    }
+                    self.contentCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
-
     
     override func setupLayouts() {
         super.setupLayouts()
@@ -94,7 +101,7 @@ final class CommunityViewController: BaseViewController {
 
 extension CommunityViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return CommunitySnapManager.shared.snap.result.count
+        return snaps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,7 +110,7 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.delegate = self
-        cell.configureData(data: CommunitySnapManager.shared.snap.result[indexPath.row])
+        cell.configureData(data: self.snaps[indexPath.row])
         return cell
     }
 }
@@ -121,6 +128,7 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
 
 extension CommunityViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton() {
-        delegate?.presentCommentVC()
+        // TODO: snap id 추가하기
+        delegate?.presentCommentVC(id: 1)
     }
 }
