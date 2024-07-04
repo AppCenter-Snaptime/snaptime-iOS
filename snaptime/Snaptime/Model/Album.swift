@@ -20,7 +20,7 @@ struct Album {
         self.photoURL = dto.photoUrl
     }
     
-    init(_ dto: FindSnapResDto) {
+    init(_ dto: SnapResDTO) {
         self.id = dto.snapId
         self.name = dto.oneLineJournal
         self.photoURL = dto.snapPhotoURL

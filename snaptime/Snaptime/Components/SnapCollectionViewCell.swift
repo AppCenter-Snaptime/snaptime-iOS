@@ -74,7 +74,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        
 
         return imageView
     }()

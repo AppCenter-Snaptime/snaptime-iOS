@@ -59,6 +59,7 @@
 		29AA38072BF261E5009EF296 /* UserProfileCountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */; };
 		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
+		29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
 		29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */; };
@@ -81,7 +82,6 @@
 		A68184FC2C0477C800ECBDE3 /* FindSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */; };
 		A68185002C32E27700ECBDE3 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */; };
 		A68185022C32E7A500ECBDE3 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68185012C32E7A500ECBDE3 /* UITextField+.swift */; };
-		A68185042C34356C00ECBDE3 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68185032C34356C00ECBDE3 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
 		A68185062C3573B000ECBDE3 /* FindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68185052C3573B000ECBDE3 /* FindParentReplyResDto.swift */; };
 		A69A816C2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */; };
 		A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */; };
@@ -149,6 +149,7 @@
 		29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCountResponse.swift; sourceTree = "<group>"; };
 		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
 		29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListTabButton.swift; sourceTree = "<group>"; };
@@ -170,7 +171,6 @@
 		A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapResDto.swift; sourceTree = "<group>"; };
 		A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		A68185012C32E7A500ECBDE3 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
-		A68185032C34356C00ECBDE3 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommonResponseDtoListFindParentReplyResDto.swift; path = ../../../../../../../Documents/CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
 		A68185052C3573B000ECBDE3 /* FindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindParentReplyResDto.swift; sourceTree = "<group>"; };
 		A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		A69A81BB2B876E2F006BAEB2 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
@@ -206,14 +206,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		2920B7A22C07645A002A7688 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2920B7A32C0764AC002A7688 /* CommunitySnapModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		2929776B2B6618FA00FDC799 = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +228,7 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				29FF6B8C2C1F057300CD5DCD /* Model */,
 				A69A81BD2B877719006BAEB2 /* Components */,
 				290585532B71FE8600B80F68 /* Extension */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
@@ -294,7 +287,6 @@
 		298F7F562B6BA2FC00A8DBC5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A62FE2292BE24CB500BACF77 /* Model */,
 				298F7F732B6BA78A00A8DBC5 /* View */,
 				298F7F6F2B6BA76D00A8DBC5 /* VCs */,
 			);
@@ -304,7 +296,6 @@
 		298F7F572B6BA30200A8DBC5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				29AA37AC2BF23B73009EF296 /* Model */,
 				29F80BF32B8589A2003614AB /* View */,
 				298F7F6E2B6BA76700A8DBC5 /* VCs */,
 			);
@@ -314,7 +305,6 @@
 		298F7F582B6BA30700A8DBC5 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				2920B7A22C07645A002A7688 /* Model */,
 				A661F3F62BB157930093336A /* View */,
 				298F7F6D2B6BA76300A8DBC5 /* VCs */,
 			);
@@ -388,21 +378,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		29AA37AC2BF23B73009EF296 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */,
-				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
-				291FB1132BF63E7D0050AB90 /* UserAlbumModel.swift */,
-				291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */,
-				29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */,
-				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
-				2954EAD02C298A3600994F15 /* UserProfileInfoResponse.swift */,
-				2933DB062C301D5A00E603D1 /* UserProfileInfoRequest.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		29F80BF32B8589A2003614AB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,9 +393,22 @@
 		29FF6B8C2C1F057300CD5DCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A68184F92BFC496800ECBDE3 /* AccessToken.swift */,
 				29FF6B8F2C1F15CD00CD5DCD /* SnapResDTO.swift */,
-				A68185032C34356C00ECBDE3 /* CommonResponseDtoListFindParentReplyResDto.swift */,
 				A68185052C3573B000ECBDE3 /* FindParentReplyResDto.swift */,
+				2920B7A32C0764AC002A7688 /* CommunitySnapModel.swift */,
+				29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */,
+				29AA37B02BF23CB9009EF296 /* UserProfileModel.swift */,
+				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
+				291FB1132BF63E7D0050AB90 /* UserAlbumModel.swift */,
+				291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */,
+				29AA38062BF261E5009EF296 /* UserProfileCountResponse.swift */,
+				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
+				2954EAD02C298A3600994F15 /* UserProfileInfoResponse.swift */,
+				2933DB062C301D5A00E603D1 /* UserProfileInfoRequest.swift */,
+				A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */,
+				A62FE22A2BE24CD600BACF77 /* Album.swift */,
+				A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,16 +428,6 @@
 				052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A62FE2292BE24CB500BACF77 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */,
-				A62FE22A2BE24CD600BACF77 /* Album.swift */,
-				A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A661F3F62BB157930093336A /* View */ = {
@@ -508,11 +486,9 @@
 		A69A81BD2B877719006BAEB2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				29FF6B8C2C1F057300CD5DCD /* Model */,
 				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
 				298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */,
 				2924E8192BA830190025AAA9 /* CommentView.swift */,
-				A68184F92BFC496800ECBDE3 /* AccessToken.swift */,
 				A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */,
 				292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */,
 				298F7F662B6BA4D600A8DBC5 /* SnapViewController.swift */,
@@ -714,10 +690,10 @@
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
 				29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */,
-				A68185042C34356C00ECBDE3 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */,
 				296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */,
+				29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */,
 				296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,

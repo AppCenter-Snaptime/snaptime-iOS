@@ -266,6 +266,7 @@ final class CommentViewController: BaseViewController {
         ].forEach {
             replyStackView.addArrangedSubview($0)
         }
+        
         [
             titleLabel,
             separatorView,
