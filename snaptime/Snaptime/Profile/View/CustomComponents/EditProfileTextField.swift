@@ -25,12 +25,12 @@ final class EditProfileTextField: UIView {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .lightBlue
+        label.textColor = .snaptimeBlue
         
         return label
     }()
     
-    private let editTextField = AuthTextField("")
+    let editTextField = AuthTextField("")
     
     private func setupStyles() {
         self.descriptionLabel.text = customDescription

@@ -7,15 +7,14 @@
 
 import Foundation
 
-struct UserProfileModel: Codable {
+struct UserProfileResponse: Codable {
     let msg: String
-    var result: Result
-    
-    struct Result: Codable {
-        var userId: Int
-        var userName: String
-        var profileURL: String
-    }
+    var result: UserProfileResDTO
 }
 
+struct UserProfileResDTO: Codable {
+    var userId: Int
+    var userName: String
+    var profileURL: String
+}
 

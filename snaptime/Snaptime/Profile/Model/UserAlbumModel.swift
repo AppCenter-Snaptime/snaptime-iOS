@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct UserAlbumModel: Codable {
+struct UserAlbumResponse: Codable {
     let msg: String
-    var result: [Result]
-    
-    struct Result: Codable {
-        var albumId: Int
-        var albumName: String
-        var snapUrlList: [String]
-    }
+    var result: [UserAlbumResDTO]
+}
+
+struct UserAlbumResDTO: Codable {
+    var albumId: Int
+    var albumName: String
+    var snapUrlList: [String]
 }

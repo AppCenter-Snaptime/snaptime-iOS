@@ -11,6 +11,7 @@ import Alamofire
 enum FetchError: Error {
     case invalidStatus
     case jsonDecodeError
+    case jsonEncodeError
 }
 
 enum APIService {
@@ -19,8 +20,13 @@ enum APIService {
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
     case fetchUserAlbum(loginId: String)
+    case fetchUserInfo
+    case modifyUserInfo
+    
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
+    case fetchSnapPreview(albumId: Int)
+    case fetchAlbumList
     case fetchComment(snapId: Int, pageNum: Int)
 }
 
@@ -36,10 +42,25 @@ extension APIService {
         case .fetchUserAlbum(let loginId):
             "/users/album_snap?login_id=\(loginId)"
             
+        case .fetchUserInfo:
+            "/users"
+            
+        case .modifyUserInfo:
+            "/users"
+            
         case .fetchCommunitySnap(let pageNum):
             "/snaps/community/\(pageNum)"
+           
+        case .fetchSnap(let snapId):
+            "/snap/\(snapId)"
             
-        case .fetchSnap(let albumId):
+        case .fetchSnapPreview(let albumId):
+            "/album/\(albumId)"
+            
+        case .fetchAlbumList:
+            "/album/albumListWithThumbnail"
+          
+        case .fetchSnaps(let albumId):
             "/album/\(albumId)?album_id=\(albumId)"
             
         case .fetchComment(_, let pageNum):
@@ -54,8 +75,14 @@ extension APIService {
             .fetchUserAlbum,
             .fetchCommunitySnap,
             .fetchSnap,
+            .fetchUserInfo,
+            .fetchSnapPreview,
+            .fetchAlbumList:
             .fetchComment:
                 .get
+            
+        case .modifyUserInfo:
+                .put
         }
     }
     
@@ -64,24 +91,79 @@ extension APIService {
     }
     
     var headers: HTTPHeaders {
-        ["Authorization": ACCESS_TOKEN, "accept": "*/*"]
+        ["Authorization": ACCESS_TOKEN, "accept": "*/*", "Content-Type": "application/json"]
     }
-        
-    func performRequest(completion: @escaping (Result<Any, Error>) -> Void) {
+    
+    var request: URLRequest {
+        var request = URLRequest(url: url)
+        request.method = method
+        request.headers = headers
+        return request
+    }
+    
+    func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
         print(url)
-        AF.request(
-                    url,
-                    method: method,
-                    parameters: nil,
-                    encoding: URLEncoding.default,
-                    headers: headers
-                )
-                .validate(statusCode: 200..<300)
-                .responseJSON { response in
-                    switch response.result {
-                    case .success(_):
-                        guard let data = response.data else { return }
+        
+        var request = self.request
+
+        if let parameters = parameters {
+            do {
+                let jsonData = try JSONEncoder().encode(parameters)
+                request.httpBody = jsonData
+            } catch {
+                completion(.failure(FetchError.jsonEncodeError))
+                return
+            }
+        }
+
+        AF.request(request)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(_):
+                    guard let data = response.data else { return }
+                    
+                    do {
+                        if case .fetchUserProfile = self {
+                            let userProfile = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                            UserProfileManager.shared.profile = userProfile
+                            completion(.success(userProfile))
+                        } 
                         
+                        else if case .fetchUserProfileCount = self {
+                            let userProfileCount = try JSONDecoder().decode(UserProfileCountResponse.self, from: data)
+                            completion(.success(userProfileCount))
+                        } 
+                        
+                        else if case .fetchUserAlbum = self {
+                            let userAlbum = try JSONDecoder().decode(UserAlbumResponse.self, from: data)
+                            UserAlbumManager.shared.userAlbumList = userAlbum
+                            completion(.success(userAlbum))
+                        } 
+                        
+                        else if case .fetchCommunitySnap = self {
+                            let snap = try JSONDecoder().decode(CommunitySnapResponse.self, from: data)
+                            completion(.success(snap))
+                        } 
+                        
+                        else if case .fetchSnap = self {
+                            let snap = try JSONDecoder().decode(CommonResponseDtoFindSnapResDto.self, from: data)
+                            completion(.success(snap))
+                        } 
+                        
+                        else if case .fetchUserInfo = self {
+                            let profileInfo = try JSONDecoder().decode(UserProfileInfoResponse.self, from: data)
+                            completion(.success(profileInfo))
+                        } 
+                        
+                        else if case .fetchSnapPreview = self {
+                            let snapPreview = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
+                            completion(.success(snapPreview))
+                        } 
+                        
+                        else if case .fetchAlbumList = self {
+                            let albumList = try JSONDecoder().decode(AlbumListResponse.self, from: data)
+                            completion(.success(albumList))
                         do {
                             if case .fetchUserProfile = self {
                                 let userProfile = try JSONDecoder().decode(UserProfileModel.self, from: data)
@@ -119,9 +201,12 @@ extension APIService {
                         } catch {
                             completion(.failure(FetchError.jsonDecodeError))
                         }
-                    case .failure(let error):
-                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(FetchError.jsonDecodeError))
                     }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
+            }
     }
 }

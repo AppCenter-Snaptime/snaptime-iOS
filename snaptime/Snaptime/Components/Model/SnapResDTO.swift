@@ -9,5 +9,16 @@ import Foundation
 
 struct CommonResponseDtoFindSnapResDto: Codable {
     let msg: String
-    let result: FindSnapResDto
+    let result: SnapResDTO
+}
+
+struct SnapResDTO: Codable {
+    var snapId: Int
+    var oneLineJournal: String
+    var snapPhotoURL: String
+    var snapCreatedDate: String
+    var snapModifiedDate: String
+    var loginId: String
+    var profilePhotoURL: String
+    var userName: String
 }
