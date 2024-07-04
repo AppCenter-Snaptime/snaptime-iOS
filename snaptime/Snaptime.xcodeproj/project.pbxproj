@@ -227,9 +227,9 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				A69A81BD2B877719006BAEB2 /* Components */,
 				290585532B71FE8600B80F68 /* Extension */,
-				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				298F7F592B6BA30F00A8DBC5 /* Auth */,
 				298F7F582B6BA30700A8DBC5 /* Community */,
 				A66C41322BBC40DC00AC4284 /* Comment */,
