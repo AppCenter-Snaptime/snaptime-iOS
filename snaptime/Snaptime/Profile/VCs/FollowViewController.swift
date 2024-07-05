@@ -15,6 +15,15 @@ protocol FollowViewControllerDelegate: AnyObject {
 enum FollowTarget {
     case following
     case follower
+    
+    var description: String {
+        switch self {
+        case .following:
+            return "FOLLOWING"
+        case .follower:
+            return "FOLLOWER"
+        }
+    }
 }
 
 final class FollowViewController: BaseViewController {
@@ -49,7 +58,7 @@ final class FollowViewController: BaseViewController {
     
     // MARK: - 네트워크 로직
     private func fetchFriendList() {
-        APIService.fetchFollow(type: "FOLLOWING", keyword: "", pageNum: 1).performRequest { result in
+        APIService.fetchFollow(type: target.description, keyword: "", pageNum: 1).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
@@ -93,9 +102,11 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.selectionStyle = .none
+                
+        let tog: [Bool] = [true, false]
         
         // TODO: 추후 수정 필요
-        cell.configData(target: target, data: friendList[indexPath.row])
+        cell.configData(follow: tog[indexPath.row], data: friendList[indexPath.row])
         
         return cell
     }

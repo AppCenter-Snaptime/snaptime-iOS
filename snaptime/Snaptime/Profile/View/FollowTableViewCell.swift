@@ -9,10 +9,17 @@ import UIKit
 import SnapKit
 
 final class FollowTableViewCell: UITableViewCell {
+    var follow: Bool = true {
+        didSet {
+            updateFollowButtonTitle()
+        }
+    }
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupLayouts()
         self.setupConstraints()
+        self.updateFollowButtonTitle()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,34 +42,46 @@ final class FollowTableViewCell: UITableViewCell {
         return label
     }()
     
-    private var followButton = UIButton()
+    private lazy var followButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.background.cornerRadius = 50
+        button.configuration = config
+        button.addAction(UIAction { [weak self] _ in
+            self?.followButtonclick()
+        }, for: .touchUpInside)
+
+        return button
+    }()
     
-    func configData(target: FollowTarget, data: FindFriendResDto) {
-        switch target {
-        case .following:
-            var config = UIButton.Configuration.filled()
-            config.baseBackgroundColor = .followButtonGray
-            config.baseForegroundColor = .white
-            config.background.cornerRadius = 50
-    
-            var titleAttr = AttributedString.init("팔로우하기")
-            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
-            config.attributedTitle = titleAttr
-    
-            followButton.configuration = config
-        case .follower:
-            var config = UIButton.Configuration.filled()
-            config.baseForegroundColor = .black
-            config.background.cornerRadius = 50
-            config.background.backgroundColor = .white
-            config.background.strokeColor = .followButtonGray
-    
-            var titleAttr = AttributedString.init("팔로잉")
-            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
-            config.attributedTitle = titleAttr
-    
-            followButton.configuration = config
+    private func updateFollowButtonTitle() {
+        var config = followButton.configuration
+
+        switch follow {
+        case true:
+            config?.baseForegroundColor = .black
+            config?.background.backgroundColor = .white
+            config?.background.strokeColor = .followButtonGray
+        case false:
+            config?.baseBackgroundColor = .followButtonGray
+            config?.background.backgroundColor = .followButtonGray
+            config?.baseForegroundColor = .white
         }
+        
+        var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우하기")
+        titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
+        
+        config?.attributedTitle = titleAttr
+        followButton.configuration = config
+    }
+    
+    private func followButtonclick() {
+        follow.toggle()
+    }
+    
+    func configData(follow: Bool, data: FindFriendResDto) {
+        self.follow = follow
         
         loadImage(data: data.profilePhotoURL)
         nameLabel.text = data.userName
@@ -87,7 +106,7 @@ final class FollowTableViewCell: UITableViewCell {
         [profileImageView, 
          nameLabel,
          followButton].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
