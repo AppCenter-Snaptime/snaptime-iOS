@@ -29,7 +29,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
-                              CommentViewControllerDelegate {
+                              CommentViewControllerDelegate,
+                            FollowViewControllerDelegate {
     
     func presentCommentVC(id: Int) {
         let commentVC = CommentViewController(snapID: id)
@@ -72,6 +73,12 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    func presentFollow(target: FollowTarget) {
+        let followVC = FollowViewController(target: target)
+        followVC.delegate = self
+        navigationController.pushViewController(followVC, animated: true)
     }
     
     func backToPrevious() {

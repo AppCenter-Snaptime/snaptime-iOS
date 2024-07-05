@@ -11,16 +11,16 @@ import SnapKit
 /// 팔로워, 팔로잉, 게시글 수를 나타내기 위한 customButton class
 final class ProfileStatusButton: UIButton {
     private let customTitle: String
-    private var tabButtonAction: UIAction
+//    private var tabButtonAction: UIAction
 
     private var customNumberToString: String?
     
-    init(_ title: String, action: UIAction) {
+    init(_ title: String) {
         self.customTitle = title
-        self.tabButtonAction = action
+//        self.tabButtonAction = action
         super.init(frame: .zero)
         self.setupStyles()
-        self.addAction(action, for: .touchUpInside)
+//        self.addAction(action, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {

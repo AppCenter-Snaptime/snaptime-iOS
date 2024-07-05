@@ -13,6 +13,7 @@ protocol ProfileViewControllerDelegate: AnyObject {
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
+    func presentFollow(target: FollowTarget)
 }
 
 enum ProfileTarget {
@@ -72,10 +73,17 @@ final class ProfileViewController: BaseViewController {
         return button
     }()
     
-    private lazy var profileStatusView = ProfileStatusView(target: .myself,
-                                                           action: UIAction { _ in
-        self.delegate?.presentSettingProfile()
-    })
+    private lazy var profileStatusView = ProfileStatusView(
+        target: .myself,
+        followOrSettingAction: UIAction { [weak self] _ in
+            self?.delegate?.presentSettingProfile()
+        },
+        followingAction: UIAction { [weak self] _ in
+            self?.delegate?.presentFollow(target: .following)
+        },
+        followerAction: UIAction { [weak self] _ in
+            self?.delegate?.presentFollow(target: .follower)
+        })
     
     private let albumAndTagListView = TopTapBarView()
         

@@ -11,17 +11,27 @@ import SnapKit
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
 /// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
 final class ProfileStatusView: UIView {
-    var tabButtonAction: UIAction
-    let profileTarget: ProfileTarget
+    private var followOrSettingButtonAction: UIAction
+    private var followingButtonAction: UIAction
+    private var followerButtonAction: UIAction
+    private let profileTarget: ProfileTarget
     
-    init(target: ProfileTarget, action: UIAction) {
+    init(target: ProfileTarget, 
+         followOrSettingAction: UIAction,
+         followingAction: UIAction,
+         followerAction: UIAction) {
         self.profileTarget = target
-        self.tabButtonAction = action
+        self.followOrSettingButtonAction = followOrSettingAction
+        self.followingButtonAction = followingAction
+        self.followerButtonAction = followerAction
         super.init(frame: .zero)
         self.setupUI(target: target)
         self.setupLayouts()
         self.setupConstraints()
-        self.followOrSettingButton.addAction(tabButtonAction, for: .touchUpInside)
+        
+        self.followOrSettingButton.addAction(followOrSettingButtonAction, for: .touchUpInside)
+        self.followerNumber.addAction(followerAction, for: .touchUpInside)
+        self.followingNumber.addAction(followingAction, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -61,9 +71,9 @@ final class ProfileStatusView: UIView {
     
     private lazy var followOrSettingButton = UIButton()
     
-    private lazy var postNumber = ProfileStatusButton("사진수", action: UIAction {[weak self] _ in})
-    private lazy var followerNumber = ProfileStatusButton("팔로워", action: UIAction {[weak self] _ in})
-    private lazy var followingNumber = ProfileStatusButton("팔로잉", action: UIAction {[weak self] _ in})
+    private lazy var postNumber = ProfileStatusButton("사진수")
+    private lazy var followerNumber = ProfileStatusButton("팔로워")
+    private lazy var followingNumber = ProfileStatusButton("팔로잉")
     
     private let lineView : UIView = {
         let view = UIView()
