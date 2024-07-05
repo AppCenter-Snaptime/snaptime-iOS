@@ -288,6 +288,29 @@
 			path = CustomComponents;
 			sourceTree = "<group>";
 		};
+		297090262C37FF02004A151B /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
+				298F7F662B6BA4D600A8DBC5 /* SnapViewController.swift */,
+				296167A92BBBC7A7003CA89C /* SnapPreviewViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		297090272C37FF0F004A151B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */,
+				2924E8192BA830190025AAA9 /* CommentView.swift */,
+				A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */,
+				292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */,
+				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
+				A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		298F7F562B6BA2FC00A8DBC5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,16 +515,9 @@
 		A69A81BD2B877719006BAEB2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */,
-				298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */,
-				2924E8192BA830190025AAA9 /* CommentView.swift */,
-				A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */,
-				292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */,
-				298F7F662B6BA4D600A8DBC5 /* SnapViewController.swift */,
-				296167A92BBBC7A7003CA89C /* SnapPreviewViewController.swift */,
-				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
+				297090272C37FF0F004A151B /* Views */,
+				297090262C37FF02004A151B /* VCs */,
 				29E6EA122BFF8B13004F154F /* APIService.swift */,
-				A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
