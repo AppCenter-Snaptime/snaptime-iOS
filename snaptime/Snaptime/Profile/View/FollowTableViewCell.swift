@@ -37,7 +37,7 @@ final class FollowTableViewCell: UITableViewCell {
     
     private var followButton = UIButton()
     
-    func configData(target: FollowTarget) {
+    func configData(target: FollowTarget, data: FindFriendResDto) {
         switch target {
         case .following:
             var config = UIButton.Configuration.filled()
@@ -62,6 +62,23 @@ final class FollowTableViewCell: UITableViewCell {
             config.attributedTitle = titleAttr
     
             followButton.configuration = config
+        }
+        
+        loadImage(data: data.profilePhotoURL)
+        nameLabel.text = data.userName
+    }
+    
+    private func loadImage(data: String) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.profileImageView.image = UIImage(data: data)
+            }
         }
     }
     

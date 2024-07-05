@@ -19,6 +19,7 @@ enum FollowTarget {
 
 final class FollowViewController: BaseViewController {
     weak var delegate: FollowViewControllerDelegate?
+    private var friendList: [FindFriendResDto] = []
     
     private let target: FollowTarget
     
@@ -33,6 +34,7 @@ final class FollowViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.fetchFriendList()
     }
     
     private lazy var followTableView: UITableView = {
@@ -45,12 +47,32 @@ final class FollowViewController: BaseViewController {
         return tableView
     }()
     
+    // MARK: - 네트워크 로직
+    private func fetchFriendList() {
+        APIService.fetchFollow(type: "FOLLOWING", keyword: "", pageNum: 1).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListFindFriendResDto {
+                        self.friendList = result.result
+                    }
+                    
+                    self.followTableView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    // MARK: - layout 설정
     override func setupLayouts() {
         super.setupLayouts()
         
         view.addSubview(followTableView)
     }
     
+    // MARK: - constraints 설정
     override func setupConstraints() {
         super.setupConstraints()
         
@@ -70,14 +92,16 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.selectionStyle = .none
+        
         // TODO: 추후 수정 필요
-        cell.configData(target: target)
+        cell.configData(target: target, data: friendList[indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return friendList.count
     }
 }
 
