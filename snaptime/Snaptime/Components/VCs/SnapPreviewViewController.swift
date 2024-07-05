@@ -16,7 +16,7 @@ protocol SnapPreviewViewControllerDelegate: AnyObject {
 final class SnapPreviewViewController: BaseViewController {
     weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
-    private var snapPreviews: [SnapResDTO] = []
+    private var snapPreviews: [SnapResDto] = []
     
     init(albumID: Int) {
         self.albumID = albumID

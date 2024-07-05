@@ -124,24 +124,24 @@ extension APIService {
                     
                     do {
                         if case .fetchUserProfile = self {
-                            let userProfile = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                            let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
                             UserProfileManager.shared.profile = userProfile
                             completion(.success(userProfile))
                         }
                         
                         else if case .fetchUserProfileCount = self {
-                            let userProfileCount = try JSONDecoder().decode(UserProfileCountResponse.self, from: data)
+                            let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))
                         }
                         
                         else if case .fetchUserAlbum = self {
-                            let userAlbum = try JSONDecoder().decode(UserAlbumResponse.self, from: data)
+                            let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
                             UserAlbumManager.shared.userAlbumList = userAlbum
                             completion(.success(userAlbum))
                         }
                         
                         else if case .fetchCommunitySnap = self {
-                            let snap = try JSONDecoder().decode(CommunitySnapResponse.self, from: data)
+                            let snap = try JSONDecoder().decode(CommonResponseDtoListFindSnapPagingResDto.self, from: data)
                             completion(.success(snap))
                         }
                         
@@ -151,7 +151,7 @@ extension APIService {
                         }
                         
                         else if case .fetchUserInfo = self {
-                            let profileInfo = try JSONDecoder().decode(UserProfileInfoResponse.self, from: data)
+                            let profileInfo = try JSONDecoder().decode(CommonResponseDtoUserResDto.self, from: data)
                             completion(.success(profileInfo))
                         }
                         
@@ -161,7 +161,7 @@ extension APIService {
                         }
                         
                         else if case .fetchAlbumList = self {
-                            let albumList = try JSONDecoder().decode(AlbumListResponse.self, from: data)
+                            let albumList = try JSONDecoder().decode(CommonResponseDtoListFindAllAlbumsResDto.self, from: data)
                             completion(.success(albumList))
                         }
                         

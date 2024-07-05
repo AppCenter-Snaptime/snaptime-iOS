@@ -15,5 +15,5 @@ struct CommonResponseDtoFindAlbumResDto: Codable {
 struct FindAlbumResDto: Codable {
     let id: Int
     let name: String
-    let snap: [SnapResDTO]
+    let snap: [SnapResDto]
 }

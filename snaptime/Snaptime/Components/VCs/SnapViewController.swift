@@ -17,7 +17,7 @@ final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
     
-    private var snap: SnapResDTO = SnapResDTO(
+    private var snap: SnapResDto = SnapResDto(
         snapId: 0,
         oneLineJournal: "",
         snapPhotoURL: "",

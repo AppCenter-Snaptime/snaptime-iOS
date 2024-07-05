@@ -1,5 +1,5 @@
 //
-//  UserProfileInfoRequest.swift
+//  UserUpdateDto.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 6/29/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserProfileInfoReqDTO: Codable {
+struct UserUpdateDto: Codable {
     var name: String
     var loginId: String
     var email: String

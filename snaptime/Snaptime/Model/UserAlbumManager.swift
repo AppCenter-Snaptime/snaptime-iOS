@@ -8,7 +8,7 @@
 import Foundation
 
 class UserAlbumManager {
-    var userAlbumList = UserAlbumResponse(msg: "", result: [])
+    var userAlbumList = CommonResponseDtoListAlbumSnapResDto(msg: "", result: [])
     
     static let shared = UserAlbumManager()
     

@@ -17,7 +17,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
 final class CommunityViewController: BaseViewController {
     weak var delegate: CommunityViewControllerDelegate?
     
-    private var snaps: [SnapResDTO] = []
+    private var snaps: [SnapResDto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ final class CommunityViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let snap):
-                    if let snap = snap as? CommunitySnapResponse {
+                    if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
                         self.snaps = snap.result
                     }
                     self.contentCollectionView.reloadData()

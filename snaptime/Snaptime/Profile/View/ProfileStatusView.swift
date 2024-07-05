@@ -110,12 +110,12 @@ final class ProfileStatusView: UIView {
     }
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
-    func setupUserProfile(_ userProfile: UserProfileResDTO) {
+    func setupUserProfile(_ userProfile: UserProfileResDto) {
         self.loadImage(data: userProfile.profileURL)
         self.nickNameLabel.text = userProfile.userName
     }
     
-    func setupUserNumber(_ userProfileCount: UserProfileCountResDTO) {
+    func setupUserNumber(_ userProfileCount: ProfileCntResDto) {
         self.postNumber.setupNumber(number: userProfileCount.snapCnt)
         self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
         self.followingNumber.setupNumber(number: userProfileCount.followingCnt)

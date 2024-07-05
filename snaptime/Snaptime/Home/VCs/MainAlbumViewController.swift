@@ -174,7 +174,7 @@ final class MainAlbumViewController : BaseViewController {
             DispatchQueue.main.async {
                 switch result{
                 case .success(let albumList):
-                    if let albumList = albumList as? AlbumListResponse{
+                    if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto{
                         self.albumData = albumList.result.map { Album($0) }
                     }
                     

@@ -24,7 +24,7 @@ enum ProfileTarget {
 final class ProfileViewController: BaseViewController {
     weak var delegate: ProfileViewControllerDelegate?
         
-    private let count: UserProfileCountResDTO? = nil
+    private let count: ProfileCntResDto? = nil
     private let loginId = ProfileBasicModel.profile.loginId
     
     private let target: ProfileTarget
@@ -104,7 +104,7 @@ final class ProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? UserProfileResponse {
+                    if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):
@@ -119,7 +119,7 @@ final class ProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? UserProfileCountResponse {
+                    if let profileCount = userProfileCount as? CommonResponseDtoProfileCntResDto {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
                 case .failure(let error):
