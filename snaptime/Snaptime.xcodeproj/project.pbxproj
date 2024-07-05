@@ -42,6 +42,7 @@
 		296E0F672B8859E700758653 /* AlbumAndTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* AlbumAndTagListView.swift */; };
 		297090232C37D8B5004A151B /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090222C37D8B5004A151B /* FollowViewController.swift */; };
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
+		297090292C38014A004A151B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090282C38014A004A151B /* IconButton.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
 		298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */; };
@@ -133,6 +134,7 @@
 		296E0F662B8859E700758653 /* AlbumAndTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAndTagListView.swift; sourceTree = "<group>"; };
 		297090222C37D8B5004A151B /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
+		297090282C38014A004A151B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */,
 				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
 				A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */,
+				297090282C38014A004A151B /* IconButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
+				297090292C38014A004A151B /* IconButton.swift in Sources */,
 				291FB1162BF63EB50050AB90 /* UserAlbumManager.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				29AA37B12BF23CB9009EF296 /* UserProfileModel.swift in Sources */,

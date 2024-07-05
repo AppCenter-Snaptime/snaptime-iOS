@@ -78,24 +78,19 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var commentButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "message"), for: .normal)
-        button.tintColor = .black
-        button.addAction(UIAction { [weak self] _ in
+    private lazy var commentButton = IconButton(
+        name: "message",
+        action: UIAction { [weak self] _ in
             self?.delegate?.didTapCommentButton()
-        }, for: .touchUpInside)
-        
-        return button
-    }()
+    })
     
-    private lazy var shareButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        button.tintColor = .black
-        
-        return button
-    }()
+    private lazy var likeButton = IconButton(
+        name: "heart",
+        action: UIAction { [weak self] _ in })
+
+    private lazy var shareButton = IconButton(
+        name: "square.and.arrow.up",
+        action: UIAction { [weak self] _ in })
     
     private lazy var postLabel: UILabel = {
         let label = UILabel()
@@ -173,6 +168,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
          editButton,
          photoImageView,
          commentButton,
+         likeButton,
          shareButton,
          postLabel,
          commentCheckButton,
@@ -213,6 +209,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         commentButton.snp.makeConstraints {
             $0.left.equalTo(photoImageView.snp.left)
             $0.top.equalTo(photoImageView.snp.bottom).offset(8)
+            $0.width.height.equalTo(24)
+        }
+        
+        likeButton.snp.makeConstraints {
+            $0.left.equalTo(commentButton.snp.right).offset(8)
+            $0.top.equalTo(commentButton)
             $0.width.height.equalTo(24)
         }
         
