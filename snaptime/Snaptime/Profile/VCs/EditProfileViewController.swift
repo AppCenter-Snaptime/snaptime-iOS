@@ -197,8 +197,8 @@ final class EditProfileViewController: BaseViewController {
          
         stackView.snp.makeConstraints {
             $0.top.equalTo(editProfileImage.snp.bottom).offset(40)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(53)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-53)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(35)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-35)
         }
     }
 }
