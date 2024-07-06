@@ -28,7 +28,7 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     
-    case fetchFollow(type: String, keyword: String, pageNum: Int)
+    case fetchFollow(type: String, loginId: String,keyword: String, pageNum: Int)
     
 }
 
@@ -62,8 +62,8 @@ extension APIService {
         case .fetchAlbumList:
             "/album/albumListWithThumbnail"
             
-        case .fetchFollow(let type, let keyword, let pageNum):
-            "/friends/\(pageNum)?friendSearchType=\(type)"
+        case .fetchFollow(let type, let loginId, let keyword, let pageNum):
+            "/friends/\(pageNum)?loginId=\(loginId)&friendSearchType=\(type)"
         }
     }
     

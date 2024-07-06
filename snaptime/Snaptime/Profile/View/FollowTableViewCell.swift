@@ -80,7 +80,7 @@ final class FollowTableViewCell: UITableViewCell {
         follow.toggle()
     }
     
-    func configData(follow: Bool, data: FindFriendResDto) {
+    func configData(follow: Bool, data: FriendInfo) {
         self.follow = follow
         
         loadImage(data: data.profilePhotoURL)

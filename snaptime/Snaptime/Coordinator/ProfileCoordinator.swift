@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentMyProfile(target: .myself)
+        presentProfile(target: .myself,loginId: ProfileBasicModel.profile.loginId)
     }
     
     init(navigationController: UINavigationController) {
@@ -39,8 +39,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.present(commentVC, animated: true, completion: nil)
     }
     
-    func presentMyProfile(target: ProfileTarget) {
-        let myProfileVC = ProfileViewController(target: target)
+    func presentProfile(target: ProfileTarget, loginId: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
@@ -75,8 +75,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.pushViewController(notificationVC, animated: true)
     }
     
-    func presentFollow(target: FollowTarget) {
-        let followVC = FollowViewController(target: target)
+    func presentFollow(target: FollowTarget, loginId: String) {
+        let followVC = FollowViewController(target: target, loginId: loginId)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
     }

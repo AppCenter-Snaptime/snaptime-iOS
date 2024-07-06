@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 protocol ProfileViewControllerDelegate: AnyObject {
-    func presentMyProfile(target: ProfileTarget)
+    func presentProfile(target: ProfileTarget, loginId: String)
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
-    func presentFollow(target: FollowTarget)
+    func presentFollow(target: FollowTarget, loginId: String)
 }
 
 enum ProfileTarget {
@@ -25,12 +25,13 @@ final class ProfileViewController: BaseViewController {
     weak var delegate: ProfileViewControllerDelegate?
         
     private let count: ProfileCntResDto? = nil
-    private let loginId = ProfileBasicModel.profile.loginId
     
+    private var loginId: String
     private let target: ProfileTarget
     
-    init(target: ProfileTarget) {
+    init(target: ProfileTarget, loginId: String) {
         self.target = target
+        self.loginId = loginId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -74,16 +75,26 @@ final class ProfileViewController: BaseViewController {
     }()
     
     private lazy var profileStatusView = ProfileStatusView(
-        target: .myself,
+        target: target,
         followOrSettingAction: UIAction { [weak self] _ in
-            self?.delegate?.presentSettingProfile()
+            switch self?.target {
+            case .myself:
+                self?.delegate?.presentSettingProfile()
+            case .others:
+                print("팔로우하기")
+            case .none:
+                print("")
+            }
         },
         followingAction: UIAction { [weak self] _ in
-            self?.delegate?.presentFollow(target: .following)
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.presentFollow(target: .following, loginId: strongSelf.loginId)
         },
         followerAction: UIAction { [weak self] _ in
-            self?.delegate?.presentFollow(target: .follower)
-        })
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.presentFollow(target: .follower, loginId: strongSelf.loginId)
+        }
+    )
     
     private let albumAndTagListView = TopTapBarView()
         

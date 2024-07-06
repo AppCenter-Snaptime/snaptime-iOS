@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol FollowViewControllerDelegate: AnyObject {
-    
+    func presentProfile(target: ProfileTarget, loginId: String)
 }
 
 enum FollowTarget {
@@ -28,12 +28,14 @@ enum FollowTarget {
 
 final class FollowViewController: BaseViewController {
     weak var delegate: FollowViewControllerDelegate?
-    private var friendList: [FindFriendResDto] = []
+    private var friendList: [FriendInfo] = []
     
     private let target: FollowTarget
+    private let loginId: String
     
-    init(target: FollowTarget) {
+    init(target: FollowTarget, loginId: String) {
         self.target = target
+        self.loginId = loginId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,12 +60,12 @@ final class FollowViewController: BaseViewController {
     
     // MARK: - 네트워크 로직
     private func fetchFriendList() {
-        APIService.fetchFollow(type: target.description, keyword: "", pageNum: 1).performRequest { result in
+        APIService.fetchFollow(type: target.description, loginId: loginId, keyword: "", pageNum: 1).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
                     if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        self.friendList = result.result
+                        self.friendList = result.result.friendInfoList
                     }
                     
                     self.followTableView.reloadData()
@@ -113,6 +115,18 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friendList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let loginId = friendList[indexPath.row].loginId
+        
+        if loginId == ProfileBasicModel.profile.loginId {
+            self.delegate?.presentProfile(target: .myself, loginId: loginId)
+        }
+        
+        else {
+            self.delegate?.presentProfile(target: .others, loginId: loginId)
+        }
     }
 }
 

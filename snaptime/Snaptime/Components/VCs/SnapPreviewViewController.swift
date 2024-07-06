@@ -33,6 +33,12 @@ final class SnapPreviewViewController: BaseViewController {
         self.fetchAlbumDetail(id: self.albumID)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.fetchAlbumDetail(id: self.albumID)
+    }
+    
     private func fetchAlbumDetail(id: Int) {
         APIService.fetchSnapPreview(albumId: id).performRequest { result in
             DispatchQueue.main.async {

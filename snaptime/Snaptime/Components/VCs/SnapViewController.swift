@@ -50,6 +50,7 @@ final class SnapViewController: BaseViewController {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoFindSnapResDto {
                         self.snap = snap.result
+                        print(snap.result)
                     }
                     self.snapCollectionView.reloadData()
                 case .failure(let error):
