@@ -24,7 +24,7 @@ final class CommentViewController: BaseViewController {
     }
     
     private let snapID: Int
-    private var parentComments: [FindParentReplyResDto] = []
+    private var parentComments: [ParentReplyInfo] = []
     weak var delegate: CommentViewControllerDelegate?
     
     private lazy var titleLabel: UILabel = {
@@ -132,6 +132,18 @@ final class CommentViewController: BaseViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
         button.tintColor = .snaptimeBlue
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self,
+                  let comment = self.replyTextField.text else {
+                return
+            }
+            let param = AddParentReplyReqDto(content: comment, snapId: self.snapID)
+            print("post success")
+            APIService.postReply.performRequest(with: param) { [weak self] _ in
+                self?.fetchComment()
+                self?.commentCollectionView.layoutIfNeeded()
+            }
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -182,9 +194,9 @@ final class CommentViewController: BaseViewController {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
-                    self.parentComments = result.result
+                    self.parentComments = result.result.parentReplyInfoList
                     DispatchQueue.main.async {
-                        self.applySnapShot(data: result.result)
+                        self.applySnapShot(data: self.parentComments)
                     }
                 } catch {
                     print(error)
@@ -237,11 +249,11 @@ final class CommentViewController: BaseViewController {
         }
     }
     
-    private func applySnapShot(data: [FindParentReplyResDto]) {
+    private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         
         var identifierOffset = 0 // 아이템의 identifier
-        let itemPerSection = 3 // 답글의 개수, 테스트 데이터로 추가 가능
+        let itemPerSection = 1 // 답글의 개수, 테스트 데이터로 추가 가능
         
         for idx in 0..<data.count {
             snapshot.appendSections([idx])

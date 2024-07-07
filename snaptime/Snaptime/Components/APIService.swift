@@ -241,6 +241,8 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     
+    case postReply
+    
 }
 
 extension APIService {
@@ -272,6 +274,9 @@ extension APIService {
             
         case .fetchAlbumList:
             "/album/albumListWithThumbnail"
+            
+        case .postReply:
+            "/parent-replies"
         }
     }
     
@@ -289,6 +294,9 @@ extension APIService {
             
         case .modifyUserInfo:
                 .put
+        
+        case .postReply:
+                .post
         }
     }
     
@@ -371,6 +379,11 @@ extension APIService {
                             let albumList = try JSONDecoder().decode(AlbumListResponse.self, from: data)
                             completion(.success(albumList))
                         }
+                        
+                        else if case .postReply = self {
+                            completion(.success(data))
+                        }
+                        
                     } catch {
                         completion(.failure(FetchError.jsonDecodeError))
                     }

@@ -9,5 +9,5 @@ import Foundation
 
 struct CommonResponseDtoListFindParentReplyResDto: Codable {
     let msg: String
-    let result: [FindParentReplyResDto]
+    let result: FindParentReplyResDto
 }
