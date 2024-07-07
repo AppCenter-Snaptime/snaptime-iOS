@@ -125,7 +125,7 @@ extension APIService {
                     do {
                         if case .fetchUserProfile = self {
                             let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
-                            UserProfileManager.shared.profile = userProfile
+//                            UserProfileManager.shared.profile = userProfile
                             completion(.success(userProfile))
                         }
                         
