@@ -129,12 +129,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         print(data.profilePhotoURL)
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.userName
-        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
+        self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
         postDateLabel.text = "2024.01.09"
     }
     
-    private func loadImage(data: String, imageView: UIImageView) {
+    private func loadSnapImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data) {
             let modifier = AnyModifier { request in
                 var r = request
@@ -150,6 +150,20 @@ final class SnapCollectionViewCell: UICollectionViewCell {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        }
+    }
+    
+    private func loadImage(data: String, imageView: UIImageView) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
             }
         }
     }
