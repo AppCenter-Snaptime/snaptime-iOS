@@ -154,6 +154,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    /// 토큰이 들어가면 안되는듯? -> 기본 이미지가 뜨는데..
     private func loadImage(data: String, imageView: UIImageView) {
         guard let url = URL(string: data)  else { return }
         
