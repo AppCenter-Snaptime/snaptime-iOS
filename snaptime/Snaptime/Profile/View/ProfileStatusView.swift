@@ -16,6 +16,12 @@ final class ProfileStatusView: UIView {
     private var followerButtonAction: UIAction
     private let profileTarget: ProfileTarget
     
+    var follow: Bool = true {
+        didSet {
+            updateFollowButtonTitle()
+        }
+    }
+    
     init(target: ProfileTarget, 
          followOrSettingAction: UIAction,
          followingAction: UIAction,
@@ -82,22 +88,55 @@ final class ProfileStatusView: UIView {
         return view
     }()
     
+    // MARK: - 팔로잉, 팔로우 버튼 다르게 보이도록 구현
+    private func updateFollowButtonTitle() {
+        var config = followOrSettingButton.configuration
+
+        switch follow {
+        case true:
+            config?.baseForegroundColor = .snaptimeBlue
+            config?.background.backgroundColor = .white
+            config?.background.strokeColor = .snaptimeBlue
+        case false:
+            config?.baseBackgroundColor = .snaptimeBlue
+            config?.baseForegroundColor = .white
+            config?.background.backgroundColor = .snaptimeBlue
+        }
+        
+        var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우")
+        titleAttr.font = .systemFont(ofSize: 12, weight: .semibold)
+        
+        config?.attributedTitle = titleAttr
+        followOrSettingButton.configuration = config
+    }
+    
+    func followButtonclick() {
+        follow.toggle()
+        print(follow)
+    }
+
     // MARK: - target에 따른 button UI 세팅하는 함수
     private func setupUI(target: ProfileTarget) {
+        var config = UIButton.Configuration.filled()
+
         switch target {
         case .others:
-            var config = UIButton.Configuration.filled()
-            config.baseBackgroundColor = .snaptimeBlue
-            config.baseForegroundColor = .white
+            switch follow {
+            case true:
+                config.baseForegroundColor = .snaptimeBlue
+                config.background.backgroundColor = .white
+                config.background.strokeColor = .snaptimeBlue
+            case false:
+                config.baseBackgroundColor = .snaptimeBlue
+                config.baseForegroundColor = .white
+                config.background.backgroundColor = .snaptimeBlue
+            }
             
-            var titleAttr = AttributedString.init("팔로우")
-            titleAttr.font = .systemFont(ofSize: 12, weight: .light)
+            var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우")
+            titleAttr.font = .systemFont(ofSize: 12, weight: .semibold)
             config.attributedTitle = titleAttr
             
-            followOrSettingButton.configuration = config
-            
         case .myself:
-            var config = UIButton.Configuration.filled()
             config.baseBackgroundColor = .white
             config.baseForegroundColor = .black
             let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
@@ -105,8 +144,9 @@ final class ProfileStatusView: UIView {
             config.image = setImage
             
             followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
-            followOrSettingButton.configuration = config
         }
+        
+        followOrSettingButton.configuration = config
     }
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수

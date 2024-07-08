@@ -81,7 +81,7 @@ final class ProfileViewController: BaseViewController {
             case .myself:
                 self?.delegate?.presentSettingProfile()
             case .others:
-                print("팔로우하기")
+                self?.followButtonToggle()
             case .none:
                 print("")
             }
@@ -104,12 +104,18 @@ final class ProfileViewController: BaseViewController {
         }
     }
     
+    // MARK: - navigationBar 설정
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     
+    private func followButtonToggle() {
+        profileStatusView.followButtonclick()
+    }
+    
+    // MARK: - 네트워크 로직
     private func fetchUserProfile(loginId: String) {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
@@ -149,7 +155,6 @@ final class ProfileViewController: BaseViewController {
             view.addSubview($0)
         }
     }
-    
     override func setupConstraints() {
         super.setupConstraints()
         
