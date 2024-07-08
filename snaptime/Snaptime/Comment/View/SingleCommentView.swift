@@ -66,6 +66,7 @@ class SingleCommentView: UIView {
     func setupUI(comment: ParentReplyInfo) {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
+        self.beforeDateLabel.text = comment.timeAgo
         if let url = URL(string: comment.writerProfilePhotoURL) {
             
             let modifier = AnyModifier { request in
