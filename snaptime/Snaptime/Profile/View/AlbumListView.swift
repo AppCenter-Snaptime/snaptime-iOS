@@ -19,7 +19,6 @@ final class AlbumListView: UIView {
         self.setLayouts()
         self.setConstraints()
         self.setupCollectionView()
-        self.fetchUserAlbum(loginId: self.loginId)
         self.reloadData()
     }
     
