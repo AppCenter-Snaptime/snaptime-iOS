@@ -9,6 +9,10 @@ import Foundation
 
 struct CommonResponseDtoListFindSnapPagingResDto: Codable {
     let msg: String
-    var result: [SnapResDto]
+    var result: FindSnapPagingResDto
 }
 
+struct FindSnapPagingResDto: Codable {
+    let snapPagingInfoList: [FindSnapResDto]
+    let hasNextPage: Bool
+}

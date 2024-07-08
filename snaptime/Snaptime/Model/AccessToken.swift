@@ -7,5 +7,5 @@
 
 import Foundation
 
-let ACCESS_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib3dvbjAwMDAiLCJ0eXBlIjoiYWNjZXNzIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcyMDM0MTQ1NCwiZXhwIjoxNzIwNDI3ODU0fQ.AEu8ec95MMw6jfziPK_EHuucDIJ4lELS9QhmkMRUNj0"
+let ACCESS_TOKEN = "Bearer "
 

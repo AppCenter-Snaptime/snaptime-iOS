@@ -44,9 +44,9 @@ final class ProfileViewController: BaseViewController {
         self.albumAndTagListView.send = sendFlow
         self.setupNavigationBar()
 
-        self.fetchUserAlbum(loginId: loginId)
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
+        self.albumAndTagListView.setLoginId(loginId: loginId)
     }
     
     // MARK: - configUI
@@ -96,7 +96,7 @@ final class ProfileViewController: BaseViewController {
         }
     )
     
-    private let albumAndTagListView = TopTapBarView()
+    private lazy var albumAndTagListView = TopTapBarView()
         
     private var sendFlow: (Int) -> Void {
         return { [weak self] albumId in
@@ -133,19 +133,6 @@ final class ProfileViewController: BaseViewController {
                     if let profileCount = userProfileCount as? CommonResponseDtoProfileCntResDto {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    private func fetchUserAlbum(loginId: String) {
-        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.albumAndTagListView.reloadAlbumListView()
                 case .failure(let error):
                     print(error)
                 }

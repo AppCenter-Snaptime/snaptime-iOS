@@ -51,7 +51,7 @@ extension APIService {
             "/users"
             
         case .fetchCommunitySnap(let pageNum):
-            "/snaps/community/\(pageNum)"
+            "/community/snaps/\(pageNum)"
             
         case .fetchSnap(let snapId):
             "/snap/\(snapId)"
@@ -125,7 +125,6 @@ extension APIService {
                     do {
                         if case .fetchUserProfile = self {
                             let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
-//                            UserProfileManager.shared.profile = userProfile
                             completion(.success(userProfile))
                         }
                         
@@ -136,7 +135,7 @@ extension APIService {
                         
                         else if case .fetchUserAlbum = self {
                             let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
-                            UserAlbumManager.shared.userAlbumList = userAlbum
+//                            UserAlbumManager.shared.userAlbumList = userAlbum
                             completion(.success(userAlbum))
                         }
                         
