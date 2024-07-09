@@ -10,7 +10,6 @@
 		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
 		291FB1142BF63E7D0050AB90 /* AlbumSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291FB1132BF63E7D0050AB90 /* AlbumSnapResDto.swift */; };
-		291FB1162BF63EB50050AB90 /* UserAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */; };
 		2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920B7A32C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift */; };
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
 		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
@@ -102,7 +101,6 @@
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		291FB1132BF63E7D0050AB90 /* AlbumSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSnapResDto.swift; sourceTree = "<group>"; };
-		291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlbumManager.swift; sourceTree = "<group>"; };
 		2920B7A32C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindSnapPagingResDto.swift; sourceTree = "<group>"; };
 		2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -435,7 +433,6 @@
 				29AA37B02BF23CB9009EF296 /* UserProfileResDto.swift */,
 				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
 				291FB1132BF63E7D0050AB90 /* AlbumSnapResDto.swift */,
-				291FB1152BF63EB50050AB90 /* UserAlbumManager.swift */,
 				29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */,
 				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
 				2954EAD02C298A3600994F15 /* UserResDto.swift */,
@@ -688,7 +685,6 @@
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
 				297090292C38014A004A151B /* IconButton.swift in Sources */,
-				291FB1162BF63EB50050AB90 /* UserAlbumManager.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				29AA37B12BF23CB9009EF296 /* UserProfileResDto.swift in Sources */,
 				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
