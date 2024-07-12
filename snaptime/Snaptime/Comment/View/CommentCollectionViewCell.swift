@@ -21,8 +21,8 @@ final class CommentCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI(comment: Int) {
-        let comment = FindParentReplyResDto(writerLoginId: "", writerProfilePhotoURL: "", writerUserName: String(comment), content: "", replyId: 0)
-        self.commentView.setupUI(comment: comment)
+//        let comment = FindParentReplyResDto(writerLoginId: "", writerProfilePhotoURL: "", writerUserName: String(comment), content: "", replyId: 0)
+//        self.commentView.setupUI(comment: comment)
     }
     
     private func setLayout() {

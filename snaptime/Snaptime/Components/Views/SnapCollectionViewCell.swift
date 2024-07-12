@@ -10,13 +10,14 @@ import SnapKit
 import Kingfisher
 
 protocol SnapCollectionViewCellDelegate: AnyObject {
-    func didTapCommentButton()
+    func didTapCommentButton(snap: SnapResDTO)
 }
 
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
     weak var delegate: SnapCollectionViewCellDelegate?
     var action: (()->())?
+    private var snap: SnapResDTO?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,8 +82,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var commentButton = IconButton(
         name: "message",
         action: UIAction { [weak self] _ in
-            self?.delegate?.didTapCommentButton()
-    })
+            if let snap = self?.snap {
+                self?.delegate?.didTapCommentButton(snap: snap)
+            }
+        })
     
     private lazy var likeButton = IconButton(
         name: "heart",
@@ -106,7 +109,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         button.setTitleColor(UIColor.init(hexCode: "#B2B2B2"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.didTapCommentButton()
+            if let snap = self?.snap {
+                self?.delegate?.didTapCommentButton(snap: snap)
+            }
         }, for: .touchUpInside)
         
         return button
@@ -130,8 +135,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.userName
         self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
+
         postLabel.text = data.oneLineJournal
-        postDateLabel.text = "2024.01.09"
+        postDateLabel.text = data.snapModifiedDate.toDateString()
     }
     
     private func loadSnapImage(data: String, imageView: UIImageView) {

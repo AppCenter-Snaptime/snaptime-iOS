@@ -81,6 +81,13 @@
 		A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */; };
 		A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */; };
 		A68184F82BFB5DC800ECBDE3 /* FindAllAlbumsResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F72BFB5DC800ECBDE3 /* FindAllAlbumsResDto.swift */; };
+		A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67508522C3A6E91001B4059 /* AddParentReplyReqDto.swift */; };
+		A67508552C3A6FFC001B4059 /* ParentReplyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67508542C3A6FFC001B4059 /* ParentReplyInfo.swift */; };
+		A67508572C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67508562C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift */; };
+		A67508592C3BCFDD001B4059 /* FindChildReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67508582C3BCFDD001B4059 /* FindChildReplyResDto.swift */; };
+		A675085B2C3BD075001B4059 /* ChildReplyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675085A2C3BD075001B4059 /* ChildReplyInfo.swift */; };
+		A675085D2C3BDF97001B4059 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675085C2C3BDF97001B4059 /* String+.swift */; };
+		A68184F82BFB5DC800ECBDE3 /* AlbumSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */; };
 		A68184FA2BFC496800ECBDE3 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184F92BFC496800ECBDE3 /* AccessToken.swift */; };
 		A68184FC2C0477C800ECBDE3 /* FindSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */; };
 		A68185002C32E27700ECBDE3 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */; };
@@ -173,6 +180,13 @@
 		A66C413B2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryHeaderView.swift; sourceTree = "<group>"; };
 		A66C413D2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSupplementaryFooterView.swift; sourceTree = "<group>"; };
 		A68184F72BFB5DC800ECBDE3 /* FindAllAlbumsResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAllAlbumsResDto.swift; sourceTree = "<group>"; };
+		A67508522C3A6E91001B4059 /* AddParentReplyReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParentReplyReqDto.swift; sourceTree = "<group>"; };
+		A67508542C3A6FFC001B4059 /* ParentReplyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentReplyInfo.swift; sourceTree = "<group>"; };
+		A67508562C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoFindChildReplyResDto.swift; sourceTree = "<group>"; };
+		A67508582C3BCFDD001B4059 /* FindChildReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChildReplyResDto.swift; sourceTree = "<group>"; };
+		A675085A2C3BD075001B4059 /* ChildReplyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildReplyInfo.swift; sourceTree = "<group>"; };
+		A675085C2C3BDF97001B4059 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		A68184F72BFB5DC800ECBDE3 /* AlbumSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSnapResDto.swift; sourceTree = "<group>"; };
 		A68184F92BFC496800ECBDE3 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapResDto.swift; sourceTree = "<group>"; };
 		A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
@@ -208,6 +222,7 @@
 				A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */,
 				295DF0512BC505A100112DE7 /* UILabel+.swift */,
 				A68185012C32E7A500ECBDE3 /* UITextField+.swift */,
+				A675085C2C3BDF97001B4059 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -441,6 +456,11 @@
 				A62FE22A2BE24CD600BACF77 /* Album.swift */,
 				A68184FB2C0477C800ECBDE3 /* FindSnapResDto.swift */,
 				2970902A2C380A71004A151B /* FindFriendResDto.swift */,
+				A67508522C3A6E91001B4059 /* AddParentReplyReqDto.swift */,
+				A67508542C3A6FFC001B4059 /* ParentReplyInfo.swift */,
+				A67508562C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift */,
+				A67508582C3BCFDD001B4059 /* FindChildReplyResDto.swift */,
+				A675085A2C3BD075001B4059 /* ChildReplyInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -664,6 +684,7 @@
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
 				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
+				A67508572C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift in Sources */,
 				A68184FA2BFC496800ECBDE3 /* AccessToken.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
@@ -676,12 +697,14 @@
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
 				296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */,
 				29FF6B902C1F15CD00CD5DCD /* SnapResDto.swift in Sources */,
+				A67508592C3BCFDD001B4059 /* FindChildReplyResDto.swift in Sources */,
 				A68185022C32E7A500ECBDE3 /* UITextField+.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				A68185062C3573B000ECBDE3 /* FindParentReplyResDto.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
+				A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
 				297090292C38014A004A151B /* IconButton.swift in Sources */,
@@ -689,6 +712,8 @@
 				29AA37B12BF23CB9009EF296 /* UserProfileResDto.swift in Sources */,
 				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
 				2933DB072C301D5A00E603D1 /* UserUpdateDto.swift in Sources */,
+				2933DB072C301D5A00E603D1 /* UserProfileInfoRequest.swift in Sources */,
+				A675085B2C3BD075001B4059 /* ChildReplyInfo.swift in Sources */,
 				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
@@ -697,6 +722,8 @@
 				296167AA2BBBC7A7003CA89C /* SnapPreviewViewController.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				291FB1142BF63E7D0050AB90 /* AlbumSnapResDto.swift in Sources */,
+				291FB1142BF63E7D0050AB90 /* UserAlbumModel.swift in Sources */,
+				A67508552C3A6FFC001B4059 /* ParentReplyInfo.swift in Sources */,
 				A68185002C32E27700ECBDE3 /* RoundImageView.swift in Sources */,
 				A68184FC2C0477C800ECBDE3 /* FindSnapResDto.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
@@ -728,6 +755,7 @@
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
 				2970902B2C380A71004A151B /* FindFriendResDto.swift in Sources */,
 				29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */,
+				A675085D2C3BDF97001B4059 /* String+.swift in Sources */,
 				A652BD7A2B9AA5C500CA9F37 /* CGPoint+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

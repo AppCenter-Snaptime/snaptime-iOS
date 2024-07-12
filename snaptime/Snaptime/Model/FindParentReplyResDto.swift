@@ -8,9 +8,6 @@
 import Foundation
 
 struct FindParentReplyResDto: Codable {
-    let writerLoginId: String
-    let writerProfilePhotoURL: String
-    let writerUserName: String
-    let content: String
-    let replyId: Int
+    let parentReplyInfoList: [ParentReplyInfo]
+    let hasNextPage: Bool
 }
