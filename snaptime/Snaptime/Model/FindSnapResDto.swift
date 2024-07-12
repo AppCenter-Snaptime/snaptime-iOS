@@ -2,18 +2,23 @@
 //  FindSnapResDto.swift
 //  Snaptime
 //
-//  Created by 이대현 on 5/27/24.
+//  Created by Bowon Han on 7/12/24.
 //
 
 import Foundation
 
-struct CommonResponseDtoFindAlbumResDto: Codable {
+struct CommonResponseDtoFindSnapResDto: Codable {
     let msg: String
-    let result: FindAlbumResDto
+    let result: FindSnapResDto
 }
 
-struct FindAlbumResDto: Codable {
-    let id: Int
-    let name: String
-    let snap: [FindSnapResDto]
+struct FindSnapResDto: Codable {
+    var snapId: Int
+    var oneLineJournal: String
+    var snapPhotoURL: String
+    var snapCreatedDate: String
+    var snapModifiedDate: String
+    var loginId: String
+    var profilePhotoURL: String
+    var userName: String
 }
