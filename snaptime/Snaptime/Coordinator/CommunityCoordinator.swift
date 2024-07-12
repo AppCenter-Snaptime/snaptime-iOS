@@ -39,7 +39,7 @@ extension CommunityCoordinator:
         navigationController.pushViewController(notificationVC, animated: true)
     }
     
-    func presentCommentVC(snap: SnapResDTO) {
+    func presentCommentVC(snap: FindSnapResDto) {
         let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.userName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic

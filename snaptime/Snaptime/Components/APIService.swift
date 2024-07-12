@@ -143,7 +143,6 @@ extension APIService {
                         
                         else if case .fetchUserAlbum = self {
                             let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
-//                            UserAlbumManager.shared.userAlbumList = userAlbum
                             completion(.success(userAlbum))
                         }
                         
@@ -175,17 +174,19 @@ extension APIService {
                         else if case .fetchFollow = self {
                             let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
                             completion(.success(friendList))
-                            
+                        }
+                        
                         else if case .postReply = self {
                             completion(.success(data))
                         }
-                        
-                    } catch {
+                    }
+                    catch {
                         completion(.failure(FetchError.jsonDecodeError))
                     }
                 case .failure(let error):
                     completion(.failure(error))
                 }
+                
             }
     }
 }

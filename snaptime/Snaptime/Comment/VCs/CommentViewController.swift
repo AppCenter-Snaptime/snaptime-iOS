@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol CommentViewControllerDelegate: AnyObject {
-    func presentCommentVC(snap: SnapResDTO)
+    func presentCommentVC(snap: FindSnapResDto)
 }
 
 final class CommentViewController: BaseViewController {

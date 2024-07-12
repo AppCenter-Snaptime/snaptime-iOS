@@ -10,14 +10,14 @@ import SnapKit
 import Kingfisher
 
 protocol SnapCollectionViewCellDelegate: AnyObject {
-    func didTapCommentButton(snap: SnapResDTO)
+    func didTapCommentButton(snap: FindSnapResDto)
 }
 
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
     weak var delegate: SnapCollectionViewCellDelegate?
     var action: (()->())?
-    private var snap: SnapResDTO?
+    private var snap: FindSnapResDto?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -131,7 +131,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     }
 
     func configureData(data: FindSnapResDto) {
-        print(data.profilePhotoURL)
+        self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.userName
         self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
