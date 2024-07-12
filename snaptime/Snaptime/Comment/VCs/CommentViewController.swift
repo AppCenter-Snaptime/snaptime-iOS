@@ -10,12 +10,13 @@ import UIKit
 
 
 protocol CommentViewControllerDelegate: AnyObject {
-    func presentCommentVC(id: Int)
+    func presentCommentVC(snap: SnapResDTO)
 }
 
 final class CommentViewController: BaseViewController {
-    init(snapID: Int) {
+    init(snapID: Int, userName snapUserName: String) {
         self.snapID = snapID
+        self.snapUserName = snapUserName
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,7 +25,9 @@ final class CommentViewController: BaseViewController {
     }
     
     private let snapID: Int
-    private var parentComments: [FindParentReplyResDto] = []
+    private let snapUserName: String
+    private var parentComments: [ParentReplyInfo] = []
+    private var childComments: [[ChildReplyInfo]?] = []
     weak var delegate: CommentViewControllerDelegate?
     
     private lazy var titleLabel: UILabel = {
@@ -122,7 +125,7 @@ final class CommentViewController: BaseViewController {
     private lazy var replyTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray5
-        textField.placeholder = "Jocelyn에게 댓글달기"
+        textField.placeholder = "\(self.snapUserName)에게 댓글달기"
         textField.font = .systemFont(ofSize: 12)
         textField.addLeftPadding(16)
         return textField
@@ -132,6 +135,18 @@ final class CommentViewController: BaseViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
         button.tintColor = .snaptimeBlue
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self,
+                  let comment = self.replyTextField.text else {
+                return
+            }
+            let param = AddParentReplyReqDto(content: comment, snapId: self.snapID)
+            print("post success")
+            APIService.postReply.performRequest(with: param) { [weak self] _ in
+                self?.fetchComment()
+                self?.commentCollectionView.layoutIfNeeded()
+            }
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -182,16 +197,24 @@ final class CommentViewController: BaseViewController {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
-                    self.parentComments = result.result
+                    self.parentComments = result.result.parentReplyInfoList
+                    self.fetchChildComment()
                     DispatchQueue.main.async {
-                        self.applySnapShot(data: result.result)
+                        self.applySnapShot(data: self.parentComments)
                     }
+                    
                 } catch {
                     print(error)
                 }
             case .failure(let error):
                 print(String(describing: error.errorDescription))
             }
+        }
+    }
+    
+    private func fetchChildComment() {
+        self.childComments = self.parentComments.map { reply in
+            return nil
         }
     }
     // MARK: -- Setup CollectionView
@@ -232,18 +255,31 @@ final class CommentViewController: BaseViewController {
             if kind == "header" {
                 return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             } else {
-                return self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
+                let footerView = self.commentCollectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
+                
+                // 답글이 있을 때만 표시
+                if index.section < self.childComments.count,
+                   let childReply = self.childComments[index.section]
+                {
+                    footerView.show()
+                }
+                return footerView
             }
         }
     }
     
-    private func applySnapShot(data: [FindParentReplyResDto]) {
+    private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         
         var identifierOffset = 0 // 아이템의 identifier
-        let itemPerSection = 3 // 답글의 개수, 테스트 데이터로 추가 가능
+//        let itemPerSection = 1 // 답글의 개수, 테스트 데이터로 추가 가능
         
         for idx in 0..<data.count {
+            var itemPerSection = 0
+            if idx < self.childComments.count,
+               let childData = self.childComments[idx] {
+                itemPerSection = childData.count
+            }
             snapshot.appendSections([idx])
             
             let maxIdentifier = identifierOffset + itemPerSection
