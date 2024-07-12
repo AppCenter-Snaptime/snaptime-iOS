@@ -1,5 +1,5 @@
 //
-//  UserAlbumModel.swift
+//  AlbumSnapResDTO.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 5/16/24.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct UserAlbumResponse: Codable {
+struct CommonResponseDtoListAlbumSnapResDto: Codable {
     let msg: String
-    var result: [UserAlbumResDTO]
+    var result: [AlbumSnapResDto]
 }
 
-struct UserAlbumResDTO: Codable {
+struct AlbumSnapResDto: Codable {
     var albumId: Int
     var albumName: String
     var snapUrlList: [String]

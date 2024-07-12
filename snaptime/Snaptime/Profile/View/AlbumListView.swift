@@ -11,6 +11,8 @@ import SnapKit
 /// 프로필에서의 AlbumListView
 final class AlbumListView: UIView {
     var send: ((Int) -> Void)?
+    private var albumList: [AlbumSnapResDto] = []
+    private var loginId: String = ""
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -48,6 +50,27 @@ final class AlbumListView: UIView {
         profileAlbumListCollectionView.reloadData()
     }
     
+    func setLoginId(loginId: String) {
+        self.fetchUserAlbum(loginId: loginId)
+        self.reloadData()
+    }
+    
+    private func fetchUserAlbum(loginId: String) {
+        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListAlbumSnapResDto {
+                        self.albumList = result.result
+                        self.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
     // MARK: - set Layouts
     private func setLayouts() {
         addSubview(profileAlbumListCollectionView)
@@ -69,18 +92,18 @@ extension AlbumListView: UICollectionViewDelegate, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
                 
-        cell.setCellData(data: UserAlbumManager.shared.userAlbumList.result[indexPath.row])
+        cell.setCellData(data: self.albumList[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return UserAlbumManager.shared.userAlbumList.result.count
+        return albumList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let flow = self.send {
-            flow(UserAlbumManager.shared.userAlbumList.result[indexPath.row].albumId)
+            flow(albumList[indexPath.row].albumId)
         }
     }
 }

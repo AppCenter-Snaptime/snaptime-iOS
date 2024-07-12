@@ -16,7 +16,7 @@ protocol SnapPreviewViewControllerDelegate: AnyObject {
 final class SnapPreviewViewController: BaseViewController {
     weak var delegate: SnapPreviewViewControllerDelegate?
     private let albumID: Int
-    private var snapPreviews: [SnapResDTO] = []
+    private var snapPreviews: [FindSnapResDto] = []
     
     init(albumID: Int) {
         self.albumID = albumID
@@ -30,6 +30,12 @@ final class SnapPreviewViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "최근항목"
+        self.fetchAlbumDetail(id: self.albumID)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.fetchAlbumDetail(id: self.albumID)
     }
     

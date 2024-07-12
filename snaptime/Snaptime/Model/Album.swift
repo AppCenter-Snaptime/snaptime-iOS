@@ -14,13 +14,13 @@ struct Album {
         self.photoURL = photoURL
     }
     
-    init(_ dto: AlbumSnapResDto) {
+    init(_ dto: FindAllAlbumsResDto) {
         self.id = dto.id
         self.name = dto.name
         self.photoURL = dto.photoUrl
     }
     
-    init(_ dto: SnapResDTO) {
+    init(_ dto: FindSnapResDto) {
         self.id = dto.snapId
         self.name = dto.oneLineJournal
         self.photoURL = dto.snapPhotoURL

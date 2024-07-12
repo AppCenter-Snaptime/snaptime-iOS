@@ -1,5 +1,5 @@
 //
-//  UserProfileCountResponse.swift
+//  ProfileCntResDto.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 5/13/24.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct UserProfileCountResponse: Decodable {
+struct CommonResponseDtoProfileCntResDto: Decodable {
     let msg: String
-    var result: UserProfileCountResDTO
+    var result: ProfileCntResDto
 }
 
-struct UserProfileCountResDTO: Decodable {
+struct ProfileCntResDto: Decodable {
     var snapCnt: Int
     var followerCnt: Int
     var followingCnt: Int

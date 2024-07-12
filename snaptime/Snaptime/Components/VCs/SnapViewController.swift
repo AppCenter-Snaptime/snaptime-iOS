@@ -17,7 +17,7 @@ final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
     
-    private var snap: SnapResDTO = SnapResDTO(
+    private var snap: FindSnapResDto = FindSnapResDto(
         snapId: 0,
         oneLineJournal: "",
         snapPhotoURL: "",
@@ -50,6 +50,7 @@ final class SnapViewController: BaseViewController {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoFindSnapResDto {
                         self.snap = snap.result
+                        print(snap.result)
                     }
                     self.snapCollectionView.reloadData()
                 case .failure(let error):

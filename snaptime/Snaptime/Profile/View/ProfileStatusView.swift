@@ -11,17 +11,33 @@ import SnapKit
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
 /// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
 final class ProfileStatusView: UIView {
-    var tabButtonAction: UIAction
-    let profileTarget: ProfileTarget
+    private var followOrSettingButtonAction: UIAction
+    private var followingButtonAction: UIAction
+    private var followerButtonAction: UIAction
+    private let profileTarget: ProfileTarget
     
-    init(target: ProfileTarget, action: UIAction) {
+    var follow: Bool = true {
+        didSet {
+            updateFollowButtonTitle()
+        }
+    }
+    
+    init(target: ProfileTarget, 
+         followOrSettingAction: UIAction,
+         followingAction: UIAction,
+         followerAction: UIAction) {
         self.profileTarget = target
-        self.tabButtonAction = action
+        self.followOrSettingButtonAction = followOrSettingAction
+        self.followingButtonAction = followingAction
+        self.followerButtonAction = followerAction
         super.init(frame: .zero)
         self.setupUI(target: target)
         self.setupLayouts()
         self.setupConstraints()
-        self.followOrSettingButton.addAction(tabButtonAction, for: .touchUpInside)
+        
+        self.followOrSettingButton.addAction(followOrSettingButtonAction, for: .touchUpInside)
+        self.followerNumber.addAction(followerAction, for: .touchUpInside)
+        self.followingNumber.addAction(followingAction, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -61,9 +77,9 @@ final class ProfileStatusView: UIView {
     
     private lazy var followOrSettingButton = UIButton()
     
-    private lazy var postNumber = ProfileStatusButton("사진수", action: UIAction {[weak self] _ in})
-    private lazy var followerNumber = ProfileStatusButton("팔로워", action: UIAction {[weak self] _ in})
-    private lazy var followingNumber = ProfileStatusButton("팔로잉", action: UIAction {[weak self] _ in})
+    private lazy var postNumber = ProfileStatusButton("사진수")
+    private lazy var followerNumber = ProfileStatusButton("팔로워")
+    private lazy var followingNumber = ProfileStatusButton("팔로잉")
     
     private let lineView : UIView = {
         let view = UIView()
@@ -72,22 +88,55 @@ final class ProfileStatusView: UIView {
         return view
     }()
     
+    // MARK: - 팔로잉, 팔로우 버튼 다르게 보이도록 구현
+    private func updateFollowButtonTitle() {
+        var config = followOrSettingButton.configuration
+
+        switch follow {
+        case true:
+            config?.baseForegroundColor = .snaptimeBlue
+            config?.background.backgroundColor = .white
+            config?.background.strokeColor = .snaptimeBlue
+        case false:
+            config?.baseBackgroundColor = .snaptimeBlue
+            config?.baseForegroundColor = .white
+            config?.background.backgroundColor = .snaptimeBlue
+        }
+        
+        var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우")
+        titleAttr.font = .systemFont(ofSize: 12, weight: .semibold)
+        
+        config?.attributedTitle = titleAttr
+        followOrSettingButton.configuration = config
+    }
+    
+    func followButtonclick() {
+        follow.toggle()
+        print(follow)
+    }
+
     // MARK: - target에 따른 button UI 세팅하는 함수
     private func setupUI(target: ProfileTarget) {
+        var config = UIButton.Configuration.filled()
+
         switch target {
         case .others:
-            var config = UIButton.Configuration.filled()
-            config.baseBackgroundColor = .snaptimeBlue
-            config.baseForegroundColor = .white
+            switch follow {
+            case true:
+                config.baseForegroundColor = .snaptimeBlue
+                config.background.backgroundColor = .white
+                config.background.strokeColor = .snaptimeBlue
+            case false:
+                config.baseBackgroundColor = .snaptimeBlue
+                config.baseForegroundColor = .white
+                config.background.backgroundColor = .snaptimeBlue
+            }
             
-            var titleAttr = AttributedString.init("팔로우")
-            titleAttr.font = .systemFont(ofSize: 12, weight: .light)
+            var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우")
+            titleAttr.font = .systemFont(ofSize: 12, weight: .semibold)
             config.attributedTitle = titleAttr
             
-            followOrSettingButton.configuration = config
-            
         case .myself:
-            var config = UIButton.Configuration.filled()
             config.baseBackgroundColor = .white
             config.baseForegroundColor = .black
             let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
@@ -95,17 +144,18 @@ final class ProfileStatusView: UIView {
             config.image = setImage
             
             followOrSettingButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
-            followOrSettingButton.configuration = config
         }
+        
+        followOrSettingButton.configuration = config
     }
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
-    func setupUserProfile(_ userProfile: UserProfileResDTO) {
+    func setupUserProfile(_ userProfile: UserProfileResDto) {
         self.loadImage(data: userProfile.profileURL)
         self.nickNameLabel.text = userProfile.userName
     }
     
-    func setupUserNumber(_ userProfileCount: UserProfileCountResDTO) {
+    func setupUserNumber(_ userProfileCount: ProfileCntResDto) {
         self.postNumber.setupNumber(number: userProfileCount.snapCnt)
         self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
         self.followingNumber.setupNumber(number: userProfileCount.followingCnt)

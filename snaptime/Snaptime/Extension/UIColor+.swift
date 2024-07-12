@@ -27,10 +27,11 @@ extension UIColor {
                   alpha: alpha)
     }
     
-    static let snaptimeBlue : UIColor = UIColor(hexCode: "A4CEFF")
-    static let snaptimeYellow : UIColor = UIColor(hexCode: "FFE483")
-    static let snaptimeGray : UIColor = UIColor(hexCode: "D1D1D1")
-    static let snaptimelightGray : UIColor = UIColor(hexCode: "FAFAFA")
-    static let lightBlue : UIColor = UIColor(hexCode: "3B6DFF")
+    static let snaptimeBlue: UIColor = UIColor(hexCode: "A4CEFF")
+    static let snaptimeYellow: UIColor = UIColor(hexCode: "FFE483")
+    static let snaptimeGray: UIColor = UIColor(hexCode: "D1D1D1")
+    static let snaptimelightGray: UIColor = UIColor(hexCode: "FAFAFA")
+    static let lightBlue: UIColor = UIColor(hexCode: "3B6DFF")
+    static let followButtonGray: UIColor = UIColor(hexCode: "B4B4B4")
 }
 

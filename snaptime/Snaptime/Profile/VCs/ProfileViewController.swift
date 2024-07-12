@@ -9,10 +9,11 @@ import UIKit
 import SnapKit
 
 protocol ProfileViewControllerDelegate: AnyObject {
-    func presentMyProfile(target: ProfileTarget)
+    func presentProfile(target: ProfileTarget, loginId: String)
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
+    func presentFollow(target: FollowTarget, loginId: String)
 }
 
 enum ProfileTarget {
@@ -23,13 +24,14 @@ enum ProfileTarget {
 final class ProfileViewController: BaseViewController {
     weak var delegate: ProfileViewControllerDelegate?
         
-    private let count: UserProfileCountResDTO? = nil
-    private let loginId = ProfileBasicModel.profile.loginId
+    private let count: ProfileCntResDto? = nil
     
+    private var loginId: String
     private let target: ProfileTarget
     
-    init(target: ProfileTarget) {
+    init(target: ProfileTarget, loginId: String) {
         self.target = target
+        self.loginId = loginId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,9 +44,9 @@ final class ProfileViewController: BaseViewController {
         self.albumAndTagListView.send = sendFlow
         self.setupNavigationBar()
 
-        self.fetchUserAlbum(loginId: loginId)
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
+        self.albumAndTagListView.setLoginId(loginId: loginId)
     }
     
     // MARK: - configUI
@@ -72,12 +74,29 @@ final class ProfileViewController: BaseViewController {
         return button
     }()
     
-    private lazy var profileStatusView = ProfileStatusView(target: .myself,
-                                                           action: UIAction { _ in
-        self.delegate?.presentSettingProfile()
-    })
+    private lazy var profileStatusView = ProfileStatusView(
+        target: target,
+        followOrSettingAction: UIAction { [weak self] _ in
+            switch self?.target {
+            case .myself:
+                self?.delegate?.presentSettingProfile()
+            case .others:
+                self?.followButtonToggle()
+            case .none:
+                print("")
+            }
+        },
+        followingAction: UIAction { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.presentFollow(target: .following, loginId: strongSelf.loginId)
+        },
+        followerAction: UIAction { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.presentFollow(target: .follower, loginId: strongSelf.loginId)
+        }
+    )
     
-    private let albumAndTagListView = TopTapBarView()
+    private lazy var albumAndTagListView = TopTapBarView()
         
     private var sendFlow: (Int) -> Void {
         return { [weak self] albumId in
@@ -85,18 +104,24 @@ final class ProfileViewController: BaseViewController {
         }
     }
     
+    // MARK: - navigationBar 설정
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     
+    private func followButtonToggle() {
+        profileStatusView.followButtonclick()
+    }
+    
+    // MARK: - 네트워크 로직
     private func fetchUserProfile(loginId: String) {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? UserProfileResponse {
+                    if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):
@@ -111,22 +136,9 @@ final class ProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? UserProfileCountResponse {
+                    if let profileCount = userProfileCount as? CommonResponseDtoProfileCntResDto {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    private func fetchUserAlbum(loginId: String) {
-        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.albumAndTagListView.reloadAlbumListView()
                 case .failure(let error):
                     print(error)
                 }
@@ -143,7 +155,6 @@ final class ProfileViewController: BaseViewController {
             view.addSubview($0)
         }
     }
-    
     override func setupConstraints() {
         super.setupConstraints()
         
