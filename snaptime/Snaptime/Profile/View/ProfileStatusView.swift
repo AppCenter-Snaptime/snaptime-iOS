@@ -112,7 +112,6 @@ final class ProfileStatusView: UIView {
     
     func followButtonclick() {
         follow.toggle()
-        print(follow)
     }
 
     // MARK: - target에 따른 button UI 세팅하는 함수

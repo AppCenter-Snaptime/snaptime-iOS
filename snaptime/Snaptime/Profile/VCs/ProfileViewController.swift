@@ -42,11 +42,19 @@ final class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.albumAndTagListView.send = sendFlow
+        
         self.setupNavigationBar()
 
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
         self.albumAndTagListView.setLoginId(loginId: loginId)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.fetchUserProfile(loginId: loginId)
+        self.fetchUserProfileCount(loginId: loginId)
     }
     
     // MARK: - configUI
@@ -74,7 +82,7 @@ final class ProfileViewController: BaseViewController {
         return button
     }()
     
-    private lazy var profileStatusView = ProfileStatusView(
+    private lazy var profileStatusView = ProfileStatusView (
         target: target,
         followOrSettingAction: UIAction { [weak self] _ in
             switch self?.target {
