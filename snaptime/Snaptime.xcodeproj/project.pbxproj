@@ -42,6 +42,7 @@
 		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
 		296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */; };
 		29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625E132C4280B600D51841 /* CommonResDtoVoid.swift */; };
+		29625E162C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */; };
 		296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* TopTapBarView.swift */; };
 		297090232C37D8B5004A151B /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090222C37D8B5004A151B /* FollowViewController.swift */; };
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
@@ -141,6 +142,7 @@
 		296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapTagListViewController.swift; sourceTree = "<group>"; };
 		296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29625E132C4280B600D51841 /* CommonResDtoVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResDtoVoid.swift; sourceTree = "<group>"; };
+		29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListProfileTagSnapResDto.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* TopTapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarView.swift; sourceTree = "<group>"; };
 		297090222C37D8B5004A151B /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				29176FB12C412C6100CD9A24 /* UserProfileResDto.swift */,
 				29176FB32C412C6E00CD9A24 /* CommonResponseDtoListFindAllAlbumsResDto.swift */,
 				29625E132C4280B600D51841 /* CommonResDtoVoid.swift */,
+				29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,
 				2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */,
 				292A4D652B7CBD1F002FCC57 /* SnapCollectionViewCell.swift in Sources */,
+				29625E162C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift in Sources */,
 				29F80C702B8657C8003614AB /* TagListView.swift in Sources */,
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
 				29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */,

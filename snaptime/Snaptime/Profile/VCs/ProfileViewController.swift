@@ -55,6 +55,7 @@ final class ProfileViewController: BaseViewController {
         
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
+        self.albumAndTagListView.setLoginId(loginId: loginId)
     }
     
     // MARK: - configUI
