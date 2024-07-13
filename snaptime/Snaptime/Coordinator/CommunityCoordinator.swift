@@ -23,9 +23,10 @@ final class CommunityCoordinator: Coordinator {
     }
 }
 
-extension CommunityCoordinator: CommunityViewControllerDelegate,
-                                NotificationViewControllerDelegate,
-                                    CommentViewControllerDelegate {
+extension CommunityCoordinator:
+    CommunityViewControllerDelegate,
+    NotificationViewControllerDelegate,
+    CommentViewControllerDelegate {
     func presentCommunity() {
         let communityVC = CommunityViewController()
         communityVC.delegate = self
@@ -38,8 +39,8 @@ extension CommunityCoordinator: CommunityViewControllerDelegate,
         navigationController.pushViewController(notificationVC, animated: true)
     }
     
-    func presentCommentVC() {
-        let commentVC = CommentViewController()
+    func presentCommentVC(snap: FindSnapResDto) {
+        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.userName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)

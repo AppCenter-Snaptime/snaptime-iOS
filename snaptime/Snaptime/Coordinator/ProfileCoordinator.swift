@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentMyProfile(target: .myself)
+        presentProfile(target: .myself,loginId: ProfileBasicModel.profile.loginId)
     }
     
     init(navigationController: UINavigationController) {
@@ -29,17 +29,18 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                                SnapPreviewViewControllerDelegate,
                                SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
-                              CommentViewControllerDelegate {
+                              CommentViewControllerDelegate,
+                            FollowViewControllerDelegate {
     
-    func presentCommentVC() {
-        let commentVC = CommentViewController()
+    func presentCommentVC(snap: FindSnapResDto) {
+        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.userName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)
     }
     
-    func presentMyProfile(target: ProfileTarget) {
-        let myProfileVC = ProfileViewController(target: target)
+    func presentProfile(target: ProfileTarget, loginId: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
@@ -72,6 +73,12 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    func presentFollow(target: FollowTarget, loginId: String) {
+        let followVC = FollowViewController(target: target, loginId: loginId)
+        followVC.delegate = self
+        navigationController.pushViewController(followVC, animated: true)
     }
     
     func backToPrevious() {

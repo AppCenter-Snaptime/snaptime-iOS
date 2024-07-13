@@ -18,6 +18,9 @@ final class TopTapBarView: UIView {
         }
     }
     
+    private var albumList: [AlbumSnapResDto] = []
+    private lazy var loginId: String = ""
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         self.setupLayouts()
@@ -63,12 +66,18 @@ final class TopTapBarView: UIView {
     }()
         
     private let tagListView = TagListView()
-    private let albumListView = AlbumListView()
+    private lazy var albumListView = AlbumListView()
     
     private lazy var contentView = UIView()
     
     func reloadAlbumListView() {
         albumListView.reloadData()
+    }
+    
+    func setLoginId(loginId: String) {
+        self.loginId = loginId
+        self.albumListView.setLoginId(loginId: self.loginId)
+        reloadAlbumListView()
     }
     
     // MARK: - setup UI    

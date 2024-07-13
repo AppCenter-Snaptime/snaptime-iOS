@@ -28,6 +28,10 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     
+
+    case fetchFollow(type: String, loginId: String,keyword: String, pageNum: Int)
+    case postReply
+    
 }
 
 extension APIService {
@@ -49,7 +53,7 @@ extension APIService {
             "/users"
             
         case .fetchCommunitySnap(let pageNum):
-            "/snaps/community/\(pageNum)"
+            "/community/snaps/\(pageNum)"
             
         case .fetchSnap(let snapId):
             "/snap/\(snapId)"
@@ -59,6 +63,12 @@ extension APIService {
             
         case .fetchAlbumList:
             "/album/albumListWithThumbnail"
+            
+        case .fetchFollow(let type, let loginId, let keyword, let pageNum):
+            "/friends/\(pageNum)?loginId=\(loginId)&friendSearchType=\(type)"
+            
+        case .postReply:
+            "/parent-replies"
         }
     }
     
@@ -71,11 +81,15 @@ extension APIService {
             .fetchSnap,
             .fetchUserInfo,
             .fetchSnapPreview,
-            .fetchAlbumList:
+            .fetchAlbumList,
+            .fetchFollow:
                 .get
             
         case .modifyUserInfo:
                 .put
+        
+        case .postReply:
+                .post
         }
     }
     
@@ -118,52 +132,61 @@ extension APIService {
                     
                     do {
                         if case .fetchUserProfile = self {
-                            let userProfile = try JSONDecoder().decode(UserProfileResponse.self, from: data)
-                            UserProfileManager.shared.profile = userProfile
+                            let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
                             completion(.success(userProfile))
-                        } 
+                        }
                         
                         else if case .fetchUserProfileCount = self {
-                            let userProfileCount = try JSONDecoder().decode(UserProfileCountResponse.self, from: data)
+                            let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))
-                        } 
+                        }
                         
                         else if case .fetchUserAlbum = self {
-                            let userAlbum = try JSONDecoder().decode(UserAlbumResponse.self, from: data)
-                            UserAlbumManager.shared.userAlbumList = userAlbum
+                            let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
                             completion(.success(userAlbum))
-                        } 
+                        }
                         
                         else if case .fetchCommunitySnap = self {
-                            let snap = try JSONDecoder().decode(CommunitySnapResponse.self, from: data)
+                            let snap = try JSONDecoder().decode(CommonResponseDtoListFindSnapPagingResDto.self, from: data)
                             completion(.success(snap))
-                        } 
+                        }
                         
                         else if case .fetchSnap = self {
                             let snap = try JSONDecoder().decode(CommonResponseDtoFindSnapResDto.self, from: data)
                             completion(.success(snap))
-                        } 
+                        }
                         
                         else if case .fetchUserInfo = self {
-                            let profileInfo = try JSONDecoder().decode(UserProfileInfoResponse.self, from: data)
+                            let profileInfo = try JSONDecoder().decode(CommonResponseDtoUserResDto.self, from: data)
                             completion(.success(profileInfo))
-                        } 
+                        }
                         
                         else if case .fetchSnapPreview = self {
                             let snapPreview = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
                             completion(.success(snapPreview))
-                        } 
+                        }
                         
                         else if case .fetchAlbumList = self {
-                            let albumList = try JSONDecoder().decode(AlbumListResponse.self, from: data)
+                            let albumList = try JSONDecoder().decode(CommonResponseDtoListFindAllAlbumsResDto.self, from: data)
                             completion(.success(albumList))
                         }
-                    } catch {
+                        
+                        else if case .fetchFollow = self {
+                            let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
+                            completion(.success(friendList))
+                        }
+                        
+                        else if case .postReply = self {
+                            completion(.success(data))
+                        }
+                    }
+                    catch {
                         completion(.failure(FetchError.jsonDecodeError))
                     }
                 case .failure(let error):
                     completion(.failure(error))
                 }
+                
             }
     }
 }

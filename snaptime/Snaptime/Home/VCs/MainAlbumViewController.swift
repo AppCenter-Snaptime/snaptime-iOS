@@ -160,8 +160,11 @@ final class MainAlbumViewController : BaseViewController {
         APIService.fetchUserProfile(loginId: loginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(_):
-                    print("사용자 데이터 불러오기")
+                case .success(let profile):
+                    if let profile = profile as? CommonResponseDtoUserProfileResDto {
+                        UserProfileManager.shared.profile = profile
+                        print("사용자 데이터 불러오기")
+                    }
                 case .failure(let error):
                     print(error)
                 }
@@ -174,7 +177,7 @@ final class MainAlbumViewController : BaseViewController {
             DispatchQueue.main.async {
                 switch result{
                 case .success(let albumList):
-                    if let albumList = albumList as? AlbumListResponse{
+                    if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto {
                         self.albumData = albumList.result.map { Album($0) }
                     }
                     

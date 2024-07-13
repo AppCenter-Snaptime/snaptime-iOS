@@ -1,8 +1,8 @@
 //
-//  AlbumSnapViewController.swift
-//  snaptime
+//  SnapViewController.swift
+//  Snaptime
 //
-//  Created by Bowon Han on 2/1/24.
+//  Created by Bowon Han on 6/21/24.
 //
 
 import UIKit
@@ -10,14 +10,23 @@ import SnapKit
 import Alamofire
 
 protocol SnapViewControllerDelegate: AnyObject {
-    func presentCommentVC()
+    func presentCommentVC(snap: FindSnapResDto)
 }
 
 final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
     
-    private var snap: SnapResDTO = SnapResDTO(snapId: 0, oneLineJournal: "", snapPhotoURL: "", snapCreatedDate: "'", snapModifiedDate: "", loginId: "", profilePhotoURL: "", userName: "")
+    private var snap: FindSnapResDto = FindSnapResDto(
+        snapId: 0,
+        oneLineJournal: "",
+        snapPhotoURL: "",
+        snapCreatedDate: "",
+        snapModifiedDate: "",
+        loginId: "",
+        profilePhotoURL: "",
+        userName: ""
+    )
     
     init(snapId: Int) {
         self.snapId = snapId
@@ -41,6 +50,7 @@ final class SnapViewController: BaseViewController {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoFindSnapResDto {
                         self.snap = snap.result
+                        print(snap.result)
                     }
                     self.snapCollectionView.reloadData()
                 case .failure(let error):
@@ -115,7 +125,7 @@ extension SnapViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SnapViewController: SnapCollectionViewCellDelegate {
-    func didTapCommentButton() {
-        delegate?.presentCommentVC()
+    func didTapCommentButton(snap: FindSnapResDto) {
+        delegate?.presentCommentVC(snap: snap)
     }
 }

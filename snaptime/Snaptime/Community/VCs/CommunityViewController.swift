@@ -11,13 +11,13 @@ import SnapKit
 protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
     func presentNotification()
-    func presentCommentVC()
+    func presentCommentVC(snap: FindSnapResDto)
 }
 
 final class CommunityViewController: BaseViewController {
     weak var delegate: CommunityViewControllerDelegate?
     
-    private var snaps: [SnapResDTO] = []
+    private var snaps: [FindSnapResDto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +64,8 @@ final class CommunityViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let snap):
-                    if let snap = snap as? CommunitySnapResponse {
-                        self.snaps = snap.result
+                    if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
+                        self.snaps = snap.result.snapPagingInfoList
                     }
                     self.contentCollectionView.reloadData()
                 case .failure(let error):
@@ -127,7 +127,8 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CommunityViewController: SnapCollectionViewCellDelegate {
-    func didTapCommentButton() {
-        self.delegate?.presentCommentVC()
+    func didTapCommentButton(snap: FindSnapResDto) {
+        // TODO: snap id 추가하기
+        delegate?.presentCommentVC(snap: snap)
     }
 }

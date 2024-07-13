@@ -49,7 +49,8 @@ final class EditProfileTextField: UIView {
         editTextField.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(5)
             $0.left.equalTo(descriptionLabel.snp.left)
-            $0.width.equalTo(324)
+            $0.right.equalToSuperview()
+//            $0.width.equalTo(324)
             $0.bottom.equalToSuperview()
         }
     }

@@ -1,5 +1,5 @@
 //
-//  UserProfileInfoResponse.swift
+//  UserResDto.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 6/24/24.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct UserProfileInfoResponse: Codable {
+struct CommonResponseDtoUserResDto: Codable {
     var msg: String
-    var result: UserProfileInfoResDTO
+    var result: UserResDto
 }
 
-struct UserProfileInfoResDTO: Codable {
+struct UserResDto: Codable {
     var id: Int
     var name: String
     var loginId: String

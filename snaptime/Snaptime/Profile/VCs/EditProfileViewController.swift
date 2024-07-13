@@ -89,7 +89,7 @@ final class EditProfileViewController: BaseViewController {
                let email = self?.editEmailTextField.editTextField.text,
                let birthDate = self?.editDateOfBirthTextField.editTextField.text,
                let name = self?.editNameTextField.editTextField.text {
-                let param = UserProfileInfoReqDTO(name: name, loginId: id, email: email, birthDay: birthDate)
+                let param = UserUpdateDto(name: name, loginId: id, email: email, birthDay: birthDate)
                 
                 print(param)
                 self?.modifyUserInfo(userInfo: param)
@@ -112,7 +112,7 @@ final class EditProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileInfo):
-                    if let profile = userProfileInfo as? UserProfileInfoResponse {
+                    if let profile = userProfileInfo as? CommonResponseDtoUserResDto {
                         self.editIDTextField.editTextField.text = profile.result.loginId
                         self.editEmailTextField.editTextField.text = profile.result.email
                         self.editDateOfBirthTextField.editTextField.text = profile.result.birthDay
@@ -125,7 +125,7 @@ final class EditProfileViewController: BaseViewController {
         }
     }
     
-    private func modifyUserInfo(userInfo: UserProfileInfoReqDTO) {
+    private func modifyUserInfo(userInfo: UserUpdateDto) {
         APIService.modifyUserInfo.performRequest(with: userInfo) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -197,8 +197,8 @@ final class EditProfileViewController: BaseViewController {
          
         stackView.snp.makeConstraints {
             $0.top.equalTo(editProfileImage.snp.bottom).offset(40)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(53)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-53)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(35)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-35)
         }
     }
 }

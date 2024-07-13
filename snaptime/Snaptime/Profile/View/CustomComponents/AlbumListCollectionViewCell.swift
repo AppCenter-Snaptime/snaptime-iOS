@@ -51,7 +51,7 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setCellData(data: UserAlbumResDTO) {
+    func setCellData(data: AlbumSnapResDto) {
         descriptionLabel.text = data.albumName
         
         if data.snapUrlList.count == 2 {

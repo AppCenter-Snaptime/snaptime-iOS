@@ -10,13 +10,14 @@ import SnapKit
 import Kingfisher
 
 protocol SnapCollectionViewCellDelegate: AnyObject {
-    func didTapCommentButton()
+    func didTapCommentButton(snap: FindSnapResDto)
 }
 
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
     weak var delegate: SnapCollectionViewCellDelegate?
     var action: (()->())?
+    private var snap: FindSnapResDto?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,29 +75,25 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        
 
         return imageView
     }()
     
-    private lazy var commentButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "message"), for: .normal)
-        button.tintColor = .black
-        button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.didTapCommentButton()
-        }, for: .touchUpInside)
-        
-        return button
-    }()
+    private lazy var commentButton = IconButton(
+        name: "message",
+        action: UIAction { [weak self] _ in
+            if let snap = self?.snap {
+                self?.delegate?.didTapCommentButton(snap: snap)
+            }
+        })
     
-    private lazy var shareButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        button.tintColor = .black
-        
-        return button
-    }()
+    private lazy var likeButton = IconButton(
+        name: "heart",
+        action: UIAction { [weak self] _ in })
+
+    private lazy var shareButton = IconButton(
+        name: "square.and.arrow.up",
+        action: UIAction { [weak self] _ in })
     
     private lazy var postLabel: UILabel = {
         let label = UILabel()
@@ -112,7 +109,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         button.setTitleColor(UIColor.init(hexCode: "#B2B2B2"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.didTapCommentButton()
+            if let snap = self?.snap {
+                self?.delegate?.didTapCommentButton(snap: snap)
+            }
         }, for: .touchUpInside)
         
         return button
@@ -131,16 +130,17 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         print("partnerProfileTap")
     }
 
-    func configureData(data: SnapResDTO) {
-        self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: userImageView)
-        userNameLabel.text = UserProfileManager.shared.profile.result.userName
+    func configureData(data: FindSnapResDto) {
+        self.snap = data
+        self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
+        userNameLabel.text = data.userName
+        self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
 
-        self.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
-        postDateLabel.text = "2024.01.09"
+        postDateLabel.text = data.snapModifiedDate.toDateString()
     }
     
-    private func loadImage(data: String, imageView: UIImageView) {
+    private func loadSnapImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data) {
             let modifier = AnyModifier { request in
                 var r = request
@@ -160,6 +160,21 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    /// 토큰이 들어가면 안되는듯? -> 기본 이미지가 뜨는데..
+    private func loadImage(data: String, imageView: UIImageView) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
+            }
+        }
+    }
+    
     private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
         self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 0.5, y: self.bounds.origin.y , width: self.bounds.width + 0.5, height: self.bounds.height + 0.5)).cgPath
@@ -175,6 +190,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
          editButton,
          photoImageView,
          commentButton,
+         likeButton,
          shareButton,
          postLabel,
          commentCheckButton,
@@ -215,6 +231,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         commentButton.snp.makeConstraints {
             $0.left.equalTo(photoImageView.snp.left)
             $0.top.equalTo(photoImageView.snp.bottom).offset(8)
+            $0.width.height.equalTo(24)
+        }
+        
+        likeButton.snp.makeConstraints {
+            $0.left.equalTo(commentButton.snp.right).offset(8)
+            $0.top.equalTo(commentButton)
             $0.width.height.equalTo(24)
         }
         

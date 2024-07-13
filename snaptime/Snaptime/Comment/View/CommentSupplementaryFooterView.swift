@@ -17,10 +17,13 @@ final class CommentSupplementaryFooterView: UICollectionReusableView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    func show() {
         setLayout()
         setConstraints()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {

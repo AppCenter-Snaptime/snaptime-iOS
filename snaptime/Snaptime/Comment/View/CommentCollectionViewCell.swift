@@ -20,6 +20,11 @@ final class CommentCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupUI(comment: Int) {
+//        let comment = FindParentReplyResDto(writerLoginId: "", writerProfilePhotoURL: "", writerUserName: String(comment), content: "", replyId: 0)
+//        self.commentView.setupUI(comment: comment)
+    }
+    
     private func setLayout() {
         self.contentView.addSubview(commentView)
     }
