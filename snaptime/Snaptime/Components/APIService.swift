@@ -28,8 +28,9 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     
-
-    case fetchFollow(type: String, loginId: String,keyword: String, pageNum: Int)
+    case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
+    case postFollow(loginId: String)
+    
     case postReply
 }
 
@@ -66,6 +67,9 @@ extension APIService {
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
             "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
             
+        case .postFollow(let loginId):
+            "/friends?fromUserLoginId=\(loginId)"
+            
         case .postReply:
             "/parent-replies"
         }
@@ -87,7 +91,8 @@ extension APIService {
         case .modifyUserInfo:
                 .put
         
-        case .postReply:
+        case .postReply,
+            .postFollow:
                 .post
         }
     }
@@ -108,6 +113,7 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
+        print(url)
         var request = self.request
 
         if let parameters = parameters {
@@ -171,6 +177,10 @@ extension APIService {
                         else if case .fetchFollow = self {
                             let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
                             completion(.success(friendList))
+                        }
+                        
+                        else if case .postFollow = self {
+                            completion(.success(data))
                         }
                         
                         else if case .postReply = self {

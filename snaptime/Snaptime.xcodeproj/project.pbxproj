@@ -41,6 +41,7 @@
 		296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */; };
 		296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */; };
 		296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */; };
+		29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625E132C4280B600D51841 /* CommonResDtoVoid.swift */; };
 		296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E0F662B8859E700758653 /* TopTapBarView.swift */; };
 		297090232C37D8B5004A151B /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090222C37D8B5004A151B /* FollowViewController.swift */; };
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
@@ -139,6 +140,7 @@
 		296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSnapViewController.swift; sourceTree = "<group>"; };
 		296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapTagListViewController.swift; sourceTree = "<group>"; };
 		296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagListCollectionViewCell.swift; sourceTree = "<group>"; };
+		29625E132C4280B600D51841 /* CommonResDtoVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResDtoVoid.swift; sourceTree = "<group>"; };
 		296E0F662B8859E700758653 /* TopTapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarView.swift; sourceTree = "<group>"; };
 		297090222C37D8B5004A151B /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				29176FAF2C412C5000CD9A24 /* UserUpdateDto.swift */,
 				29176FB12C412C6100CD9A24 /* UserProfileResDto.swift */,
 				29176FB32C412C6E00CD9A24 /* CommonResponseDtoListFindAllAlbumsResDto.swift */,
+				29625E132C4280B600D51841 /* CommonResDtoVoid.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
+				29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
 				297090292C38014A004A151B /* IconButton.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,

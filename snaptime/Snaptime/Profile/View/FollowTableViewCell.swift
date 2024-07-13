@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class FollowTableViewCell: UITableViewCell {
-    private var follow: Bool = true {
+    private var follow: Bool = false {
         didSet {
             updateFollowButtonTitle()
         }
@@ -20,6 +20,8 @@ final class FollowTableViewCell: UITableViewCell {
             configButtonType()
         }
     }
+    
+    private var loginId: String?
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -81,6 +83,7 @@ final class FollowTableViewCell: UITableViewCell {
             config?.baseBackgroundColor = .white
             config?.background.backgroundColor = .white
             config?.baseForegroundColor = .white
+            config?.background.strokeColor = .white
             config?.attributedTitle = titleAttr
             
         case .others:
@@ -117,11 +120,25 @@ final class FollowTableViewCell: UITableViewCell {
     /// 팔로우 버튼 toggle 메서드
     private func followButtonclick() {
         print("팔로우버튼 클릭")
-        follow.toggle()
+        if let loginId = self.loginId {
+            APIService.postFollow(loginId: loginId).performRequest { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        self.follow.toggle()
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
+            }
+        }
     }
     
     /// VC로부터 데이터를 받아오는 메서드
     func configData(data: FriendInfo) {
+        self.loginId = data.loginId
         /// 현재 사용자 자신의 프로필이라면 type을 myself로 설정
         if data.loginId == ProfileBasicModel.profile.loginId {
             type = .myself
