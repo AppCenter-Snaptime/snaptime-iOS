@@ -31,7 +31,6 @@ enum APIService {
 
     case fetchFollow(type: String, loginId: String,keyword: String, pageNum: Int)
     case postReply
-    
 }
 
 extension APIService {
@@ -65,7 +64,7 @@ extension APIService {
             "/album/albumListWithThumbnail"
             
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
-            "/friends/\(pageNum)?loginId=\(loginId)&friendSearchType=\(type)"
+            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
             
         case .postReply:
             "/parent-replies"
@@ -109,8 +108,6 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
-        print(url)
-        
         var request = self.request
 
         if let parameters = parameters {

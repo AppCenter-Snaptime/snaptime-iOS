@@ -104,11 +104,9 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.selectionStyle = .none
-                
-        let tog: [Bool] = [true, false]
-        
+                        
         // TODO: 추후 수정 필요
-        cell.configData(follow: tog[indexPath.row], data: friendList[indexPath.row])
+        cell.configData(data: friendList[indexPath.row])
         
         return cell
     }

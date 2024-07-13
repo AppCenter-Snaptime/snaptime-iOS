@@ -9,9 +9,15 @@ import UIKit
 import SnapKit
 
 final class FollowTableViewCell: UITableViewCell {
-    var follow: Bool = true {
+    private var follow: Bool = true {
         didSet {
             updateFollowButtonTitle()
+        }
+    }
+    
+    private var type: ProfileTarget = .others {
+        didSet {
+            configButtonType()
         }
     }
         
@@ -48,40 +54,82 @@ final class FollowTableViewCell: UITableViewCell {
         var config = UIButton.Configuration.filled()
         config.background.cornerRadius = 50
         button.configuration = config
+        button.isEnabled = true
         button.addAction(UIAction { [weak self] _ in
-            self?.followButtonclick()
+            print("클릭됨")
+            switch self?.type {
+            case .myself:
+                button.isEnabled = false
+            case .others:
+                self?.followButtonclick()
+            case .none:
+                break
+            }
+            
         }, for: .touchUpInside)
 
         return button
     }()
     
+    /// 팔로워, 팔로우 목록에서 나의 프로필인지, 타인의 프로필인지에 따라 버튼 config
+    private func configButtonType() {
+        var config = followButton.configuration
+
+        switch type {
+        case .myself:
+            let titleAttr = AttributedString("")
+            config?.baseBackgroundColor = .white
+            config?.background.backgroundColor = .white
+            config?.baseForegroundColor = .white
+            config?.attributedTitle = titleAttr
+            
+        case .others:
+            self.updateFollowButtonTitle()
+        }
+        
+        followButton.configuration = config
+    }
+    
+    /// 맞팔 유무에 따라 버튼의 상태를 선택하는 메서드
     private func updateFollowButtonTitle() {
         var config = followButton.configuration
 
         switch follow {
-        case true:
+        case false:
+            var titleAttr = AttributedString("팔로잉")
+            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
             config?.baseForegroundColor = .black
             config?.background.backgroundColor = .white
             config?.background.strokeColor = .followButtonGray
-        case false:
+            config?.attributedTitle = titleAttr
+        case true:
+            var titleAttr = AttributedString("팔로우하기")
+            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
             config?.baseBackgroundColor = .followButtonGray
             config?.background.backgroundColor = .followButtonGray
             config?.baseForegroundColor = .white
+            config?.attributedTitle = titleAttr
         }
-        
-        var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우하기")
-        titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
-        
-        config?.attributedTitle = titleAttr
+
         followButton.configuration = config
     }
     
+    /// 팔로우 버튼 toggle 메서드
     private func followButtonclick() {
+        print("팔로우버튼 클릭")
         follow.toggle()
     }
     
-    func configData(follow: Bool, data: FriendInfo) {
-        self.follow = follow
+    /// VC로부터 데이터를 받아오는 메서드
+    func configData(data: FriendInfo) {
+        /// 현재 사용자 자신의 프로필이라면 type을 myself로 설정
+        if data.loginId == ProfileBasicModel.profile.loginId {
+            type = .myself
+        }
+        
+        else {
+            follow = data.isMyFriend
+        }
         
         loadImage(data: data.profilePhotoURL)
         nameLabel.text = data.userName

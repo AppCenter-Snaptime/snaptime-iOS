@@ -22,4 +22,5 @@ struct FriendInfo: Codable {
     let profilePhotoURL: String
     let userName: String
     let friendShipId: Int
+    let isMyFriend: Bool
 }
