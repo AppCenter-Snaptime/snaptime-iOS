@@ -31,6 +31,7 @@ enum APIService {
     
     case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
     case postFollow(loginId: String)
+    case deleteFollowing(loginId: String)
     
     case postReply
 }
@@ -74,6 +75,9 @@ extension APIService {
         case .postFollow(let loginId):
             "/friends?receiverLoginId=\(loginId)"
             
+        case .deleteFollowing(let loginId):
+            "/friends?deletedUserLoginId=\(loginId)"
+            
         case .postReply:
             "/parent-replies"
         }
@@ -99,6 +103,9 @@ extension APIService {
         case .postReply,
             .postFollow:
                 .post
+            
+        case .deleteFollowing:
+                .delete
         }
     }
     
@@ -118,7 +125,6 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
-        print(url)
         var request = self.request
 
         if let parameters = parameters {
@@ -191,6 +197,11 @@ extension APIService {
                         
                         else if case .postFollow = self {
                             completion(.success(data))
+                        }
+                        
+                        else if case .deleteFollowing = self {
+                            let result = try JSONDecoder().decode(CommonResDtoVoid.self, from: data)
+                            completion(.success(result))
                         }
                         
                         else if case .postReply = self {

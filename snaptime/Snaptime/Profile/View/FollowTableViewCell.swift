@@ -58,7 +58,6 @@ final class FollowTableViewCell: UITableViewCell {
         button.configuration = config
         button.isEnabled = true
         button.addAction(UIAction { [weak self] _ in
-            print("클릭됨")
             switch self?.type {
             case .myself:
                 button.isEnabled = false
@@ -119,19 +118,34 @@ final class FollowTableViewCell: UITableViewCell {
     
     /// 팔로우 버튼 toggle 메서드
     private func followButtonclick() {
-        print("팔로우버튼 클릭")
-        if let loginId = self.loginId {
-            APIService.postFollow(loginId: loginId).performRequest { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(_):
-                        self.follow.toggle()
-                        
-                    case .failure(let error):
-                        print(error)
+        switch follow {
+        case true:
+            if let loginId = self.loginId {
+                APIService.deleteFollowing(loginId: loginId).performRequest { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_):
+                            self.follow.toggle()
+                            
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
                 }
-                
+            }
+        case false:
+            if let loginId = self.loginId {
+                APIService.postFollow(loginId: loginId).performRequest { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_):
+                            self.follow.toggle()
+                            
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-//struct CommonResDtoVoid: Codable {
-//    let msg: String
-//    let result: Any?
-//}
+struct CommonResDtoVoid: Codable {
+    let msg: String
+    let result: Bool?
+}
