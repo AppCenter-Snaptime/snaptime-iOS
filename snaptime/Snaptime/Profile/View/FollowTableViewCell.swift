@@ -98,14 +98,14 @@ final class FollowTableViewCell: UITableViewCell {
         var config = followButton.configuration
 
         switch follow {
-        case false:
+        case true:
             var titleAttr = AttributedString("팔로잉")
             titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
             config?.baseForegroundColor = .black
             config?.background.backgroundColor = .white
             config?.background.strokeColor = .followButtonGray
             config?.attributedTitle = titleAttr
-        case true:
+        case false:
             var titleAttr = AttributedString("팔로우하기")
             titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
             config?.baseBackgroundColor = .followButtonGray
@@ -138,9 +138,9 @@ final class FollowTableViewCell: UITableViewCell {
     
     /// VC로부터 데이터를 받아오는 메서드
     func configData(data: FriendInfo) {
-        self.loginId = data.loginId
+        self.loginId = data.foundLoginId
         /// 현재 사용자 자신의 프로필이라면 type을 myself로 설정
-        if data.loginId == ProfileBasicModel.profile.loginId {
+        if data.foundLoginId == ProfileBasicModel.profile.loginId {
             type = .myself
         }
         
@@ -149,7 +149,7 @@ final class FollowTableViewCell: UITableViewCell {
         }
         
         loadImage(data: data.profilePhotoURL)
-        nameLabel.text = data.userName
+        nameLabel.text = data.foundUserName
     }
     
     private func loadImage(data: String) {

@@ -116,7 +116,7 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let loginId = friendList[indexPath.row].loginId
+        let loginId = friendList[indexPath.row].foundLoginId
         
         if loginId == ProfileBasicModel.profile.loginId {
             self.delegate?.presentProfile(target: .myself, loginId: loginId)

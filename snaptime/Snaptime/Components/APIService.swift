@@ -39,16 +39,16 @@ extension APIService {
     var path: String {
         switch self {
         case .fetchUserProfile(let loginId):
-            "/users/profile?login_id=\(loginId)"
+            "/profiles/profile?login_id=\(loginId)"
         
         case .fetchUserProfileCount(let loginId):
-            "/users/profile/count?login_id=\(loginId)"
+            "/profiles/count?login_id=\(loginId)"
             
         case .fetchUserAlbum(let loginId):
-            "/users/album_snap?login_id=\(loginId)"
+            "/profiles/album_snap?login_id=\(loginId)"
             
         case .fetchUserTagSnap(let loginId):
-            "/users/profile/tag?login_id=\(loginId)"
+            "/profiles/tag_snap?login_id=\(loginId)"
             
         case .fetchUserInfo:
             "/users"
@@ -72,7 +72,7 @@ extension APIService {
             "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
             
         case .postFollow(let loginId):
-            "/friends?fromUserLoginId=\(loginId)"
+            "/friends?receiverLoginId=\(loginId)"
             
         case .postReply:
             "/parent-replies"
