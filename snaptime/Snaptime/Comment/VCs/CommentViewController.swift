@@ -168,7 +168,6 @@ final class CommentViewController: BaseViewController {
     // MARK: -- 댓글 목록 서버 통신
     private func fetchComment() {
         // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
-        
         let url = "http://na2ru2.me:6308/parent-replies/1"
         let headers: HTTPHeaders = [
             "Authorization": ACCESS_TOKEN,
@@ -189,8 +188,8 @@ final class CommentViewController: BaseViewController {
         .responseJSON { response in
             switch response.result {
             case .success(let data):
-                print("success")
-                print(data)
+//                print("success")
+//                print(data)
                 guard let data = response.data else { return }
                 
                 do {
@@ -198,7 +197,7 @@ final class CommentViewController: BaseViewController {
                     let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
                     self.parentComments = result.result.parentReplyInfoList
-                    self.fetchChildComment()
+                    self.fetchChildComments()
                     DispatchQueue.main.async {
                         self.applySnapShot(data: self.parentComments)
                     }
@@ -212,10 +211,63 @@ final class CommentViewController: BaseViewController {
         }
     }
     
-    private func fetchChildComment() {
+    private func fetchChildComments() {
         self.childComments = self.parentComments.map { reply in
-            return nil
+            return self.childReplies(parentReplyId: reply.replyId)
         }
+        print("fetchChildComments")
+        print(self.childComments)
+    }
+    
+    private func childReplies(parentReplyId: Int) -> [ChildReplyInfo]? {
+        let semaphore = DispatchSemaphore(value: 0)
+        let queue = DispatchQueue.global(qos: .userInteractive)
+        var childInfo: [ChildReplyInfo]? = nil
+        
+        let url = "http://na2ru2.me:6308/child-replies/1"
+        let headers: HTTPHeaders = [
+            "Authorization": ACCESS_TOKEN,
+            "accept": "*/*"
+        ]
+        let parameters: Parameters = [
+            "parentReplyId" : parentReplyId,
+            "pageNum" : 1
+        ]
+        
+        
+        AF.request(
+            url,
+            method: .get,
+            parameters: parameters,
+            encoding: URLEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON(queue: queue) { response in
+            switch response.result {
+            case .success(let data):
+                print("success")
+                print(data)
+                guard let data = response.data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(CommonResponseDtoFindChildReplyResDto.self, from: data)
+                    print(result)
+                    
+                    childInfo = result.result.childReplyInfoList
+                    semaphore.signal()
+                } catch {
+                    print(error)
+                    semaphore.signal()
+                }
+            case .failure(let error):
+                print(String(describing: error.errorDescription))
+                semaphore.signal()
+            }
+        }
+        semaphore.wait()
+        return childInfo
     }
     // MARK: -- Setup CollectionView
     
@@ -225,7 +277,9 @@ final class CommentViewController: BaseViewController {
     private func setupDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, Int> {
             (cell, indexPath, identifier) in
-            cell.setupUI(comment: identifier)
+            if let section = self.childComments[indexPath.section] {
+                cell.setupUI(comment: section[indexPath.row])
+            }
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, Int>(
@@ -272,7 +326,6 @@ final class CommentViewController: BaseViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         
         var identifierOffset = 0 // 아이템의 identifier
-//        let itemPerSection = 1 // 답글의 개수, 테스트 데이터로 추가 가능
         
         for idx in 0..<data.count {
             var itemPerSection = 0
