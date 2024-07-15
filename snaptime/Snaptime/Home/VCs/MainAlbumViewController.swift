@@ -31,7 +31,7 @@ final class MainAlbumViewController : BaseViewController {
     
     private let contentView = UIView()
     
-    private lazy var addSnapButton : UIButton = {
+    private lazy var albumButton : UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.image = UIImage(systemName: "folder")
@@ -39,7 +39,7 @@ final class MainAlbumViewController : BaseViewController {
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentAddSnap()
+            self?.presentAlbumSheet()
         }, for: .touchUpInside)
         
         return button
@@ -189,6 +189,23 @@ final class MainAlbumViewController : BaseViewController {
         }
     }
     
+    private func addNewAlbum(name: String) {
+        let param: [String: String] = [
+            "name": name
+        ]
+        APIService.postAlbum.performRequest(with: param) { result in
+            switch result {
+            case .success(let albumList):
+                print("앨범 추가 성공")
+                DispatchQueue.main.async {
+                    self.fetchAlbumList()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     // MARK: -- UI
     
     // + Floating Button 클릭시 실행
@@ -255,11 +272,40 @@ final class MainAlbumViewController : BaseViewController {
         addSnapFloatingButton.layer.add(animation, forKey: nil)
     }
     
+    private func presentAlbumSheet() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "앨범 추가", style: .default, handler: { _ in
+            self.presentAddAlbumPopup()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "앨범 삭제", style: .destructive, handler: { _ in
+            print("앨범 삭제")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(actionSheet, animated: true)
+    }
+    
+    private func presentAddAlbumPopup() {
+        let actionSheet = UIAlertController(title: "앨범 만들기", message: nil, preferredStyle: .alert)
+        actionSheet.addTextField { myTF in
+            myTF.placeholder = "앨범명"
+        }
+        actionSheet.addAction(UIAlertAction(title: "추가하기", style: .default, handler: { _ in
+            print("앨범 추가")
+            if let name = actionSheet.textFields?[0].text {
+                self.addNewAlbum(name: name)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "취소하기", style: .cancel))
+        self.present(actionSheet, animated: true)
+        
+    }
+    
     // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
         [
-            addSnapButton,
+            albumButton,
             mainAlbumCollectionView,
         ].forEach {
             contentView.addSubview($0)
@@ -286,7 +332,7 @@ final class MainAlbumViewController : BaseViewController {
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "Logo")))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addSnapButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: albumButton)
     }
     
     override func setupConstraints() {
