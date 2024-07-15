@@ -26,7 +26,7 @@ final class MainAlbumViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAlbumList() // 앨범목록 서버 통신
-        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
+//        self.fetchUserProfile(loginId: ProfileBasicModel.profile2.loginId)
     }
     
     private let contentView = UIView()
@@ -175,7 +175,7 @@ final class MainAlbumViewController : BaseViewController {
     private func fetchAlbumList() {
         APIService.fetchAlbumList.performRequest { result in
             DispatchQueue.main.async {
-                switch result{
+                switch result {
                 case .success(let albumList):
                     if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto {
                         self.albumData = albumList.result.map { Album($0) }

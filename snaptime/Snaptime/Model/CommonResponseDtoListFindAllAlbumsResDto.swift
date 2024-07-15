@@ -16,5 +16,5 @@ struct CommonResponseDtoListFindAllAlbumsResDto: Codable {
 struct FindAllAlbumsResDto: Codable {
     var id: Int
     var name: String
-    var photoUrl: String
+    var photoUrl: String?
 }
