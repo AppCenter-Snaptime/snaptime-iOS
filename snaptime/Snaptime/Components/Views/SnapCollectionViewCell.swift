@@ -19,6 +19,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     var action: (()->())?
     private var snap: FindSnapResDto?
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setLayouts()

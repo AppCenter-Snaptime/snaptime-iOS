@@ -22,6 +22,7 @@ final class FollowTableViewCell: UITableViewCell {
     }
     
     private var loginId: String?
+    private var action: (()->())? = {}
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,12 +58,37 @@ final class FollowTableViewCell: UITableViewCell {
         config.background.cornerRadius = 50
         button.configuration = config
         button.isEnabled = true
+        
         button.addAction(UIAction { [weak self] _ in
             switch self?.type {
             case .myself:
                 button.isEnabled = false
             case .others:
-                self?.followButtonclick()
+                switch self?.follow {
+                case true:
+                    if let action = self?.action {
+                        action()
+                    }
+                case false:
+                    if let loginId = self?.loginId {
+                        APIService.postFollow(loginId: loginId).performRequest { result in
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(_):
+                                    self?.follow.toggle()
+                                    
+                                case .failure(let error):
+                                    print(error)
+                                }
+                            }
+                        }
+                    }
+                case .none:
+                    print("")
+                    
+                case .some(_):
+                    print("")
+                }
             case .none:
                 break
             }
@@ -164,6 +190,10 @@ final class FollowTableViewCell: UITableViewCell {
         
         loadImage(data: data.profilePhotoURL)
         nameLabel.text = data.foundUserName
+    }
+    
+    func setAction(action: (()->())?) {
+        self.action = action
     }
     
     private func loadImage(data: String) {

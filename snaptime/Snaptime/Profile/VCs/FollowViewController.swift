@@ -58,6 +58,15 @@ final class FollowViewController: BaseViewController {
         return tableView
     }()
     
+    private func followButtonAction() {
+        print("실행됨")
+        show(
+            alertText: "Jocelyn 님을 언팔로우 하시겠어요?",
+            cancelButtonText: "취소하기",
+            confirmButtonText: "언팔로우"
+        )
+    }
+    
     // MARK: - 네트워크 로직
     private func fetchFriendList() {
         APIService.fetchFollow(type: target.description, loginId: loginId, keyword: "", pageNum: 1).performRequest { result in
@@ -107,6 +116,7 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
                         
         // TODO: 추후 수정 필요
         cell.configData(data: friendList[indexPath.row])
+        cell.setAction(action: followButtonAction)
         
         return cell
     }
@@ -128,3 +138,10 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension FollowViewController: CustomAlertDelegate {
+    func action() {
+       
+    }
+    
+    func exit() {}
+}
