@@ -70,7 +70,6 @@
 		29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6709C2C4417460028F356 /* CustomAlertViewController.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
-		29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */; };
 		29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6D2B8657C0003614AB /* AlbumListView.swift */; };
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
@@ -172,7 +171,6 @@
 		29F6709C2C4417460028F356 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
-		29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListTabButton.swift; sourceTree = "<group>"; };
 		29F80C6D2B8657C0003614AB /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		29F80C6F2B8657C8003614AB /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -299,7 +297,6 @@
 			isa = PBXGroup;
 			children = (
 				29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */,
-				29F80BF82B85AECB003614AB /* ProfileListTabButton.swift */,
 				29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */,
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
@@ -749,7 +746,6 @@
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				297090232C37D8B5004A151B /* FollowViewController.swift in Sources */,
 				29176FB42C412C6E00CD9A24 /* CommonResponseDtoListFindAllAlbumsResDto.swift in Sources */,
-				29F80BF92B85AECB003614AB /* ProfileListTabButton.swift in Sources */,
 				29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */,
 				296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */,
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,

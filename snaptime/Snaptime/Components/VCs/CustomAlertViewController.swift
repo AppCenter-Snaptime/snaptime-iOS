@@ -19,7 +19,6 @@ extension CustomAlertDelegate where Self: UIViewController {
         cancelButtonText: String,
         confirmButtonText: String
     ) {
-        print("함수는 실행")
         let customAlertViewController = CustomAlertViewController(alertText: alertText, cancelButtonText: cancelButtonText, confirmButtonText: confirmButtonText)
         
         customAlertViewController.delegate = self
