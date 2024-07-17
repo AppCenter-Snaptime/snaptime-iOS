@@ -25,7 +25,7 @@ final class SettingProfileViewController: BaseViewController {
         super.viewDidLoad()
         
         self.idLabel.text = userProfile.userName
-        self.loadImage(data: userProfile.profileURL)
+        self.loadImage(data: userProfile.profileURL, imageView: profileImage)
         self.setNavigationBar()
     }
     
@@ -96,16 +96,22 @@ final class SettingProfileViewController: BaseViewController {
                                                          secondAction: UIAction { [weak self] _ in
     })
     
-    private func loadImage(data: String) {
-        guard let url = URL(string: data)  else { return }
-        
-        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
-        
-        backgroundQueue.async {
-            guard let data = try? Data(contentsOf: url) else { return }
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
             
-            DispatchQueue.main.async {
-                self.profileImage.image = UIImage(data: data)
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("success fetch image")
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

@@ -40,16 +40,16 @@ extension APIService {
     var path: String {
         switch self {
         case .fetchUserProfile(let loginId):
-            "/profiles/profile?login_id=\(loginId)"
-        
+            "/profiles/profile?loginId=\(loginId)"
+    
         case .fetchUserProfileCount(let loginId):
-            "/profiles/count?login_id=\(loginId)"
+            "/profiles/count?loginId=\(loginId)"
             
         case .fetchUserAlbum(let loginId):
-            "/profiles/album_snap?login_id=\(loginId)"
+            "/profiles/album-snap?loginId=\(loginId)"
             
         case .fetchUserTagSnap(let loginId):
-            "/profiles/tag_snap?login_id=\(loginId)"
+            "/profiles/tag-snap?loginId=\(loginId)"
             
         case .fetchUserInfo:
             "/users"
@@ -126,6 +126,7 @@ extension APIService {
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
         var request = self.request
+        print(url)
 
         if let parameters = parameters {
             do {
