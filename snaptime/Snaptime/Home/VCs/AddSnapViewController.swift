@@ -5,6 +5,7 @@
 //  Created by Bowon Han on 4/2/24.
 //
 
+import Alamofire
 import UIKit
 import SnapKit
 
@@ -81,7 +82,16 @@ final class AddSnapViewController: BaseViewController {
         return button
     }()
     
-    private var snapSaveButton = SnapTimeCustomButton("작성 완료")
+    private lazy var snapSaveButton: UIButton = {
+        let button = SnapTimeCustomButton("작성 완료")
+        button.addAction(UIAction { [weak self] _ in
+            Task {
+                await self?.postNewSnap()
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }, for: .touchUpInside)
+        return button
+    }()
     
     private func tabImageButton(tag: Int) {
         let imagePicker = UIImagePickerController()
@@ -93,6 +103,40 @@ final class AddSnapViewController: BaseViewController {
         imagePicker.view.tag = tag
 
         self.present(imagePicker, animated: true)
+    }
+    
+    private func postNewSnap() async {
+        // 아직 parameter isPrivate 안 보냄
+        
+        let url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        var headers: HTTPHeaders {
+            ["Authorization": ACCESS_TOKEN, "accept": "*/*", "Content-Type": "multipart/form-data"]
+        }
+        guard let image = addImageButton.image(for: .normal),
+              let jpgimageData = image.jpegData(compressionQuality: 1.0),
+              let oneLineJournal = oneLineDiaryTextView.text
+        else {
+            return
+        }
+        let response = await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data(oneLineJournal.utf8), withName: "oneLineJournal")
+            multipartFormData.append(jpgimageData, withName: "multipartFile", fileName: "image.png", mimeType: "image/jpeg")
+        }, to: url, method: .post, headers: headers)
+            .serializingDecodable(CommonResponseDtoLong.self)
+            .response
+        print("hi")
+        print(response)
+        switch response.result {
+        case .success(let res):
+            if (400..<599).contains(response.response?.statusCode ?? 0) {
+                print("error : ", res.msg)
+            }
+            else {
+                print("스냅 전송 성공!")
+            }
+        case .failure(let error):
+            print(error.errorDescription)
+        }
     }
     
     override func setupLayouts() {

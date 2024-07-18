@@ -12,8 +12,8 @@ struct ChildReplyInfo: Codable {
     let writerUserName: String
     let writerProfilePhotoURL: String
     let content: String
-    let tagUserLoginId: String
-    let tagUserName: String
+    let tagUserLoginId: String?
+    let tagUserName: String?
     let parentReplyId: Int
     let childReplyId: Int
     let timeAgo: String
