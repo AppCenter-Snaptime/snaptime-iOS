@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol EditProfileViewControllerDelegate: AnyObject {
     func presentEditProfile()
@@ -20,7 +21,7 @@ final class EditProfileViewController: BaseViewController {
         super.viewDidLoad()
         
         self.fetchUserInfo()
-        self.loadImage(data: UserProfileManager.shared.profile.result.profileURL)
+        self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: editProfileImage)
         self.setNavigationBar()
     }
     
@@ -139,16 +140,22 @@ final class EditProfileViewController: BaseViewController {
     }
     
     // MARK: - 이미지 변환 로직
-    private func loadImage(data: String) {
-        guard let url = URL(string: data)  else { return }
-        
-        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
-        
-        backgroundQueue.async {
-            guard let data = try? Data(contentsOf: url) else { return }
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
             
-            DispatchQueue.main.async {
-                self.editProfileImage.image = UIImage(data: data)
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("success fetch image")
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

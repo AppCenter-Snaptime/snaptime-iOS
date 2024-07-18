@@ -32,6 +32,7 @@ final class FollowViewController: BaseViewController {
     
     private let target: FollowTarget
     private let loginId: String
+    private var selectedLoginId: String?
     
     init(target: FollowTarget, loginId: String) {
         self.target = target
@@ -57,6 +58,14 @@ final class FollowViewController: BaseViewController {
 
         return tableView
     }()
+    
+    private func followButtonAction() {
+        show(
+            alertText: "Jocelyn 님을 언팔로우 하시겠어요?",
+            cancelButtonText: "취소하기",
+            confirmButtonText: "언팔로우"
+        )
+    }
     
     // MARK: - 네트워크 로직
     private func fetchFriendList() {
@@ -104,11 +113,10 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.selectionStyle = .none
-                
-        let tog: [Bool] = [true, false]
-        
+                        
         // TODO: 추후 수정 필요
-        cell.configData(follow: tog[indexPath.row], data: friendList[indexPath.row])
+        cell.configData(data: friendList[indexPath.row])
+        cell.setAction(action: followButtonAction)
         
         return cell
     }
@@ -118,15 +126,36 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let loginId = friendList[indexPath.row].loginId
+        selectedLoginId = friendList[indexPath.row].foundLoginId
         
-        if loginId == ProfileBasicModel.profile.loginId {
-            self.delegate?.presentProfile(target: .myself, loginId: loginId)
+        guard let selectedLoginId = selectedLoginId else { return }
+        
+        if selectedLoginId == ProfileBasicModel.profile.loginId {
+            self.delegate?.presentProfile(target: .myself, loginId: selectedLoginId)
         }
         
         else {
-            self.delegate?.presentProfile(target: .others, loginId: loginId)
+            self.delegate?.presentProfile(target: .others, loginId: selectedLoginId)
         }
     }
 }
 
+extension FollowViewController: CustomAlertDelegate {
+    func action() {
+        guard let selectedLoginId = selectedLoginId else { return }
+        print(selectedLoginId)
+        
+        APIService.deleteFollowing(loginId: selectedLoginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("팔로우 취소")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func exit() {}
+}

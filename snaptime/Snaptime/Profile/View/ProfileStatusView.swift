@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
 /// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
@@ -112,7 +113,6 @@ final class ProfileStatusView: UIView {
     
     func followButtonclick() {
         follow.toggle()
-        print(follow)
     }
 
     // MARK: - target에 따른 button UI 세팅하는 함수
@@ -151,7 +151,7 @@ final class ProfileStatusView: UIView {
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
     func setupUserProfile(_ userProfile: UserProfileResDto) {
-        self.loadImage(data: userProfile.profileURL)
+        self.loadImage(data: userProfile.profileURL, imageView: profileImage)
         self.nickNameLabel.text = userProfile.userName
     }
     
@@ -162,16 +162,22 @@ final class ProfileStatusView: UIView {
     }
     
     // MARK: - 네트워크로부터 이미지 받아오는 함수
-    private func loadImage(data: String) {
-        guard let url = URL(string: data)  else { return }
-        
-        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
-        
-        backgroundQueue.async {
-            guard let data = try? Data(contentsOf: url) else { return }
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                return r
+            }
             
-            DispatchQueue.main.async {
-                self.profileImage.image = UIImage(data: data)
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("success fetch image")
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

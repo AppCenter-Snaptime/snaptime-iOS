@@ -10,37 +10,62 @@ import SnapKit
 
 /// 프로필에서의 TagListView
 final class TagListView: UIView {
+    private var tagList: [ProfileTagSnapResDto] = []
+    private var loginId: String = ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setLayouts()
         self.setConstraints()
-        self.collectionViewConfig()
+        self.reloadData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tagImageCollectionView: UICollectionView = {
+    private lazy var tagImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
+//        layout.sectionInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = false
-
+        collectionView.register(TagListCollectionViewCell.self,
+                                forCellWithReuseIdentifier: TagListCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         return collectionView
     }()
     
-    private func collectionViewConfig() {
-        tagImageCollectionView.register(TagListCollectionViewCell.self,
-                                forCellWithReuseIdentifier: TagListCollectionViewCell.identifier)
-        tagImageCollectionView.delegate = self
-        tagImageCollectionView.dataSource = self
+    func reloadData() {
+        self.tagImageCollectionView.reloadData()
     }
     
+    func setLoginId(loginId: String) {
+        self.fetchTagList(loginId: loginId)
+        self.reloadData()
+    }
+    
+    private func fetchTagList(loginId: String) {
+        APIService.fetchUserTagSnap(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListProfileTagSnapResDto {
+                        self.tagList = result.result
+                        self.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+
     private func setLayouts() {
         addSubview(tagImageCollectionView)
     }
@@ -61,11 +86,13 @@ extension TagListView: UICollectionViewDelegate, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        cell.setCellData(data: self.tagList[indexPath.row])
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return tagList.count
     }
 }
 

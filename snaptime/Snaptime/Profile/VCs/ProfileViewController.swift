@@ -42,8 +42,17 @@ final class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.albumAndTagListView.send = sendFlow
+        
         self.setupNavigationBar()
 
+        self.fetchUserProfile(loginId: loginId)
+        self.fetchUserProfileCount(loginId: loginId)
+        self.albumAndTagListView.setLoginId(loginId: loginId)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
         self.albumAndTagListView.setLoginId(loginId: loginId)
@@ -74,7 +83,7 @@ final class ProfileViewController: BaseViewController {
         return button
     }()
     
-    private lazy var profileStatusView = ProfileStatusView(
+    private lazy var profileStatusView = ProfileStatusView (
         target: target,
         followOrSettingAction: UIAction { [weak self] _ in
             switch self?.target {
@@ -122,6 +131,7 @@ final class ProfileViewController: BaseViewController {
                 switch result {
                 case .success(let userProfile):
                     if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
+                        print(profile)
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):

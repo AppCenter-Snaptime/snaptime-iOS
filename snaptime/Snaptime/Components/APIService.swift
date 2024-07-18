@@ -20,6 +20,7 @@ enum APIService {
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
     case fetchUserAlbum(loginId: String)
+    case fetchUserTagSnap(loginId: String)
     case fetchUserInfo
     case modifyUserInfo
     
@@ -29,23 +30,27 @@ enum APIService {
     case fetchAlbumList
     case postAlbum
     
-
-    case fetchFollow(type: String, loginId: String,keyword: String, pageNum: Int)
-    case postReply
+    case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
+    case postFollow(loginId: String)
+    case deleteFollowing(loginId: String)
     
+    case postReply
 }
 
 extension APIService {
     var path: String {
         switch self {
         case .fetchUserProfile(let loginId):
-            "/users/profile?login_id=\(loginId)"
-        
+            "/profiles/profile?loginId=\(loginId)"
+    
         case .fetchUserProfileCount(let loginId):
-            "/users/profile/count?login_id=\(loginId)"
+            "/profiles/count?loginId=\(loginId)"
             
         case .fetchUserAlbum(let loginId):
-            "/users/album_snap?login_id=\(loginId)"
+            "/profiles/album-snap?loginId=\(loginId)"
+            
+        case .fetchUserTagSnap(let loginId):
+            "/profiles/tag-snap?loginId=\(loginId)"
             
         case .fetchUserInfo:
             "/users"
@@ -69,7 +74,13 @@ extension APIService {
             "/album"
             
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
-            "/friends/\(pageNum)?loginId=\(loginId)&friendSearchType=\(type)"
+            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
+            
+        case .postFollow(let loginId):
+            "/friends?receiverLoginId=\(loginId)"
+            
+        case .deleteFollowing(let loginId):
+            "/friends?deletedUserLoginId=\(loginId)"
             
         case .postReply:
             "/parent-replies"
@@ -81,6 +92,7 @@ extension APIService {
         case .fetchUserProfile,
             .fetchUserProfileCount,
             .fetchUserAlbum,
+            .fetchUserTagSnap,
             .fetchCommunitySnap,
             .fetchSnap,
             .fetchUserInfo,
@@ -93,8 +105,12 @@ extension APIService {
                 .put
         
         case .postReply,
+            .postFollow:
             .postAlbum:
                 .post
+            
+        case .deleteFollowing:
+                .delete
         }
     }
     
@@ -114,9 +130,8 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
-        print(url)
-        
         var request = self.request
+        print(url)
 
         if let parameters = parameters {
             do {
@@ -151,6 +166,11 @@ extension APIService {
                             completion(.success(userAlbum))
                         }
                         
+                        else if case .fetchUserTagSnap = self {
+                            let tagList = try JSONDecoder().decode(CommonResponseDtoListProfileTagSnapResDto.self, from: data)
+                            completion(.success(tagList))
+                        }
+                        
                         else if case .fetchCommunitySnap = self {
                             let snap = try JSONDecoder().decode(CommonResponseDtoListFindSnapPagingResDto.self, from: data)
                             completion(.success(snap))
@@ -179,6 +199,15 @@ extension APIService {
                         else if case .fetchFollow = self {
                             let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
                             completion(.success(friendList))
+                        }
+                        
+                        else if case .postFollow = self {
+                            completion(.success(data))
+                        }
+                        
+                        else if case .deleteFollowing = self {
+                            let result = try JSONDecoder().decode(CommonResDtoVoid.self, from: data)
+                            completion(.success(result))
                         }
                         
                         else if case .postReply = self {

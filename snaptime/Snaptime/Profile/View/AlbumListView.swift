@@ -18,7 +18,6 @@ final class AlbumListView: UIView {
         super.init(frame: .zero)
         self.setLayouts()
         self.setConstraints()
-        self.setupCollectionView()
         self.reloadData()
     }
     
@@ -36,18 +35,14 @@ final class AlbumListView: UIView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = false
         collectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         return collectionView
     }()
     
-    private func setupCollectionView() {
-        profileAlbumListCollectionView.dataSource = self
-        profileAlbumListCollectionView.delegate = self
-        profileAlbumListCollectionView.register(AlbumListCollectionViewCell.self, forCellWithReuseIdentifier: AlbumListCollectionViewCell.identifier)
-    }
-    
     func reloadData() {
-        profileAlbumListCollectionView.reloadData()
+        self.profileAlbumListCollectionView.reloadData()
     }
     
     func setLoginId(loginId: String) {
