@@ -26,7 +26,7 @@ final class MainAlbumViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAlbumList() // 앨범목록 서버 통신
-//        self.fetchUserProfile(loginId: ProfileBasicModel.profile2.loginId)
+        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
     }
     
     private let contentView = UIView()
@@ -163,7 +163,6 @@ final class MainAlbumViewController : BaseViewController {
                 case .success(let profile):
                     if let profile = profile as? CommonResponseDtoUserProfileResDto {
                         UserProfileManager.shared.profile = profile
-                        print("사용자 데이터 불러오기")
                     }
                 case .failure(let error):
                     print(error)

@@ -105,7 +105,7 @@ extension APIService {
                 .put
         
         case .postReply,
-            .postFollow:
+            .postFollow,
             .postAlbum:
                 .post
             

@@ -131,7 +131,6 @@ final class ProfileViewController: BaseViewController {
                 switch result {
                 case .success(let userProfile):
                     if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        print(profile)
                         self.profileStatusView.setupUserProfile(profile.result)
                     }
                 case .failure(let error):
