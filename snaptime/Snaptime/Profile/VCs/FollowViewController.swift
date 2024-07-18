@@ -59,9 +59,9 @@ final class FollowViewController: BaseViewController {
         return tableView
     }()
     
-    private func followButtonAction() {
+    private func followButtonAction(name: String) {
         show(
-            alertText: "Jocelyn 님을 언팔로우 하시겠어요?",
+            alertText: " \(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
             confirmButtonText: "언팔로우"
         )

@@ -22,7 +22,8 @@ final class FollowTableViewCell: UITableViewCell {
     }
     
     private var loginId: String?
-    private var action: (()->())? = {}
+    private var action: ((String)->())?
+    private var name: String = ""
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,9 +67,12 @@ final class FollowTableViewCell: UITableViewCell {
             case .others:
                 switch self?.follow {
                 case true:
-                    if let action = self?.action {
-                        action() 
+                    if let action = self?.action,
+                        let name = self?.name {
+                        action(name)
                     }
+                    
+                    // TODO: - 이후 팔로잉 삭제 요청 필요
                 case false:
                     if let loginId = self?.loginId {
                         APIService.postFollow(loginId: loginId).performRequest { result in
@@ -142,40 +146,6 @@ final class FollowTableViewCell: UITableViewCell {
         followButton.configuration = config
     }
     
-    /// 팔로우 버튼 toggle 메서드
-//    private func followButtonclick() {
-//        switch follow {
-//        case true:
-//            if let loginId = self.loginId {
-//                APIService.deleteFollowing(loginId: loginId).performRequest { result in
-//                    DispatchQueue.main.async {
-//                        switch result {
-//                        case .success(_):
-//                            self.follow.toggle()
-//                            
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                    }
-//                }
-//            }
-//        case false:
-//            if let loginId = self.loginId {
-//                APIService.postFollow(loginId: loginId).performRequest { result in
-//                    DispatchQueue.main.async {
-//                        switch result {
-//                        case .success(_):
-//                            self.follow.toggle()
-//                            
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
     /// VC로부터 데이터를 받아오는 메서드
     func configData(data: FriendInfo) {
         self.loginId = data.foundLoginId
@@ -190,9 +160,10 @@ final class FollowTableViewCell: UITableViewCell {
         
         loadImage(data: data.profilePhotoURL)
         nameLabel.text = data.foundUserName
+        self.name = data.foundUserName
     }
     
-    func setAction(action: (()->())?) {
+    func setAction(action: ((String)->())?) {
         self.action = action
     }
     

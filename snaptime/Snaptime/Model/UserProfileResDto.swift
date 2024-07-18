@@ -16,4 +16,5 @@ struct UserProfileResDto: Codable {
     var userId: Int
     var userName: String
     var profileURL: String
+    var isFollow: Bool?
 }
