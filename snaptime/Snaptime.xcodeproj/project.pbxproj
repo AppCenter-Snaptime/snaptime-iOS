@@ -100,6 +100,7 @@
 		A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */; };
 		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
 		A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */; };
+		A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,6 +201,7 @@
 		A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
+		A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoLong.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,6 +467,7 @@
 				29176FB32C412C6E00CD9A24 /* CommonResponseDtoListFindAllAlbumsResDto.swift */,
 				29625E132C4280B600D51841 /* CommonResDtoVoid.swift */,
 				29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */,
+				A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */,
 				29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */,
 				29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */,
+				A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */,
 				296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,

@@ -28,6 +28,7 @@ enum APIService {
     case fetchSnap(albumId: Int)
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
+    case postAlbum
     
     case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
     case postFollow(loginId: String)
@@ -69,6 +70,9 @@ extension APIService {
         case .fetchAlbumList:
             "/album/albumListWithThumbnail"
             
+        case .postAlbum:
+            "/album"
+            
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
             "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
             
@@ -102,6 +106,7 @@ extension APIService {
         
         case .postReply,
             .postFollow:
+            .postAlbum:
                 .post
             
         case .deleteFollowing:
@@ -206,6 +211,10 @@ extension APIService {
                         }
                         
                         else if case .postReply = self {
+                            completion(.success(data))
+                        }
+                        
+                        else {
                             completion(.success(data))
                         }
                     }
