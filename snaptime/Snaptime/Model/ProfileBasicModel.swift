@@ -12,6 +12,6 @@ struct ProfileBasicModel: Codable {
 }
 
 extension ProfileBasicModel {
-    static let profile = ProfileBasicModel(loginId: "bowon0000")
+    static let profile = ProfileBasicModel(loginId: "hyeon0000")
     static let profile2 = ProfileBasicModel(loginId: "eogus4658")
 }

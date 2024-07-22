@@ -109,8 +109,9 @@ final class AddSnapViewController: BaseViewController {
         // 아직 parameter isPrivate 안 보냄
         
         let url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return }
         var headers: HTTPHeaders {
-            ["Authorization": ACCESS_TOKEN, "accept": "*/*", "Content-Type": "multipart/form-data"]
+            ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "multipart/form-data"]
         }
         guard let image = addImageButton.image(for: .normal),
               let jpgimageData = image.jpegData(compressionQuality: 1.0),

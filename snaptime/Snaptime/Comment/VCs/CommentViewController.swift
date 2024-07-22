@@ -169,8 +169,10 @@ final class CommentViewController: BaseViewController {
     private func fetchComment() {
         // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
         let url = "http://na2ru2.me:6308/parent-replies/1"
+        
+        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else {return}
         let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
+            "Authorization": "Bearer \(token)",
             "accept": "*/*"
         ]
         let parameters: Parameters = [
@@ -223,10 +225,11 @@ final class CommentViewController: BaseViewController {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue.global(qos: .userInteractive)
         var childInfo: [ChildReplyInfo]? = nil
-        
+        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return nil }
+
         let url = "http://na2ru2.me:6308/child-replies/1"
         let headers: HTTPHeaders = [
-            "Authorization": ACCESS_TOKEN,
+            "Authorization": "Bearer \(token)",
             "accept": "*/*"
         ]
         let parameters: Parameters = [

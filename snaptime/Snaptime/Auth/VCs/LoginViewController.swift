@@ -19,7 +19,9 @@ final class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabLoginButton()
+        
+        self.tabLoginButton()
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: - UI component Config
@@ -54,8 +56,7 @@ final class LoginViewController: BaseViewController {
         button.setTitle("이메일로 회원가입", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
-        button.addAction(
-            UIAction { _ in
+        button.addAction(UIAction { _ in
                 self.tabJoinButton()
         }, for: .touchUpInside)
         
@@ -63,14 +64,38 @@ final class LoginViewController: BaseViewController {
     }()
     
     // MARK: - button click method
-    @objc private func tabLoginButton() {
-        loginButton.tabButtonAction = { [weak self] in
-            self?.delegate?.presentHome()
-        }
+    private func tabLoginButton() {
+        loginButton.addAction(UIAction {[weak self] _ in
+            if let id = self?.idInputTextField.text,
+               let password = self?.passwordInputTextField.text {
+                let loginInfo = SignInReqDto(loginId: id, password: password)
+                
+                APIService.signIn.performRequest(with: loginInfo) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let token):
+                            if let token = token as? SignInResDto {
+                                let tk = TokenUtils()
+                                tk.create(APIService.baseURL, account: "accessToken", value: token.accessToken)
+                                tk.create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
+                                
+                                self?.delegate?.presentHome()
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            }
+        }, for: .touchUpInside)
     }
     
     private func tabJoinButton() {
         delegate?.presentJoinEmail()
+    }
+    
+    private func signInLogic(loginInfo: SignInReqDto) {
+        
     }
     
     // MARK: - setup UI

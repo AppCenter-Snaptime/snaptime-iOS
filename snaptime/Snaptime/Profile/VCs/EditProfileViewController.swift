@@ -21,7 +21,7 @@ final class EditProfileViewController: BaseViewController {
         super.viewDidLoad()
         
         self.fetchUserInfo()
-        self.loadImage(data: UserProfileManager.shared.profile.result.profileURL, imageView: editProfileImage)
+        APIService.loadImageNonToken(data: UserProfileManager.shared.profile.result.profileURL, imageView: editProfileImage)
         self.setNavigationBar()
     }
     
@@ -132,27 +132,6 @@ final class EditProfileViewController: BaseViewController {
                 switch result {
                 case .success(_):
                     print("modify user information")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    // MARK: - 이미지 변환 로직
-    private func loadImage(data: String, imageView: UIImageView) {
-        if let url = URL(string: data) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
                 case .failure(let error):
                     print(error)
                 }

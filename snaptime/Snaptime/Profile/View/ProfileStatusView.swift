@@ -180,12 +180,7 @@ final class ProfileStatusView: UIView {
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
     func setupUserProfile(_ userProfile: UserProfileResDto, loginId: String) {
-        switch profileTarget {
-        case .myself:
-            self.loadImage(data: userProfile.profileURL, imageView: profileImage)
-        case .others:
-            self.loadImageOther(data: userProfile.profileURL)
-        }
+        APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
         self.nickNameLabel.text = userProfile.userName
         
         if let follow = userProfile.isFollow {
@@ -200,41 +195,6 @@ final class ProfileStatusView: UIView {
         self.postNumber.setupNumber(number: userProfileCount.snapCnt)
         self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
         self.followingNumber.setupNumber(number: userProfileCount.followingCnt)
-    }
-    
-    // MARK: - 네트워크로부터 이미지 받아오는 함수
-    private func loadImage(data: String, imageView: UIImageView) {
-        if let url = URL(string: data) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    private func loadImageOther(data: String) {
-        guard let url = URL(string: data)  else { return }
-        
-        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
-        
-        backgroundQueue.async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            
-            DispatchQueue.main.async {
-                self.profileImage.image = UIImage(data: data)
-            }
-        }
     }
     
     // MARK: - view 계층

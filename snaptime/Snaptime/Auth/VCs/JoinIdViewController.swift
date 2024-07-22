@@ -20,6 +20,7 @@ final class JoinIdViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: - UI component Config
@@ -45,9 +46,9 @@ final class JoinIdViewController: BaseViewController {
     
     // MARK: - button click method
     private func tabNextButton() {
-        nextButton.tabButtonAction = { [weak self] in
+        nextButton.addAction(UIAction {[weak self] _ in
             self?.delegate?.backToRoot()
-        }
+        }, for: .touchUpInside)
     }
     
     private func textFieldEditing() {

@@ -158,27 +158,13 @@ final class FollowTableViewCell: UITableViewCell {
             follow = data.isMyFriend
         }
         
-        loadImage(data: data.profilePhotoURL)
+        APIService.loadImageNonToken(data: data.profilePhotoURL, imageView: profileImageView)
         nameLabel.text = data.foundUserName
         self.name = data.foundUserName
     }
     
     func setAction(action: ((String)->())?) {
         self.action = action
-    }
-    
-    private func loadImage(data: String) {
-        guard let url = URL(string: data)  else { return }
-        
-        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
-        
-        backgroundQueue.async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            
-            DispatchQueue.main.async {
-                self.profileImageView.image = UIImage(data: data)
-            }
-        }
     }
     
     // MARK: - UI Layouts config

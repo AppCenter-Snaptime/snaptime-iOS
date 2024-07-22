@@ -67,52 +67,15 @@ class SingleCommentView: UIView {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
         self.beforeDateLabel.text = comment.timeAgo
-        if let url = URL(string: comment.writerProfilePhotoURL) {
-            
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            self.profileImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print("error")
-                    print(error)
-                }
-            }
-            
-        }
+        
+        APIService.loadImage(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
     func setupUI(comment: ChildReplyInfo) {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
         self.beforeDateLabel.text = comment.timeAgo
-        if let url = URL(string: comment.writerProfilePhotoURL) {
-            
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            self.profileImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print("error")
-                    print(error)
-                }
-            }
-            
-        }
+        APIService.loadImage(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
     private func setLayout() {

@@ -74,7 +74,7 @@ final class FollowViewController: BaseViewController {
                 switch result {
                 case .success(let result):
                     if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        self.friendList = result.result.friendInfoList
+                        self.friendList = result.result.friendInfos
                     }
                     
                     self.followTableView.reloadData()

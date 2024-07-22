@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import Kingfisher
 
 enum FetchError: Error {
     case invalidStatus
@@ -16,6 +17,8 @@ enum FetchError: Error {
 
 enum APIService {
     static let baseURL = "http://na2ru2.me:6308"
+    
+    case signIn
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -40,14 +43,18 @@ enum APIService {
 extension APIService {
     var path: String {
         switch self {
+            
+        case .signIn:
+            "/users/sign-in"
+            
         case .fetchUserProfile(let loginId):
-            "/profiles/profile?loginId=\(loginId)"
+            "/profiles/profile?targetLoginId=\(loginId)"
     
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
             
         case .fetchUserAlbum(let loginId):
-            "/profiles/album-snap?loginId=\(loginId)"
+            "/profiles/album-snap?targetLoginId=\(loginId)"
             
         case .fetchUserTagSnap(let loginId):
             "/profiles/tag-snap?loginId=\(loginId)"
@@ -106,7 +113,8 @@ extension APIService {
         
         case .postReply,
             .postFollow,
-            .postAlbum:
+            .postAlbum,
+            .signIn:
                 .post
             
         case .deleteFollowing:
@@ -119,7 +127,8 @@ extension APIService {
     }
     
     var headers: HTTPHeaders {
-        ["Authorization": ACCESS_TOKEN, "accept": "*/*", "Content-Type": "application/json"]
+        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
+        return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
     }
     
     var request: URLRequest {
@@ -154,6 +163,11 @@ extension APIService {
                         if case .fetchUserProfile = self {
                             let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
                             completion(.success(userProfile))
+                        }
+                        
+                        else if case .signIn = self {
+                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(token.result))
                         }
                         
                         else if case .fetchUserProfileCount = self {
@@ -226,5 +240,41 @@ extension APIService {
                 }
                 
             }
+    }
+    
+    static func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data),
+            let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                return r
+            }
+            
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(_):
+                    print("success fetch image")
+                case .failure(let error):
+                    print("error")
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    static func loadImageNonToken(data: String, imageView: UIImageView) {
+        guard let url = URL(string: data)  else { return }
+        
+        let backgroundQueue = DispatchQueue(label: "background_queue",qos: .background)
+        
+        backgroundQueue.async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
+            }
+        }
     }
 }
