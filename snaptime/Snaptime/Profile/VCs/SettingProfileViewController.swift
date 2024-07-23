@@ -19,7 +19,7 @@ final class SettingProfileViewController: BaseViewController {
     weak var delegate: SettingProfileViewControllerDelegate?
     private var userProfile = UserProfileManager.shared.profile.result
     
-    private let loginId = ProfileBasicModel.profile.loginId
+    private let loginId = ProfileBasicManager.shared.profile.loginId
     
     override func viewDidLoad() {
         super.viewDidLoad()

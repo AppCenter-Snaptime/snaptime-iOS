@@ -134,7 +134,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     func configureData(data: FindSnapResDto) {
         self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
-        userNameLabel.text = data.userName
+        userNameLabel.text = data.writerUserName
         APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
 
         postLabel.text = data.oneLineJournal

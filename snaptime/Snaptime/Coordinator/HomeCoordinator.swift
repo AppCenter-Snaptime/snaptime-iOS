@@ -82,7 +82,7 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
     }
     
     func presentCommentVC(snap: FindSnapResDto) {
-        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.userName)
+        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)

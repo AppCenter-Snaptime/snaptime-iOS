@@ -81,10 +81,7 @@ final class TopTapBarView: UIView {
     func setLoginId(loginId: String) {
         self.loginId = loginId
         self.albumListView.setLoginId(loginId: self.loginId)
-        reloadAlbumListView()
-        
         self.tagListView.setLoginId(loginId: self.loginId)
-        reloadTagListView()
     }
     
     // MARK: - setup UI    

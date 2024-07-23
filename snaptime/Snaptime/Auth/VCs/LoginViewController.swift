@@ -79,6 +79,8 @@ final class LoginViewController: BaseViewController {
                                 tk.create(APIService.baseURL, account: "accessToken", value: token.accessToken)
                                 tk.create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
                                 
+                                ProfileBasicManager.shared.profile.loginId = id
+                                
                                 self?.delegate?.presentHome()
                             }
                         case .failure(let error):

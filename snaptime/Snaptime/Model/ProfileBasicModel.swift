@@ -11,7 +11,11 @@ struct ProfileBasicModel: Codable {
     var loginId: String
 }
 
-extension ProfileBasicModel {
-    static let profile = ProfileBasicModel(loginId: "hyeon0000")
-    static let profile2 = ProfileBasicModel(loginId: "eogus4658")
+// 일단 싱글톤 객체에 담아놓음
+class ProfileBasicManager {
+    var profile = ProfileBasicModel(loginId: "")
+    
+    static let shared = ProfileBasicManager()
+    
+    private init() {}
 }

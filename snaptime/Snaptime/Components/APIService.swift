@@ -242,9 +242,11 @@ extension APIService {
             }
     }
     
+    // MARK: - 이미지 네트워킹 메서드
     static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
             let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
+            print(url)
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
@@ -264,6 +266,7 @@ extension APIService {
         }
     }
     
+    // MARK: - 토큰 없을 때 이미지 네트워킹 메서드
     static func loadImageNonToken(data: String, imageView: UIImageView) {
         guard let url = URL(string: data)  else { return }
         

@@ -65,7 +65,8 @@ final class CommunityViewController: BaseViewController {
                 switch result {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
-                        self.snaps = snap.result.snapPagingInfoList
+                        self.snaps = snap.result.snapPagingInfos
+                        
                     }
                     self.contentCollectionView.reloadData()
                 case .failure(let error):

@@ -51,6 +51,7 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    /// 버그존재
     func setCellData(data: AlbumSnapResDto) {
         descriptionLabel.text = data.albumName
         

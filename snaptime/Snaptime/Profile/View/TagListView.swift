@@ -47,7 +47,6 @@ final class TagListView: UIView {
     
     func setLoginId(loginId: String) {
         self.fetchTagList(loginId: loginId)
-        self.reloadData()
     }
     
     private func fetchTagList(loginId: String) {
