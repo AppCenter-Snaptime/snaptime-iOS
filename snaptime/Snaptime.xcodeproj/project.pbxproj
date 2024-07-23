@@ -69,6 +69,7 @@
 		29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */; };
 		29AA38072BF261E5009EF296 /* ProfileCntResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */; };
 		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
+		29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
 		29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6709C2C4417460028F356 /* CustomAlertViewController.swift */; };
@@ -174,6 +175,7 @@
 		29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBasicModel.swift; sourceTree = "<group>"; };
 		29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCntResDto.swift; sourceTree = "<group>"; };
 		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReqDto.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
 		29F6709C2C4417460028F356 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */,
 				29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */,
 				29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */,
+				29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				A68185002C32E27700ECBDE3 /* RoundImageView.swift in Sources */,
 				A68184FC2C0477C800ECBDE3 /* FindAlbumResDto.swift in Sources */,
 				29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */,
+				29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
 				29839F392C4E425C001A57E5 /* TokenUtils.swift in Sources */,
 				29E6EA132BFF8B13004F154F /* APIService.swift in Sources */,

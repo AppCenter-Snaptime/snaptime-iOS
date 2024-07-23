@@ -19,6 +19,7 @@ enum APIService {
     static let baseURL = "http://na2ru2.me:6308"
     
     case signIn
+    case signUp
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -46,6 +47,9 @@ extension APIService {
             
         case .signIn:
             "/users/sign-in"
+            
+        case .signUp:
+            "/users/sign-up"
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
@@ -114,7 +118,8 @@ extension APIService {
         case .postReply,
             .postFollow,
             .postAlbum,
-            .signIn:
+            .signIn,
+            .signUp:
                 .post
             
         case .deleteFollowing:
@@ -169,7 +174,7 @@ extension APIService {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
-                        
+                                                
                         else if case .fetchUserProfileCount = self {
                             let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))
