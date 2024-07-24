@@ -79,7 +79,7 @@ final class LoginViewController: BaseViewController {
                                 tk.create(APIService.baseURL, account: "accessToken", value: token.accessToken)
                                 tk.create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
                                 
-                                ProfileBasicManager.shared.profile.loginId = id
+//                                ProfileBasicManager.shared.profile.loginId = id
                                 
                                 self?.delegate?.presentHome()
                             }
@@ -94,10 +94,6 @@ final class LoginViewController: BaseViewController {
     
     private func tabJoinButton() {
         delegate?.presentJoinEmail()
-    }
-    
-    private func signInLogic(loginInfo: SignInReqDto) {
-        
     }
     
     // MARK: - setup UI
