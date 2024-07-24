@@ -18,6 +18,20 @@ struct FindSnapResDto: Codable {
     var snapPhotoURL: String
     var snapCreatedDate: String
     var snapModifiedDate: String
+    var writerLoginId: String
+    var profilePhotoURL: String
+    var writerUserName: String
+    var findTagUsers: [FindTagUserResDto]
+    var likeCnt: Int
+    var isLikedSnap: Bool
+}
+
+struct FindSnapPreviewResDto: Codable {
+    var snapId: Int
+    var oneLineJournal: String
+    var snapPhotoURL: String
+    var snapCreatedDate: String
+    var snapModifiedDate: String
     var loginId: String
     var profilePhotoURL: String
     var userName: String

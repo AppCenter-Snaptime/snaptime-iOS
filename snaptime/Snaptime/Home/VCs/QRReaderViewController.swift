@@ -148,6 +148,7 @@ extension QRReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
             print("stringValue: " + stringValue)
             
             self.captureSession.stopRunning()
+            // 여기에 api 호출
             delegate?.didFinishAddAlbum()
         }
     }
