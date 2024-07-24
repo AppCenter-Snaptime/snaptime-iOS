@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentProfile(target: .myself,loginId: ProfileBasicModel.profile.loginId)
+        presentProfile(target: .myself,loginId: ProfileBasicModel.profile2.loginId)
     }
     
     init(navigationController: UINavigationController) {
