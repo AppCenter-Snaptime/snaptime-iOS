@@ -27,13 +27,21 @@ final class LoginViewController: BaseViewController {
     // MARK: - UI component Config
     private let loginLabel: UILabel = {
         let label = UILabel()
-        label.text = "나만을 위한\n인생 네컷 커뮤니티,\nSnapTime"
+        label.text = "나만을 위한\n인생 네컷 커뮤니티,"
         label.setLineSpacing(lineSpacing: 20)
         label.textAlignment = .left
-        label.numberOfLines = 3
+        label.numberOfLines = 2
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         
         return label
+    }()
+    
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .logo)
+        imageView.sizeToFit()
+        
+        return imageView
     }()
     
     private let inputStackView: UIStackView = {
@@ -106,6 +114,7 @@ final class LoginViewController: BaseViewController {
         }
         
         [loginLabel,
+         logoImageView,
          inputStackView,
          loginButton,
          joinButton].forEach {
@@ -121,8 +130,15 @@ final class LoginViewController: BaseViewController {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
+        logoImageView.snp.makeConstraints {
+            $0.top.equalTo(loginLabel.snp.bottom).offset(20)
+            $0.left.equalTo(loginLabel.snp.left)
+            $0.height.equalTo(30)
+            $0.width.equalTo(130)
+        }
+        
         inputStackView.snp.makeConstraints {
-            $0.top.equalTo(loginLabel.snp.bottom).offset(63)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(63)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }
