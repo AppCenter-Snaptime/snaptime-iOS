@@ -24,6 +24,7 @@
 		292A4D652B7CBD1F002FCC57 /* SnapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */; };
 		292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */; };
 		2932DB0A2C5216BB00CAECBC /* FindSnapPreviewResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */; };
+		2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0B2C5233E700CAECBC /* OAuthButton.swift */; };
 		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
@@ -132,6 +133,7 @@
 		292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCollectionViewCell.swift; sourceTree = "<group>"; };
 		292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapPreviewResDto.swift; sourceTree = "<group>"; };
+		2932DB0B2C5233E700CAECBC /* OAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthButton.swift; sourceTree = "<group>"; };
 		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				298F7F742B6BA79C00A8DBC5 /* AuthTextField.swift */,
+				2932DB0B2C5233E700CAECBC /* OAuthButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
+				2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */,
 				A68185062C3573B000ECBDE3 /* FindParentReplyResDto.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,

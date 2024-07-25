@@ -71,6 +71,38 @@ final class LoginViewController: BaseViewController {
         return button
     }()
     
+    private let separatedLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.init(hexCode: "#DBD5D0")
+        
+        return view
+    }()
+    
+    private let oAuthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "간편로그인"
+        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.textColor = UIColor.init(hexCode: "#9B9189")
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        
+        return label
+    }()
+    
+    private let oAuthStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 24
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+    
+    private lazy var googleButton = OAuthButton(imageName: "")
+    private lazy var kakaoButton = OAuthButton(imageName: "")
+    private lazy var appleButton = OAuthButton(imageName: "")
+    
     // MARK: - button click method
     private func tabLoginButton() {
         loginButton.addAction(UIAction {[weak self] _ in
@@ -113,11 +145,20 @@ final class LoginViewController: BaseViewController {
             inputStackView.addArrangedSubview($0)
         }
         
+        [googleButton,
+         kakaoButton,
+         appleButton].forEach {
+            oAuthStackView.addArrangedSubview($0)
+        }
+        
         [loginLabel,
          logoImageView,
          inputStackView,
          loginButton,
-         joinButton].forEach {
+         joinButton,
+         separatedLine,
+         oAuthLabel,
+         oAuthStackView].forEach {
             view.addSubview($0)
         }
     }
@@ -126,7 +167,7 @@ final class LoginViewController: BaseViewController {
         super.setupConstraints()
         
         loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
@@ -153,6 +194,24 @@ final class LoginViewController: BaseViewController {
         joinButton.snp.makeConstraints {
             $0.top.equalTo(loginButton.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
+        }
+        
+        separatedLine.snp.makeConstraints {
+            $0.top.equalTo(joinButton.snp.bottom).offset(60)
+            $0.left.equalTo(inputStackView.snp.left)
+            $0.right.equalTo(inputStackView.snp.right)
+            $0.height.equalTo(1)
+        }
+        
+        oAuthLabel.snp.makeConstraints {
+            $0.center.equalTo(separatedLine)
+            $0.width.equalTo(70)
+        }
+        
+        oAuthStackView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-80)
+            $0.top.equalTo(separatedLine.snp.bottom).offset(30)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
