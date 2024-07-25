@@ -42,7 +42,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupUI(_ snapPreiviews: FindSnapResDto) {
+    func setupUI(_ snapPreiviews: FindSnapPreviewResDto) {
         descriptionLabel.text = snapPreiviews.oneLineJournal
         if let url = URL(string: snapPreiviews.snapPhotoURL) {
             let modifier = AnyModifier { request in

@@ -23,7 +23,7 @@ enum APIService {
     case fetchUserTagSnap(loginId: String)
     case fetchUserInfo
     case modifyUserInfo
-    
+    case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
     case fetchSnapPreview(albumId: Int)
@@ -41,7 +41,7 @@ extension APIService {
     var path: String {
         switch self {
         case .fetchUserProfile(let loginId):
-            "/profiles/profile?loginId=\(loginId)"
+            "/profiles/profile?targetLoginId=\(loginId)"
     
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
@@ -57,6 +57,9 @@ extension APIService {
             
         case .modifyUserInfo:
             "/users"
+            
+        case .postLikeToggle(let snapId):
+            "/likes/toggle?snapId=\(snapId)"
             
         case .fetchCommunitySnap(let pageNum):
             "/community/snaps/\(pageNum)"
@@ -106,7 +109,8 @@ extension APIService {
         
         case .postReply,
             .postFollow,
-            .postAlbum:
+            .postAlbum,
+            .postLikeToggle:
                 .post
             
         case .deleteFollowing:

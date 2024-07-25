@@ -14,7 +14,7 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        presentProfile(target: .myself,loginId: ProfileBasicModel.profile.loginId)
+        presentProfile(target: .myself,loginId: ProfileBasicModel.profile2.loginId)
     }
     
     init(navigationController: UINavigationController) {
@@ -33,7 +33,7 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                             FollowViewControllerDelegate {
     
     func presentCommentVC(snap: FindSnapResDto) {
-        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.userName)
+        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)

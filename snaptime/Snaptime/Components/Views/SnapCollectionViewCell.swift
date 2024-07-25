@@ -88,9 +88,31 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             }
         })
     
+    private var isLikeSnap: Bool = false {
+        didSet {
+            let image = isLikeSnap ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+            likeButton.configuration?.image = image
+        }
+    }
+    
     private lazy var likeButton = IconButton(
         name: "heart",
-        action: UIAction { [weak self] _ in })
+        action: UIAction { [weak self] _ in
+            guard let self = self,
+                  let snap = self.snap else { return }
+            self.isLikeSnap.toggle()
+            APIService.postLikeToggle(snapId: snap.snapId).performRequest { result in
+                switch result {
+                case .success(let data):
+                    if let data = data as? Data {
+                        print(String(data: data, encoding: .utf8))
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    )
 
     private lazy var shareButton = IconButton(
         name: "square.and.arrow.up",
@@ -134,11 +156,15 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     func configureData(data: FindSnapResDto) {
         self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
-        userNameLabel.text = data.userName
+        userNameLabel.text = data.writerUserName
         self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
 
         postLabel.text = data.oneLineJournal
         postDateLabel.text = data.snapModifiedDate.toDateString()
+        tagLabel.text = data.findTagUsers.count == 0 ? ""
+        : data.findTagUsers.count == 1 ? "with @\(data.findTagUsers[0].tagUserName)"
+        : "with @\(data.findTagUsers[0].tagUserName) + \(data.findTagUsers.count - 1) others"
+        isLikeSnap = data.isLikedSnap
     }
     
     private func loadSnapImage(data: String, imageView: UIImageView) {

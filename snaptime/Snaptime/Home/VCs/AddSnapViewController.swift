@@ -113,7 +113,7 @@ final class AddSnapViewController: BaseViewController {
             ["Authorization": ACCESS_TOKEN, "accept": "*/*", "Content-Type": "multipart/form-data"]
         }
         guard let image = addImageButton.image(for: .normal),
-              let jpgimageData = image.jpegData(compressionQuality: 1.0),
+              let jpgimageData = image.jpegData(compressionQuality: 0.2),
               let oneLineJournal = oneLineDiaryTextView.text
         else {
             return
