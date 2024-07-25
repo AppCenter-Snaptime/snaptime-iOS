@@ -163,7 +163,7 @@ final class CommentViewController: BaseViewController {
         super.viewDidLoad()
         self.setupDataSource()
         self.fetchComment()
-        self.fetchUserProfile(loginId: ProfileBasicModel.profile2.loginId)
+        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
     }
     
     
@@ -281,28 +281,8 @@ final class CommentViewController: BaseViewController {
                 switch result {
                 case .success(let userProfile):
                     if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        self.setProfileImage(url: profile.result.profileURL)
+                        APIService.loadImage(data: profile.result.profileURL, imageView: self.replyImageView)
                     }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    private func setProfileImage(url: String) {
-        if let url = URL(string: url) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            replyImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
                 case .failure(let error):
                     print(error)
                 }

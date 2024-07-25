@@ -136,6 +136,11 @@ extension APIService {
     }
     
     var headers: HTTPHeaders {
+        if case .signIn = self,
+           case .signUp = self {
+            return ["accept": "*/*", "Content-Type": "application/json"]
+        }
+
         guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
         return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
     }
@@ -150,7 +155,7 @@ extension APIService {
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
         var request = self.request
         print(url)
-
+        
         if let parameters = parameters {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)

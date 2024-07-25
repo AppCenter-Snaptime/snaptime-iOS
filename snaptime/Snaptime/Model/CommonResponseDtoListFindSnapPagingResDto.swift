@@ -13,6 +13,6 @@ struct CommonResponseDtoListFindSnapPagingResDto: Codable {
 }
 
 struct FindSnapPagingResDto: Codable {
-    let snapPagingInfos: [FindSnapResDto]
+    let snapDetailInfoDtos: [FindSnapResDto]
     let hasNextPage: Bool
 }
