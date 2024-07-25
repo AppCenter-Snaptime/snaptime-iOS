@@ -44,24 +44,8 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     
     func setupUI(_ snapPreiviews: FindSnapPreviewResDto) {
         descriptionLabel.text = snapPreiviews.oneLineJournal
-        if let url = URL(string: snapPreiviews.snapPhotoURL) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            snapImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print("error")
-                    print(error)
-                }
-            }
-        }
+        
+        APIService.loadImage(data: snapPreiviews.snapPhotoURL, imageView: snapImageView)
     }
     
     // MARK: - setup Layouts

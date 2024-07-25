@@ -47,7 +47,6 @@ final class AlbumListView: UIView {
     
     func setLoginId(loginId: String) {
         self.fetchUserAlbum(loginId: loginId)
-        self.reloadData()
     }
     
     private func fetchUserAlbum(loginId: String) {
@@ -56,6 +55,7 @@ final class AlbumListView: UIView {
                 switch result {
                 case .success(let result):
                     if let result = result as? CommonResponseDtoListAlbumSnapResDto {
+                        self.albumList = []
                         self.albumList = result.result
                         self.reloadData()
                     }

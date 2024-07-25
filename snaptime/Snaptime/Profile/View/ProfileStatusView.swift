@@ -10,20 +10,26 @@ import SnapKit
 import Kingfisher
 
 /// 프로필 이미지, 닉네임, 팔로잉,팔로워,게시글 버튼을 포함하고 있는 customView
-/// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨 
+/// 타인의 프로필과 나의 프로필 구별하기 위한 enum이 포함됨
 final class ProfileStatusView: UIView {
     private var followOrSettingButtonAction: UIAction
     private var followingButtonAction: UIAction
     private var followerButtonAction: UIAction
+
     private let profileTarget: ProfileTarget
     
-    var follow: Bool = true {
+    private var action: ((String)->())?
+
+    private var loginId: String = ""
+    private var name: String?
+    
+    private var follow: Bool = true {
         didSet {
             updateFollowButtonTitle()
         }
     }
     
-    init(target: ProfileTarget, 
+    init(target: ProfileTarget,
          followOrSettingAction: UIAction,
          followingAction: UIAction,
          followerAction: UIAction) {
@@ -89,6 +95,10 @@ final class ProfileStatusView: UIView {
         return view
     }()
     
+    func setAction(action: ((String)->())?) {
+        self.action = action
+    }
+    
     // MARK: - 팔로잉, 팔로우 버튼 다르게 보이도록 구현
     private func updateFollowButtonTitle() {
         var config = followOrSettingButton.configuration
@@ -112,7 +122,26 @@ final class ProfileStatusView: UIView {
     }
     
     func followButtonclick() {
-        follow.toggle()
+        if follow {
+            if let action = self.action,
+               let name = self.name {
+                action(name)
+            }
+            // TODO: - 이후 팔로잉 삭제 요청 필요
+        }
+        
+        else if !follow {
+            APIService.postFollow(loginId: self.loginId).performRequest { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        self.follow.toggle()
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - target에 따른 button UI 세팅하는 함수
@@ -150,36 +179,22 @@ final class ProfileStatusView: UIView {
     }
     
     // MARK: - 이름과 프로필 이미지 세팅하는 함수
-    func setupUserProfile(_ userProfile: UserProfileResDto) {
-        self.loadImage(data: userProfile.profileURL, imageView: profileImage)
+    func setupUserProfile(_ userProfile: UserProfileResDto, loginId: String) {
+        APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
         self.nickNameLabel.text = userProfile.userName
+        
+        if let follow = userProfile.isFollow {
+            self.follow = follow
+        }
+        
+        self.loginId = loginId
+        self.name = userProfile.userName
     }
     
     func setupUserNumber(_ userProfileCount: ProfileCntResDto) {
         self.postNumber.setupNumber(number: userProfileCount.snapCnt)
         self.followerNumber.setupNumber(number: userProfileCount.followerCnt)
         self.followingNumber.setupNumber(number: userProfileCount.followingCnt)
-    }
-    
-    // MARK: - 네트워크로부터 이미지 받아오는 함수
-    private func loadImage(data: String, imageView: UIImageView) {
-        if let url = URL(string: data) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
     }
     
     // MARK: - view 계층

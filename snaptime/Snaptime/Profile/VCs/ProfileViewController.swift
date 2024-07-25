@@ -1,5 +1,5 @@
 //
-//  MyProfileViewController.swift
+//  ProfileViewController.swift
 //  snaptime
 //
 //  Created by Bowon Han on 2/1/24.
@@ -48,11 +48,12 @@ final class ProfileViewController: BaseViewController {
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
         self.albumAndTagListView.setLoginId(loginId: loginId)
+        self.profileStatusView.setAction(action: followButtonAction)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
         self.albumAndTagListView.setLoginId(loginId: loginId)
@@ -106,6 +107,14 @@ final class ProfileViewController: BaseViewController {
     )
     
     private lazy var albumAndTagListView = TopTapBarView()
+    
+    private func followButtonAction(name: String) {
+        show(
+            alertText: "\(name)님을 언팔로우 하시겠어요?",
+            cancelButtonText: "취소하기",
+            confirmButtonText: "언팔로우"
+        )
+    }
         
     private var sendFlow: (Int) -> Void {
         return { [weak self] albumId in
@@ -131,7 +140,7 @@ final class ProfileViewController: BaseViewController {
                 switch result {
                 case .success(let userProfile):
                     if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        self.profileStatusView.setupUserProfile(profile.result)
+                        self.profileStatusView.setupUserProfile(profile.result, loginId: self.loginId)
                     }
                 case .failure(let error):
                     print(error)
@@ -178,4 +187,13 @@ final class ProfileViewController: BaseViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+}
+
+// MARK: - extension
+extension ProfileViewController: CustomAlertDelegate {
+    func action() {
+        
+    }
+    
+    func exit() {}
 }

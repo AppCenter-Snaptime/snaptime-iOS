@@ -20,6 +20,7 @@ final class JoinEmailViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: - UI component Config
@@ -38,9 +39,9 @@ final class JoinEmailViewController: BaseViewController {
     
     // MARK: - button click method
     private func tabNextButton() {
-        nextButton.tabButtonAction = { [weak self] in
+        nextButton.addAction(UIAction {[weak self] _ in
             self?.delegate?.presentJoinPassword()
-        }
+        }, for: .touchUpInside)
     }
     
     private func textFieldEditing() {

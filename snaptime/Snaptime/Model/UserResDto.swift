@@ -13,7 +13,7 @@ struct CommonResponseDtoUserResDto: Codable {
 }
 
 struct UserResDto: Codable {
-    var id: Int
+    var userId: Int
     var name: String
     var loginId: String
     var email: String

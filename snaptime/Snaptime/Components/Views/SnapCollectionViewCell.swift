@@ -157,34 +157,13 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.writerUserName
-        self.loadSnapImage(data: data.snapPhotoURL, imageView: photoImageView)
-
+        APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
         postDateLabel.text = data.snapModifiedDate.toDateString()
         tagLabel.text = data.findTagUsers.count == 0 ? ""
         : data.findTagUsers.count == 1 ? "with @\(data.findTagUsers[0].tagUserName)"
         : "with @\(data.findTagUsers[0].tagUserName) + \(data.findTagUsers.count - 1) others"
         isLikeSnap = data.isLikedSnap
-    }
-    
-    private func loadSnapImage(data: String, imageView: UIImageView) {
-        if let url = URL(string: data) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
     }
     
     /// 토큰이 들어가면 안되는듯? -> 기본 이미지가 뜨는데..

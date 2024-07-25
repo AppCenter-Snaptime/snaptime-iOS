@@ -44,16 +44,24 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
     
     func setupUI(_ album: Album) {
         descriptionLabel.text = album.name
-        if let photoURL = album.photoURL,
-           let url = URL(string: photoURL) {
+        
+        if let photoURL = album.photoURL {
+            self.loadImage(data: photoURL, imageView: snapImageView)
+        }
+    }
+    
+    private func loadImage(data: String, imageView: UIImageView) {
+        if let url = URL(string: data),
+            let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
+            print(url)
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
+                r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
                 return r
             }
             
-            snapImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
                     print("success fetch image")

@@ -20,6 +20,7 @@ final class JoinPasswordViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: - UI component Config
@@ -77,9 +78,9 @@ final class JoinPasswordViewController: BaseViewController {
     
     // MARK: - button click method
     private func tabNextButton() {
-        nextButton.tabButtonAction = { [weak self] in
+        nextButton.addAction(UIAction {[weak self] _ in
             self?.delegate?.presentJoinName()
-        }
+        }, for: .touchUpInside)
     }
     
     /// Switch password secure mode

@@ -59,9 +59,9 @@ final class FollowViewController: BaseViewController {
         return tableView
     }()
     
-    private func followButtonAction() {
+    private func followButtonAction(name: String) {
         show(
-            alertText: "Jocelyn 님을 언팔로우 하시겠어요?",
+            alertText: " \(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
             confirmButtonText: "언팔로우"
         )
@@ -74,7 +74,7 @@ final class FollowViewController: BaseViewController {
                 switch result {
                 case .success(let result):
                     if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        self.friendList = result.result.friendInfoList
+                        self.friendList = result.result.friendInfos
                     }
                     
                     self.followTableView.reloadData()
@@ -130,7 +130,9 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let selectedLoginId = selectedLoginId else { return }
         
-        if selectedLoginId == ProfileBasicModel.profile.loginId {
+//        if selectedLoginId == ProfileBasicManager.shared.profile.loginId 
+        if selectedLoginId == ProfileBasicModel.profile.loginId
+        {
             self.delegate?.presentProfile(target: .myself, loginId: selectedLoginId)
         }
         

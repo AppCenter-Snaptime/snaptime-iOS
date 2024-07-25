@@ -12,7 +12,6 @@ struct CommonResponseDtoListFindAllAlbumsResDto: Codable {
     var result: [FindAllAlbumsResDto]
 }
 
-
 struct FindAllAlbumsResDto: Codable {
     var id: Int
     var name: String

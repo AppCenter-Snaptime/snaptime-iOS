@@ -11,22 +11,16 @@ import SnapKit
 final class SnapTimeCustomButton: UIButton {
     private let customTitle: String
     private let buttonEnabled: Bool
-    var tabButtonAction : (() -> ())?
     
     init(_ title: String, _ enabled: Bool = true) {
         self.customTitle = title
         self.buttonEnabled = enabled
         super.init(frame: .zero)
         self.setupStyles()
-        self.addTarget(self, action: #selector(tabButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func tabButton() {
-        tabButtonAction?()  
     }
         
     private func setupStyles() {

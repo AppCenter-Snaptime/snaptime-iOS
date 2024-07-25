@@ -1,5 +1,5 @@
 //
-//  FindFriendResDto.swift
+//  CommonResponseDtoListFindFriendResDto.swift
 //  Snaptime
 //
 //  Created by Bowon Han on 7/5/24.
@@ -13,7 +13,7 @@ struct CommonResponseDtoListFindFriendResDto: Codable {
 }
 
 struct FindFriendResDto: Codable {
-    let friendInfoList: [FriendInfo]
+    let friendInfos: [FriendInfo]
     let hasNextPage: Bool
 }
 

@@ -51,37 +51,17 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    /// 버그존재
     func setCellData(data: AlbumSnapResDto) {
         descriptionLabel.text = data.albumName
         
         if data.snapUrlList.count == 2 {
-            loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
-            loadImage(data: data.snapUrlList[1], imageView: snapImageView2)
+            APIService.loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
+            APIService.loadImage(data: data.snapUrlList[1], imageView: snapImageView2)
         }
         
         else if data.snapUrlList.count == 1 {
-            loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
-        }
-    }
-    
-    private func loadImage(data: String, imageView: UIImageView) {
-        if let url = URL(string: data) {
-            let modifier = AnyModifier { request in
-                var r = request
-                r.setValue("*/*", forHTTPHeaderField: "accept")
-                r.setValue(ACCESS_TOKEN, forHTTPHeaderField: "Authorization")
-                return r
-            }
-            
-            imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
-                switch result {
-                case .success(_):
-                    print("success fetch image")
-                case .failure(let error):
-                    print("error")
-                    print(error)
-                }
-            }
+            APIService.loadImage(data: data.snapUrlList[0], imageView: snapImageView1)
         }
     }
     
