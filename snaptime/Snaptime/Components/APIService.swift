@@ -27,7 +27,7 @@ enum APIService {
     case fetchUserTagSnap(loginId: String)
     case fetchUserInfo
     case modifyUserInfo
-    
+    case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
     case fetchSnapPreview(albumId: Int)
@@ -68,6 +68,9 @@ extension APIService {
             
         case .modifyUserInfo:
             "/users"
+            
+        case .postLikeToggle(let snapId):
+            "/likes/toggle?snapId=\(snapId)"
             
         case .fetchCommunitySnap(let pageNum):
             "/community/snaps/\(pageNum)"
@@ -119,7 +122,8 @@ extension APIService {
             .postFollow,
             .postAlbum,
             .signIn,
-            .signUp:
+            .signUp,
+            .postLikeToggle:
                 .post
             
         case .deleteFollowing:

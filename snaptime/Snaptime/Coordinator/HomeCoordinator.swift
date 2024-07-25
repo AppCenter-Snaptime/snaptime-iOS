@@ -58,9 +58,9 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
             vc.dismiss(animated: true)
             self.presentedViewController = nil
         }
-//        let mainAlbumVC = MainAlbumViewController()
-//        mainAlbumVC.delegate = self
-//        navigationController.viewControllers = [mainAlbumVC]
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
     }
     
     func presentMainAlbum() {

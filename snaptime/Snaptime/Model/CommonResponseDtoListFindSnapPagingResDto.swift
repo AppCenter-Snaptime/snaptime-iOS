@@ -16,5 +16,3 @@ struct FindSnapPagingResDto: Codable {
     let snapPagingInfos: [FindSnapResDto]
     let hasNextPage: Bool
 }
-
-

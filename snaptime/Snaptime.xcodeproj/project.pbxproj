@@ -104,6 +104,7 @@
 		A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */; };
 		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
 		A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */; };
+		A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */; };
 		A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +210,7 @@
 		A69A81C12B877DBF006BAEB2 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
+		A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTagUserResDto.swift; sourceTree = "<group>"; };
 		A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoLong.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -479,6 +481,7 @@
 				29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */,
 				29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */,
 				29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */,
+				A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				296E0F672B8859E700758653 /* TopTapBarView.swift in Sources */,
 				A67508592C3BCFDD001B4059 /* FindChildReplyResDto.swift in Sources */,
 				A68185022C32E7A500ECBDE3 /* UITextField+.swift in Sources */,
+				A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */,
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				A68185062C3573B000ECBDE3 /* FindParentReplyResDto.swift in Sources */,
