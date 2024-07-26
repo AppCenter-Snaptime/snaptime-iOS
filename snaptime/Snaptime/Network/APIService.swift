@@ -177,9 +177,7 @@ extension APIService {
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
         
         var request = self.request
-        
-        print(url, headers)
-        
+                
         if let parameters = parameters {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)

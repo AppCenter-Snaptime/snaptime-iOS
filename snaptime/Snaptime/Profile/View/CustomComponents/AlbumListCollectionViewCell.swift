@@ -21,6 +21,13 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        snapImageView1.image = UIImage()
+        snapImageView2.image = UIImage()
+    }
+    
     private var imageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -51,7 +58,6 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    /// 버그존재
     func setCellData(data: AlbumSnapResDto) {
         descriptionLabel.text = data.albumName
         

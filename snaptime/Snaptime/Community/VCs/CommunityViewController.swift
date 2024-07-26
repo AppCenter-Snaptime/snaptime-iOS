@@ -43,9 +43,12 @@ final class CommunityViewController: BaseViewController {
     
     private lazy var notificationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bell"), for: .normal)
-        button.tintColor = .black
-        button.addAction(UIAction { [weak self] _ in
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .systemBackground
+        config.baseForegroundColor = .black
+        config.image = UIImage(systemName: "bell")
+        button.configuration = config
+        button.addAction(UIAction{ [weak self] _ in
             self?.delegate?.presentNotification()
         }, for: .touchUpInside)
         
