@@ -270,6 +270,7 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				2932DB102C538CBA00CAECBC /* Network */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				29FF6B8C2C1F057300CD5DCD /* Model */,
 				A69A81BD2B877719006BAEB2 /* Components */,
@@ -287,6 +288,15 @@
 				292977852B6618FB00FDC799 /* Info.plist */,
 			);
 			path = Snaptime;
+			sourceTree = "<group>";
+		};
+		2932DB102C538CBA00CAECBC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				29E6EA122BFF8B13004F154F /* APIService.swift */,
+				2932DB0D2C52694100CAECBC /* APIInterceptor.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		294F81422BB5666B001E68B3 /* Recovered References */ = {
@@ -569,9 +579,7 @@
 			children = (
 				297090272C37FF0F004A151B /* Views */,
 				297090262C37FF02004A151B /* VCs */,
-				29E6EA122BFF8B13004F154F /* APIService.swift */,
 				29839F382C4E425C001A57E5 /* KeyChain.swift */,
-				2932DB0D2C52694100CAECBC /* APIInterceptor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

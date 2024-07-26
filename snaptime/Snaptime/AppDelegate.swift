@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             case .failure(_):
                 completion(false)
-                print("⚠️토큰 만료⚠️")
+                print("⚠️모든 토큰 만료⚠️")
             }
         }
     }
