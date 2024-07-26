@@ -83,7 +83,7 @@ final class CommunityViewController: BaseViewController {
     
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     

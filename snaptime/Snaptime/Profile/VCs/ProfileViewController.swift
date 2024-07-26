@@ -129,7 +129,7 @@ final class ProfileViewController: BaseViewController {
     // MARK: - navigationBar 설정
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     
