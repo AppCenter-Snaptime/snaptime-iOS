@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch result {
             case .success(let result):
                 if let result = result as? CommonResponseDtoUserResDto {
-                    ProfileBasicManager.shared.profile.loginId = result.result.loginId
+                    ProfileBasicUserDefaults().loginId = result.result.loginId
                     completion(true)
                     print("🍀로그인 되어있음🍀")
                 }

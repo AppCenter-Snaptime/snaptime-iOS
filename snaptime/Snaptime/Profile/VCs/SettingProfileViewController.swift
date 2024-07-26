@@ -20,7 +20,7 @@ final class SettingProfileViewController: BaseViewController {
     weak var delegate: SettingProfileViewControllerDelegate?
     private var userProfile = UserProfileManager.shared.profile.result
     
-    private let loginId = ProfileBasicManager.shared.profile.loginId
+    private let loginId = ProfileBasicUserDefaults().loginId
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +101,6 @@ final class SettingProfileViewController: BaseViewController {
                                                         second: "탈퇴하기",
                                                         firstAction: UIAction { [weak self] _ in
         self?.logoutLogic()
-        self?.delegate?.presentLogin()
     },
                                                         secondAction: UIAction { [weak self] _ in
         
@@ -110,9 +109,9 @@ final class SettingProfileViewController: BaseViewController {
     private func logoutLogic() {
         let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
-//        if checkTokenDeleted.access && checkTokenDeleted.refresh {
-//            delegate?.presentLogin()
-//        }
+        if checkTokenDeleted.access && checkTokenDeleted.refresh {
+            delegate?.presentLogin()
+        }
     }
     
     private func setNavigationBar() {

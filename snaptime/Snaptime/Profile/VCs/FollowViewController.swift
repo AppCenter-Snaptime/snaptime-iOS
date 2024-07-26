@@ -130,8 +130,7 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let selectedLoginId = selectedLoginId else { return }
         
-        if selectedLoginId == ProfileBasicManager.shared.profile.loginId 
-//        if selectedLoginId == ProfileBasicModel.profile.loginId
+        if selectedLoginId == ProfileBasicUserDefaults().loginId
         {
             self.delegate?.presentProfile(target: .myself, loginId: selectedLoginId)
         }

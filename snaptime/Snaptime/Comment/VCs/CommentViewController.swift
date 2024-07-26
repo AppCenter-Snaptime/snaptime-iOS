@@ -163,7 +163,10 @@ final class CommentViewController: BaseViewController {
         super.viewDidLoad()
         self.setupDataSource()
         self.fetchComment()
-        self.fetchUserProfile(loginId: ProfileBasicManager.shared.profile.loginId)
+        
+        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        
+        self.fetchUserProfile(loginId: id)
         self.hideKeyboardWhenTappedAround()
     }
     

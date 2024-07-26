@@ -27,13 +27,15 @@ final class MainAlbumViewController : BaseViewController {
         super.viewDidLoad()
         
         self.fetchAlbumList()
-        self.fetchUserProfile(loginId: ProfileBasicManager.shared.profile.loginId)
+        
+        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        self.fetchUserProfile(loginId: id)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
-        self.fetchAlbumList() 
+        self.fetchAlbumList()
     }
     
     private let contentView = UIView()

@@ -150,15 +150,10 @@ final class FollowTableViewCell: UITableViewCell {
     func configData(data: FriendInfo) {
         self.loginId = data.foundLoginId
         /// 현재 사용자 자신의 프로필이라면 type을 myself로 설정
-        if data.foundLoginId == ProfileBasicManager.shared.profile.loginId 
-//        if data.foundLoginId == ProfileBasicModel.profile.loginId
-        {
-            type = .myself
-        }
         
-        else {
-            follow = data.isMyFriend
-        }
+        data.foundLoginId == ProfileBasicUserDefaults().loginId ?
+        (type = .myself) :
+        (follow = data.isMyFriend)
         
         APIService.loadImageNonToken(data: data.profilePhotoURL, imageView: profileImageView)
         nameLabel.text = data.foundUserName

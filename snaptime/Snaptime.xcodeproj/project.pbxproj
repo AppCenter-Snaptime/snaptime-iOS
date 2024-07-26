@@ -69,7 +69,7 @@
 		298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */; };
 		298F7F7F2B6BA85700A8DBC5 /* JoinEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */; };
 		29AA37B32BF23D81009EF296 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B22BF23D81009EF296 /* UserProfileManager.swift */; };
-		29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */; };
+		29AA37B52BF242A4009EF296 /* ProfileBasicUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA37B42BF242A4009EF296 /* ProfileBasicUserDefaults.swift */; };
 		29AA38072BF261E5009EF296 /* ProfileCntResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */; };
 		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
 		29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */; };
@@ -179,7 +179,7 @@
 		298F7F7C2B6BA83C00A8DBC5 /* JoinNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNameViewController.swift; sourceTree = "<group>"; };
 		298F7F7E2B6BA85700A8DBC5 /* JoinEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEmailViewController.swift; sourceTree = "<group>"; };
 		29AA37B22BF23D81009EF296 /* UserProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
-		29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBasicModel.swift; sourceTree = "<group>"; };
+		29AA37B42BF242A4009EF296 /* ProfileBasicUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBasicUserDefaults.swift; sourceTree = "<group>"; };
 		29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCntResDto.swift; sourceTree = "<group>"; };
 		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReqDto.swift; sourceTree = "<group>"; };
@@ -467,7 +467,7 @@
 				29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */,
 				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
 				29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */,
-				29AA37B42BF242A4009EF296 /* ProfileBasicModel.swift */,
+				29AA37B42BF242A4009EF296 /* ProfileBasicUserDefaults.swift */,
 				2954EAD02C298A3600994F15 /* UserResDto.swift */,
 				A62FE22A2BE24CD600BACF77 /* Album.swift */,
 				A68184FB2C0477C800ECBDE3 /* FindAlbumResDto.swift */,
@@ -725,7 +725,7 @@
 				29625E162C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift in Sources */,
 				29F80C702B8657C8003614AB /* TagListView.swift in Sources */,
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
-				29AA37B52BF242A4009EF296 /* ProfileBasicModel.swift in Sources */,
+				29AA37B52BF242A4009EF296 /* ProfileBasicUserDefaults.swift in Sources */,
 				29839F3F2C4E5D3F001A57E5 /* UIViewController+.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,

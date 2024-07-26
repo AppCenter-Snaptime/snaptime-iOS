@@ -120,7 +120,7 @@ final class LoginViewController: BaseViewController {
                                 
                                 /// 토큰이 keychain에 저장되었을 경우
                                 if token.accessResult && token.refreshResult {
-                                    ProfileBasicManager.shared.profile.loginId = id
+                                    ProfileBasicUserDefaults().loginId = id
                                     self?.delegate?.presentHome()
                                 }
                             }
@@ -210,7 +210,6 @@ final class LoginViewController: BaseViewController {
         }
         
         oAuthStackView.snp.makeConstraints {
-//            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-80)
             $0.top.equalTo(separatedLine.snp.bottom).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
