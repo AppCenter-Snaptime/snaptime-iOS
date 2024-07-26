@@ -11,19 +11,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            self.window = window
-
-            let navigationController = UINavigationController()
-            self.window?.rootViewController = navigationController
-          
-            let coordinator = AppCoordinator(navigationController: navigationController)
-            coordinator.start()
-            
-            self.window?.makeKeyAndVisible()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        /// appDelegate의 login check가 완료 되었을 시 실행될 클로져
+        appDelegate.checkLoginCompletion = {
+            DispatchQueue.main.async {
+                if let windowScene = scene as? UIWindowScene {
+                    let window = UIWindow(windowScene: windowScene)
+                    self.window = window
+                    
+                    let navigationController = UINavigationController()
+                    self.window?.rootViewController = navigationController
+                    
+                    let coordinator = AppCoordinator(navigationController: navigationController)
+                    appDelegate.isLogin ? coordinator.startTabbarCoordinator() : coordinator.startAuthCoordinator()
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+        }
+        
+        
+        if appDelegate.isLogin {
+            appDelegate.checkLoginCompletion?()
         }
     }
+    
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

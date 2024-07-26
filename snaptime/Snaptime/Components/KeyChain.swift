@@ -33,6 +33,8 @@ struct KeyChain {
         return (accessResult: accessResult, refreshResult: refreshResult)
     }
     
+    
+    
     // MARK: - func load token
     static func loadAccessToken(key: String) -> String? {
         let result = loadToken(key: key)
@@ -81,7 +83,7 @@ struct KeyChain {
             
             switch status {
             case errSecItemNotFound:
-                // 기존 데이터가 없으면 새로운 아이템으로 추가
+                /// 기존 데이터가 없으면 새로운 아이템으로 추가
                 let addStatus = SecItemAdd(query as CFDictionary, nil)
                 
                 if addStatus == errSecSuccess {
@@ -100,22 +102,22 @@ struct KeyChain {
                     return false
                 }
             case errSecSuccess:
-                // 업데이트 성공
+                /// 업데이트 성공
                 if key == TokenType.accessToken.rawValue {
-                    print("KeyChain - AccessToken 업데이트 성공")
+                    print("AccessToken 업데이트 성공")
                 } else {
-                    print("KeyChain - RefreshToken 업데이트 성공")
+                    print("RefreshToken 업데이트 성공")
                 }
                 return true
             default:
-                // 다른 오류 발생
+                /// 다른 오류 발생
                 print("Keychain save error: \(status)")
                 return false
             }
         }
         
-        // 데이터 변환 실패
-        print("Keychain - 데이터 변환 실패")
+        /// 데이터 변환 실패
+        print("데이터 변환 실패")
         return false
     }
     

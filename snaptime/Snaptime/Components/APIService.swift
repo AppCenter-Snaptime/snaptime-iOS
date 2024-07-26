@@ -148,7 +148,7 @@ extension APIService {
         
         /// refreshToken으로 accessToken 재발급 시
         else if case .reissue = self {
-            guard let refreshToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue)
+            guard let refreshToken = KeyChain.loadAccessToken(key: TokenType.refreshToken.rawValue)
             else {
                 return ["accept": "*/*", "Content-Type": "application/json"]
             }

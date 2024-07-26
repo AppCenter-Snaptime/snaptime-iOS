@@ -37,7 +37,6 @@ final class APIInterceptor: RequestInterceptor {
             modifiedRequest.setValue(KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue), forHTTPHeaderField: "accessToken")
             
             isTokenRefreshed = false
-            
             completion(.success(modifiedRequest))
         } else {
             completion(.success(urlRequest))
@@ -49,7 +48,7 @@ final class APIInterceptor: RequestInterceptor {
     /// 리프레쉬 토큰 재발급 API 를 호출하게 되는데 해당 API 도 401 을 반환할 수 있어 계속 adapt, retry 가 무한으로 반복될 가능성이 있음
     /// 리프레쉬 토큰 재발급 API 의 반복 호출을 막기 위해 guard let 을 통해 해당 path ( URL ) 에서 reissue 이라는 String 이 존재한다면 정지
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        print("retry 진입")
+        print("⚠️retry 진입⚠️")
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401, let pathComponents =
                 request.request?.url?.pathComponents,
                 !pathComponents.contains("reissue")
@@ -59,7 +58,7 @@ final class APIInterceptor: RequestInterceptor {
         }
 
         print("retry 코드:", response.statusCode)
-        // 토큰 갱신 API 호출
+        /// 토큰 갱신 API 호출
         APIService.reissue.performRequest { [weak self] result in
             switch result {
             case .success(let result):
@@ -74,18 +73,18 @@ final class APIInterceptor: RequestInterceptor {
                 if keyChainResult.accessResult == true && keyChainResult.refreshResult == true {
                     self?.isTokenRefreshed = true
                     
-                    guard var urlRequest = request.request
-                    else {
+                    guard request.request != nil else {
                         completion(.doNotRetry)
                         return
                     }
+                    
                     completion(.retry)
                 } else {
                     completion(.doNotRetry)
                 }
             case .failure(_):
                 completion(.doNotRetry)
-                print("postRefreshToken 도 만료")
+                print("⚠️refreshToken도 만료⚠️")
             }
         }
     }

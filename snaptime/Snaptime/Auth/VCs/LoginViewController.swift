@@ -116,11 +116,13 @@ final class LoginViewController: BaseViewController {
                         switch result {
                         case .success(let token):
                             if let token = token as? SignInResDto {
-                                KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
+                                let token = KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
                                 
-//                                ProfileBasicManager.shared.profile.loginId = id
-                                
-                                self?.delegate?.presentHome()
+                                /// 토큰이 keychain에 저장되었을 경우
+                                if token.accessResult && token.refreshResult {
+                                    ProfileBasicManager.shared.profile.loginId = id
+                                    self?.delegate?.presentHome()
+                                }
                             }
                         case .failure(let error):
                             print(error)

@@ -26,8 +26,8 @@ final class MainAlbumViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAlbumList() // 앨범목록 서버 통신
-//        self.fetchUserProfile(loginId: ProfileBasicManager.shared.profile.loginId)
-        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
+        self.fetchUserProfile(loginId: ProfileBasicManager.shared.profile.loginId)
+//        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
     }
     
     private let contentView = UIView()
