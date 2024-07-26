@@ -164,6 +164,7 @@ final class CommentViewController: BaseViewController {
         self.setupDataSource()
         self.fetchComment()
         self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
+        self.hideKeyboardWhenTappedAround()
     }
     
     
@@ -172,7 +173,7 @@ final class CommentViewController: BaseViewController {
         // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
         let url = "http://na2ru2.me:6308/parent-replies/1"
         
-        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else {return}
+        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else {return}
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "accept": "*/*"
@@ -200,7 +201,7 @@ final class CommentViewController: BaseViewController {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
-                    self.parentComments = result.result.parentReplyInfoList
+                    self.parentComments = result.result.parentReplyInfos
                     self.fetchChildComments()
                     DispatchQueue.main.async {
                         self.applySnapShot(data: self.parentComments)
@@ -227,7 +228,7 @@ final class CommentViewController: BaseViewController {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue.global(qos: .userInteractive)
         var childInfo: [ChildReplyInfo]? = nil
-        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return nil }
+        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return nil }
 
         let url = "http://na2ru2.me:6308/child-replies/1"
         let headers: HTTPHeaders = [
@@ -281,7 +282,7 @@ final class CommentViewController: BaseViewController {
                 switch result {
                 case .success(let userProfile):
                     if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        APIService.loadImage(data: profile.result.profileURL, imageView: self.replyImageView)
+                        APIService.loadImageNonToken(data: profile.result.profileURL, imageView: self.replyImageView)
                     }
                 case .failure(let error):
                     print(error)

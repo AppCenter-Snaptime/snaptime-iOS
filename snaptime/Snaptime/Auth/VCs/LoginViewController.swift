@@ -32,6 +32,7 @@ final class LoginViewController: BaseViewController {
         label.textAlignment = .left
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.sizeToFit()
         
         return label
     }()
@@ -115,9 +116,7 @@ final class LoginViewController: BaseViewController {
                         switch result {
                         case .success(let token):
                             if let token = token as? SignInResDto {
-                                let tk = TokenUtils()
-                                tk.create(APIService.baseURL, account: "accessToken", value: token.accessToken)
-                                tk.create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
+                                KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
                                 
 //                                ProfileBasicManager.shared.profile.loginId = id
                                 
@@ -167,7 +166,7 @@ final class LoginViewController: BaseViewController {
         super.setupConstraints()
         
         loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
@@ -179,7 +178,7 @@ final class LoginViewController: BaseViewController {
         }
         
         inputStackView.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom).offset(63)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(50)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }

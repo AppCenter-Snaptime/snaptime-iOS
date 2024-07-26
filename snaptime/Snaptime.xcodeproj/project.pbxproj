@@ -25,6 +25,7 @@
 		292A4D672B7CBD7F002FCC57 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */; };
 		2932DB0A2C5216BB00CAECBC /* FindSnapPreviewResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */; };
 		2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0B2C5233E700CAECBC /* OAuthButton.swift */; };
+		2932DB0E2C52694100CAECBC /* APIInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0D2C52694100CAECBC /* APIInterceptor.swift */; };
 		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
@@ -50,7 +51,7 @@
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
 		297090292C38014A004A151B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090282C38014A004A151B /* IconButton.swift */; };
 		2970902B2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */; };
-		29839F392C4E425C001A57E5 /* TokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F382C4E425C001A57E5 /* TokenUtils.swift */; };
+		29839F392C4E425C001A57E5 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F382C4E425C001A57E5 /* KeyChain.swift */; };
 		29839F3B2C4E4293001A57E5 /* SignInReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */; };
 		29839F3D2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */; };
 		29839F3F2C4E5D3F001A57E5 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3E2C4E5D3F001A57E5 /* UIViewController+.swift */; };
@@ -134,6 +135,7 @@
 		292A4D662B7CBD7F002FCC57 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapPreviewResDto.swift; sourceTree = "<group>"; };
 		2932DB0B2C5233E700CAECBC /* OAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthButton.swift; sourceTree = "<group>"; };
+		2932DB0D2C52694100CAECBC /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
 		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		297090282C38014A004A151B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindFriendResDto.swift; sourceTree = "<group>"; };
-		29839F382C4E425C001A57E5 /* TokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtils.swift; sourceTree = "<group>"; };
+		29839F382C4E425C001A57E5 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInReqDto.swift; sourceTree = "<group>"; };
 		29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoSignInResDto.swift; sourceTree = "<group>"; };
 		29839F3E2C4E5D3F001A57E5 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -568,7 +570,8 @@
 				297090272C37FF0F004A151B /* Views */,
 				297090262C37FF02004A151B /* VCs */,
 				29E6EA122BFF8B13004F154F /* APIService.swift */,
-				29839F382C4E425C001A57E5 /* TokenUtils.swift */,
+				29839F382C4E425C001A57E5 /* KeyChain.swift */,
+				2932DB0D2C52694100CAECBC /* APIInterceptor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
 				A675085B2C3BD075001B4059 /* ChildReplyInfo.swift in Sources */,
+				2932DB0E2C52694100CAECBC /* APIInterceptor.swift in Sources */,
 				29176FAC2C412BF700CD9A24 /* AlbumSnapResDto.swift in Sources */,
 				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
@@ -759,7 +763,7 @@
 				29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */,
 				29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */,
 				294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */,
-				29839F392C4E425C001A57E5 /* TokenUtils.swift in Sources */,
+				29839F392C4E425C001A57E5 /* KeyChain.swift in Sources */,
 				29E6EA132BFF8B13004F154F /* APIService.swift in Sources */,
 				295DF0522BC505A100112DE7 /* UILabel+.swift in Sources */,
 				298F7F672B6BA4D600A8DBC5 /* SnapViewController.swift in Sources */,

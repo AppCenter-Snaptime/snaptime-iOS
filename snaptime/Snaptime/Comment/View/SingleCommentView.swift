@@ -68,14 +68,14 @@ class SingleCommentView: UIView {
         self.commentLabel.text = comment.content
         self.beforeDateLabel.text = comment.timeAgo
         
-        APIService.loadImage(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
+        APIService.loadImageNonToken(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
     func setupUI(comment: ChildReplyInfo) {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
         self.beforeDateLabel.text = comment.timeAgo
-        APIService.loadImage(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
+        APIService.loadImageNonToken(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
     private func setLayout() {

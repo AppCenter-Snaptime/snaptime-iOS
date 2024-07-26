@@ -20,6 +20,7 @@ enum APIService {
     
     case signIn
     case signUp
+    case reissue
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -44,6 +45,9 @@ enum APIService {
 extension APIService {
     var path: String {
         switch self {
+            
+        case .reissue:
+            "/users/reissue"
             
         case .signIn:
             "/users/sign-in"
@@ -123,7 +127,8 @@ extension APIService {
             .postAlbum,
             .signIn,
             .signUp,
-            .postLikeToggle:
+            .postLikeToggle,
+            .reissue:
                 .post
             
         case .deleteFollowing:
@@ -136,13 +141,30 @@ extension APIService {
     }
     
     var headers: HTTPHeaders {
-        if case .signIn = self,
-           case .signUp = self {
+        /// 로그인, 회원가입 시 토큰 없이 요청 시
+        if case .signIn = self {
             return ["accept": "*/*", "Content-Type": "application/json"]
         }
-
-        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
-        return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
+        
+        /// refreshToken으로 accessToken 재발급 시
+        else if case .reissue = self {
+            guard let refreshToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue)
+            else {
+                return ["accept": "*/*", "Content-Type": "application/json"]
+            }
+            
+            return ["Authorization": "Bearer \(refreshToken)", "accept": "*/*", "Content-Type": "application/json"]
+        }
+        
+        /// 그 외 accessToken으로 접근
+        else {
+            guard let accessToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue)
+            else {
+                return ["accept": "*/*", "Content-Type": "application/json"]
+            }
+            
+            return ["Authorization": "Bearer \(accessToken)", "accept": "*/*", "Content-Type": "application/json"]
+        }
     }
     
     var request: URLRequest {
@@ -153,8 +175,8 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
+        
         var request = self.request
-        print(url)
         
         if let parameters = parameters {
             do {
@@ -166,7 +188,7 @@ extension APIService {
             }
         }
 
-        AF.request(request)
+        AF.request(request, interceptor: APIInterceptor.shared)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -180,6 +202,11 @@ extension APIService {
                         }
                         
                         else if case .signIn = self {
+                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(token.result))
+                        }
+                        
+                        else if case .reissue = self {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
@@ -259,8 +286,7 @@ extension APIService {
     // MARK: - 이미지 네트워킹 메서드
     static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
-            let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
-            print(url)
+           let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
