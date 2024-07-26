@@ -15,7 +15,6 @@ final class ProfileCoordinator: Coordinator {
 
     func start() {
         presentProfile(target: .myself,loginId: ProfileBasicManager.shared.profile.loginId)
-//        presentProfile(target: .myself,loginId: ProfileBasicModel.profile.loginId)
     }
     
     init(navigationController: UINavigationController) {
@@ -80,6 +79,11 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let followVC = FollowViewController(target: target, loginId: loginId)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
+    }
+    
+    func presentLogin() {
+        guard let appCoordinator = parentCoordinator as? AppCoordinator else { return }
+        appCoordinator.start()
     }
     
     func backToPrevious() {

@@ -50,7 +50,7 @@ final class LoginViewController: BaseViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 35
+        stackView.spacing = 28
         
         return stackView
     }()
@@ -168,7 +168,7 @@ final class LoginViewController: BaseViewController {
         super.setupConstraints()
         
         loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
@@ -186,14 +186,14 @@ final class LoginViewController: BaseViewController {
         }
                 
         loginButton.snp.makeConstraints {
-            $0.top.equalTo(inputStackView.snp.bottom).offset(64)
+            $0.top.equalTo(inputStackView.snp.bottom).offset(56)
             $0.left.equalTo(inputStackView.snp.left)
             $0.right.equalTo(inputStackView.snp.right)
             $0.height.equalTo(50)
         }
         
         joinButton.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(32)
+            $0.top.equalTo(loginButton.snp.bottom).offset(33)
             $0.centerX.equalToSuperview()
         }
         
@@ -210,8 +210,8 @@ final class LoginViewController: BaseViewController {
         }
         
         oAuthStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-80)
-            $0.top.equalTo(separatedLine.snp.bottom).offset(30)
+//            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-80)
+            $0.top.equalTo(separatedLine.snp.bottom).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
     }

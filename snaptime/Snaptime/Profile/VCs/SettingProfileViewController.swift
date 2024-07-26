@@ -13,6 +13,7 @@ protocol SettingProfileViewControllerDelegate: AnyObject {
     func presentSettingProfile()
     func presentEditProfile()
     func backToPrevious()
+    func presentLogin()
 }
 
 final class SettingProfileViewController: BaseViewController {
@@ -20,7 +21,6 @@ final class SettingProfileViewController: BaseViewController {
     private var userProfile = UserProfileManager.shared.profile.result
     
     private let loginId = ProfileBasicManager.shared.profile.loginId
-//    private let loginId = ProfileBasicModel.profile.loginId
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +97,24 @@ final class SettingProfileViewController: BaseViewController {
                                                          secondAction: UIAction { [weak self] _ in
     })
     
+    private lazy var settingProfileView4 = ProfileSettingView(first: "로그아웃",
+                                                        second: "탈퇴하기",
+                                                        firstAction: UIAction { [weak self] _ in
+        self?.logoutLogic()
+        self?.delegate?.presentLogin()
+    },
+                                                        secondAction: UIAction { [weak self] _ in
+        
+    })
+    
+    private func logoutLogic() {
+        let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
+        
+//        if checkTokenDeleted.access && checkTokenDeleted.refresh {
+//            delegate?.presentLogin()
+//        }
+    }
+    
     private func setNavigationBar() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconButton)
     }
@@ -109,7 +127,8 @@ final class SettingProfileViewController: BaseViewController {
          idLabel,
          settingProfileView1,
          settingProfileView2,
-         settingProfileView3].forEach {
+         settingProfileView3,
+         settingProfileView4].forEach {
             view.addSubview($0)
         }
     }
@@ -142,6 +161,12 @@ final class SettingProfileViewController: BaseViewController {
         
         settingProfileView3.snp.makeConstraints {
             $0.top.equalTo(settingProfileView2.snp.bottom).offset(30)
+            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
+            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
+        
+        settingProfileView4.snp.makeConstraints {
+            $0.top.equalTo(settingProfileView3.snp.bottom).offset(30)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
         }
