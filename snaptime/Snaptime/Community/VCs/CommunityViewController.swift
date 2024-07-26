@@ -26,6 +26,12 @@ final class CommunityViewController: BaseViewController {
         self.fetchSnaps(pageNum: 1)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.fetchSnaps(pageNum: 1)
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .snaptimeBlue
