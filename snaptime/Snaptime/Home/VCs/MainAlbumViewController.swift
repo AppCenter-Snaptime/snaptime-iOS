@@ -25,9 +25,17 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchAlbumList() // 앨범목록 서버 통신
-//        self.fetchUserProfile(loginId: ProfileBasicManager.shared.profile.loginId)
         self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.fetchAlbumList() // 앨범목록 서버 통신
+        // floating button toggle off
+        if isAddButtonActive {
+            isAddButtonActive = false
+            onTouchAddButton()
+        }
     }
     
     private let contentView = UIView()
