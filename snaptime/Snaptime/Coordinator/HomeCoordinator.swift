@@ -31,18 +31,14 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
                             AddSnapViewControllerDelegate,
                             SnapTagListViewControllerDelegate,
                            CommentViewControllerDelegate {
-
-    func presentAddSnap() {
-        let addSnapVC = AddSnapViewController()
-        addSnapVC.delegate = self
-        navigationController.pushViewController(addSnapVC, animated: true)
-    }
     
+    // ----------------------------
+    // MainAlbumViewControllerDelegate
     
-    func presentSnap(snapId: Int) {
-        let snapVC = SnapViewController(snapId: snapId)
-        snapVC.delegate = self
-        navigationController.pushViewController(snapVC, animated: true)
+    func presentAlbumDetail(albumID: Int) {
+        let albumDetailVC = SnapPreviewViewController(albumID: albumID)
+        albumDetailVC.delegate = self
+        navigationController.pushViewController(albumDetailVC, animated: true)
     }
     
     func presentQRReaderView() {
@@ -52,6 +48,28 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.present(qrReaderVC, animated: true)
 //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
+
+    func presentAddSnap() {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
+    }
+    
+    func presentAlbumDelete() {
+        let selectAlbumVC = SelectAlbumViewController()
+        navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
+    
+    // ----------------------------
+    
+    
+    func presentSnap(snapId: Int) {
+        let snapVC = SnapViewController(snapId: snapId)
+        snapVC.delegate = self
+        navigationController.pushViewController(snapVC, animated: true)
+    }
+    
+    
     
     func didFinishAddAlbum() {
         if let vc = presentedViewController as? QRReaderViewController {
@@ -69,11 +87,7 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.pushViewController(mainAlbumVC, animated: true)
     }
     
-    func presentAlbumDetail(albumID: Int) {
-        let albumDetailVC = SnapPreviewViewController(albumID: albumID)
-        albumDetailVC.delegate = self
-        navigationController.pushViewController(albumDetailVC, animated: true)
-    }
+    
     
     func presentSnapTagList() {
         let snapTagListVC = SnapTagListViewController()

@@ -13,6 +13,7 @@ protocol MainAlbumViewControllerDelegate: AnyObject {
     func presentAlbumDetail(albumID: Int)
     func presentQRReaderView()
     func presentAddSnap()
+    func presentAlbumDelete()
 }
 
 final class MainAlbumViewController : BaseViewController {
@@ -280,13 +281,14 @@ final class MainAlbumViewController : BaseViewController {
         addSnapFloatingButton.layer.add(animation, forKey: nil)
     }
     
+    // ActionSheet 관련 설정
     private func presentAlbumSheet() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "앨범 추가", style: .default, handler: { _ in
             self.presentAddAlbumPopup()
         }))
         actionSheet.addAction(UIAlertAction(title: "앨범 삭제", style: .destructive, handler: { _ in
-            print("앨범 삭제")
+            self.delegate?.presentAlbumDelete()
         }))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
         

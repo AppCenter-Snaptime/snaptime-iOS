@@ -106,6 +106,7 @@
 		A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */; };
 		A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */; };
 		A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */; };
+		A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */; };
 		A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +214,7 @@
 		A69A81C32B877F2D006BAEB2 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
 		A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTagUserResDto.swift; sourceTree = "<group>"; };
+		A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlbumViewController.swift; sourceTree = "<group>"; };
 		A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoLong.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -421,6 +423,7 @@
 				A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */,
 				296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */,
 				296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */,
+				A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */,
+				A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
