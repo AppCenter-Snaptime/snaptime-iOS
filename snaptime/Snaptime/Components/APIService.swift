@@ -34,6 +34,7 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     case postAlbum
+    case deleteAlbum(albumId: Int)
     
     case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
     case postFollow(loginId: String)
@@ -57,7 +58,7 @@ extension APIService {
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
-    
+            
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
             
@@ -91,6 +92,9 @@ extension APIService {
         case .postAlbum:
             "/album"
             
+        case .deleteAlbum(let albumId):
+            "/album?albumId=\(albumId)"
+            
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
             "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)&searchKeyword=\(keyword)"
             
@@ -108,30 +112,31 @@ extension APIService {
     var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
-            .fetchUserProfileCount,
-            .fetchUserAlbum,
-            .fetchUserTagSnap,
-            .fetchCommunitySnap,
-            .fetchSnap,
-            .fetchUserInfo,
-            .fetchSnapPreview,
-            .fetchAlbumList,
-            .fetchFollow:
+                .fetchUserProfileCount,
+                .fetchUserAlbum,
+                .fetchUserTagSnap,
+                .fetchCommunitySnap,
+                .fetchSnap,
+                .fetchUserInfo,
+                .fetchSnapPreview,
+                .fetchAlbumList,
+                .fetchFollow:
                 .get
             
         case .modifyUserInfo:
                 .put
-        
+            
         case .postReply,
-            .postFollow,
-            .postAlbum,
-            .signIn,
-            .signUp,
-            .reissue,
-            .postLikeToggle:
+                .postFollow,
+                .postAlbum,
+                .signIn,
+                .signUp,
+                .reissue,
+                .postLikeToggle:
                 .post
             
-        case .deleteFollowing:
+        case .deleteFollowing,
+                .deleteAlbum:
                 .delete
         }
     }
@@ -175,7 +180,7 @@ extension APIService {
                 return
             }
         }
-
+        
         AF.request(request)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -198,7 +203,7 @@ extension APIService {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
-                                                
+                        
                         else if case .fetchUserProfileCount = self {
                             let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))
@@ -274,7 +279,7 @@ extension APIService {
     // MARK: - 이미지 네트워킹 메서드
     static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
-            let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
+           let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
             print(url)
             let modifier = AnyModifier { request in
                 var r = request

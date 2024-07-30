@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol SelectAlbumViewControllerDelegate: AnyObject {
+    func popCurrentVC()
+}
+
 final class SelectAlbumViewController: BaseViewController {
     private lazy var mainAlbumCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -18,7 +22,7 @@ final class SelectAlbumViewController: BaseViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
+        collectionView.register(AlbumSelectCollectionViewCell.self, forCellWithReuseIdentifier: AlbumSelectCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -27,13 +31,18 @@ final class SelectAlbumViewController: BaseViewController {
     private lazy var deleteButton = {
         let button = SnapTimeCustomButton("삭제")
         button.backgroundColor = UIColor(hexCode: "FF5454")
+        button.addAction(UIAction { _ in
+            self.deleteAlbum()
+            self.delegate?.popCurrentVC()
+        }, for: .touchUpInside)
         return button
     }()
     
     // -------------------------
     
-    
+    weak var delegate: SelectAlbumViewControllerDelegate?
     var albumData: [Album] = []
+    var albumChecked: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +56,30 @@ final class SelectAlbumViewController: BaseViewController {
                 case .success(let albumList):
                     if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto {
                         self.albumData = albumList.result.map { Album($0) }
+                        self.albumChecked = Array(repeating: false, count: self.albumData.count)
                     }
                     
                     self.mainAlbumCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func deleteAlbum() {
+        var deleteAlbums: [Album] = []
+        for i in 0..<self.albumData.count {
+            if self.albumChecked[i] {
+                deleteAlbums.append(self.albumData[i])
+            }
+        }
+        print(deleteAlbums)
+        for album in deleteAlbums {
+            APIService.deleteAlbum(albumId: album.id).performRequest { result in
+                switch result {
+                case .success(_):
+                    print(album.name + " 앨범 삭제 성공")
                 case .failure(let error):
                     print(error)
                 }
@@ -95,16 +125,18 @@ extension SelectAlbumViewController : UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumCollectionViewCell.identifier,
+            withReuseIdentifier: AlbumSelectCollectionViewCell.identifier,
             for: indexPath
-        ) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
+        ) as? AlbumSelectCollectionViewCell else { return UICollectionViewCell() }
         cell.setupUI(albumData[indexPath.row])
+        cell.check(albumChecked[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("select row")
-//        delegate?.presentAlbumDetail(albumID: albumData[indexPath.row].id)
+        self.albumChecked[indexPath.row].toggle()
+        self.mainAlbumCollectionView.reloadData()
     }
 }
 

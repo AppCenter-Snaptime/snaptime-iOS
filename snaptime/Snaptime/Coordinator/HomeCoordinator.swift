@@ -13,7 +13,7 @@ final class HomeCoordinator: Coordinator {
     var presentedViewController: UIViewController? = nil
     
     var navigationController: UINavigationController
-
+    
     func start() {
         presentMainAlbum()
     }
@@ -24,13 +24,15 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
-extension HomeCoordinator: MainAlbumViewControllerDelegate,
-                            SnapViewControllerDelegate,
-                            QRReaderViewControllerDelegate,
-                            SnapPreviewViewControllerDelegate,
-                            AddSnapViewControllerDelegate,
-                            SnapTagListViewControllerDelegate,
-                           CommentViewControllerDelegate {
+extension HomeCoordinator:
+    MainAlbumViewControllerDelegate,
+    SnapViewControllerDelegate,
+    QRReaderViewControllerDelegate,
+    SnapPreviewViewControllerDelegate,
+    AddSnapViewControllerDelegate,
+    SnapTagListViewControllerDelegate,
+    CommentViewControllerDelegate,
+    SelectAlbumViewControllerDelegate {
     
     // ----------------------------
     // MainAlbumViewControllerDelegate
@@ -46,9 +48,9 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)
-//        navigationController.pushViewController(addAlbumVC, animated: true)
+        //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
-
+    
     func presentAddSnap() {
         let addSnapVC = AddSnapViewController()
         addSnapVC.delegate = self
@@ -57,6 +59,7 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
     
     func presentAlbumDelete() {
         let selectAlbumVC = SelectAlbumViewController()
+        selectAlbumVC.delegate = self
         navigationController.pushViewController(selectAlbumVC, animated: true)
     }
     
@@ -87,7 +90,9 @@ extension HomeCoordinator: MainAlbumViewControllerDelegate,
         navigationController.pushViewController(mainAlbumVC, animated: true)
     }
     
-    
+    func popCurrentVC() {
+        navigationController.popViewController(animated: true)
+    }
     
     func presentSnapTagList() {
         let snapTagListVC = SnapTagListViewController()

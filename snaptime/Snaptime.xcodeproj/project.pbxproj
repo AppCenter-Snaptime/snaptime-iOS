@@ -107,6 +107,7 @@
 		A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */; };
 		A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */; };
 		A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */; };
+		A69D6D7A2C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D792C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift */; };
 		A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,7 @@
 		A69A81D52B8F77DD006BAEB2 /* QRReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
 		A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTagUserResDto.swift; sourceTree = "<group>"; };
 		A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlbumViewController.swift; sourceTree = "<group>"; };
+		A69D6D792C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectCollectionViewCell.swift; sourceTree = "<group>"; };
 		A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoLong.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
 				A68184FF2C32E27700ECBDE3 /* RoundImageView.swift */,
 				297090282C38014A004A151B /* IconButton.swift */,
+				A69D6D792C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
 				29AA38072BF261E5009EF296 /* ProfileCntResDto.swift in Sources */,
 				29839F3D2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift in Sources */,
+				A69D6D7A2C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift in Sources */,
 				29176FAE2C412C3E00CD9A24 /* FindSnapResDto.swift in Sources */,
 				A69A81BC2B876E2F006BAEB2 /* RecommendViewController.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
