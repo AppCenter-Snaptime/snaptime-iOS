@@ -20,6 +20,7 @@ enum APIService {
     
     case signIn
     case signUp
+    case reissue
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -50,6 +51,9 @@ extension APIService {
             
         case .signUp:
             "/users/sign-up"
+            
+        case .reissue:
+            "/users/reissue"
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
@@ -123,6 +127,7 @@ extension APIService {
             .postAlbum,
             .signIn,
             .signUp,
+            .reissue,
             .postLikeToggle:
                 .post
             
@@ -140,7 +145,12 @@ extension APIService {
            case .signUp = self {
             return ["accept": "*/*", "Content-Type": "application/json"]
         }
-
+        
+        if case .reissue = self {
+            guard let token = TokenUtils().read(APIService.baseURL, account: "refreshToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
+            return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
+        }
+        
         guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
         return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
     }
@@ -180,6 +190,11 @@ extension APIService {
                         }
                         
                         else if case .signIn = self {
+                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(token.result))
+                        }
+                        
+                        else if case .reissue = self {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }

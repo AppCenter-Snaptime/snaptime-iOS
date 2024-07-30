@@ -19,7 +19,7 @@ final class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.checkToken()
         self.tabLoginButton()
         self.hideKeyboardWhenTappedAround()
     }
@@ -63,6 +63,32 @@ final class LoginViewController: BaseViewController {
         return button
     }()
     
+    // MARK: - 자동로그인 메서드
+    private func checkToken() {
+        APIService.reissue.performRequest { result in
+            switch result {
+            case .success(let token):
+                if let token = token as? SignInResDto {
+                    print("reissue success")
+                    TokenUtils().create(APIService.baseURL, account: "accessToken", value: token.accessToken)
+                    TokenUtils().create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
+                    self.delegate?.presentHome()
+                } else {
+                    print("json decoding error")
+                }
+            case .failure(_):
+                // 기존 키체인 데이터를 지움.
+                if TokenUtils().read(APIService.baseURL, account: "accessToken") != nil {
+                    TokenUtils().delete(APIService.baseURL, account: "accessToken")
+                }
+
+                if TokenUtils().read(APIService.baseURL, account: "refreshToken") != nil {
+                    TokenUtils().delete(APIService.baseURL, account: "refreshToken")
+                }
+            }
+        }
+    }
+    
     // MARK: - button click method
     private func tabLoginButton() {
         loginButton.addAction(UIAction {[weak self] _ in
@@ -82,6 +108,8 @@ final class LoginViewController: BaseViewController {
 //                                ProfileBasicManager.shared.profile.loginId = id
                                 
                                 self?.delegate?.presentHome()
+                            } else {
+                                print("json decode error")
                             }
                         case .failure(let error):
                             print(error)
