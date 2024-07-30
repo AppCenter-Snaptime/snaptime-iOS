@@ -92,7 +92,7 @@ extension APIService {
             "/album"
             
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
-            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
+            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)&searchKeyword=\(keyword)"
             
         case .postFollow(let loginId):
             "/friends?receiverLoginId=\(loginId)"

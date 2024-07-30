@@ -22,7 +22,7 @@ final class SnapTagListViewController: BaseViewController {
     private lazy var tagListSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "사람 검색하기"
-        
+        searchBar.delegate = self
         return searchBar
     }()
     
@@ -98,5 +98,25 @@ extension SnapTagListViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.bounds.width
         
         return CGSize(width: width, height: width/6)
+    }
+}
+
+extension SnapTagListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard()
+        guard let text = searchBar.text else { return }
+        print(text)
+        APIService.fetchFollow(type: "FOLLOWING", loginId: "eogus4658", keyword: text, pageNum: 1).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListFindFriendResDto {
+                        print(result.result.friendInfos)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
