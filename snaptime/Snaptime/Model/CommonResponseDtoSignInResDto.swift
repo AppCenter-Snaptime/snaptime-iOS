@@ -13,6 +13,6 @@ struct CommonResponseDtoSignInResDto: Codable {
 }
 
 struct SignInResDto: Codable {
-    let accessToken: String
-    let refreshToken: String
+    let testAccessToken: String
+    let testRefreshToken: String
 }

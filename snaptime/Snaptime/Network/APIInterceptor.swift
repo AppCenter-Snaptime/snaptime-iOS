@@ -59,7 +59,7 @@ final class APIInterceptor: RequestInterceptor {
 
         print("retry 코드:", response.statusCode)
         /// 토큰 갱신 API 호출
-        APIService.reissue.performRequest { [weak self] result in
+        APIService.postReissue.performRequest { [weak self] result in
             switch result {
             case .success(let result):
                 guard let result = result as? SignInResDto
@@ -68,7 +68,7 @@ final class APIInterceptor: RequestInterceptor {
                     return
                 }
                 
-                let keyChainResult = KeyChain.saveTokens(accessKey: result.accessToken, refreshKey: result.refreshToken)
+                let keyChainResult = KeyChain.saveTokens(accessKey: result.testAccessToken, refreshKey: result.testRefreshToken)
                 
                 if keyChainResult.accessResult == true && keyChainResult.refreshResult == true {
                     self?.isTokenRefreshed = true

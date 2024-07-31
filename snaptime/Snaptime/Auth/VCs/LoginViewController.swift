@@ -111,12 +111,12 @@ final class LoginViewController: BaseViewController {
                let password = self?.passwordInputTextField.text {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
-                APIService.signIn.performRequest(with: loginInfo) { result in
+                APIService.postTestSignIn.performRequest(with: loginInfo) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let token):
                             if let token = token as? SignInResDto {
-                                let token = KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
+                                let token = KeyChain.saveTokens(accessKey: token.testAccessToken, refreshKey: token.testRefreshToken)
                                 
                                 /// 토큰이 keychain에 저장되었을 경우
                                 if token.accessResult && token.refreshResult {

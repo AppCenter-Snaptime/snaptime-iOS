@@ -18,9 +18,10 @@ enum FetchError: Error {
 enum APIService {
     static let baseURL = "http://na2ru2.me:6308"
     
-    case signIn
-    case signUp
-    case reissue
+    case postSignIn
+    case postSignUp
+    case postTestSignIn
+    case postReissue
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -46,14 +47,17 @@ extension APIService {
     var path: String {
         switch self {
             
-        case .reissue:
+        case .postReissue:
             "/users/reissue"
             
-        case .signIn:
+        case .postSignIn:
             "/users/sign-in"
             
-        case .signUp:
+        case .postSignUp:
             "/users/sign-up"
+            
+        case .postTestSignIn:
+            "/users/test/sign-in"
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
@@ -68,7 +72,7 @@ extension APIService {
             "/profiles/tag-snap?loginId=\(loginId)"
             
         case .fetchUserInfo:
-            "/users"
+            "/users/my"
             
         case .modifyUserInfo:
             "/users"
@@ -125,10 +129,11 @@ extension APIService {
         case .postReply,
             .postFollow,
             .postAlbum,
-            .signIn,
-            .signUp,
+            .postSignIn,
+            .postTestSignIn,
+            .postSignUp,
             .postLikeToggle,
-            .reissue:
+            .postReissue:
                 .post
             
         case .deleteFollowing:
@@ -142,12 +147,16 @@ extension APIService {
     
     var headers: HTTPHeaders {
         /// 로그인, 회원가입 시 토큰 없이 요청 시
-        if case .signIn = self {
+        if case .postSignIn = self {
+            return ["accept": "*/*", "Content-Type": "application/json"]
+        }
+        
+        else if case .postTestSignIn = self {
             return ["accept": "*/*", "Content-Type": "application/json"]
         }
         
         /// refreshToken으로 accessToken 재발급 시
-        else if case .reissue = self {
+        else if case .postReissue = self {
             guard let refreshToken = KeyChain.loadAccessToken(key: TokenType.refreshToken.rawValue)
             else {
                 return ["accept": "*/*", "Content-Type": "application/json"]
@@ -201,12 +210,17 @@ extension APIService {
                             completion(.success(userProfile))
                         }
                         
-                        else if case .signIn = self {
+                        else if case .postSignIn = self {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
                         
-                        else if case .reissue = self {
+                        else if case .postTestSignIn = self {
+                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(token.result))
+                        }
+                        
+                        else if case .postReissue = self {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }

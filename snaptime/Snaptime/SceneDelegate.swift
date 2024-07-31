@@ -31,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
         
-        
         if appDelegate.isLogin {
             appDelegate.checkLoginCompletion?()
         }
