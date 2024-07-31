@@ -26,7 +26,7 @@ final class SnapViewController: BaseViewController {
         writerLoginId: "",
         profilePhotoURL: "",
         writerUserName: "",
-        findTagUsers: [],
+        tagUserFindResDtos: [],
         likeCnt: 0,
         isLikedSnap: false
     )

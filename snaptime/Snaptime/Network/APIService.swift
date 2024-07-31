@@ -162,7 +162,7 @@ extension APIService {
                 return ["accept": "*/*", "Content-Type": "application/json"]
             }
             
-            return ["Authorization": "Bearer \(refreshToken)", "accept": "*/*", "Content-Type": "application/json"]
+            return ["accept": "*/*", "Authorization": "Bearer \(refreshToken)"]
         }
         
         /// 그 외 accessToken으로 접근
@@ -172,7 +172,7 @@ extension APIService {
                 return ["accept": "*/*", "Content-Type": "application/json"]
             }
             
-            return ["Authorization": "Bearer \(accessToken)", "accept": "*/*", "Content-Type": "application/json"]
+            return ["Authorization": "Bearer \(accessToken)", "accept": "*/*"]
         }
     }
     
@@ -216,13 +216,13 @@ extension APIService {
                         }
                         
                         else if case .postTestSignIn = self {
-                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            let token = try JSONDecoder().decode(TestCommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
                         
                         else if case .postReissue = self {
-                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
-                            completion(.success(token.result))
+                            let result = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(result))
                         }
                                                 
                         else if case .fetchUserProfileCount = self {
@@ -311,10 +311,9 @@ extension APIService {
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("success fetch image")
+                    print("")
                 case .failure(let error):
-                    print("error")
-                    print(error)
+                    print("imageFetchError: \(error)")
                 }
             }
         }

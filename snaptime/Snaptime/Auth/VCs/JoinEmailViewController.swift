@@ -21,6 +21,7 @@ final class JoinEmailViewController: BaseViewController {
         tabNextButton()
         textFieldEditing()
         self.hideKeyboardWhenTappedAround()
+        self.showNavigationBar()
     }
     
     // MARK: - UI component Config

@@ -27,14 +27,13 @@ final class APIInterceptor: RequestInterceptor {
 
     /// 서버로 보내기전에 api를 가로채서 전처리를 한 뒤 서버로 보내는 역할
     /// 즉, Request가 전송되기 전에 원하는 추가적인 작업을 수행할 수 있도록 하는 함수
-    /// Header 설정을 해당 함수에서 할 수 있지만 BaseTargetType 에 미리 구현이 되어있어 넣지 않음
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        print("adapt 진입")
         
         if isTokenRefreshed {
             print("토큰 재발급 후 URLRequset 변경")
             var modifiedRequest = urlRequest
-            modifiedRequest.setValue(KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue), forHTTPHeaderField: "accessToken")
+            guard let accessToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
+            modifiedRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
             isTokenRefreshed = false
             completion(.success(modifiedRequest))
@@ -49,6 +48,8 @@ final class APIInterceptor: RequestInterceptor {
     /// 리프레쉬 토큰 재발급 API 의 반복 호출을 막기 위해 guard let 을 통해 해당 path ( URL ) 에서 reissue 이라는 String 이 존재한다면 정지
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         print("⚠️retry 진입⚠️")
+        print("--------------------------------------")
+
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401, let pathComponents =
                 request.request?.url?.pathComponents,
                 !pathComponents.contains("reissue")
@@ -62,13 +63,13 @@ final class APIInterceptor: RequestInterceptor {
         APIService.postReissue.performRequest { [weak self] result in
             switch result {
             case .success(let result):
-                guard let result = result as? SignInResDto
+                guard let result = result as? CommonResponseDtoSignInResDto
                 else {
                     completion(.doNotRetry)
                     return
                 }
                 
-                let keyChainResult = KeyChain.saveTokens(accessKey: result.testAccessToken, refreshKey: result.testRefreshToken)
+                let keyChainResult = KeyChain.saveTokens(accessKey: result.result.accessToken, refreshKey: result.result.refreshToken)
                 
                 if keyChainResult.accessResult == true && keyChainResult.refreshResult == true {
                     self?.isTokenRefreshed = true
@@ -80,11 +81,33 @@ final class APIInterceptor: RequestInterceptor {
                     
                     completion(.retry)
                 } else {
+                    self?.isTokenRefreshed = false
                     completion(.doNotRetry)
                 }
-            case .failure(_):
-                completion(.doNotRetry)
-                print("⚠️refreshToken도 만료⚠️")
+            case .failure(let error):
+                self?.isTokenRefreshed = false
+                self?.changeLoginViewController()
+                completion(.doNotRetryWithError(error))
+                print("⚠️refreshToken도 만료")
+            }
+        }
+    }
+    
+    /// rootVIewController 를 로그인VC로 변경해주는 메서드
+    /// refresh token까지 만료되어 재로그인이 필요할 시 사용
+    func changeLoginViewController() {
+            _ = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
+        
+            // alret 관련 동작을 넣으면 좋을듯
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                let navigationController = UINavigationController()
+                window.rootViewController = navigationController
+                
+                let coordinator = AppCoordinator(navigationController: navigationController)
+                
+                coordinator.start()
             }
         }
     }

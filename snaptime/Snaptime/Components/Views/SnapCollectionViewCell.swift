@@ -160,9 +160,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
         postDateLabel.text = data.snapModifiedDate.toDateString()
-        tagLabel.text = data.findTagUsers.count == 0 ? ""
-        : data.findTagUsers.count == 1 ? "with @\(data.findTagUsers[0].tagUserName)"
-        : "with @\(data.findTagUsers[0].tagUserName) + \(data.findTagUsers.count - 1) others"
+        tagLabel.text = data.tagUserFindResDtos.count == 0 ? ""
+        : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
+        : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
         isLikeSnap = data.isLikedSnap
     }
     

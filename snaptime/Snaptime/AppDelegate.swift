@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         /// 스플래시 딜레이
-        Thread.sleep(forTimeInterval: 2.0)
+        Thread.sleep(forTimeInterval: 3.0)
         return true
     }
     
@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             case .failure(_):
                 completion(false)
+                _ = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
                 print("⚠️모든 토큰 만료⚠️")
             }
         }

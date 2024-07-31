@@ -54,7 +54,6 @@ final class AppCoordinator : Coordinator {
         childCoordinator.removeAll()
         authCoordinator.parentCoordinator = self
         childCoordinator.append(authCoordinator)
-        navigationController.setNavigationBarHidden(true, animated: false)
         authCoordinator.start()
     }
     

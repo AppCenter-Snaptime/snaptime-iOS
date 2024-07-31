@@ -22,6 +22,7 @@ final class LoginViewController: BaseViewController {
         
         self.tabLoginButton()
         self.hideKeyboardWhenTappedAround()
+        self.hideNavigationBar()
     }
     
     // MARK: - UI component Config
@@ -111,12 +112,12 @@ final class LoginViewController: BaseViewController {
                let password = self?.passwordInputTextField.text {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
-                APIService.postTestSignIn.performRequest(with: loginInfo) { result in
+                APIService.postSignIn.performRequest(with: loginInfo) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let token):
                             if let token = token as? SignInResDto {
-                                let token = KeyChain.saveTokens(accessKey: token.testAccessToken, refreshKey: token.testRefreshToken)
+                                let token = KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
                                 
                                 /// 토큰이 keychain에 저장되었을 경우
                                 if token.accessResult && token.refreshResult {
