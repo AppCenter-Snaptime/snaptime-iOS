@@ -36,6 +36,11 @@ final class MainAlbumViewController : BaseViewController {
         super.viewWillAppear(animated)
     
         self.fetchAlbumList()
+        
+        if isAddButtonActive {
+            isAddButtonActive = false
+            onTouchAddButton()
+        }
     }
     
     private let contentView = UIView()
