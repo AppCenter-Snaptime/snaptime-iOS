@@ -13,7 +13,7 @@ struct CommonResponseDtoListFindFriendResDto: Codable {
 }
 
 struct FindFriendResDto: Codable {
-    let friendInfos: [FriendInfo]
+    let friendInfoResDtos: [FriendInfo]
     let hasNextPage: Bool
 }
 

@@ -22,7 +22,7 @@ struct FindSnapResDto: Codable {
     var writerLoginId: String
     var profilePhotoURL: String
     var writerUserName: String
-    var findTagUsers: [FindTagUserResDto]
+    var tagUserFindResDtos: [FindTagUserResDto]
     var likeCnt: Int
     var isLikedSnap: Bool
 }

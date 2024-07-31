@@ -108,6 +108,7 @@
 		A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */; };
 		A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */; };
 		A69D6D7A2C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D792C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift */; };
+		A69D6D7C2C5A565400292BFD /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D6D7B2C5A565400292BFD /* TagButton.swift */; };
 		A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */; };
 /* End PBXBuildFile section */
 
@@ -217,6 +218,7 @@
 		A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTagUserResDto.swift; sourceTree = "<group>"; };
 		A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlbumViewController.swift; sourceTree = "<group>"; };
 		A69D6D792C5939DB00292BFD /* AlbumSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectCollectionViewCell.swift; sourceTree = "<group>"; };
+		A69D6D7B2C5A565400292BFD /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		A6CBEB042C46959500009A98 /* CommonResponseDtoLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoLong.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */,
+				A69D6D7B2C5A565400292BFD /* TagButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
 				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
+				A69D6D7C2C5A565400292BFD /* TagButton.swift in Sources */,
 				A67508572C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
 				298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */,

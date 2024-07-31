@@ -100,6 +100,12 @@ extension HomeCoordinator:
         navigationController.pushViewController(snapTagListVC, animated: true)
     }
     
+    func backToAddSnapView(tagList: [FriendInfo]) {
+        navigationController.popViewController(animated: true)
+        guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
+        addSnapVC.addTagList(tagList: tagList)
+    }
+    
     func presentCommentVC(snap: FindSnapResDto) {
         let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
         commentVC.delegate = self
