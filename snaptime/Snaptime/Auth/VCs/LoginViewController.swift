@@ -26,21 +26,9 @@ final class LoginViewController: BaseViewController {
     }
     
     // MARK: - UI component Config
-    private let loginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "나만을 위한\n인생 네컷 커뮤니티,"
-        label.setLineSpacing(lineSpacing: 20)
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.sizeToFit()
-        
-        return label
-    }()
-    
-    private let logoImageView: UIImageView = {
+    private let loginImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(resource: .logo)
+        imageView.image = UIImage(resource: .login)
         imageView.sizeToFit()
         
         return imageView
@@ -51,21 +39,62 @@ final class LoginViewController: BaseViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 28
+        stackView.spacing = 12
         
         return stackView
     }()
     
-    private let idInputTextField = AuthTextField("아이디 또는 이메일")
-    private let passwordInputTextField = AuthTextField("비밀번호", secureToggle: true)
+    private let idInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        textField.layer.cornerRadius = 12
+        textField.layer.masksToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
+        textField.leftViewMode = .always
+        textField.attributedPlaceholder = NSAttributedString(string: "아이디", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
+
+        return textField
+    }()
     
-    private lazy var loginButton = SnapTimeCustomButton("로그인")
+    private let passwordInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        textField.layer.cornerRadius = 12
+        textField.layer.masksToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
+        textField.isSecureTextEntry = true
+        textField.leftViewMode = .always
+        textField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
+
+        return textField
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor.init(hexCode: "D3D9E0")
+        config.baseForegroundColor = UIColor.init(hexCode: "606060")
+        config.cornerStyle = .capsule
+        
+        var titleAttr = AttributedString.init("로그인")
+        titleAttr.font = .systemFont(ofSize: 15.0, weight: .bold)
+        config.attributedTitle = titleAttr
+        
+        button.configuration = config
+        
+        
+        return button
+    }()
     
     private lazy var joinButton: UIButton = {
         let button = UIButton()
         button.setTitle("이메일로 회원가입", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
+        button.setUnderline()
         button.addAction(UIAction { _ in
                 self.tabJoinButton()
         }, for: .touchUpInside)
@@ -153,8 +182,7 @@ final class LoginViewController: BaseViewController {
             oAuthStackView.addArrangedSubview($0)
         }
         
-        [loginLabel,
-         logoImageView,
+        [loginImageView,
          inputStackView,
          loginButton,
          joinButton,
@@ -168,20 +196,21 @@ final class LoginViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
+        loginImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(120)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(80)
+            $0.width.equalTo(110)
         }
         
-        logoImageView.snp.makeConstraints {
-            $0.top.equalTo(loginLabel.snp.bottom).offset(20)
-            $0.left.equalTo(loginLabel.snp.left)
-            $0.height.equalTo(30)
-            $0.width.equalTo(130)
+        [idInputTextField, passwordInputTextField].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(48)
+            }
         }
         
         inputStackView.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom).offset(50)
+            $0.top.equalTo(loginImageView.snp.bottom).offset(50)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }
