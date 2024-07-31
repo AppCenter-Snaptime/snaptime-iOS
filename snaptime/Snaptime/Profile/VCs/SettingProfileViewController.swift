@@ -77,6 +77,13 @@ final class SettingProfileViewController: BaseViewController {
         return label
     }()
     
+    private let contentView = UIView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        
+        return scrollView
+    }()
+    
     private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
                                                          second: "알림",
                                                          firstAction: UIAction { [weak self] _ in
@@ -124,11 +131,17 @@ final class SettingProfileViewController: BaseViewController {
         
         [profileImage,
          idLabel,
-         settingProfileView1,
+         scrollView].forEach {
+            view.addSubview($0)
+        }
+        
+        scrollView.addSubview(contentView)
+        
+        [settingProfileView1,
          settingProfileView2,
          settingProfileView3,
-         settingProfileView4].forEach {
-            view.addSubview($0)
+         settingProfileView4].forEach{
+            contentView.addSubview($0)
         }
     }
     
@@ -146,28 +159,40 @@ final class SettingProfileViewController: BaseViewController {
             $0.centerX.equalTo(profileImage.snp.centerX)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(idLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+            $0.height.equalTo(500)
+        }
+        
         settingProfileView1.snp.makeConstraints {
-            $0.top.equalTo(idLabel.snp.bottom).offset(50)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.top.equalToSuperview().offset(20)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview().offset(-30)
         }
         
         settingProfileView2.snp.makeConstraints {
             $0.top.equalTo(settingProfileView1.snp.bottom).offset(30)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview().offset(-30)
         }
         
         settingProfileView3.snp.makeConstraints {
             $0.top.equalTo(settingProfileView2.snp.bottom).offset(30)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview().offset(-30)
         }
         
         settingProfileView4.snp.makeConstraints {
             $0.top.equalTo(settingProfileView3.snp.bottom).offset(30)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(30)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview().offset(-30)
         }
     }
 }
