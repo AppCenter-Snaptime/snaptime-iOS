@@ -30,7 +30,7 @@ final class APIInterceptor: RequestInterceptor {
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         
         if isTokenRefreshed {
-            print("토큰 재발급 후 URLRequset 변경")
+            print("토큰 재발급 후 URLRequest 변경")
             var modifiedRequest = urlRequest
             guard let accessToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
             modifiedRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
