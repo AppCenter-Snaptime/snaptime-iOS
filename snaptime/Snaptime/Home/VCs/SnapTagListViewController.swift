@@ -110,9 +110,14 @@ extension SnapTagListViewController: UICollectionViewDelegateFlowLayout {
 extension SnapTagListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("textDidChange")
-        guard let text = searchBar.text else { return }
-        print(text)
-        APIService.fetchFollow(type: "FOLLOWING", loginId: "eogus4658", keyword: text, pageNum: 1).performRequest { result in
+        guard let text = searchBar.text,
+              let loginId = ProfileBasicUserDefaults().loginId
+        else { return }
+  
+        APIService.fetchFollow(type: FollowTarget.following.description, 
+                               loginId:loginId,
+                               keyword: text,
+                               pageNum: 1).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
@@ -133,9 +138,16 @@ extension SnapTagListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("searchBarSearchButtonClicked")
         dismissKeyboard()
-        guard let text = searchBar.text else { return }
-        print(text)
-        APIService.fetchFollow(type: "FOLLOWING", loginId: "eogus4658", keyword: text, pageNum: 1).performRequest { result in
+        
+        guard let text = searchBar.text,
+              let loginId = ProfileBasicUserDefaults().loginId
+        else { return }
+        
+        APIService.fetchFollow(type: FollowTarget.following.description,
+                               loginId: loginId,
+                               keyword: text,
+                               pageNum: 1).performRequest { result in
+            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):

@@ -34,12 +34,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         userImageView.layer.cornerRadius = userImageView.frame.height/2
+        userImageView.clipsToBounds = true
     }
         
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        imageView.clipsToBounds = true
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: action))
 //        imageView.addGestureRecognizer(tapGesture)

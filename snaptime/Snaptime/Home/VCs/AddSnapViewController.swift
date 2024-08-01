@@ -17,18 +17,22 @@ protocol AddSnapViewControllerDelegate: AnyObject {
 final class AddSnapViewController: BaseViewController {
     weak var delegate: AddSnapViewControllerDelegate?
     
+    private var userProfile = UserProfileManager.shared.profile.result
     private var tagList: [FriendInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
+        
+        APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
     }
     
     func addTagList(tagList: [FriendInfo]) {
@@ -44,7 +48,7 @@ final class AddSnapViewController: BaseViewController {
         print(tagList)
         self.tagList.append(contentsOf: tagList)
         tagList.forEach {
-            self.tagStackView.addArrangedSubview(TagButton(tagName: $0.foundLoginId))
+            self.tagStackView.addArrangedSubview(TagButton(tagName: $0.foundUserName))
         }
     }
     

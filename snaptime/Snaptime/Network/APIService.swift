@@ -62,6 +62,7 @@ extension APIService {
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
+            
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
             
@@ -115,15 +116,15 @@ extension APIService {
     var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
-                .fetchUserProfileCount,
-                .fetchUserAlbum,
-                .fetchUserTagSnap,
-                .fetchCommunitySnap,
-                .fetchSnap,
-                .fetchUserInfo,
-                .fetchSnapPreview,
-                .fetchAlbumList,
-                .fetchFollow:
+            .fetchUserProfileCount,
+            .fetchUserAlbum,
+            .fetchUserTagSnap,
+            .fetchCommunitySnap,
+            .fetchSnap,
+            .fetchUserInfo,
+            .fetchSnapPreview,
+            .fetchAlbumList,
+            .fetchFollow:
                 .get
             
         case .modifyUserInfo:
@@ -137,7 +138,6 @@ extension APIService {
             .postSignUp,
             .postLikeToggle,
             .postReissue:
-
                 .post
             
         case .deleteFollowing,
@@ -177,7 +177,7 @@ extension APIService {
                 return ["accept": "*/*", "Content-Type": "application/json"]
             }
             
-            return ["Authorization": "Bearer \(accessToken)", "accept": "*/*"]
+            return ["Authorization": "Bearer \(accessToken)", "Content-Type": "application/json", "accept": "*/*"]
         }
     }
     
@@ -196,12 +196,13 @@ extension APIService {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)
                 request.httpBody = jsonData
+                print(parameters)
             } catch {
                 completion(.failure(FetchError.jsonEncodeError))
                 return
             }
         }
-
+        
         AF.request(request, interceptor: APIInterceptor.shared)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -299,7 +300,6 @@ extension APIService {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-                
             }
     }
     

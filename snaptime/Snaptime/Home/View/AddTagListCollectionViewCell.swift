@@ -35,13 +35,12 @@ final class AddTagListCollectionViewCell: UICollectionViewCell {
     private lazy var nickNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = "blwxnhan"
         
         return label
     }()
     
     func setupUI(info: FriendInfo) {
-        nickNameLabel.text = info.foundLoginId
+        nickNameLabel.text = info.foundUserName
         APIService.loadImage(data: info.profilePhotoURL, imageView: profileImage)
     }
     
