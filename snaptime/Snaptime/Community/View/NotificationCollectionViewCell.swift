@@ -22,7 +22,7 @@ final class NotificationCollectionViewCell: UICollectionViewCell {
     
     private lazy var previewImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SnapExample")
+        imageView.backgroundColor = .snaptimeGray
 
         return imageView
     }()

@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class RecommendCoordinator: Coordinator {
+final class NotificationCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
     var navigationController: UINavigationController
 
     func start() {
-        let recommendVC = RecommendViewController()
-        navigationController.pushViewController(recommendVC, animated: true)
+        let notificationVC = NotificationViewController()
+        navigationController.pushViewController(notificationVC, animated: true)
     }
     
     init(navigationController: UINavigationController) {

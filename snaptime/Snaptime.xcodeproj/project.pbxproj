@@ -35,7 +35,7 @@
 		294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */; };
 		294FF9F82B6CA12B00EDD005 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */; };
 		294FF9FA2B6CA13C00EDD005 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */; };
-		294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */; };
+		294FF9FC2B6CB1A700EDD005 /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9FB2B6CB1A700EDD005 /* NotificationCoordinator.swift */; };
 		2954EAD12C298A3600994F15 /* UserResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954EAD02C298A3600994F15 /* UserResDto.swift */; };
 		2958C8C72B91A98400902027 /* TopTapBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */; };
 		2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */; };
@@ -149,7 +149,7 @@
 		294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
+		294FF9FB2B6CB1A700EDD005 /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
 		2954EAD02C298A3600994F15 /* UserResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResDto.swift; sourceTree = "<group>"; };
 		2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTapBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextField.swift; sourceTree = "<group>"; };
@@ -324,7 +324,7 @@
 				294FF9F32B6CA0FD00EDD005 /* AuthCoordinator.swift */,
 				294FF9F52B6CA11200EDD005 /* HomeCoordinator.swift */,
 				294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */,
-				294FF9FB2B6CB1A700EDD005 /* RecommendCoordinator.swift */,
+				294FF9FB2B6CB1A700EDD005 /* NotificationCoordinator.swift */,
 				294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */,
 				294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */,
 			);
@@ -778,7 +778,7 @@
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */,
 				29176FB22C412C6100CD9A24 /* UserProfileResDto.swift in Sources */,
-				294FF9FC2B6CB1A700EDD005 /* RecommendCoordinator.swift in Sources */,
+				294FF9FC2B6CB1A700EDD005 /* NotificationCoordinator.swift in Sources */,
 				296167AA2BBBC7A7003CA89C /* SnapPreviewViewController.swift in Sources */,
 				294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */,
 				A67508552C3A6FFC001B4059 /* ParentReplyInfo.swift in Sources */,

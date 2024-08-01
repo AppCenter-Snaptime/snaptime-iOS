@@ -17,6 +17,8 @@ final class NotificationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavigationBar()
     }
     
     private lazy var topTextLabel: UILabel = {
@@ -49,28 +51,20 @@ final class NotificationViewController: BaseViewController {
         return collectionView
     }()
     
+    private func setupNavigationBar() {
+        self.showNavigationBar()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: topTextLabel)
+    }
+    
     override func setupLayouts() {
         super.setupLayouts()
         
-        [topBackButton,
-         topTextLabel,
-         notificationCollectionView].forEach {
+        [notificationCollectionView].forEach {
             view.addSubview($0)
         }
         
-        topTextLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.left.equalTo(topBackButton.snp.right).offset(20)
-        }
-        
-        topBackButton.snp.makeConstraints {
-            $0.centerY.equalTo(topTextLabel.snp.centerY)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-        }
-        
         notificationCollectionView.snp.makeConstraints {
-            $0.top.equalTo(topTextLabel.snp.bottom).offset(20)
-            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
