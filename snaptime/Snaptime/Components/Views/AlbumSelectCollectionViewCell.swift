@@ -73,7 +73,7 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
     
     private func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
-            let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
+           let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             print(url)
             let modifier = AnyModifier { request in
                 var r = request

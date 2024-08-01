@@ -29,6 +29,8 @@ final class ProfileViewController: BaseViewController {
     private var loginId: String
     private let target: ProfileTarget
     
+    private var unfollowLoginId: String?
+    
     init(target: ProfileTarget, loginId: String) {
         self.target = target
         self.loginId = loginId
@@ -91,7 +93,7 @@ final class ProfileViewController: BaseViewController {
             case .myself:
                 self?.delegate?.presentSettingProfile()
             case .others:
-                self?.followButtonToggle()
+                self?.followButtonClick()
             case .none:
                 print("")
             }
@@ -108,12 +110,14 @@ final class ProfileViewController: BaseViewController {
     
     private lazy var albumAndTagListView = TopTapBarView()
     
-    private func followButtonAction(name: String) {
+    private func followButtonAction(name: String, loginId: String) {
         show(
             alertText: "\(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
             confirmButtonText: "언팔로우"
         )
+        
+        self.unfollowLoginId = loginId
     }
         
     private var sendFlow: (Int) -> Void {
@@ -125,11 +129,11 @@ final class ProfileViewController: BaseViewController {
     // MARK: - navigationBar 설정
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     
-    private func followButtonToggle() {
+    private func followButtonClick() {
         profileStatusView.followButtonclick()
     }
     
@@ -192,7 +196,19 @@ final class ProfileViewController: BaseViewController {
 // MARK: - extension
 extension ProfileViewController: CustomAlertDelegate {
     func action() {
+        guard let unfollowLoginId = self.unfollowLoginId else { return }
         
+        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("팔로우 취소")
+                    self.profileStatusView.followButtonToggle()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     func exit() {}

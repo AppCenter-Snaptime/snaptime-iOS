@@ -18,9 +18,10 @@ enum FetchError: Error {
 enum APIService {
     static let baseURL = "http://na2ru2.me:6308"
     
-    case signIn
-    case signUp
-    case reissue
+    case postSignIn
+    case postSignUp
+    case postTestSignIn
+    case postReissue
     
     case fetchUserProfile(loginId: String)
     case fetchUserProfileCount(loginId: String)
@@ -47,18 +48,20 @@ extension APIService {
     var path: String {
         switch self {
             
-        case .signIn:
+        case .postReissue:
+            "/users/reissue"
+            
+        case .postSignIn:
             "/users/sign-in"
             
-        case .signUp:
+        case .postSignUp:
             "/users/sign-up"
             
-        case .reissue:
-            "/users/reissue"
+        case .postTestSignIn:
+            "/users/test/sign-in"
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
-            
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
             
@@ -69,7 +72,7 @@ extension APIService {
             "/profiles/tag-snap?loginId=\(loginId)"
             
         case .fetchUserInfo:
-            "/users"
+            "/users/my"
             
         case .modifyUserInfo:
             "/users"
@@ -127,12 +130,14 @@ extension APIService {
                 .put
             
         case .postReply,
-                .postFollow,
-                .postAlbum,
-                .signIn,
-                .signUp,
-                .reissue,
-                .postLikeToggle:
+            .postFollow,
+            .postAlbum,
+            .postSignIn,
+            .postTestSignIn,
+            .postSignUp,
+            .postLikeToggle,
+            .postReissue:
+
                 .post
             
         case .deleteFollowing,
@@ -146,18 +151,34 @@ extension APIService {
     }
     
     var headers: HTTPHeaders {
-        if case .signIn = self,
-           case .signUp = self {
+        /// 로그인, 회원가입 시 토큰 없이 요청 시
+        if case .postSignIn = self {
             return ["accept": "*/*", "Content-Type": "application/json"]
         }
         
-        if case .reissue = self {
-            guard let token = TokenUtils().read(APIService.baseURL, account: "refreshToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
-            return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
+        else if case .postTestSignIn = self {
+            return ["accept": "*/*", "Content-Type": "application/json"]
         }
         
-        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return ["accept": "*/*", "Content-Type": "application/json"]}
-        return ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "application/json"]
+        /// refreshToken으로 accessToken 재발급 시
+        else if case .postReissue = self {
+            guard let refreshToken = KeyChain.loadAccessToken(key: TokenType.refreshToken.rawValue)
+            else {
+                return ["accept": "*/*", "Content-Type": "application/json"]
+            }
+            
+            return ["accept": "*/*", "Authorization": "Bearer \(refreshToken)"]
+        }
+        
+        /// 그 외 accessToken으로 접근
+        else {
+            guard let accessToken = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue)
+            else {
+                return ["accept": "*/*", "Content-Type": "application/json"]
+            }
+            
+            return ["Authorization": "Bearer \(accessToken)", "accept": "*/*"]
+        }
     }
     
     var request: URLRequest {
@@ -168,9 +189,9 @@ extension APIService {
     }
     
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
-        var request = self.request
-        print(url)
         
+        var request = self.request
+                
         if let parameters = parameters {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)
@@ -180,8 +201,8 @@ extension APIService {
                 return
             }
         }
-        
-        AF.request(request)
+
+        AF.request(request, interceptor: APIInterceptor.shared)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -194,16 +215,22 @@ extension APIService {
                             completion(.success(userProfile))
                         }
                         
-                        else if case .signIn = self {
+                        else if case .postSignIn = self {
                             let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
                         
-                        else if case .reissue = self {
-                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                        else if case .postTestSignIn = self {
+                            let token = try JSONDecoder().decode(TestCommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(token.result))
                         }
                         
+                        else if case .postReissue = self {
+                            let result = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+                            completion(.success(result))
+                        }
+                                                
+
                         else if case .fetchUserProfileCount = self {
                             let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))
@@ -279,8 +306,7 @@ extension APIService {
     // MARK: - 이미지 네트워킹 메서드
     static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
-           let token = TokenUtils().read(APIService.baseURL, account: "accessToken") {
-            print(url)
+           let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             let modifier = AnyModifier { request in
                 var r = request
                 r.setValue("*/*", forHTTPHeaderField: "accept")
@@ -291,10 +317,9 @@ extension APIService {
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("success fetch image")
+                    print("")
                 case .failure(let error):
-                    print("error")
-                    print(error)
+                    print("imageFetchError: \(error)")
                 }
             }
         }

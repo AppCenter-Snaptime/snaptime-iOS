@@ -26,6 +26,12 @@ final class CommunityViewController: BaseViewController {
         self.fetchSnaps(pageNum: 1)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.fetchSnaps(pageNum: 1)
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .snaptimeBlue
@@ -37,9 +43,12 @@ final class CommunityViewController: BaseViewController {
     
     private lazy var notificationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bell"), for: .normal)
-        button.tintColor = .black
-        button.addAction(UIAction { [weak self] _ in
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .systemBackground
+        config.baseForegroundColor = .black
+        config.image = UIImage(systemName: "bell")
+        button.configuration = config
+        button.addAction(UIAction{ [weak self] _ in
             self?.delegate?.presentNotification()
         }, for: .touchUpInside)
         
@@ -65,7 +74,7 @@ final class CommunityViewController: BaseViewController {
                 switch result {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
-                        self.snaps = snap.result.snapDetailInfoDtos
+                        self.snaps = snap.result.snapDetailInfoResDtos
                     }
                     self.contentCollectionView.reloadData()
                 case .failure(let error):
@@ -77,7 +86,7 @@ final class CommunityViewController: BaseViewController {
     
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
     

@@ -32,7 +32,7 @@ final class FollowViewController: BaseViewController {
     
     private let target: FollowTarget
     private let loginId: String
-    private var selectedLoginId: String?
+    private var unfollowLoginId: String?
     
     init(target: FollowTarget, loginId: String) {
         self.target = target
@@ -59,12 +59,14 @@ final class FollowViewController: BaseViewController {
         return tableView
     }()
     
-    private func followButtonAction(name: String) {
+    private func followButtonAction(name: String, loginId: String) {
         show(
             alertText: " \(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
             confirmButtonText: "언팔로우"
         )
+        
+        self.unfollowLoginId = loginId
     }
     
     // MARK: - 네트워크 로직
@@ -126,12 +128,11 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedLoginId = friendList[indexPath.row].foundLoginId
+        let selectedLoginId = friendList[indexPath.row].foundLoginId
         
-        guard let selectedLoginId = selectedLoginId else { return }
+//        guard let selectedLoginId = selectedLoginId else { return }
         
-//        if selectedLoginId == ProfileBasicManager.shared.profile.loginId 
-        if selectedLoginId == ProfileBasicModel.profile.loginId
+        if selectedLoginId == ProfileBasicUserDefaults().loginId
         {
             self.delegate?.presentProfile(target: .myself, loginId: selectedLoginId)
         }
@@ -144,19 +145,24 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FollowViewController: CustomAlertDelegate {
     func action() {
-        guard let selectedLoginId = selectedLoginId else { return }
-        print(selectedLoginId)
+        guard let unfollowLoginId = self.unfollowLoginId else { return }
         
-        APIService.deleteFollowing(loginId: selectedLoginId).performRequest { result in
+        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
                     print("팔로우 취소")
+                    self.friendList = self.removeFriend(byLoginId: unfollowLoginId, from: self.friendList)
+                    self.followTableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
             }
         }
+    }
+    
+    func removeFriend(byLoginId loginId: String, from friends: [FriendInfo]) -> [FriendInfo] {
+        return friends.filter { $0.foundLoginId != loginId }
     }
     
     func exit() {}

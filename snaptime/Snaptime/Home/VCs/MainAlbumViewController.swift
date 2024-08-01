@@ -26,13 +26,18 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchUserProfile(loginId: ProfileBasicModel.profile.loginId)
+        
+        self.fetchAlbumList()
+        
+        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        self.fetchUserProfile(loginId: id)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchAlbumList() // 앨범목록 서버 통신
-        // floating button toggle off
+    
+        self.fetchAlbumList()
+        
         if isAddButtonActive {
             isAddButtonActive = false
             onTouchAddButton()
@@ -341,7 +346,7 @@ final class MainAlbumViewController : BaseViewController {
     
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "Logo")))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: albumButton)
     }
     

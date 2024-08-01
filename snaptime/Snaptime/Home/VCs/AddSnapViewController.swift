@@ -21,6 +21,8 @@ final class AddSnapViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewDidLayoutSubviews() {
@@ -136,11 +138,12 @@ final class AddSnapViewController: BaseViewController {
         // 아직 parameter isPrivate 안 보냄
         
         var url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
+        
         self.tagList.forEach {
             url += "&tagUserLoginIds=\($0.foundLoginId)"
         }
         
-        guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return }
         var headers: HTTPHeaders {
             ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "multipart/form-data"]
         }

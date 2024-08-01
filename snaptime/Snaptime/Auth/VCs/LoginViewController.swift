@@ -19,21 +19,18 @@ final class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.checkToken()
         self.tabLoginButton()
         self.hideKeyboardWhenTappedAround()
+        self.hideNavigationBar()
     }
     
     // MARK: - UI component Config
-    private let loginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "나만을 위한\n인생 네컷 커뮤니티,\nSnapTime"
-        label.setLineSpacing(lineSpacing: 20)
-        label.textAlignment = .left
-        label.numberOfLines = 3
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+    private let loginImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .login)
+        imageView.sizeToFit()
         
-        return label
+        return imageView
     }()
     
     private let inputStackView: UIStackView = {
@@ -41,21 +38,62 @@ final class LoginViewController: BaseViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 35
+        stackView.spacing = 12
         
         return stackView
     }()
     
-    private let idInputTextField = AuthTextField("아이디 또는 이메일")
-    private let passwordInputTextField = AuthTextField("비밀번호", secureToggle: true)
+    private let idInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        textField.layer.cornerRadius = 12
+        textField.layer.masksToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
+        textField.leftViewMode = .always
+        textField.attributedPlaceholder = NSAttributedString(string: "아이디", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
+
+        return textField
+    }()
     
-    private lazy var loginButton = SnapTimeCustomButton("로그인")
+    private let passwordInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        textField.layer.cornerRadius = 12
+        textField.layer.masksToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
+        textField.isSecureTextEntry = true
+        textField.leftViewMode = .always
+        textField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
+
+        return textField
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor.init(hexCode: "D3D9E0")
+        config.baseForegroundColor = UIColor.init(hexCode: "606060")
+        config.cornerStyle = .capsule
+        
+        var titleAttr = AttributedString.init("로그인")
+        titleAttr.font = .systemFont(ofSize: 15.0, weight: .bold)
+        config.attributedTitle = titleAttr
+        
+        button.configuration = config
+        
+        
+        return button
+    }()
     
     private lazy var joinButton: UIButton = {
         let button = UIButton()
         button.setTitle("이메일로 회원가입", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
+        button.setUnderline()
         button.addAction(UIAction { _ in
                 self.tabJoinButton()
         }, for: .touchUpInside)
@@ -63,31 +101,37 @@ final class LoginViewController: BaseViewController {
         return button
     }()
     
-    // MARK: - 자동로그인 메서드
-    private func checkToken() {
-        APIService.reissue.performRequest { result in
-            switch result {
-            case .success(let token):
-                if let token = token as? SignInResDto {
-                    print("reissue success")
-                    TokenUtils().create(APIService.baseURL, account: "accessToken", value: token.accessToken)
-                    TokenUtils().create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
-                    self.delegate?.presentHome()
-                } else {
-                    print("json decoding error")
-                }
-            case .failure(_):
-                // 기존 키체인 데이터를 지움.
-                if TokenUtils().read(APIService.baseURL, account: "accessToken") != nil {
-                    TokenUtils().delete(APIService.baseURL, account: "accessToken")
-                }
-
-                if TokenUtils().read(APIService.baseURL, account: "refreshToken") != nil {
-                    TokenUtils().delete(APIService.baseURL, account: "refreshToken")
-                }
-            }
-        }
-    }
+    private let separatedLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.init(hexCode: "#DBD5D0")
+        
+        return view
+    }()
+    
+    private let oAuthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "간편로그인"
+        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.textColor = UIColor.init(hexCode: "#9B9189")
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        
+        return label
+    }()
+    
+    private let oAuthStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 24
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+    
+    private lazy var googleButton = OAuthButton(imageName: "")
+    private lazy var kakaoButton = OAuthButton(imageName: "")
+    private lazy var appleButton = OAuthButton(imageName: "")
     
     // MARK: - button click method
     private func tabLoginButton() {
@@ -96,18 +140,19 @@ final class LoginViewController: BaseViewController {
                let password = self?.passwordInputTextField.text {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
-                APIService.signIn.performRequest(with: loginInfo) { result in
+                APIService.postSignIn.performRequest(with: loginInfo) { result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let token):
                             if let token = token as? SignInResDto {
-                                let tk = TokenUtils()
-                                tk.create(APIService.baseURL, account: "accessToken", value: token.accessToken)
-                                tk.create(APIService.baseURL, account: "refreshToken", value: token.refreshToken)
+                                let token = KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
                                 
-//                                ProfileBasicManager.shared.profile.loginId = id
+                                /// 토큰이 keychain에 저장되었을 경우
+                                if token.accessResult && token.refreshResult {
+                                    ProfileBasicUserDefaults().loginId = id
+                                    self?.delegate?.presentHome()
+                                }
                                 
-                                self?.delegate?.presentHome()
                             } else {
                                 print("json decode error")
                             }
@@ -133,10 +178,19 @@ final class LoginViewController: BaseViewController {
             inputStackView.addArrangedSubview($0)
         }
         
-        [loginLabel,
+        [googleButton,
+         kakaoButton,
+         appleButton].forEach {
+            oAuthStackView.addArrangedSubview($0)
+        }
+        
+        [loginImageView,
          inputStackView,
          loginButton,
-         joinButton].forEach {
+         joinButton,
+         separatedLine,
+         oAuthLabel,
+         oAuthStackView].forEach {
             view.addSubview($0)
         }
     }
@@ -144,27 +198,52 @@ final class LoginViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        loginLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(43)
+        loginImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(120)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(80)
+            $0.width.equalTo(110)
+        }
+        
+        [idInputTextField, passwordInputTextField].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(48)
+            }
         }
         
         inputStackView.snp.makeConstraints {
-            $0.top.equalTo(loginLabel.snp.bottom).offset(63)
+            $0.top.equalTo(loginImageView.snp.bottom).offset(50)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }
                 
         loginButton.snp.makeConstraints {
-            $0.top.equalTo(inputStackView.snp.bottom).offset(64)
+            $0.top.equalTo(inputStackView.snp.bottom).offset(56)
             $0.left.equalTo(inputStackView.snp.left)
             $0.right.equalTo(inputStackView.snp.right)
             $0.height.equalTo(50)
         }
         
         joinButton.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(32)
+            $0.top.equalTo(loginButton.snp.bottom).offset(33)
             $0.centerX.equalToSuperview()
+        }
+        
+        separatedLine.snp.makeConstraints {
+            $0.top.equalTo(joinButton.snp.bottom).offset(60)
+            $0.left.equalTo(inputStackView.snp.left)
+            $0.right.equalTo(inputStackView.snp.right)
+            $0.height.equalTo(1)
+        }
+        
+        oAuthLabel.snp.makeConstraints {
+            $0.center.equalTo(separatedLine)
+            $0.width.equalTo(70)
+        }
+        
+        oAuthStackView.snp.makeConstraints {
+            $0.top.equalTo(separatedLine.snp.bottom).offset(40)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

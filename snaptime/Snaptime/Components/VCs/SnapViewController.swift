@@ -28,7 +28,7 @@ final class SnapViewController: BaseViewController {
         writerUserName: "",
         tagUserFindResDtos: [],
         likeCnt: 0,
-        isLikedSnap: true
+        isLikedSnap: false
     )
     
     init(snapId: Int) {
@@ -53,7 +53,6 @@ final class SnapViewController: BaseViewController {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoFindSnapResDto {
                         self.snap = snap.result
-                        print(snap.result)
                     }
                     self.snapCollectionView.reloadData()
                 case .failure(let error):

@@ -12,7 +12,6 @@ struct CommonResponseDtoFindSnapResDto: Codable {
     let result: FindSnapResDto
 }
 
-/// 수정해야할 Snap Dto
 struct FindSnapResDto: Codable {
     var snapId: Int
     var oneLineJournal: String

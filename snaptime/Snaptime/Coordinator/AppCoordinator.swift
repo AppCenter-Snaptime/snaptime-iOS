@@ -42,7 +42,6 @@ final class AppCoordinator : Coordinator {
 
     func start() {
         startAuthCoordinator()
-//        startTabbarCoordinator() // test
     }
     
     init(navigationController: UINavigationController) {

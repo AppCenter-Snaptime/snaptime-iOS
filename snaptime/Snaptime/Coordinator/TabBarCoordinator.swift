@@ -15,19 +15,19 @@ final class TabBarCoordinator : Coordinator {
     var tabBarController: UITabBarController
 
     func start() {
-        // tabBar item 리스트
+        /// tabBar item 리스트
         let pages: [TabBarItemType] = TabBarItemType.allCases
-        // 각각의 tabBarItem 생성하기
+        /// 각각의 tabBarItem 생성하기
         let tabBarItems: [UITabBarItem] = pages.map { self.createTabBarItem(of: $0) }
-        // 탭바별로 navigationController 생성
+        /// 탭바별로 navigationController 생성
         let controllers: [UINavigationController] = tabBarItems.map {
             self.createTabNavigationController(tabBarItem: $0)
         }
-        // 탭바별로 코디네이터 생성
+        /// 탭바별로 코디네이터 생성
         let _ = controllers.map{ self.startTabCoordinator(tabNavigationController: $0) }
-        // 탭바 스타일 지정 및 VC 연결
+        /// 탭바 스타일 지정 및 VC 연결
         self.configureTabBarController(tabNavigationControllers: controllers)
-        // 탭바 화면에 연결
+        /// 탭바 화면에 연결
         self.addTabBarController()
     }
     
@@ -40,27 +40,27 @@ final class TabBarCoordinator : Coordinator {
     
     // MARK: - tabBarController 설정 메서드
     private func configureTabBarController(tabNavigationControllers: [UIViewController]) {
-        // TabBar의 VC 지정
+        /// TabBar의 VC 지정
         self.tabBarController.setViewControllers(tabNavigationControllers, animated: false)
-        // home의 index로 TabBar Index 세팅
+        /// home의 index로 TabBar Index 세팅
         self.tabBarController.selectedIndex = TabBarItemType.home.toInt()
-        // TabBar 스타일 지정
+        /// TabBar 스타일 지정
         
         let appearance = UITabBarAppearance()
-        // set tabbar opacity
+        /// set tabbar opacity
         appearance.configureWithOpaqueBackground()
 
-        // remove tabbar border line
+        /// remove tabbar border line
         appearance.shadowColor = UIColor.clear
 
         self.tabBarController.tabBar.standardAppearance = appearance
 
         if #available(iOS 15.0, *) {
-                // set tabbar opacity
+        /// set tabbar opacity
             self.tabBarController.tabBar.scrollEdgeAppearance = self.tabBarController.tabBar.standardAppearance
         }
 
-        // set tabbar shadow
+        /// set tabbar shadow
         self.tabBarController.tabBar.layer.masksToBounds = false
         self.tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
         self.tabBarController.tabBar.layer.shadowOpacity = 0.1

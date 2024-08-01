@@ -18,9 +18,9 @@ final class ProfileStatusView: UIView {
 
     private let profileTarget: ProfileTarget
     
-    private var action: ((String)->())?
+    private var action: ((String, String)->())?
 
-    private var loginId: String = ""
+    private var loginId: String?
     private var name: String?
     
     private var follow: Bool = true {
@@ -95,8 +95,12 @@ final class ProfileStatusView: UIView {
         return view
     }()
     
-    func setAction(action: ((String)->())?) {
+    func setAction(action: ((String, String)->())?) {
         self.action = action
+    }
+    
+    func followButtonToggle() {
+        follow.toggle()
     }
     
     // MARK: - 팔로잉, 팔로우 버튼 다르게 보이도록 구현
@@ -124,18 +128,19 @@ final class ProfileStatusView: UIView {
     func followButtonclick() {
         if follow {
             if let action = self.action,
-               let name = self.name {
-                action(name)
+               let name = self.name,
+               let loginId = self.loginId {
+                action(name, loginId)
             }
-            // TODO: - 이후 팔로잉 삭제 요청 필요
         }
         
         else if !follow {
-            APIService.postFollow(loginId: self.loginId).performRequest { result in
+            guard let loginId = self.loginId else { return }
+            APIService.postFollow(loginId: loginId).performRequest { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(_):
-                        self.follow.toggle()
+                        self.followButtonToggle()
                     case .failure(let error):
                         print(error)
                     }
