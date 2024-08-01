@@ -9,11 +9,12 @@ import UIKit
 import SnapKit
 
 protocol SnapTagListViewControllerDelegate: AnyObject {
-    func presentSnapTagList()
+    func backToAddSnapView(tagList: [FriendInfo])
 }
 
 final class SnapTagListViewController: BaseViewController {
     weak var delegate: SnapTagListViewControllerDelegate?
+    private var searchResults: [FriendInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +23,13 @@ final class SnapTagListViewController: BaseViewController {
     private lazy var tagListSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "사람 검색하기"
-        
+        searchBar.delegate = self
         return searchBar
     }()
     
     private lazy var recentTagLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근 태그한 사람"
+        label.text = "검색 결과"
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.textColor = UIColor.init(hexCode: "#8b8b8b")
         
@@ -84,12 +85,17 @@ extension SnapTagListViewController: UICollectionViewDelegate, UICollectionViewD
             withReuseIdentifier: AddTagListCollectionViewCell.identifier,
             for: indexPath
         ) as? AddTagListCollectionViewCell else { return UICollectionViewCell() }
-        
+        cell.setupUI(info: searchResults[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return searchResults.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // NOTE: 일단 태그 하나 선택시 앞 화면으로 돌아가게 설정. 이후 multiselect 가능하게 변경해야 함
+        delegate?.backToAddSnapView(tagList: [searchResults[indexPath.row]])
     }
 }
 
@@ -98,5 +104,48 @@ extension SnapTagListViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.bounds.width
         
         return CGSize(width: width, height: width/6)
+    }
+}
+
+extension SnapTagListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange")
+        guard let text = searchBar.text else { return }
+        print(text)
+        APIService.fetchFollow(type: "FOLLOWING", loginId: "eogus4658", keyword: text, pageNum: 1).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListFindFriendResDto {
+                        print(result.result.friendInfoResDtos)
+                        self.searchResults = result.result.friendInfoResDtos
+                        self.addTagListCollectionView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                    self.searchResults = []
+                    self.addTagListCollectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarSearchButtonClicked")
+        dismissKeyboard()
+        guard let text = searchBar.text else { return }
+        print(text)
+        APIService.fetchFollow(type: "FOLLOWING", loginId: "eogus4658", keyword: text, pageNum: 1).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    if let result = result as? CommonResponseDtoListFindFriendResDto {
+                        print(result.result.friendInfoResDtos)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }

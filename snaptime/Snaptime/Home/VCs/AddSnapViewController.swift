@@ -17,6 +17,8 @@ protocol AddSnapViewControllerDelegate: AnyObject {
 final class AddSnapViewController: BaseViewController {
     weak var delegate: AddSnapViewControllerDelegate?
     
+    private var tagList: [FriendInfo] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -25,6 +27,23 @@ final class AddSnapViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         
         profileImage.layer.cornerRadius = profileImage.frame.height/2
+    }
+    
+    func addTagList(tagList: [FriendInfo]) {
+        // 기존 태그 리스트가 없으면, 초기 '사람 태그' 버튼을 지워주고,
+        // + 버튼을 보여줌
+        if self.tagList.isEmpty {
+            self.tagStackView.arrangedSubviews.forEach {
+                $0.removeFromSuperview()
+            }
+            self.addTagButton.isHidden = false
+        }
+        print("addTagList")
+        print(tagList)
+        self.tagList.append(contentsOf: tagList)
+        tagList.forEach {
+            self.tagStackView.addArrangedSubview(TagButton(tagName: $0.foundLoginId))
+        }
     }
     
     private lazy var profileImage: UIImageView = {
@@ -56,19 +75,27 @@ final class AddSnapViewController: BaseViewController {
         return button
     }()
     
+    private lazy var initialAddTagButton: UIButton = {
+        let button = TagButton(tagName: "사람 태그", action: UIAction {[weak self] _ in
+            self?.delegate?.presentSnapTagList()
+        })
+        return button
+    }()
+    
+    private lazy var tagStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(self.initialAddTagButton)
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     private lazy var addTagButton: UIButton = {
         let button = UIButton()
-        
         var config = UIButton.Configuration.borderedTinted()
-        
-        var titleAttr = AttributedString.init("사람 태그")
-        titleAttr.font = .systemFont(ofSize: 14, weight: .regular)
-        
-        config.attributedTitle = titleAttr
         config.imagePlacement = .leading
-        config.imagePadding = 8
-        config.image = UIImage(systemName: "person")
-        config.cornerStyle = .large
+        config.imagePadding = 10
+        config.image = UIImage(systemName: "plus")
+        config.cornerStyle = .capsule
         config.baseForegroundColor = .snaptimeBlue
         config.baseBackgroundColor = .white
         config.background.strokeWidth = 1
@@ -78,7 +105,7 @@ final class AddSnapViewController: BaseViewController {
         button.addAction(UIAction {[weak self] _ in
             self?.delegate?.presentSnapTagList()
         }, for: .touchUpInside)
-        
+        button.isHidden = true // 초기에 안보이게 설정
         return button
     }()
     
@@ -108,7 +135,11 @@ final class AddSnapViewController: BaseViewController {
     private func postNewSnap() async {
         // 아직 parameter isPrivate 안 보냄
         
-        let url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        var url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        self.tagList.forEach {
+            url += "&tagUserLoginIds=\($0.foundLoginId)"
+        }
+        
         guard let token = TokenUtils().read(APIService.baseURL, account: "accessToken") else { return }
         var headers: HTTPHeaders {
             ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "multipart/form-data"]
@@ -143,9 +174,16 @@ final class AddSnapViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
+        [
+            initialAddTagButton
+        ].forEach {
+            tagStackView.addArrangedSubview($0)
+        }
+        
         [profileImage,
          oneLineDiaryTextView,
          addImageButton,
+         tagStackView,
          addTagButton,
          snapSaveButton].forEach {
             view.addSubview($0)
@@ -176,11 +214,16 @@ final class AddSnapViewController: BaseViewController {
             $0.height.equalTo(454)
         }
         
-        addTagButton.snp.makeConstraints {
+        tagStackView.snp.makeConstraints {
             $0.top.equalTo(addImageButton.snp.bottom).offset(24)
             $0.left.equalTo(addImageButton.snp.left)
             $0.height.equalTo(32)
-            $0.width.equalTo(109)
+        }
+        
+        addTagButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(self.tagStackView)
+            $0.left.equalTo(self.tagStackView.snp.right).offset(8)
+            $0.width.equalTo(self.addTagButton.snp.height)
         }
         
         snapSaveButton.snp.makeConstraints {
