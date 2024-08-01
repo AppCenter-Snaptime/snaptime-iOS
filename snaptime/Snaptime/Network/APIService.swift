@@ -35,6 +35,7 @@ enum APIService {
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
     case postAlbum
+    case deleteAlbum(albumId: Int)
     
     case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
     case postFollow(loginId: String)
@@ -61,7 +62,6 @@ extension APIService {
             
         case .fetchUserProfile(let loginId):
             "/profiles/profile?targetLoginId=\(loginId)"
-    
         case .fetchUserProfileCount(let loginId):
             "/profiles/count?loginId=\(loginId)"
             
@@ -95,8 +95,11 @@ extension APIService {
         case .postAlbum:
             "/album"
             
+        case .deleteAlbum(let albumId):
+            "/album?albumId=\(albumId)"
+            
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
-            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)"
+            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)&searchKeyword=\(keyword)"
             
         case .postFollow(let loginId):
             "/friends?receiverLoginId=\(loginId)"
@@ -112,20 +115,20 @@ extension APIService {
     var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
-            .fetchUserProfileCount,
-            .fetchUserAlbum,
-            .fetchUserTagSnap,
-            .fetchCommunitySnap,
-            .fetchSnap,
-            .fetchUserInfo,
-            .fetchSnapPreview,
-            .fetchAlbumList,
-            .fetchFollow:
+                .fetchUserProfileCount,
+                .fetchUserAlbum,
+                .fetchUserTagSnap,
+                .fetchCommunitySnap,
+                .fetchSnap,
+                .fetchUserInfo,
+                .fetchSnapPreview,
+                .fetchAlbumList,
+                .fetchFollow:
                 .get
             
         case .modifyUserInfo:
                 .put
-        
+            
         case .postReply,
             .postFollow,
             .postAlbum,
@@ -134,9 +137,11 @@ extension APIService {
             .postSignUp,
             .postLikeToggle,
             .postReissue:
+
                 .post
             
-        case .deleteFollowing:
+        case .deleteFollowing,
+                .deleteAlbum:
                 .delete
         }
     }
@@ -225,6 +230,7 @@ extension APIService {
                             completion(.success(result))
                         }
                                                 
+
                         else if case .fetchUserProfileCount = self {
                             let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))

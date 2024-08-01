@@ -19,7 +19,6 @@ final class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tabLoginButton()
         self.hideKeyboardWhenTappedAround()
         self.hideNavigationBar()
@@ -153,6 +152,9 @@ final class LoginViewController: BaseViewController {
                                     ProfileBasicUserDefaults().loginId = id
                                     self?.delegate?.presentHome()
                                 }
+                                
+                            } else {
+                                print("json decode error")
                             }
                         case .failure(let error):
                             print(error)

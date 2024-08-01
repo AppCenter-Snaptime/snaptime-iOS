@@ -40,6 +40,11 @@ final class AddTagListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    func setupUI(info: FriendInfo) {
+        nickNameLabel.text = info.foundLoginId
+        APIService.loadImage(data: info.profilePhotoURL, imageView: profileImage)
+    }
+    
     private func setupLayouts() {
         [profileImage,
          nickNameLabel].forEach {
