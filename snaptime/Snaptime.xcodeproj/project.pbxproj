@@ -47,6 +47,8 @@
 		296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */; };
 		29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625E132C4280B600D51841 /* CommonResDtoVoid.swift */; };
 		29625E162C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */; };
+		2962F1692C60D8B2009C7C8B /* UserFindResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962F1682C60D8B2009C7C8B /* UserFindResDto.swift */; };
+		2962F16B2C60DBAF009C7C8B /* SignUpReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962F16A2C60DBAF009C7C8B /* SignUpReqDto.swift */; };
 		297090232C37D8B5004A151B /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090222C37D8B5004A151B /* FollowViewController.swift */; };
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
 		297090292C38014A004A151B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090282C38014A004A151B /* IconButton.swift */; };
@@ -162,6 +164,8 @@
 		296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagListCollectionViewCell.swift; sourceTree = "<group>"; };
 		29625E132C4280B600D51841 /* CommonResDtoVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResDtoVoid.swift; sourceTree = "<group>"; };
 		29625E152C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListProfileTagSnapResDto.swift; sourceTree = "<group>"; };
+		2962F1682C60D8B2009C7C8B /* UserFindResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFindResDto.swift; sourceTree = "<group>"; };
+		2962F16A2C60DBAF009C7C8B /* SignUpReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpReqDto.swift; sourceTree = "<group>"; };
 		297090222C37D8B5004A151B /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		297090282C38014A004A151B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
@@ -517,6 +521,8 @@
 				A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */,
 				2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */,
 				29F1591C2C60951B00AB0BA9 /* UserPagingResDto.swift */,
+				2962F1682C60D8B2009C7C8B /* UserFindResDto.swift */,
+				2962F16A2C60DBAF009C7C8B /* SignUpReqDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,6 +763,7 @@
 				29839F3F2C4E5D3F001A57E5 /* UIViewController+.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,
 				298F7F612B6BA38000A8DBC5 /* CommunityViewController.swift in Sources */,
+				2962F16B2C60DBAF009C7C8B /* SignUpReqDto.swift in Sources */,
 				A67508592C3BCFDD001B4059 /* FindChildReplyResDto.swift in Sources */,
 				A68185022C32E7A500ECBDE3 /* UITextField+.swift in Sources */,
 				A69D6D742C509BB400292BFD /* FindTagUserResDto.swift in Sources */,
@@ -819,6 +826,7 @@
 				29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */,
 				A6CBEB052C46959500009A98 /* CommonResponseDtoLong.swift in Sources */,
 				296167B02BBC20AA003CA89C /* AddTagListCollectionViewCell.swift in Sources */,
+				2962F1692C60D8B2009C7C8B /* UserFindResDto.swift in Sources */,
 				290585552B71FE9600B80F68 /* UIColor+.swift in Sources */,
 				A69A81C42B877F2D006BAEB2 /* UITableViewCell+.swift in Sources */,
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,

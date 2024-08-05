@@ -10,17 +10,28 @@ import SnapKit
 
 protocol JoinPasswordViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentJoinName()
+    func presentJoinName(info: SignUpReqDto)
 }
 
 final class JoinPasswordViewController: BaseViewController {
     weak var delegate: JoinPasswordViewControllerDelegate?
+    
+    private var registrationInfo: SignUpReqDto
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    init(info: SignUpReqDto) {
+        self.registrationInfo = info
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI component Config
@@ -79,7 +90,11 @@ final class JoinPasswordViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.addAction(UIAction {[weak self] _ in
-            self?.delegate?.presentJoinName()
+            self?.registrationInfo.password = self?.passwordInputTextField.text
+            
+            if let info = self?.registrationInfo {
+                self?.delegate?.presentJoinName(info: info)
+            }
         }, for: .touchUpInside)
     }
     

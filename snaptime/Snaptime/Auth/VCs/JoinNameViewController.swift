@@ -10,17 +10,28 @@ import SnapKit
 
 protocol JoinNameViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentJoinID()
+    func presentJoinID(info: SignUpReqDto)
 }
 
 final class JoinNameViewController: BaseViewController {
     weak var delegate: JoinNameViewControllerDelegate?
+    
+    private var registrationInfo: SignUpReqDto
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    init(info: SignUpReqDto) {
+        self.registrationInfo = info
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI component Config
@@ -49,7 +60,12 @@ final class JoinNameViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.addAction(UIAction {[weak self] _ in
-            self?.delegate?.presentJoinID()
+            self?.registrationInfo.name = self?.nameInputTextField.text
+            self?.registrationInfo.birthDay = self?.birthDateInputTextField.text
+            
+            if let info = self?.registrationInfo {
+                self?.delegate?.presentJoinID(info: info)
+            }
         }, for: .touchUpInside)
     }
     

@@ -54,22 +54,22 @@ extension AuthCoordinator: LoginViewControllerDelegate,
     }
     
     // join 비밀번호
-    func presentJoinPassword() {
-        let joinPasswordVC = JoinPasswordViewController()
+    func presentJoinPassword(info: SignUpReqDto) {
+        let joinPasswordVC = JoinPasswordViewController(info: info)
         joinPasswordVC.delegate = self
         navigationController.pushViewController(joinPasswordVC, animated: true)
     }
     
     // join 이름
-    func presentJoinName() {
-        let joinNameVC = JoinNameViewController()
+    func presentJoinName(info: SignUpReqDto) {
+        let joinNameVC = JoinNameViewController(info: info)
         joinNameVC.delegate = self
         navigationController.pushViewController(joinNameVC, animated: true)
     }
     
     // join 아이디
-    func presentJoinID() {
-        let joinIdVC = JoinIdViewController()
+    func presentJoinID(info: SignUpReqDto) {
+        let joinIdVC = JoinIdViewController(info: info)
         joinIdVC.delegate = self
         navigationController.pushViewController(joinIdVC, animated: true)
     }
