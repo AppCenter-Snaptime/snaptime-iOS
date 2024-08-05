@@ -154,7 +154,7 @@ final class LoginViewController: BaseViewController {
                                 }
                                 
                             } else {
-                                print("json decode error")
+                                print(FetchError.jsonDecodeError)
                             }
                         case .failure(let error):
                             print(error)

@@ -41,12 +41,12 @@ final class CommunityViewController: BaseViewController {
         return label
     }()
     
-    private lazy var notificationButton: UIButton = {
+    private lazy var findUserButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .systemBackground
         config.baseForegroundColor = .black
-        config.image = UIImage(systemName: "bell")
+        config.image = UIImage(systemName: "magnifyingglass")
         button.configuration = config
         button.addAction(UIAction{ [weak self] _ in
             self?.delegate?.presentNotification()
@@ -87,7 +87,7 @@ final class CommunityViewController: BaseViewController {
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: findUserButton)
     }
     
     override func setupLayouts() {

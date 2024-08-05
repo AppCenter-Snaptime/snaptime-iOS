@@ -14,6 +14,7 @@ protocol ProfileViewControllerDelegate: AnyObject {
     func presentSnapPreview(albumId: Int)
     func presentNotification()
     func presentFollow(target: FollowTarget, loginId: String)
+    func presentSnap(snapId: Int)
 }
 
 enum ProfileTarget {
@@ -43,14 +44,17 @@ final class ProfileViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.albumAndTagListView.send = sendFlow
+        
+        self.albumListView.send = sendFlowAlbumList
+        self.tagListView.send = sendFlowTagList
+        self.profileStatusView.setAction(action: followButtonAction)
         
         self.setupNavigationBar()
 
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
-        self.albumAndTagListView.setLoginId(loginId: loginId)
-        self.profileStatusView.setAction(action: followButtonAction)
+        
+        self.sendData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +62,7 @@ final class ProfileViewController: BaseViewController {
 
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
-        self.albumAndTagListView.setLoginId(loginId: loginId)
+        self.sendData()
     }
     
     // MARK: - configUI
@@ -107,8 +111,50 @@ final class ProfileViewController: BaseViewController {
             strongSelf.delegate?.presentFollow(target: .follower, loginId: strongSelf.loginId)
         }
     )
+        
+    private lazy var tapBarCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.decelerationRate = .fast
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(TopTapBarCollectionViewCell.self, forCellWithReuseIdentifier: TopTapBarCollectionViewCell.identifier)
+        
+        return collectionView
+    }()
     
-    private lazy var albumAndTagListView = TopTapBarView()
+    private lazy var indicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        
+        return view
+    }()
+    
+    private lazy var listScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.isPagingEnabled = true
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.delegate = self
+        
+        return scrollView
+    }()
+        
+    private let tagListView = TagListView()
+    private let albumListView = AlbumListView()
+    
+    private lazy var contentView = UIView()
+    
+    /// albumList, tagList에 각각 데이터 fetch할 수 있도록 loginId 전달
+    private func sendData() {
+        self.albumListView.setLoginId(loginId: self.loginId)
+        self.tagListView.setLoginId(loginId: self.loginId)
+    }
     
     private func followButtonAction(name: String, loginId: String) {
         show(
@@ -120,15 +166,21 @@ final class ProfileViewController: BaseViewController {
         self.unfollowLoginId = loginId
     }
         
-    private var sendFlow: (Int) -> Void {
+    private var sendFlowAlbumList: (Int) -> Void {
         return { [weak self] albumId in
             self?.delegate?.presentSnapPreview(albumId: albumId)
         }
     }
     
+    private var sendFlowTagList: (Int) -> Void {
+        return { [weak self] snapId in
+            self?.delegate?.presentSnap(snapId: snapId)
+        }
+    }
+    
     // MARK: - navigationBar 설정
     private func setupNavigationBar() {
-        self.navigationController?.navigationBar.isHidden = false
+        self.showNavigationBar()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
     }
@@ -173,10 +225,20 @@ final class ProfileViewController: BaseViewController {
         super.setupLayouts()
         
         [profileStatusView,
-         albumAndTagListView].forEach {
+         tapBarCollectionView,
+          indicatorView,
+          listScrollView].forEach {
             view.addSubview($0)
         }
+        
+        [albumListView,
+         tagListView].forEach {
+            contentView.addSubview($0)
+        }
+        
+        listScrollView.addSubview(contentView)
     }
+    
     override func setupConstraints() {
         super.setupConstraints()
         
@@ -185,10 +247,41 @@ final class ProfileViewController: BaseViewController {
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         
-        albumAndTagListView.snp.makeConstraints {
+        tapBarCollectionView.snp.makeConstraints {
             $0.top.equalTo(profileStatusView.snp.bottom).offset(8)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
+        }
+        
+        let scrollViewWidth = UIScreen.main.bounds.width
+
+        indicatorView.snp.makeConstraints {
+            $0.top.equalTo(tapBarCollectionView.snp.bottom)
+            $0.height.equalTo(2)
+            $0.centerX.equalTo(scrollViewWidth/4)
+            $0.width.equalTo(scrollViewWidth/6)
+        }
+        
+        listScrollView.snp.makeConstraints {
+            $0.top.equalTo(indicatorView.snp.bottom).offset(1)
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+                        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(listScrollView.contentLayoutGuide)
+            $0.height.equalTo(listScrollView.frameLayoutGuide)
+            $0.width.equalTo(scrollViewWidth*2)
+        }
+        
+        albumListView.snp.makeConstraints {
+            $0.top.left.bottom.equalTo(contentView)
+            $0.width.equalTo(scrollViewWidth)
+        }
+        
+        tagListView.snp.makeConstraints {
+            $0.top.bottom.equalTo(contentView)
+            $0.left.equalTo(albumListView.snp.right)
+            $0.width.equalTo(scrollViewWidth)
         }
     }
 }
@@ -212,4 +305,79 @@ extension ProfileViewController: CustomAlertDelegate {
     }
     
     func exit() {}
+}
+
+// MARK: - CollectionView extension
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = tapBarCollectionView.dequeueReusableCell(
+            withReuseIdentifier: TopTapBarCollectionViewCell.identifier,
+            for: indexPath
+        ) as? TopTapBarCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let title = ["앨범목록", "태그목록"]
+        cell.configTitle(title[indexPath.row])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == tapBarCollectionView {
+            guard let cell = tapBarCollectionView.cellForItem(at: indexPath) as? TopTapBarCollectionViewCell else { return }
+            
+            let width = collectionView.bounds.width
+            let scrollViewStart = width * CGFloat(indexPath.row)
+            
+            self.indicatorView.snp.remakeConstraints {
+                $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
+                $0.height.equalTo(2)
+                $0.centerX.equalTo(cell.snp.centerX)
+                $0.width.equalTo(width/6)
+            }
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+                self.listScrollView.setContentOffset(CGPoint(x: scrollViewStart, y: 0), animated: false)
+            }
+        }
+    }
+}
+    
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacing: CGFloat = 10
+        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
+        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
+        return CGSize(width: itemDimension, height: 35)
+    }
+}
+
+// MARK: - Scrollview Delegate Extension
+extension ProfileViewController: UIScrollViewDelegate {
+    
+    /// scrollView 스크롤 시 indicator 바가 함께 움직이도록 하는 메서드
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = UIScreen.main.bounds.width
+        let offsetX = scrollView.contentOffset.x
+        
+        self.indicatorView.snp.remakeConstraints {
+            $0.top.equalTo(self.tapBarCollectionView.snp.bottom)
+            $0.height.equalTo(2)
+            $0.centerX.equalTo(offsetX/2 + width/4)
+            $0.width.equalTo(width/6)
+        }
+        
+        UIView.animate(
+            withDuration: 0.1,
+            animations: { self.view.layoutIfNeeded() }
+        )
+    }
 }
