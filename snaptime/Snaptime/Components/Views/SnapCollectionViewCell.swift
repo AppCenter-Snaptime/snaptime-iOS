@@ -11,6 +11,7 @@ import Kingfisher
 
 protocol SnapCollectionViewCellDelegate: AnyObject {
     func didTapCommentButton(snap: FindSnapResDto)
+    func didTapEditButton(snap: FindSnapResDto)
 }
 
 final class SnapCollectionViewCell: UICollectionViewCell {
@@ -69,7 +70,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         button.tintColor = .black
-        
+        button.addAction(UIAction { [weak self] _ in
+            if let snap = self?.snap {
+                self?.delegate?.didTapEditButton(snap: snap)
+            }
+            
+        }, for: .touchUpInside)
         return button
     }()
     

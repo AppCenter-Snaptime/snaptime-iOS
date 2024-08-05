@@ -11,6 +11,7 @@ import Alamofire
 
 protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
+    func presentEditSnapVC(snap: FindSnapResDto)
 }
 
 final class SnapViewController: BaseViewController {
@@ -40,9 +41,8 @@ final class SnapViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.fetchSnap(id: self.snapId)
     }
     
@@ -129,5 +129,22 @@ extension SnapViewController: UICollectionViewDelegateFlowLayout {
 extension SnapViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton(snap: FindSnapResDto) {
         delegate?.presentCommentVC(snap: snap)
+    }
+    
+    func didTapEditButton(snap: FindSnapResDto) {
+        // ActionSheet 관련 설정
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "수정하기", style: .default, handler: { _ in
+            self.delegate?.presentEditSnapVC(snap: snap)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "폴더 이동", style: .default, handler: { _ in
+            //            self.presentAddAlbumPopup()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
+            //            self.delegate?.presentAlbumDelete()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(actionSheet, animated: true)
     }
 }
