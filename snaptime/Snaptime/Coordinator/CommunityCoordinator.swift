@@ -20,6 +20,7 @@ final class CommunityCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.navigationBar.isHidden = true
+        self.navigationController.navigationBar.tintColor = .black
     }
 }
 
@@ -28,7 +29,12 @@ extension CommunityCoordinator:
     NotificationViewControllerDelegate,
     CommentViewControllerDelegate,
     SearchViewControllerDelegate,
-    ProfileViewControllerDelegate {
+    ProfileViewControllerDelegate,
+    FollowViewControllerDelegate,
+    SnapViewControllerDelegate,
+    SnapPreviewViewControllerDelegate,
+    EditProfileViewControllerDelegate,
+    SettingProfileViewControllerDelegate {
     
     func presentCommunity() {
         let communityVC = CommunityViewController()
@@ -64,12 +70,43 @@ extension CommunityCoordinator:
     func backToPrevious() {
         navigationController.popViewController(animated: true)
     }
+
+    func presentSnap(snapId: Int) {
+        let albumSnapVC = SnapViewController(snapId: snapId)
+        albumSnapVC.delegate = self
+        navigationController.pushViewController(albumSnapVC, animated: true)
+    }
     
-    func presentSettingProfile() {}
+    func presentSnapPreview(albumId: Int) {
+        let albumDetailVC = SnapPreviewViewController(albumID: albumId)
+        albumDetailVC.delegate = self
+        navigationController.pushViewController(albumDetailVC, animated: true)
+    }
     
-    func presentSnapPreview(albumId: Int) {}
+    func presentEditProfile() {
+        let editProfileVC = EditProfileViewController()
+        editProfileVC.delegate = self
+        navigationController.pushViewController(editProfileVC, animated: true)
+    }
     
-    func presentFollow(target: FollowTarget, loginId: String) {}
+    func presentSettingProfile() {
+        let settingProfileVC = SettingProfileViewController()
+        settingProfileVC.delegate = self
+        navigationController.pushViewController(settingProfileVC, animated: true)
+    }
     
-    func presentSnap(snapId: Int) {}
+    func presentFollow(target: FollowTarget, loginId: String) {
+        let followVC = FollowViewController(target: target, loginId: loginId)
+        followVC.delegate = self
+        navigationController.pushViewController(followVC, animated: true)
+    }
+    
+    func backToRoot() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func presentLogin() {
+        guard let appCoordinator = parentCoordinator as? AppCoordinator else { return }
+        appCoordinator.start()
+    }
 }

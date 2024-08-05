@@ -107,7 +107,11 @@ final class SettingProfileViewController: BaseViewController {
     private lazy var settingProfileView4 = ProfileSettingView(first: "로그아웃",
                                                         second: "탈퇴하기",
                                                         firstAction: UIAction { [weak self] _ in
-        self?.logoutLogic()
+        self?.show(
+            alertText: "로그아웃 하시겠습니까?",
+            cancelButtonText: "취소하기",
+            confirmButtonText: "네"
+        )
     },
                                                         secondAction: UIAction { [weak self] _ in
         
@@ -195,4 +199,12 @@ final class SettingProfileViewController: BaseViewController {
             $0.right.equalToSuperview().offset(-30)
         }
     }
+}
+
+extension SettingProfileViewController: CustomAlertDelegate {
+    func action() {
+        self.logoutLogic()
+    }
+    
+    func exit() {}
 }
