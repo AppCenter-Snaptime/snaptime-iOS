@@ -26,7 +26,10 @@ final class CommunityCoordinator: Coordinator {
 extension CommunityCoordinator:
     CommunityViewControllerDelegate,
     NotificationViewControllerDelegate,
-    CommentViewControllerDelegate {
+    CommentViewControllerDelegate,
+    SearchViewControllerDelegate,
+    ProfileViewControllerDelegate {
+    
     func presentCommunity() {
         let communityVC = CommunityViewController()
         communityVC.delegate = self
@@ -45,4 +48,28 @@ extension CommunityCoordinator:
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)
     }
+    
+    func presentSearch() {
+        let searchVC = SearchViewController()
+        searchVC.delegate = self
+        navigationController.pushViewController(searchVC, animated: true)
+    }
+    
+    func presentProfile(target: ProfileTarget, loginId: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
+        myProfileVC.delegate = self
+        navigationController.pushViewController(myProfileVC, animated: true)
+    }
+    
+    func backToPrevious() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func presentSettingProfile() {}
+    
+    func presentSnapPreview(albumId: Int) {}
+    
+    func presentFollow(target: FollowTarget, loginId: String) {}
+    
+    func presentSnap(snapId: Int) {}
 }

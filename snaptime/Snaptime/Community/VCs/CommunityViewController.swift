@@ -12,6 +12,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommunity()
     func presentNotification()
     func presentCommentVC(snap: FindSnapResDto)
+    func presentSearch() 
 }
 
 final class CommunityViewController: BaseViewController {
@@ -49,7 +50,7 @@ final class CommunityViewController: BaseViewController {
         config.image = UIImage(systemName: "magnifyingglass")
         button.configuration = config
         button.addAction(UIAction{ [weak self] _ in
-            self?.delegate?.presentNotification()
+            self?.delegate?.presentSearch()
         }, for: .touchUpInside)
         
         return button

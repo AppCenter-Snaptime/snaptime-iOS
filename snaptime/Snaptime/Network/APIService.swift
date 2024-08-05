@@ -29,6 +29,8 @@ enum APIService {
     case fetchUserTagSnap(loginId: String)
     case fetchUserInfo
     case modifyUserInfo
+    case fetchSearchUserInfo(pageNum: Int, keyword: String)
+    
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
     case fetchSnap(albumId: Int)
@@ -78,6 +80,9 @@ extension APIService {
         case .modifyUserInfo:
             "/users"
             
+        case .fetchSearchUserInfo(let pageNum, let keyword):
+            "/users/\(pageNum)?searchKeyword=\(keyword)"
+            
         case .postLikeToggle(let snapId):
             "/likes/toggle?snapId=\(snapId)"
             
@@ -119,6 +124,7 @@ extension APIService {
             .fetchUserProfileCount,
             .fetchUserAlbum,
             .fetchUserTagSnap,
+            .fetchSearchUserInfo,
             .fetchCommunitySnap,
             .fetchSnap,
             .fetchUserInfo,
@@ -245,6 +251,11 @@ extension APIService {
                         else if case .fetchUserTagSnap = self {
                             let tagList = try JSONDecoder().decode(CommonResponseDtoListProfileTagSnapResDto.self, from: data)
                             completion(.success(tagList))
+                        }
+                        
+                        else if case .fetchSearchUserInfo = self {
+                            let searchUserInfo = try JSONDecoder().decode(CommonResponseDtoUserPagingResDto.self, from: data)
+                            completion(.success(searchUserInfo))
                         }
                         
                         else if case .fetchCommunitySnap = self {

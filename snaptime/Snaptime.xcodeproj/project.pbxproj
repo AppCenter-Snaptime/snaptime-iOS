@@ -75,6 +75,9 @@
 		29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
+		29F1591B2C608DEC00AB0BA9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */; };
+		29F1591D2C60951B00AB0BA9 /* UserPagingResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1591C2C60951B00AB0BA9 /* UserPagingResDto.swift */; };
+		29F1591F2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1591E2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift */; };
 		29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6709C2C4417460028F356 /* CustomAlertViewController.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
@@ -188,6 +191,9 @@
 		29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReqDto.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
+		29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		29F1591C2C60951B00AB0BA9 /* UserPagingResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPagingResDto.swift; sourceTree = "<group>"; };
+		29F1591E2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		29F6709C2C4417460028F356 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
@@ -421,6 +427,7 @@
 			children = (
 				298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */,
 				2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */,
+				29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -509,6 +516,7 @@
 				29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */,
 				A69D6D732C509BB400292BFD /* FindTagUserResDto.swift */,
 				2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */,
+				29F1591C2C60951B00AB0BA9 /* UserPagingResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -534,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */,
+				29F1591E2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -759,6 +768,7 @@
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
 				29257C5E2C5A526B00B2B0FB /* UIButton+.swift in Sources */,
 				A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */,
+				29F1591D2C60951B00AB0BA9 /* UserPagingResDto.swift in Sources */,
 				A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */,
@@ -770,6 +780,7 @@
 				2932DB0E2C52694100CAECBC /* APIInterceptor.swift in Sources */,
 				29176FAC2C412BF700CD9A24 /* AlbumSnapResDto.swift in Sources */,
 				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
+				29F1591B2C608DEC00AB0BA9 /* SearchViewController.swift in Sources */,
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */,
@@ -813,6 +824,7 @@
 				298F7F632B6BA3A700A8DBC5 /* MainAlbumViewController.swift in Sources */,
 				29176FB02C412C5000CD9A24 /* UserUpdateDto.swift in Sources */,
 				2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */,
+				29F1591F2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift in Sources */,
 				2970902B2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift in Sources */,
 				29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */,
 				A675085D2C3BDF97001B4059 /* String+.swift in Sources */,

@@ -54,12 +54,12 @@ final class ProfileStatusView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
     }
     
     private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        imageView.clipsToBounds = true
         
         return imageView
     }()
