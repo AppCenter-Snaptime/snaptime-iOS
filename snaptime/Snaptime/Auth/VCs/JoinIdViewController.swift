@@ -11,6 +11,7 @@ import SnapKit
 protocol JoinIdViewControllerDelegate: AnyObject {
     func backToPrevious()
     func backToRoot()
+    func presentLogin()
 }
 
 final class JoinIdViewController: BaseViewController {
@@ -75,7 +76,7 @@ final class JoinIdViewController: BaseViewController {
                 switch result {
                 case .success(_):
                     print("회원가입 성공")
-                    self.delegate?.backToRoot()
+                    self.delegate?.presentLogin()
                 case .failure(let error):
                     print(error)
                 }

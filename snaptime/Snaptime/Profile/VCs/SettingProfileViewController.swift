@@ -120,6 +120,8 @@ final class SettingProfileViewController: BaseViewController {
     private func logoutLogic() {
         let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
+        ProfileBasicUserDefaults().loginId = nil
+        
         if checkTokenDeleted.access && checkTokenDeleted.refresh {
             delegate?.presentLogin()
         }

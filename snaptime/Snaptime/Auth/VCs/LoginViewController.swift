@@ -22,6 +22,7 @@ final class LoginViewController: BaseViewController {
         
         self.hideNavigationBar()
         tabLoginButton()
+        textFieldEditing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,20 +77,31 @@ final class LoginViewController: BaseViewController {
         return textField
     }()
     
+    private let warningIdImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "exclamationmark.circle.fill")
+        imageView.tintColor = .white
+        
+        return imageView
+    }()
+    
+    private let warningPasswordImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "exclamationmark.circle.fill")
+        imageView.tintColor = .white
+        
+        return imageView
+    }()
+    
     private lazy var loginButton: UIButton = {
         let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.init(hexCode: "D3D9E0")
-        config.baseForegroundColor = UIColor.init(hexCode: "606060")
-        config.cornerStyle = .capsule
-        
-        var titleAttr = AttributedString.init("로그인")
-        titleAttr.font = .systemFont(ofSize: 15.0, weight: .bold)
-        config.attributedTitle = titleAttr
-        
-        button.configuration = config
-        
+        button.setTitle("로그인", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.isEnabled = true
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.backgroundColor = UIColor.init(hexCode: "D3D9E0")
+        button.setTitleColor(UIColor.init(hexCode: "606060"), for: .normal)
         
         return button
     }()
@@ -139,6 +151,25 @@ final class LoginViewController: BaseViewController {
     private lazy var kakaoButton = OAuthButton(imageName: "")
     private lazy var appleButton = OAuthButton(imageName: "")
     
+    private func textFieldEditing() {
+        [idInputTextField,
+         passwordInputTextField].forEach {
+            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        }
+    }
+    
+    private func warningLoginAlertToggle(state: Bool) {
+        switch state {
+        case true:
+            warningIdImageView.tintColor = .white
+            warningPasswordImageView.tintColor = .white
+        case false:
+            warningIdImageView.tintColor = .red
+            warningPasswordImageView.tintColor = .red
+        }
+    }
+    
     // MARK: - button click method
     private func tabLoginButton() {
         loginButton.addAction(UIAction {[weak self] _ in
@@ -163,6 +194,7 @@ final class LoginViewController: BaseViewController {
                                 print(FetchError.jsonDecodeError)
                             }
                         case .failure(let error):
+                            self?.warningLoginAlertToggle(state: false)
                             print(error)
                         }
                     }
@@ -192,6 +224,8 @@ final class LoginViewController: BaseViewController {
         
         [loginImageView,
          inputStackView,
+         warningIdImageView,
+         warningPasswordImageView,
          loginButton,
          joinButton,
          separatedLine,
@@ -215,6 +249,18 @@ final class LoginViewController: BaseViewController {
             $0.snp.makeConstraints {
                 $0.height.equalTo(48)
             }
+        }
+        
+        warningIdImageView.snp.makeConstraints {
+            $0.right.equalTo(idInputTextField.snp.right).offset(-20)
+            $0.centerY.equalTo(idInputTextField.snp.centerY)
+            $0.width.height.equalTo(16)
+        }
+        
+        warningPasswordImageView.snp.makeConstraints {
+            $0.right.equalTo(passwordInputTextField.snp.right).offset(-20)
+            $0.centerY.equalTo(passwordInputTextField.snp.centerY)
+            $0.width.height.equalTo(16)
         }
         
         inputStackView.snp.makeConstraints {
@@ -254,3 +300,27 @@ final class LoginViewController: BaseViewController {
     }
 }
 
+extension LoginViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        
+        guard
+            let id = idInputTextField.text, !id.isEmpty,
+            let password = passwordInputTextField.text, !password.isEmpty, password.count >= 8
+        else {
+            loginButton.backgroundColor = UIColor.init(hexCode: "D3D9E0")
+            loginButton.setTitleColor(UIColor.init(hexCode: "606060") , for: .normal)
+            loginButton.isEnabled = false
+            return
+        }
+        loginButton.backgroundColor = .snaptimeBlue
+        loginButton.setTitleColor(.white , for: .normal)
+        loginButton.isEnabled = true
+        warningLoginAlertToggle(state: true)
+    }
+}
