@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol SelectAlbumViewControllerDelegate: AnyObject {
-    func popCurrentVC()
+    func backToPrevious()
 }
 
 final class SelectAlbumViewController: BaseViewController {
@@ -33,7 +33,7 @@ final class SelectAlbumViewController: BaseViewController {
         button.backgroundColor = UIColor(hexCode: "FF5454")
         button.addAction(UIAction { _ in
             self.deleteAlbum()
-            self.delegate?.popCurrentVC()
+            self.delegate?.backToPrevious()
         }, for: .touchUpInside)
         return button
     }()

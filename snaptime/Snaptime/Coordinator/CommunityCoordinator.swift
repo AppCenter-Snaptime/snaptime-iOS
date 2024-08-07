@@ -34,7 +34,34 @@ extension CommunityCoordinator:
     SnapViewControllerDelegate,
     SnapPreviewViewControllerDelegate,
     EditProfileViewControllerDelegate,
-    SettingProfileViewControllerDelegate {
+    SettingProfileViewControllerDelegate,
+    AddSnapViewControllerDelegate,
+    SnapTagListViewControllerDelegate {
+    
+    func backToAddSnapView(tagList: [FriendInfo]) {
+        navigationController.popViewController(animated: true)
+        guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
+        addSnapVC.addTagList(tagList: tagList
+            .map { return FindTagUserResDto(tagUserLoginId: $0.foundLoginId, tagUserName: $0.foundUserName) })
+    }
+    
+    func presentAddSnap() {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
+    }
+
+    func presentSnapTagList() {
+        let snapTagListVC = SnapTagListViewController()
+        snapTagListVC.delegate = self
+        navigationController.pushViewController(snapTagListVC, animated: true)
+    }
+    
+    func presentEditSnapVC(snap: FindSnapResDto) {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
+    }
     
     func presentCommunity() {
         let communityVC = CommunityViewController()

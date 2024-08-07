@@ -12,7 +12,7 @@ import Alamofire
 protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentEditSnapVC(snap: FindSnapResDto)
-    func popCurrentVC()
+    func backToPrevious()
 }
 
 final class SnapViewController: BaseViewController {
@@ -156,7 +156,7 @@ extension SnapViewController: SnapCollectionViewCellDelegate {
         actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
             // NOTE: 추가로 삭제 확인할 팝업 달아도 좋을 듯
             self.deleteSnap(id: self.snapId)
-            self.delegate?.popCurrentVC()
+            self.delegate?.backToPrevious()
         }))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
         

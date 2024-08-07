@@ -106,7 +106,7 @@ extension HomeCoordinator:
         navigationController.pushViewController(mainAlbumVC, animated: true)
     }
     
-    func popCurrentVC() {
+    func backToPrevious() {
         navigationController.popViewController(animated: true)
     }
     
