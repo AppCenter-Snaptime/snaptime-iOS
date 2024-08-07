@@ -31,6 +31,7 @@ enum APIService {
     case modifyUserInfo
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
+    case deleteSnap(snapId: Int)
     case fetchSnap(albumId: Int)
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
@@ -84,6 +85,9 @@ extension APIService {
         case .fetchCommunitySnap(let pageNum):
             "/community/snaps/\(pageNum)"
             
+        case .deleteSnap(let snapId):
+            "/snap?snapId=\(snapId)"
+            
         case .fetchSnap(let snapId):
             "/snap/\(snapId)"
             
@@ -116,32 +120,33 @@ extension APIService {
     var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
-            .fetchUserProfileCount,
-            .fetchUserAlbum,
-            .fetchUserTagSnap,
-            .fetchCommunitySnap,
-            .fetchSnap,
-            .fetchUserInfo,
-            .fetchSnapPreview,
-            .fetchAlbumList,
-            .fetchFollow:
+                .fetchUserProfileCount,
+                .fetchUserAlbum,
+                .fetchUserTagSnap,
+                .fetchCommunitySnap,
+                .fetchSnap,
+                .fetchUserInfo,
+                .fetchSnapPreview,
+                .fetchAlbumList,
+                .fetchFollow:
                 .get
             
         case .modifyUserInfo:
                 .put
             
         case .postReply,
-            .postFollow,
-            .postAlbum,
-            .postSignIn,
-            .postTestSignIn,
-            .postSignUp,
-            .postLikeToggle,
-            .postReissue:
+                .postFollow,
+                .postAlbum,
+                .postSignIn,
+                .postTestSignIn,
+                .postSignUp,
+                .postLikeToggle,
+                .postReissue:
                 .post
             
         case .deleteFollowing,
-                .deleteAlbum:
+                .deleteAlbum,
+                .deleteSnap:
                 .delete
         }
     }
@@ -191,7 +196,7 @@ extension APIService {
     func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
         
         var request = self.request
-                
+        
         if let parameters = parameters {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)
@@ -230,8 +235,8 @@ extension APIService {
                             let result = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
                             completion(.success(result))
                         }
-                                                
-
+                        
+                        
                         else if case .fetchUserProfileCount = self {
                             let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
                             completion(.success(userProfileCount))

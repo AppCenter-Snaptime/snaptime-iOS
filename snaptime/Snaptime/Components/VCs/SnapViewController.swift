@@ -12,6 +12,7 @@ import Alamofire
 protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentEditSnapVC(snap: FindSnapResDto)
+    func popCurrentVC()
 }
 
 final class SnapViewController: BaseViewController {
@@ -58,6 +59,18 @@ final class SnapViewController: BaseViewController {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        }
+    }
+    
+    private func deleteSnap(id: Int) {
+        APIService.deleteSnap(snapId: self.snapId).performRequest { result in
+            switch result {
+            case .success(_):
+                print("Snap 삭제 성공!")
+            case .failure(let error):
+                print(error.localizedDescription)
+                print(error)
             }
         }
     }
@@ -141,7 +154,9 @@ extension SnapViewController: SnapCollectionViewCellDelegate {
             //            self.presentAddAlbumPopup()
         }))
         actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
-            //            self.delegate?.presentAlbumDelete()
+            // NOTE: 추가로 삭제 확인할 팝업 달아도 좋을 듯
+            self.deleteSnap(id: self.snapId)
+            self.delegate?.popCurrentVC()
         }))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
         

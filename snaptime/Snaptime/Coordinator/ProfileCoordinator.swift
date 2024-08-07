@@ -115,6 +115,10 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         appCoordinator.start()
     }
     
+    func popCurrentVC() {
+        navigationController.popViewController(animated: true)
+    }
+    
     func backToPrevious() {
         navigationController.popViewController(animated: true)
     }
