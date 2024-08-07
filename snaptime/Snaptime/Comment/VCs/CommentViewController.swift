@@ -141,7 +141,7 @@ final class CommentViewController: BaseViewController {
                   let comment = self.replyTextField.text else {
                 return
             }
-            let param = AddParentReplyReqDto(content: comment, snapId: self.snapID)
+            let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
             print("post success")
             APIService.postReply.performRequest(with: param) { [weak self] _ in
                 self?.fetchComment()
@@ -203,7 +203,7 @@ final class CommentViewController: BaseViewController {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
                     print(result)
-                    self.parentComments = result.result.parentReplyInfos
+                    self.parentComments = result.result.parentReplyInfoResDtos
                     self.fetchChildComments()
                     DispatchQueue.main.async {
                         self.applySnapShot(data: self.parentComments)

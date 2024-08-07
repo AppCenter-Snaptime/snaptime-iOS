@@ -8,6 +8,6 @@
 import Foundation
 
 struct AddParentReplyReqDto: Codable {
-    let content: String
+    let replyMessage: String
     let snapId: Int
 }
