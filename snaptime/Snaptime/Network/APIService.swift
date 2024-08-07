@@ -29,6 +29,9 @@ enum APIService {
     case fetchUserTagSnap(loginId: String)
     case fetchUserInfo
     case modifyUserInfo
+    case fetchSearchUserInfo(pageNum: Int, keyword: String)
+    case deleteUser
+    
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
     case deleteSnap(snapId: Int)
@@ -79,6 +82,12 @@ extension APIService {
         case .modifyUserInfo:
             "/users"
             
+        case .deleteUser:
+            "/users"
+            
+        case .fetchSearchUserInfo(let pageNum, let keyword):
+            "/users/\(pageNum)?searchKeyword=\(keyword)"
+            
         case .postLikeToggle(let snapId):
             "/likes/toggle?snapId=\(snapId)"
             
@@ -120,15 +129,16 @@ extension APIService {
     var method: HTTPMethod {
         switch self {
         case .fetchUserProfile,
-                .fetchUserProfileCount,
-                .fetchUserAlbum,
-                .fetchUserTagSnap,
-                .fetchCommunitySnap,
-                .fetchSnap,
-                .fetchUserInfo,
-                .fetchSnapPreview,
-                .fetchAlbumList,
-                .fetchFollow:
+            .fetchUserProfileCount,
+            .fetchUserAlbum,
+            .fetchUserTagSnap,
+            .fetchSearchUserInfo,
+            .fetchCommunitySnap,
+            .fetchSnap,
+            .fetchUserInfo,
+            .fetchSnapPreview,
+            .fetchAlbumList,
+            .fetchFollow:
                 .get
             
         case .modifyUserInfo:
@@ -145,8 +155,9 @@ extension APIService {
                 .post
             
         case .deleteFollowing,
-                .deleteAlbum,
-                .deleteSnap:
+            .deleteAlbum,
+            .deleteUser,
+            .deleteSnap:
                 .delete
         }
     }
@@ -250,6 +261,11 @@ extension APIService {
                         else if case .fetchUserTagSnap = self {
                             let tagList = try JSONDecoder().decode(CommonResponseDtoListProfileTagSnapResDto.self, from: data)
                             completion(.success(tagList))
+                        }
+                        
+                        else if case .fetchSearchUserInfo = self {
+                            let searchUserInfo = try JSONDecoder().decode(CommonResponseDtoUserPagingResDto.self, from: data)
+                            completion(.success(searchUserInfo))
                         }
                         
                         else if case .fetchCommunitySnap = self {

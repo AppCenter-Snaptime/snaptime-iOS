@@ -10,6 +10,7 @@ import SnapKit
 
 /// 프로필에서의 TagListView
 final class TagListView: UIView {
+    var send: ((Int) -> Void)?
     private var tagList: [ProfileTagSnapResDto] = []
     private var loginId: String = ""
     
@@ -92,6 +93,12 @@ extension TagListView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tagList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let flow = self.send {
+            flow(tagList[indexPath.row].taggedSnapId)
+        }
     }
 }
 

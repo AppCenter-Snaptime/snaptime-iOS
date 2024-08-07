@@ -54,12 +54,12 @@ final class ProfileStatusView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
     }
     
     private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -141,9 +141,25 @@ final class ProfileStatusView: UIView {
                     switch result {
                     case .success(_):
                         self.followButtonToggle()
+                        self.fetchUserProfileCount(loginId: loginId)
                     case .failure(let error):
                         print(error)
                     }
+                }
+            }
+        }
+    }
+    
+    private func fetchUserProfileCount(loginId: String) {
+        APIService.fetchUserProfileCount(loginId: loginId).performRequest { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userProfileCount):
+                    if let profileCount = userProfileCount as? CommonResponseDtoProfileCntResDto {
+                        self.setupUserNumber(profileCount.result)
+                    }
+                case .failure(let error):
+                    print(error)
                 }
             }
         }

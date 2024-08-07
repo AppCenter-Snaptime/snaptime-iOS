@@ -10,17 +10,18 @@ import SnapKit
 
 protocol JoinEmailViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentJoinPassword()
+    func presentJoinPassword(info: SignUpReqDto)
 }
 
 final class JoinEmailViewController: BaseViewController {
     weak var delegate: JoinEmailViewControllerDelegate?
     
+    private var registrationInfo: SignUpReqDto?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
         self.showNavigationBar()
     }
     
@@ -41,7 +42,9 @@ final class JoinEmailViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.addAction(UIAction {[weak self] _ in
-            self?.delegate?.presentJoinPassword()
+            let info = SignUpReqDto(email: self?.emailInputTextField.text)
+            
+            self?.delegate?.presentJoinPassword(info: info)
         }, for: .touchUpInside)
     }
     
@@ -89,8 +92,10 @@ extension JoinEmailViewController: UITextFieldDelegate {
                 return
             }
         }
-        guard
-            let email = self.emailInputTextField.text, !email.isEmpty
+        
+        guard let email = self.emailInputTextField.text,
+                !email.isEmpty,
+                email.isValidEmail
         else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false

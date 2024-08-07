@@ -10,17 +10,27 @@ import SnapKit
 
 protocol JoinNameViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentJoinID()
+    func presentJoinID(info: SignUpReqDto)
 }
 
 final class JoinNameViewController: BaseViewController {
     weak var delegate: JoinNameViewControllerDelegate?
     
+    private var registrationInfo: SignUpReqDto
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
+    }
+    
+    init(info: SignUpReqDto) {
+        self.registrationInfo = info
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI component Config
@@ -49,14 +59,22 @@ final class JoinNameViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.addAction(UIAction {[weak self] _ in
-            self?.delegate?.presentJoinID()
+            self?.registrationInfo.name = self?.nameInputTextField.text
+            self?.registrationInfo.birthDay = self?.birthDateInputTextField.text
+            
+            if let info = self?.registrationInfo {
+                self?.delegate?.presentJoinID(info: info)
+            }
         }, for: .touchUpInside)
     }
     
     private func textFieldEditing() {
+        nameInputTextField.keyboardType = UIKeyboardType.default
+        
         birthDateInputTextField.keyboardType = UIKeyboardType.numberPad
 
-        [nameInputTextField, birthDateInputTextField].forEach {
+        [nameInputTextField, 
+         birthDateInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         }
@@ -107,39 +125,63 @@ final class JoinNameViewController: BaseViewController {
 
 extension JoinNameViewController: UITextFieldDelegate {
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {
-            if textField.text?.first == " " {
-                textField.text = ""
-                return
-            }
-        }
-        
-        guard
-            let name = nameInputTextField.text, !name.isEmpty,
-            let birthDate = birthDateInputTextField.text, !birthDate.isEmpty,
-            birthDate != "123"
-        else {
-            birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
+        guard let name = nameInputTextField.text, !name.isEmpty else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
             nameInputTextField.setLineColorFalse()
-            birthDateInputTextField.setLineColorFalse()
             return
         }
         
-        /// 날짜 형식에 맞지 않을때
-//        if birthDate == "123" {
-//            nextButton.backgroundColor = .snaptimeGray
-//            nextButton.isEnabled = false
-//            nameInputTextField.setLineColorFalse()
-//            birthDateInputTextField.setLineColorFalse()
-//        }
-//        else {
+        guard let birthDate = birthDateInputTextField.text else { return }
+
+        if birthDate.isVaildDate {
             birthDateConditionalLabel.text = ""
             nextButton.backgroundColor = .snaptimeBlue
             nextButton.isEnabled = true
             nameInputTextField.setLineColorTrue()
             birthDateInputTextField.setLineColorTrue()
-//        }
+        } else {
+            birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
+            nextButton.backgroundColor = .snaptimeGray
+            nextButton.isEnabled = false
+            nameInputTextField.setLineColorFalse()
+            birthDateInputTextField.setLineColorFalse()
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == birthDateInputTextField {
+            
+            /// 생년월일 작성 시 0000.00.00 로 형식 변경해주는 기능
+            let currentText = textField.text ?? ""
+            let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+
+            if string.isEmpty {
+                return true
+            }
+
+            let allowedCharacterSet = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            if !allowedCharacterSet.isSuperset(of: characterSet) {
+                return false
+            }
+
+            var formattedText = updatedText.replacingOccurrences(of: ".", with: "")
+            if formattedText.count > 8 {
+                return false
+            }
+            if formattedText.count > 4 {
+                formattedText.insert(".", at: formattedText.index(formattedText.startIndex, offsetBy: 4))
+            }
+            if formattedText.count > 7 {
+                formattedText.insert(".", at: formattedText.index(formattedText.startIndex, offsetBy: 7))
+            }
+
+            textField.text = formattedText
+            textField.sendActions(for: .editingChanged)
+            return false
+        }
+        
+        return true
     }
 }

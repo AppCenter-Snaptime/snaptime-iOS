@@ -29,7 +29,6 @@ final class SnapPreviewViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "최근항목"
         self.fetchAlbumDetail(id: self.albumID)
     }
     
@@ -46,6 +45,7 @@ final class SnapPreviewViewController: BaseViewController {
                 case .success(let snapPreview):
                     if let snapPreview = snapPreview as? CommonResponseDtoFindAlbumResDto {
                         self.snapPreviews = snapPreview.result.snap
+                        self.setNavigationItemTitle(title: snapPreview.result.name)
                     }
                     self.albumDetailCollectionView.reloadData()
                 case .failure(let error):
@@ -69,6 +69,10 @@ final class SnapPreviewViewController: BaseViewController {
         
         return collectionView
     }()
+    
+    private func setNavigationItemTitle(title: String) {
+        self.navigationItem.title = title
+    }
     
     override func setupLayouts() {
         [albumDetailCollectionView].forEach {

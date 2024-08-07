@@ -10,17 +10,27 @@ import SnapKit
 
 protocol JoinPasswordViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentJoinName()
+    func presentJoinName(info: SignUpReqDto)
 }
 
 final class JoinPasswordViewController: BaseViewController {
     weak var delegate: JoinPasswordViewControllerDelegate?
+    
+    private var registrationInfo: SignUpReqDto
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
+    }
+    
+    init(info: SignUpReqDto) {
+        self.registrationInfo = info
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI component Config
@@ -79,7 +89,11 @@ final class JoinPasswordViewController: BaseViewController {
     // MARK: - button click method
     private func tabNextButton() {
         nextButton.addAction(UIAction {[weak self] _ in
-            self?.delegate?.presentJoinName()
+            self?.registrationInfo.password = self?.passwordInputTextField.text
+            
+            if let info = self?.registrationInfo {
+                self?.delegate?.presentJoinName(info: info)
+            }
         }, for: .touchUpInside)
     }
     
@@ -89,7 +103,8 @@ final class JoinPasswordViewController: BaseViewController {
     }
     
     private func textFieldEditing() {
-        [passwordInputTextField, passwordCheckInputTextField].forEach {
+        [passwordInputTextField, 
+         passwordCheckInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         }
@@ -168,8 +183,8 @@ extension JoinPasswordViewController: UITextFieldDelegate {
         }
         
         guard
-            let password = passwordInputTextField.text, !password.isEmpty,
-            let passwordCheck = passwordCheckInputTextField.text, !passwordCheck.isEmpty,
+            let password = passwordInputTextField.text, password.isValidPassword,
+            let passwordCheck = passwordCheckInputTextField.text, passwordCheck.isValidPassword,
             password == passwordCheck
         else {
             passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."
