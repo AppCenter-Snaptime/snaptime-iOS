@@ -30,6 +30,7 @@ enum APIService {
     case fetchUserInfo
     case modifyUserInfo
     case fetchSearchUserInfo(pageNum: Int, keyword: String)
+    case deleteUser
     
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
@@ -78,6 +79,9 @@ extension APIService {
             "/users/my"
             
         case .modifyUserInfo:
+            "/users"
+            
+        case .deleteUser:
             "/users"
             
         case .fetchSearchUserInfo(let pageNum, let keyword):
@@ -147,7 +151,8 @@ extension APIService {
                 .post
             
         case .deleteFollowing,
-                .deleteAlbum:
+            .deleteAlbum,
+            .deleteUser:
                 .delete
         }
     }

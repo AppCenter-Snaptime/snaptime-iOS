@@ -63,7 +63,8 @@ final class FollowViewController: BaseViewController {
         show(
             alertText: " \(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
-            confirmButtonText: "언팔로우"
+            confirmButtonText: "언팔로우",
+            identifier: "unfollow"
         )
         
         self.unfollowLoginId = loginId
@@ -144,7 +145,7 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension FollowViewController: CustomAlertDelegate {
-    func action() {
+    func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
         APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
@@ -165,5 +166,5 @@ extension FollowViewController: CustomAlertDelegate {
         return friends.filter { $0.foundLoginId != loginId }
     }
     
-    func exit() {}
+    func exit(identifier: String) {}
 }

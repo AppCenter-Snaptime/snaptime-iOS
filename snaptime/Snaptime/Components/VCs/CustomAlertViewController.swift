@@ -8,18 +8,29 @@
 import UIKit
 import SnapKit
 
+//protocol CustomAlertDelegate {
+//    func action()
+//    func exit()
+//}
+
 protocol CustomAlertDelegate {
-    func action()
-    func exit()
+    func action(identifier: String)
+    func exit(identifier: String)
 }
 
 extension CustomAlertDelegate where Self: UIViewController {
     func show(
         alertText: String,
         cancelButtonText: String,
-        confirmButtonText: String
+        confirmButtonText: String,
+        identifier: String
     ) {
-        let customAlertViewController = CustomAlertViewController(alertText: alertText, cancelButtonText: cancelButtonText, confirmButtonText: confirmButtonText)
+        let customAlertViewController = CustomAlertViewController(
+            alertText: alertText,
+            cancelButtonText: cancelButtonText,
+            confirmButtonText: confirmButtonText,
+            
+            identifier: identifier)
         
         customAlertViewController.delegate = self
         
@@ -33,14 +44,16 @@ extension CustomAlertDelegate where Self: UIViewController {
 final class CustomAlertViewController: UIViewController {
     var delegate: CustomAlertDelegate?
 
+    private var identifier: String
     private var alertText: String
     private var cancelButtonText: String
     private var confirmButtonText: String
     
-    init(alertText: String, cancelButtonText: String, confirmButtonText: String) {
+    init(alertText: String, cancelButtonText: String, confirmButtonText: String, identifier: String) {
         self.alertText = alertText
         self.cancelButtonText = cancelButtonText
         self.confirmButtonText = confirmButtonText
+        self.identifier = identifier
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -104,13 +117,13 @@ final class CustomAlertViewController: UIViewController {
     
     private func confirmButtonClick() {
         self.dismiss(animated: true) {
-            self.delegate?.action()
+            self.delegate?.action(identifier: self.identifier)
         }
     }
     
     private func cancelButtonClick() {
         self.dismiss(animated: true) {
-            self.delegate?.exit()
+            self.delegate?.exit(identifier: self.identifier)
         }
     }
     

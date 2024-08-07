@@ -160,7 +160,8 @@ final class ProfileViewController: BaseViewController {
         show(
             alertText: "\(name)님을 언팔로우 하시겠어요?",
             cancelButtonText: "취소하기",
-            confirmButtonText: "언팔로우"
+            confirmButtonText: "언팔로우",
+            identifier: "profileUnfollow"
         )
         
         self.unfollowLoginId = loginId
@@ -288,7 +289,7 @@ final class ProfileViewController: BaseViewController {
 
 // MARK: - extension
 extension ProfileViewController: CustomAlertDelegate {
-    func action() {
+    func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
         APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
@@ -304,7 +305,7 @@ extension ProfileViewController: CustomAlertDelegate {
         }
     }
     
-    func exit() {}
+    func exit(identifier: String) {}
 }
 
 // MARK: - CollectionView extension

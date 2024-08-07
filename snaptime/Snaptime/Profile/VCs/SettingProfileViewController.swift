@@ -110,20 +110,44 @@ final class SettingProfileViewController: BaseViewController {
         self?.show(
             alertText: "로그아웃 하시겠습니까?",
             cancelButtonText: "취소하기",
-            confirmButtonText: "네"
+            confirmButtonText: "네",
+            identifier: "signout"
         )
     },
                                                         secondAction: UIAction { [weak self] _ in
-        
+        self?.show(
+            alertText: "탈퇴 하시겠습니까?",
+            cancelButtonText: "취소하기",
+            confirmButtonText: "네",
+            identifier: "deleteUser"
+        )
     })
     
-    private func logoutLogic() {
+    private func signoutLogic() {
         let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
         ProfileBasicUserDefaults().loginId = nil
         
         if checkTokenDeleted.access && checkTokenDeleted.refresh {
             delegate?.presentLogin()
+        }
+    }
+    
+    private func deleteUserLogic() {
+        APIService.deleteUser.performRequest { result in
+            switch result {
+            case .success(_):
+                print("유저 삭제 성공")
+                let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
+                
+                ProfileBasicUserDefaults().loginId = nil
+                
+                if checkTokenDeleted.access && checkTokenDeleted.refresh {
+                    self.delegate?.presentLogin()
+                }
+            case .failure(let failure):
+                print("유저 삭제 성공")
+            }
         }
     }
     
@@ -204,9 +228,17 @@ final class SettingProfileViewController: BaseViewController {
 }
 
 extension SettingProfileViewController: CustomAlertDelegate {
-    func action() {
-        self.logoutLogic()
+    func exit(identifier: String) {}
+    
+    func action(identifier: String) {
+        switch identifier {
+        case "signout":
+            self.signoutLogic()
+        case "deleteUser":
+            self.deleteUserLogic()
+        default:
+            print("none")
+        }
     }
     
-    func exit() {}
 }
