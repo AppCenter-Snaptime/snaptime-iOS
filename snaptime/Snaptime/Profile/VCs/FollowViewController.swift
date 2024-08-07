@@ -10,6 +10,7 @@ import SnapKit
 
 protocol FollowViewControllerDelegate: AnyObject {
     func presentProfile(target: ProfileTarget, loginId: String)
+    func backToPrevious()
 }
 
 enum FollowTarget {
@@ -46,8 +47,51 @@ final class FollowViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchFriendList()
+        fetchFriendList()
+        setNavigationBar()
     }
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "검색하기"
+        searchBar.backgroundColor = .white
+        searchBar.barTintColor = .white
+        searchBar.delegate = self
+        
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+            textfield.backgroundColor = UIColor.white
+            textfield.layer.borderWidth = 1
+            textfield.layer.cornerRadius = 10
+            textfield.layer.masksToBounds = true
+            textfield.layer.borderColor = UIColor.init(hexCode: "bcbcbc").cgColor
+            textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+            textfield.textColor = UIColor.black
+            
+            /// 왼쪽 아이콘 이미지넣기
+            if let leftView = textfield.leftView as? UIImageView {
+                leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
+                leftView.tintColor = UIColor.init(hexCode: "4b4b4b")
+            }
+        }
+        
+        return searchBar
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseForegroundColor = .black
+        config.baseBackgroundColor = .white
+        config.image = UIImage(systemName: "chevron.backward")
+        
+        button.configuration = config
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.backToPrevious()
+        }, for: .touchUpInside)
+        
+        return button
+    }()
     
     private lazy var followTableView: UITableView = {
         let tableView = UITableView()
@@ -71,21 +115,28 @@ final class FollowViewController: BaseViewController {
     }
     
     // MARK: - 네트워크 로직
-    private func fetchFriendList() {
-        APIService.fetchFollow(type: target.description, loginId: loginId, keyword: "", pageNum: 1).performRequest { result in
+    private func fetchFriendList(keyword: String? = "") {
+        guard let keyword = keyword else { return }
+        
+        APIService.fetchFollow(type: target.description, loginId: loginId, keyword: keyword, pageNum: 1).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
                     if let result = result as? CommonResponseDtoListFindFriendResDto {
                         self.friendList = result.result.friendInfoResDtos
+                        self.followTableView.reloadData()
                     }
-                    
-                    self.followTableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
             }
         }
+    }
+    
+    private func setNavigationBar() {
+        self.showNavigationBar()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.titleView = searchBar
     }
     
     // MARK: - layout 설정
@@ -167,4 +218,14 @@ extension FollowViewController: CustomAlertDelegate {
     }
     
     func exit(identifier: String) {}
+}
+
+// MARK: -
+extension FollowViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard let text = searchBar.text else { return }
+        print(text)
+        fetchFriendList(keyword: text)
+    }
 }
