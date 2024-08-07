@@ -64,7 +64,23 @@ extension HomeCoordinator:
     }
     
     // ----------------------------
+    // SnapViewControllerDelegate
     
+    func presentCommentVC(snap: FindSnapResDto) {
+        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
+        commentVC.delegate = self
+        commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
+        navigationController.present(commentVC, animated: true, completion: nil)
+    }
+    
+    func presentEditSnapVC(snap: FindSnapResDto) {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        addSnapVC.setEditMode(snap: snap)
+        navigationController.pushViewController(addSnapVC, animated: true)
+    }
+    
+    // ----------------------------
     
     func presentSnap(snapId: Int) {
         let snapVC = SnapViewController(snapId: snapId)
@@ -103,13 +119,12 @@ extension HomeCoordinator:
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
-        addSnapVC.addTagList(tagList: tagList)
-    }
-    
-    func presentCommentVC(snap: FindSnapResDto) {
-        let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
-        commentVC.delegate = self
-        commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
-        navigationController.present(commentVC, animated: true, completion: nil)
+        addSnapVC.addTagList(tagList:
+                                tagList
+            .map { return FindTagUserResDto(
+                tagUserLoginId: $0.foundLoginId,
+                tagUserName: $0.foundUserName
+            )}
+        )
     }
 }

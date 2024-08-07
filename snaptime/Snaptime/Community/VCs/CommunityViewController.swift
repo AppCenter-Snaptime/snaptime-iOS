@@ -141,4 +141,22 @@ extension CommunityViewController: SnapCollectionViewCellDelegate {
         // TODO: snap id 추가하기
         delegate?.presentCommentVC(snap: snap)
     }
+    
+    func didTapEditButton(snap: FindSnapResDto) {
+        // NOTE: 이후 작업 해야함!
+//        // ActionSheet 관련 설정
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        actionSheet.addAction(UIAlertAction(title: "수정하기", style: .default, handler: { _ in
+//            //            self.presentAddAlbumPopup()
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "폴더 이동", style: .default, handler: { _ in
+//            //            self.presentAddAlbumPopup()
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
+//            //            self.delegate?.presentAlbumDelete()
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+//        
+//        self.present(actionSheet, animated: true)
+    }
 }

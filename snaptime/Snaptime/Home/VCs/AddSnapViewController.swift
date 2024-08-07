@@ -8,17 +8,25 @@
 import Alamofire
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
     func presentSnapTagList()
 }
 
+enum EditSnapMode {
+    case add
+    case edit
+}
+
 final class AddSnapViewController: BaseViewController {
     weak var delegate: AddSnapViewControllerDelegate?
     
     private var userProfile = UserProfileManager.shared.profile.result
-    private var tagList: [FriendInfo] = []
+    private var tagList: [FindTagUserResDto] = []
+    private var editMode: EditSnapMode = .add
+    private var snapId: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +43,7 @@ final class AddSnapViewController: BaseViewController {
         profileImage.clipsToBounds = true
     }
     
-    func addTagList(tagList: [FriendInfo]) {
+    func addTagList(tagList: [FindTagUserResDto]) {
         // 기존 태그 리스트가 없으면, 초기 '사람 태그' 버튼을 지워주고,
         // + 버튼을 보여줌
         if self.tagList.isEmpty {
@@ -48,8 +56,37 @@ final class AddSnapViewController: BaseViewController {
         print(tagList)
         self.tagList.append(contentsOf: tagList)
         tagList.forEach {
-            self.tagStackView.addArrangedSubview(TagButton(tagName: $0.foundUserName))
+            self.tagStackView.addArrangedSubview(TagButton(tagName: $0.tagUserName))
         }
+    }
+    
+    // 수정 모드일 때 초기 상태 설정
+    func setEditMode(snap: FindSnapResDto) {
+        self.editMode = .edit
+        self.snapId = snap.snapId
+        self.oneLineDiaryTextView.text = snap.oneLineJournal
+        self.oneLineDiaryTextView.textColor = .black
+        if let url = URL(string: snap.snapPhotoURL),
+           let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                return r
+            }
+            KingfisherManager.shared.retrieveImage(with: url, options: [.requestModifier(modifier)]) { result in
+                switch result {
+                case .success(let data):
+                    self.addImageButton.setImage(data.image, for: .normal)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        if !snap.tagUserFindResDtos.isEmpty {
+            self.addTagList(tagList: snap.tagUserFindResDtos)
+        }
+        self.snapSaveButton.setTitle("수정 완료", for: .normal)
     }
     
     private lazy var profileImage: UIImageView = {
@@ -118,10 +155,19 @@ final class AddSnapViewController: BaseViewController {
     private lazy var snapSaveButton: UIButton = {
         let button = SnapTimeCustomButton("작성 완료")
         button.addAction(UIAction { [weak self] _ in
-            Task {
-                await self?.postNewSnap()
-                self?.navigationController?.popViewController(animated: true)
+            guard let self = self else { return }
+            if self.editMode == .add {
+                Task {
+                    await self.postNewSnap()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else if self.editMode == .edit {
+                Task {
+                    await self.putNewSnap()
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
+            
         }, for: .touchUpInside)
         return button
     }()
@@ -145,7 +191,7 @@ final class AddSnapViewController: BaseViewController {
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
-            url += "&tagUserLoginIds=\($0.foundLoginId)"
+            url += "&tagUserLoginIds=\($0.tagUserName)"
         }
         
         var headers: HTTPHeaders {
@@ -172,6 +218,46 @@ final class AddSnapViewController: BaseViewController {
             }
             else {
                 print("스냅 전송 성공!")
+            }
+        case .failure(let error):
+            print(error.errorDescription)
+        }
+    }
+    
+    private func putNewSnap() async {
+        // 아직 parameter isPrivate 안 보냄
+        guard self.snapId != -1 else { return }
+        var url = "http://na2ru2.me:6308/snap?isPrivate=false&snapId=\(self.snapId)"
+        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
+        
+        self.tagList.forEach {
+            url += "&tagUserLoginIds=\($0.tagUserName)"
+        }
+        
+        var headers: HTTPHeaders {
+            ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "multipart/form-data"]
+        }
+        guard let image = addImageButton.image(for: .normal),
+              let jpgimageData = image.jpegData(compressionQuality: 0.2),
+              let oneLineJournal = oneLineDiaryTextView.text
+        else {
+            return
+        }
+        let response = await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data(oneLineJournal.utf8), withName: "oneLineJournal")
+            multipartFormData.append(jpgimageData, withName: "multipartFile", fileName: "image.png", mimeType: "image/jpeg")
+        }, to: url, method: .put, headers: headers)
+            .serializingDecodable(CommonResponseDtoLong.self)
+            .response
+        print("hi")
+        print(response)
+        switch response.result {
+        case .success(let res):
+            if (400..<599).contains(response.response?.statusCode ?? 0) {
+                print("error : ", res.msg)
+            }
+            else {
+                print("스냅 수정 성공!")
             }
         case .failure(let error):
             print(error.errorDescription)
