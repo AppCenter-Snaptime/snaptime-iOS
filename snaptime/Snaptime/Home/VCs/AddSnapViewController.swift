@@ -191,7 +191,7 @@ final class AddSnapViewController: BaseViewController {
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
-            url += "&tagUserLoginIds=\($0.tagUserName)"
+            url += "&tagUserLoginIds=\($0.tagUserLoginId)"
         }
         
         var headers: HTTPHeaders {
