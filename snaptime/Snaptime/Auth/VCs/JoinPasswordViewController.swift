@@ -22,7 +22,6 @@ final class JoinPasswordViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
     }
     
     init(info: SignUpReqDto) {
@@ -104,7 +103,8 @@ final class JoinPasswordViewController: BaseViewController {
     }
     
     private func textFieldEditing() {
-        [passwordInputTextField, passwordCheckInputTextField].forEach {
+        [passwordInputTextField, 
+         passwordCheckInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         }
@@ -183,8 +183,8 @@ extension JoinPasswordViewController: UITextFieldDelegate {
         }
         
         guard
-            let password = passwordInputTextField.text, !password.isEmpty,
-            let passwordCheck = passwordCheckInputTextField.text, !passwordCheck.isEmpty,
+            let password = passwordInputTextField.text, password.isValidPassword,
+            let passwordCheck = passwordCheckInputTextField.text, passwordCheck.isValidPassword,
             password == passwordCheck
         else {
             passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."

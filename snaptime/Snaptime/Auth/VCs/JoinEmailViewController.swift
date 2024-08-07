@@ -22,7 +22,6 @@ final class JoinEmailViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
         self.showNavigationBar()
     }
     
@@ -93,8 +92,10 @@ extension JoinEmailViewController: UITextFieldDelegate {
                 return
             }
         }
-        guard
-            let email = self.emailInputTextField.text, !email.isEmpty
+        
+        guard let email = self.emailInputTextField.text,
+                !email.isEmpty,
+                email.isValidEmail
         else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false

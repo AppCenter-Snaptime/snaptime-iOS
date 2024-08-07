@@ -20,9 +20,7 @@ final class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround()
         self.hideNavigationBar()
-        
         tabLoginButton()
     }
     

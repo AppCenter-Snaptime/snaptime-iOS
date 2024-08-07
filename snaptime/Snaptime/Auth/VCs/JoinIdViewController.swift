@@ -22,7 +22,6 @@ final class JoinIdViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.hideKeyboardWhenTappedAround()
     }
     
     init(info: SignUpReqDto) {
