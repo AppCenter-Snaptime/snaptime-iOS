@@ -11,6 +11,8 @@ import Alamofire
 
 protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
+    func presentEditSnapVC(snap: FindSnapResDto)
+    func popCurrentVC()
 }
 
 final class SnapViewController: BaseViewController {
@@ -40,9 +42,8 @@ final class SnapViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.fetchSnap(id: self.snapId)
     }
     
@@ -58,6 +59,18 @@ final class SnapViewController: BaseViewController {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        }
+    }
+    
+    private func deleteSnap(id: Int) {
+        APIService.deleteSnap(snapId: self.snapId).performRequest { result in
+            switch result {
+            case .success(_):
+                print("Snap 삭제 성공!")
+            case .failure(let error):
+                print(error.localizedDescription)
+                print(error)
             }
         }
     }
@@ -129,5 +142,24 @@ extension SnapViewController: UICollectionViewDelegateFlowLayout {
 extension SnapViewController: SnapCollectionViewCellDelegate {
     func didTapCommentButton(snap: FindSnapResDto) {
         delegate?.presentCommentVC(snap: snap)
+    }
+    
+    func didTapEditButton(snap: FindSnapResDto) {
+        // ActionSheet 관련 설정
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "수정하기", style: .default, handler: { _ in
+            self.delegate?.presentEditSnapVC(snap: snap)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "폴더 이동", style: .default, handler: { _ in
+            //            self.presentAddAlbumPopup()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
+            // NOTE: 추가로 삭제 확인할 팝업 달아도 좋을 듯
+            self.deleteSnap(id: self.snapId)
+            self.delegate?.popCurrentVC()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(actionSheet, animated: true)
     }
 }

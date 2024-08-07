@@ -25,19 +25,47 @@ final class ProfileCoordinator: Coordinator {
 }
 
 extension ProfileCoordinator: ProfileViewControllerDelegate,
-                                EditProfileViewControllerDelegate,
-                                SettingProfileViewControllerDelegate,
-                               SnapPreviewViewControllerDelegate,
-                               SnapViewControllerDelegate,
+                              EditProfileViewControllerDelegate,
+                              SettingProfileViewControllerDelegate,
+                              SnapPreviewViewControllerDelegate,
+                              SnapViewControllerDelegate,
                               NotificationViewControllerDelegate,
                               CommentViewControllerDelegate,
-                            FollowViewControllerDelegate {
+                              FollowViewControllerDelegate,
+                              AddSnapViewControllerDelegate,
+                              SnapTagListViewControllerDelegate
+{
+    func backToAddSnapView(tagList: [FriendInfo]) {
+        navigationController.popViewController(animated: true)
+        guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
+        addSnapVC.addTagList(tagList: tagList
+            .map { return FindTagUserResDto(tagUserLoginId: $0.foundLoginId, tagUserName: $0.foundUserName) })
+    }
+    
+    func presentAddSnap() {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
+    }
+    
+    func presentSnapTagList() {
+        let snapTagListVC = SnapTagListViewController()
+        snapTagListVC.delegate = self
+        navigationController.pushViewController(snapTagListVC, animated: true)
+    }
+    
     
     func presentCommentVC(snap: FindSnapResDto) {
         let commentVC = CommentViewController(snapID: snap.snapId, userName: snap.writerUserName)
         commentVC.delegate = self
         commentVC.modalPresentationStyle = UIModalPresentationStyle.automatic
         navigationController.present(commentVC, animated: true, completion: nil)
+    }
+    
+    func presentEditSnapVC(snap: FindSnapResDto) {
+        let addSnapVC = AddSnapViewController()
+        addSnapVC.delegate = self
+        navigationController.pushViewController(addSnapVC, animated: true)
     }
     
     func presentProfile(target: ProfileTarget, loginId: String) {
@@ -85,6 +113,10 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
     func presentLogin() {
         guard let appCoordinator = parentCoordinator as? AppCoordinator else { return }
         appCoordinator.start()
+    }
+    
+    func popCurrentVC() {
+        navigationController.popViewController(animated: true)
     }
     
     func backToPrevious() {
