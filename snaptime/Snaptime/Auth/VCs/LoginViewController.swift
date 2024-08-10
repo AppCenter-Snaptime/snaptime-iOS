@@ -177,6 +177,7 @@ final class LoginViewController: BaseViewController {
                let password = self?.passwordInputTextField.text {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
+                LoadingService.showLoading()
                 APIService.postSignIn.performRequest(with: loginInfo) { result in
                     DispatchQueue.main.async {
                         switch result {
@@ -187,6 +188,7 @@ final class LoginViewController: BaseViewController {
                                 /// 토큰이 keychain에 저장되었을 경우
                                 if token.accessResult && token.refreshResult {
                                     ProfileBasicUserDefaults().loginId = id
+                                    LoadingService.hideLoading()
                                     self?.delegate?.presentHome()
                                 }
                                 
