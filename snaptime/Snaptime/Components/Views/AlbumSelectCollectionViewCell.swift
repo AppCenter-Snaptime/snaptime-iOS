@@ -44,8 +44,6 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
     
     private lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "check")
-        imageView.backgroundColor = .red
         return imageView
     }()
     
@@ -60,9 +58,11 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
     private var checked: Bool = false {
         didSet {
             if checked == true {
-                self.checkImageView.backgroundColor = .blue
+                self.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
+                self.checkImageView.tintColor = .white
             } else {
-                self.checkImageView.backgroundColor = .green
+                self.checkImageView.image = UIImage(systemName: "circle")
+                self.checkImageView.tintColor = .white
             }
         }
     }
