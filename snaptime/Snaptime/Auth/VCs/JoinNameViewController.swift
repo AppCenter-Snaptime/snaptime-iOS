@@ -111,7 +111,7 @@ final class JoinNameViewController: BaseViewController {
         
         birthDateConditionalLabel.snp.makeConstraints {
             $0.top.equalTo(birthDateInputTextField.snp.bottom).offset(3)
-            $0.left.equalTo(birthDateInputTextField.snp.left)
+            $0.left.equalTo(birthDateInputTextField.snp.left).offset(9)
         }
         
         nextButton.snp.makeConstraints {
@@ -128,7 +128,6 @@ extension JoinNameViewController: UITextFieldDelegate {
         guard let name = nameInputTextField.text, !name.isEmpty else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
-            nameInputTextField.setLineColorFalse()
             return
         }
         
@@ -138,14 +137,10 @@ extension JoinNameViewController: UITextFieldDelegate {
             birthDateConditionalLabel.text = ""
             nextButton.backgroundColor = .snaptimeBlue
             nextButton.isEnabled = true
-            nameInputTextField.setLineColorTrue()
-            birthDateInputTextField.setLineColorTrue()
         } else {
             birthDateConditionalLabel.text = "생년월일 양식이 잘못되었습니다."
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
-            nameInputTextField.setLineColorFalse()
-            birthDateInputTextField.setLineColorFalse()
         }
     }
     

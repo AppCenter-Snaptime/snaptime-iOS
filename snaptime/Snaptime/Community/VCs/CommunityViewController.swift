@@ -48,7 +48,7 @@ final class CommunityViewController: BaseViewController {
     private lazy var findUserButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBackground
+        config.baseBackgroundColor = .clear
         config.baseForegroundColor = .black
         config.image = UIImage(systemName: "magnifyingglass")
         button.configuration = config

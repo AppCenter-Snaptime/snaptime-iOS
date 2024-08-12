@@ -319,6 +319,9 @@ extension APIService {
                         completion(.failure(FetchError.jsonDecodeError))
                     }
                 case .failure(let error):
+//                    guard let data = response.data else { return }
+//
+//                    let message = try JSONDecoder().decode(CommonMsgRes.self, from: data)
                     completion(.failure(error))
                 }
             }

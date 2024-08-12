@@ -12,6 +12,7 @@ protocol JoinIdViewControllerDelegate: AnyObject {
     func backToPrevious()
     func backToRoot()
     func presentLogin()
+    func backToSpecificVC(_ vc: UIViewController)
 }
 
 final class JoinIdViewController: BaseViewController {
@@ -78,6 +79,12 @@ final class JoinIdViewController: BaseViewController {
                     print("회원가입 성공")
                     self.delegate?.presentLogin()
                 case .failure(let error):
+                    self.show(
+                        alertText: "회원가입 실패. 다시 시도하시겠습니까?",
+                        cancelButtonText: "아니오",
+                        confirmButtonText: "예",
+                        identifier: "failSignUp"
+                    )
                     print(error)
                 }
             }
@@ -108,7 +115,7 @@ final class JoinIdViewController: BaseViewController {
         
         idConditionalLabel.snp.makeConstraints {
             $0.top.equalTo(idInputTextField.snp.bottom).offset(3)
-            $0.left.equalTo(idInputTextField.snp.left)
+            $0.left.equalTo(idInputTextField.snp.left).offset(8)
         }
         
         nextButton.snp.makeConstraints {
@@ -134,11 +141,26 @@ extension JoinIdViewController: UITextFieldDelegate {
         else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
-            idInputTextField.setLineColorFalse()
             return
         }
         nextButton.backgroundColor = .snaptimeBlue
         nextButton.isEnabled = true
-        idInputTextField.setLineColorTrue()
+    }
+}
+
+extension JoinIdViewController: CustomAlertDelegate {
+    func action(identifier: String) {
+        guard let navigationController = self.navigationController else { return }
+        let viewControllerStack = navigationController.viewControllers
+        
+        viewControllerStack.forEach {
+            if let rootVC = $0 as? JoinEmailViewController {
+                self.delegate?.backToSpecificVC(rootVC)
+            }
+        }
+    }
+    
+    func exit(identifier: String) {
+        delegate?.backToRoot()
     }
 }
