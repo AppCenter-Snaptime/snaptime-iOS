@@ -97,6 +97,16 @@ extension CommunityCoordinator:
     func backToPrevious() {
         navigationController.popViewController(animated: true)
     }
+    
+    func backToPrevious(albumId: Int) {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func presentSelectAlbumVC() {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .albumSelect)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
 
     func presentSnap(snapId: Int) {
         let albumSnapVC = SnapViewController(snapId: snapId)

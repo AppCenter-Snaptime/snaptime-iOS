@@ -10,9 +10,11 @@ import SnapKit
 
 protocol SelectAlbumViewControllerDelegate: AnyObject {
     func backToPrevious()
+    func backToPrevious(albumId: Int)
 }
 
 enum AlbumSelectMode {
+    case albumSelect
     case moveSnap
     case deleteAlbum
 }
@@ -93,11 +95,26 @@ final class SelectAlbumViewController: BaseViewController {
                 self.delegate?.backToPrevious()
             }, for: .touchUpInside)
         }
-        else {
+        else if self.selectMode == .moveSnap {
             self.processButton.setTitle("폴더 이동", for: .normal)
             self.processButton.addAction(UIAction { _ in
                 self.moveSnap()
                 self.delegate?.backToPrevious()
+            }, for: .touchUpInside)
+        }
+        
+        else {
+            self.processButton.setTitle("폴더 선택", for: .normal)
+            self.processButton.addAction(UIAction { _ in
+                guard self.selectMode == .albumSelect else { return }
+                var selectAlbums: [Album] = []
+                for i in 0..<self.albumData.count {
+                    if self.albumChecked[i] {
+                        selectAlbums.append(self.albumData[i])
+                    }
+                }
+                guard let albumId = selectAlbums.first?.id else { return }
+                self.delegate?.backToPrevious(albumId: albumId)
             }, for: .touchUpInside)
         }
     }

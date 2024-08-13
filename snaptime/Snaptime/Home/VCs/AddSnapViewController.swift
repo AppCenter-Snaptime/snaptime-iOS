@@ -13,6 +13,7 @@ import Kingfisher
 protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
     func presentSnapTagList()
+    func presentSelectAlbumVC()
 }
 
 enum EditSnapMode {
@@ -156,18 +157,16 @@ final class AddSnapViewController: BaseViewController {
         let button = SnapTimeCustomButton("작성 완료")
         button.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
-            if self.editMode == .add {
-                Task {
-                    await self.postNewSnap()
-                    self.navigationController?.popViewController(animated: true)
-                }
-            } else if self.editMode == .edit {
+            if self.editMode == .edit {
                 Task {
                     await self.putNewSnap()
                     self.navigationController?.popViewController(animated: true)
                 }
             }
-            
+            else {
+                // select album id 받아와서 이후 delegate에서 postNewSnap 호출
+                self.delegate?.presentSelectAlbumVC()
+            }
         }, for: .touchUpInside)
         return button
     }()
@@ -184,10 +183,10 @@ final class AddSnapViewController: BaseViewController {
         self.present(imagePicker, animated: true)
     }
     
-    private func postNewSnap() async {
+    func postNewSnap(albumId: Int) async {
         // 아직 parameter isPrivate 안 보냄
         
-        var url = "http://na2ru2.me:6308/snap?isPrivate=false"
+        var url = "http://na2ru2.me:6308/snap?isPrivate=false&albumId=\(albumId)"
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
