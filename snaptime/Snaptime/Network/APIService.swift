@@ -35,6 +35,7 @@ enum APIService {
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
     case deleteSnap(snapId: Int)
+    case moveSnap(snapId: Int, albumId: Int)
     case fetchSnap(albumId: Int)
     case fetchSnapPreview(albumId: Int)
     case fetchAlbumList
@@ -97,6 +98,9 @@ extension APIService {
         case .deleteSnap(let snapId):
             "/snap?snapId=\(snapId)"
             
+        case .moveSnap(let snapId, let albumId):
+            "/snap/album?snapId=\(snapId)&albumId=\(albumId)"
+            
         case .fetchSnap(let snapId):
             "/snap/\(snapId)"
             
@@ -151,7 +155,8 @@ extension APIService {
                 .postTestSignIn,
                 .postSignUp,
                 .postLikeToggle,
-                .postReissue:
+                .postReissue,
+                .moveSnap:
                 .post
             
         case .deleteFollowing,

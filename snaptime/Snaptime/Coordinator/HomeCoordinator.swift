@@ -58,7 +58,7 @@ extension HomeCoordinator:
     }
     
     func presentAlbumDelete() {
-        let selectAlbumVC = SelectAlbumViewController()
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .deleteAlbum)
         selectAlbumVC.delegate = self
         navigationController.pushViewController(selectAlbumVC, animated: true)
     }
@@ -114,6 +114,12 @@ extension HomeCoordinator:
         let snapTagListVC = SnapTagListViewController()
         snapTagListVC.delegate = self
         navigationController.pushViewController(snapTagListVC, animated: true)
+    }
+    
+    func presentMoveAlbumVC(snap: FindSnapResDto) {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
     }
     
     func backToAddSnapView(tagList: [FriendInfo]) {
