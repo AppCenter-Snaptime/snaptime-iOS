@@ -9,6 +9,7 @@ import Alamofire
 import UIKit
 import SnapKit
 import Kingfisher
+import PhotosUI
 
 protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
@@ -111,8 +112,7 @@ final class AddSnapViewController: BaseViewController {
         let button = UIButton()
         button.layer.backgroundColor = UIColor.snaptimeGray.cgColor
         button.addAction(UIAction { _ in
-            button.tag = 1
-            self.tabImageButton(tag: 1)
+            self.tabImageButton()
         }, for: .touchUpInside)
         
         return button
@@ -172,16 +172,14 @@ final class AddSnapViewController: BaseViewController {
         return button
     }()
     
-    private func tabImageButton(tag: Int) {
-        let imagePicker = UIImagePickerController()
-
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-
-        imagePicker.view.tag = tag
-
-        self.present(imagePicker, animated: true)
+    private func tabImageButton() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .any(of: [.images, .videos])
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
     }
     
     private func postNewSnap() async {
@@ -387,19 +385,28 @@ extension AddSnapViewController: UITextViewDelegate {
     }
 }
 
-extension AddSnapViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: false) { () in
-            let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-            
-            if let tag = picker.view?.tag {
-                switch tag {
-                case 1:
-                    self.addImageButton.setImage(image, for: .normal)
-                default:
-                    break
+//MARK: - 피커뷰 델리게이트
+extension AddSnapViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let itemProvider = results.first?.itemProvider else {
+            print("이미지를 찾을 수 없습니다!")
+            return
+        }
+        
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
+                if let image = object as? UIImage {
+                    DispatchQueue.main.async {
+                        self.addImageButton.setImage(image, for: .normal)
+                    }
+                } else {
+                    print("로드된 객체를 UIImage로 캐스팅하지 못했습니다.")
                 }
             }
+        } else {
+            print("UIImage를 로드할 수 없습니다.")
         }
     }
 }
