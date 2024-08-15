@@ -12,6 +12,7 @@ import Alamofire
 protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentEditSnapVC(snap: FindSnapResDto)
+    func presentMoveAlbumVC(snap: FindSnapResDto)
     func backToPrevious()
 }
 
@@ -151,7 +152,7 @@ extension SnapViewController: SnapCollectionViewCellDelegate {
             self.delegate?.presentEditSnapVC(snap: snap)
         }))
         actionSheet.addAction(UIAlertAction(title: "폴더 이동", style: .default, handler: { _ in
-            //            self.presentAddAlbumPopup()
+            self.delegate?.presentMoveAlbumVC(snap: snap)
         }))
         actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
             // NOTE: 추가로 삭제 확인할 팝업 달아도 좋을 듯

@@ -58,7 +58,7 @@ extension HomeCoordinator:
     }
     
     func presentAlbumDelete() {
-        let selectAlbumVC = SelectAlbumViewController()
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .deleteAlbum)
         selectAlbumVC.delegate = self
         navigationController.pushViewController(selectAlbumVC, animated: true)
     }
@@ -81,6 +81,21 @@ extension HomeCoordinator:
     }
     
     // ----------------------------
+    // AddSnapViewControllerDelegate
+    
+    func presentSnapTagList() {
+        let snapTagListVC = SnapTagListViewController()
+        snapTagListVC.delegate = self
+        navigationController.pushViewController(snapTagListVC, animated: true)
+    }
+    
+    func presentSelectAlbumVC() {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .albumSelect)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
+    
+    // ----------------------------
     
     func presentSnap(snapId: Int) {
         let snapVC = SnapViewController(snapId: snapId)
@@ -88,7 +103,15 @@ extension HomeCoordinator:
         navigationController.pushViewController(snapVC, animated: true)
     }
     
-    
+    // albumId를 addSnapVC에 전달
+    func backToPrevious(albumId: Int) {
+        navigationController.popViewController(animated: true)
+        guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
+        Task {
+            await addSnapVC.postNewSnap(albumId: albumId)
+            await self.navigationController.popViewController(animated: true)
+        }
+    }
     
     func didFinishAddAlbum() {
         if let vc = presentedViewController as? QRReaderViewController {
@@ -110,10 +133,11 @@ extension HomeCoordinator:
         navigationController.popViewController(animated: true)
     }
     
-    func presentSnapTagList() {
-        let snapTagListVC = SnapTagListViewController()
-        snapTagListVC.delegate = self
-        navigationController.pushViewController(snapTagListVC, animated: true)
+    
+    func presentMoveAlbumVC(snap: FindSnapResDto) {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
     }
     
     func backToAddSnapView(tagList: [FriendInfo]) {

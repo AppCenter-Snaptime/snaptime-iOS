@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CommunityCoordinator: Coordinator {
+final class CommunityCoordinator: Coordinator, SelectAlbumViewControllerDelegate {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -97,6 +97,16 @@ extension CommunityCoordinator:
     func backToPrevious() {
         navigationController.popViewController(animated: true)
     }
+    
+    func backToPrevious(albumId: Int) {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func presentSelectAlbumVC() {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .albumSelect)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
 
     func presentSnap(snapId: Int) {
         let albumSnapVC = SnapViewController(snapId: snapId)
@@ -126,6 +136,12 @@ extension CommunityCoordinator:
         let followVC = FollowViewController(target: target, loginId: loginId)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
+    }
+    
+    func presentMoveAlbumVC(snap: FindSnapResDto) {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
     }
     
     func backToRoot() {

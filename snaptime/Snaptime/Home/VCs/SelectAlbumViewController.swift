@@ -10,6 +10,13 @@ import SnapKit
 
 protocol SelectAlbumViewControllerDelegate: AnyObject {
     func backToPrevious()
+    func backToPrevious(albumId: Int)
+}
+
+enum AlbumSelectMode {
+    case albumSelect
+    case moveSnap
+    case deleteAlbum
 }
 
 final class SelectAlbumViewController: BaseViewController {
@@ -28,8 +35,8 @@ final class SelectAlbumViewController: BaseViewController {
         return collectionView
     }()
     
-    private lazy var deleteButton = {
-        let button = SnapTimeCustomButton("삭제")
+    private lazy var processButton = {
+        let button = SnapTimeCustomButton("")
         button.backgroundColor = UIColor(hexCode: "FF5454")
         button.addAction(UIAction { _ in
             self.deleteAlbum()
@@ -40,13 +47,26 @@ final class SelectAlbumViewController: BaseViewController {
     
     // -------------------------
     
+    var selectMode: AlbumSelectMode
     weak var delegate: SelectAlbumViewControllerDelegate?
     var albumData: [Album] = []
     var albumChecked: [Bool] = []
+    var snap: FindSnapResDto? = nil
+    
+    init(selectMode: AlbumSelectMode, snap: FindSnapResDto? = nil) {
+        self.selectMode = selectMode
+        self.snap = snap
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAlbumList()
+        self.setupUI()
     }
     
     private func fetchAlbumList() {
@@ -67,14 +87,48 @@ final class SelectAlbumViewController: BaseViewController {
         }
     }
     
+    private func setupUI() {
+        if self.selectMode == .deleteAlbum {
+            self.processButton.setTitle("앨범 삭제", for: .normal)
+            self.processButton.addAction(UIAction { _ in
+                self.deleteAlbum()
+                self.delegate?.backToPrevious()
+            }, for: .touchUpInside)
+        }
+        else if self.selectMode == .moveSnap {
+            self.processButton.setTitle("폴더 이동", for: .normal)
+            self.processButton.addAction(UIAction { _ in
+                self.moveSnap()
+                self.delegate?.backToPrevious()
+            }, for: .touchUpInside)
+        }
+        
+        else {
+            self.processButton.setTitle("폴더 선택", for: .normal)
+            self.processButton.addAction(UIAction { _ in
+                guard self.selectMode == .albumSelect else { return }
+                var selectAlbums: [Album] = []
+                for i in 0..<self.albumData.count {
+                    if self.albumChecked[i] {
+                        selectAlbums.append(self.albumData[i])
+                    }
+                }
+                guard let albumId = selectAlbums.first?.id else { return }
+                self.delegate?.backToPrevious(albumId: albumId)
+            }, for: .touchUpInside)
+        }
+    }
+    
     private func deleteAlbum() {
+        guard self.selectMode == .deleteAlbum else { return }
+        
         var deleteAlbums: [Album] = []
         for i in 0..<self.albumData.count {
             if self.albumChecked[i] {
                 deleteAlbums.append(self.albumData[i])
             }
         }
-        print(deleteAlbums)
+//        print(deleteAlbums)
         for album in deleteAlbums {
             APIService.deleteAlbum(albumId: album.id).performRequest { result in
                 switch result {
@@ -87,12 +141,41 @@ final class SelectAlbumViewController: BaseViewController {
         }
     }
     
+    private func moveSnap() {
+        guard self.selectMode == .moveSnap else { return }
+        
+        var selectAlbums: [Album] = []
+        for i in 0..<self.albumData.count {
+            if self.albumChecked[i] {
+                selectAlbums.append(self.albumData[i])
+            }
+        }
+        print(selectAlbums)
+        guard selectAlbums.count == 1 else {
+            print("앨범 1개 선택되지 않음")
+            return
+        }
+        
+        guard let snap = self.snap,
+              let albumId = selectAlbums.first?.id else { return }
+        
+        APIService.moveSnap(snapId: snap.snapId, albumId: albumId).performRequest { result in
+            switch result {
+            case .success:
+                print("앨범 이동 성공!")
+            case .failure(let error):
+                print("moveSnap error : ")
+                print(error)
+            }
+        }
+    }
+    
     // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
         [
             mainAlbumCollectionView,
-            deleteButton
+            processButton
         ].forEach {
             view.addSubview($0)
         }
@@ -102,7 +185,7 @@ final class SelectAlbumViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
-        deleteButton.snp.makeConstraints {
+        processButton.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
@@ -111,8 +194,8 @@ final class SelectAlbumViewController: BaseViewController {
         
         mainAlbumCollectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
-            $0.left.right.equalTo(deleteButton)
-            $0.bottom.equalTo(deleteButton.snp.top).offset(-10)
+            $0.left.right.equalTo(processButton)
+            $0.bottom.equalTo(processButton.snp.top).offset(-10)
 //            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }

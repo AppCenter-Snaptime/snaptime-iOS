@@ -33,7 +33,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                               CommentViewControllerDelegate,
                               FollowViewControllerDelegate,
                               AddSnapViewControllerDelegate,
-                              SnapTagListViewControllerDelegate
+                              SnapTagListViewControllerDelegate,
+                              SelectAlbumViewControllerDelegate
 {
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)
@@ -46,6 +47,22 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let addSnapVC = AddSnapViewController()
         addSnapVC.delegate = self
         navigationController.pushViewController(addSnapVC, animated: true)
+    }
+    
+    func presentSelectAlbumVC() {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .albumSelect)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
+    
+    // albumId를 addSnapVC에 전달
+    func backToPrevious(albumId: Int) {
+        navigationController.popViewController(animated: true)
+        guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
+        Task {
+            await addSnapVC.postNewSnap(albumId: albumId)
+            await self.navigationController.popViewController(animated: true)
+        }
     }
     
     func presentSnapTagList() {
@@ -108,6 +125,12 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let followVC = FollowViewController(target: target, loginId: loginId)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
+    }
+    
+    func presentMoveAlbumVC(snap: FindSnapResDto) {
+        let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)
+        selectAlbumVC.delegate = self
+        navigationController.pushViewController(selectAlbumVC, animated: true)
     }
     
     func presentLogin() {
