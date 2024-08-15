@@ -79,6 +79,10 @@ extension AuthCoordinator: LoginViewControllerDelegate,
         navigationController.popToRootViewController(animated: true)
     }
     
+    func backToSpecificVC(_ vc: UIViewController) {
+        navigationController.popToViewController(vc, animated: true)
+    }
+    
     // 이전 화면으로 돌아가는 메서드
     func backToPrevious() {
         navigationController.popViewController(animated: true)

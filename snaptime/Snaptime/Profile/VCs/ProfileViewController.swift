@@ -200,7 +200,7 @@ final class ProfileViewController: BaseViewController {
                         self.profileStatusView.setupUserProfile(profile.result, loginId: self.loginId)
                     }
                 case .failure(let error):
-                    print(error)
+                    print("fetchUserProfile",error)
                 }
             }
         }
@@ -215,7 +215,7 @@ final class ProfileViewController: BaseViewController {
                         self.profileStatusView.setupUserNumber(profileCount.result)
                     }
                 case .failure(let error):
-                    print(error)
+                    print("fetchUserProfileCount", error)
                 }
             }
         }

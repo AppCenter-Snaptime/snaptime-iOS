@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import Alamofire
 
 protocol EditProfileViewControllerDelegate: AnyObject {
     func presentEditProfile()
@@ -27,9 +28,12 @@ final class EditProfileViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        editProfileImage.layer.cornerRadius = editProfileImage.frame.height/2
-        editProfileImageButton.layer.cornerRadius = editProfileImageButton.frame.height/2
+
+        [editProfileImage, 
+         editProfileImageButton].forEach {
+            $0.layer.cornerRadius = $0.frame.height/2
+            $0.clipsToBounds = true
+        }
     }
     
     private lazy var titleLabel: UILabel = {
@@ -43,7 +47,6 @@ final class EditProfileViewController: BaseViewController {
     private lazy var editProfileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeBlue
-        imageView.clipsToBounds = true
 
         return imageView
     }()
@@ -60,7 +63,9 @@ final class EditProfileViewController: BaseViewController {
         descriptionConfig.image = setImage
         
         button.configuration = descriptionConfig
-        button.clipsToBounds = true
+        button.addAction(UIAction { [weak self] _ in
+            self?.tabImageButton(tag: 1)
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -92,10 +97,10 @@ final class EditProfileViewController: BaseViewController {
                let name = self?.editNameTextField.editTextField.text {
                 let param = UserUpdateDto(name: name, loginId: id, email: email, birthDay: birthDate)
                 
-                print(param)
-                self?.modifyUserInfo(userInfo: param)
-                
-                self?.delegate?.backToRoot()
+                Task {
+                    await self?.modifyProfileImage()
+                    self?.delegate?.backToRoot()
+                }
             }
         }, for: .touchUpInside)
         
@@ -106,6 +111,18 @@ final class EditProfileViewController: BaseViewController {
     private let editEmailTextField = EditProfileTextField("이메일")
     private let editDateOfBirthTextField = EditProfileTextField("생년월일")
     private let editNameTextField = EditProfileTextField("이름")
+    
+    private func tabImageButton(tag: Int) {
+        let imagePicker = UIImagePickerController()
+
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+
+        imagePicker.view.tag = tag
+
+        self.present(imagePicker, animated: true)
+    }
     
     // MARK: - 사용자 정보 서버에서 불러오기
     private func fetchUserInfo() {
@@ -130,12 +147,55 @@ final class EditProfileViewController: BaseViewController {
         APIService.modifyUserInfo.performRequest(with: userInfo) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(_):
-                    print("modify user information")
+                case .success(let msg):
+                    guard let msg = msg as? String else { return }
+                    print(msg)
                 case .failure(let error):
                     print(error)
                 }
             }
+        }
+    }
+    
+    private func modifyProfileImage() async {
+        let url = "http://na2ru2.me:6308/profile-photos"
+        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
+        
+        var headers: HTTPHeaders {
+            ["Authorization": "Bearer \(token)", "accept": "*/*", "Content-Type": "multipart/form-data"]
+        }
+        
+        guard let image = editProfileImage.image,
+              let jpgimageData = image.jpegData(compressionQuality: 0.2)
+        else { return }
+        
+        let response = await AF
+            .upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(jpgimageData, 
+                                         withName: "file",
+                                         fileName: "image.png",
+                                         mimeType: "image/jpeg")
+                }, to: url,
+                    method: .put,
+                    headers: headers)
+            .serializingDecodable(CommonResponseDtoModifyUserInfoResDto.self)
+            .response
+
+        switch response.result {
+        case .success(let res):
+            if (400..<599).contains(response.response?.statusCode ?? 0) {
+                print("error - ", res.msg)
+            }
+            else {
+                print("프로필 이미지 수정 완료")
+                
+                DispatchQueue.main.async {
+                    let profileUrl = "http://na2ru2.me:6308/profile-photos/" + String(res.result.profilePhotoId)
+                    UserProfileManager.shared.profile.result.profileURL = profileUrl
+                }
+            }
+        case .failure(let error):
+            print(error)
         }
     }
     
@@ -185,6 +245,23 @@ final class EditProfileViewController: BaseViewController {
             $0.top.equalTo(editProfileImage.snp.bottom).offset(40)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(35)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-35)
+        }
+    }
+}
+
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: false) { () in
+            let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+            
+            if let tag = picker.view?.tag {
+                switch tag {
+                case 1:
+                    self.editProfileImage.image = image
+                default:
+                    break
+                }
+            }
         }
     }
 }

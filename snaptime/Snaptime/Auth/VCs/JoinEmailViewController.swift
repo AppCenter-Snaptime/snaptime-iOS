@@ -25,6 +25,14 @@ final class JoinEmailViewController: BaseViewController {
         self.showNavigationBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        emailInputTextField.text = ""
+        nextButton.backgroundColor = .snaptimeGray
+        nextButton.isEnabled = false
+    }
+    
     // MARK: - UI component Config
     private let emailLabel: UILabel = {
         let label = UILabel()
@@ -99,11 +107,9 @@ extension JoinEmailViewController: UITextFieldDelegate {
         else {
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
-            emailInputTextField.setLineColorFalse()
             return
         }
         nextButton.backgroundColor = .snaptimeBlue
         nextButton.isEnabled = true
-        emailInputTextField.setLineColorTrue()
     }
 }

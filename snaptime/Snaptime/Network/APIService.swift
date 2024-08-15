@@ -146,7 +146,7 @@ extension APIService {
                 .get
             
         case .modifyUserInfo:
-                .put
+                .patch
             
         case .postReply,
                 .postFollow,
@@ -217,7 +217,6 @@ extension APIService {
             do {
                 let jsonData = try JSONEncoder().encode(parameters)
                 request.httpBody = jsonData
-                print(parameters)
             } catch {
                 completion(.failure(FetchError.jsonEncodeError))
                 return
@@ -317,13 +316,17 @@ extension APIService {
                         }
                         
                         else {
-                            completion(.success(data))
+                            let result = try JSONDecoder().decode(CommonMsgRes.self, from: data)
+                            completion(.success(result))
                         }
                     }
                     catch {
                         completion(.failure(FetchError.jsonDecodeError))
                     }
                 case .failure(let error):
+//                    guard let data = response.data else { return }
+//
+//                    let message = try JSONDecoder().decode(CommonMsgRes.self, from: data)
                     completion(.failure(error))
                 }
             }

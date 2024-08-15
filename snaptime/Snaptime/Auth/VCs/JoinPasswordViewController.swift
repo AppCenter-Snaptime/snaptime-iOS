@@ -137,14 +137,14 @@ final class JoinPasswordViewController: BaseViewController {
         }
         
         passwordSecureButton.snp.makeConstraints {
-            $0.bottom.equalTo(passwordInputTextField.snp.bottom)
-            $0.right.equalTo(passwordInputTextField.snp.right)
+            $0.centerY.equalTo(passwordInputTextField.snp.centerY)
+            $0.right.equalTo(passwordInputTextField.snp.right).offset(-5)
             $0.height.equalTo(20)
         }
         
         passwordConditionalLabel.snp.makeConstraints {
             $0.top.equalTo(passwordInputTextField.snp.bottom).offset(3)
-            $0.left.equalTo(passwordInputTextField.snp.left)
+            $0.left.equalTo(passwordInputTextField.snp.left).offset(8)
         }
         
         passwordCheckInputTextField.snp.makeConstraints {
@@ -154,8 +154,8 @@ final class JoinPasswordViewController: BaseViewController {
         }
         
         passwordCheckSecureButton.snp.makeConstraints {
-            $0.bottom.equalTo(passwordCheckInputTextField.snp.bottom)
-            $0.right.equalTo(passwordCheckInputTextField.snp.right)
+            $0.centerY.equalTo(passwordCheckInputTextField.snp.centerY)
+            $0.right.equalTo(passwordCheckInputTextField.snp.right).offset(-5)
             $0.height.equalTo(20)
         }
         
@@ -190,14 +190,10 @@ extension JoinPasswordViewController: UITextFieldDelegate {
             passwordCheckConditionalLabel.text = "비밀번호가 일치하지 않습니다."
             nextButton.backgroundColor = .snaptimeGray
             nextButton.isEnabled = false
-            passwordInputTextField.setLineColorFalse()
-            passwordCheckInputTextField.setLineColorPasswordFalse()
             return
         }
         passwordCheckConditionalLabel.text = ""
         nextButton.backgroundColor = .snaptimeBlue
         nextButton.isEnabled = true
-        passwordInputTextField.setLineColorTrue()
-        passwordCheckInputTextField.setLineColorTrue()
     }
 }

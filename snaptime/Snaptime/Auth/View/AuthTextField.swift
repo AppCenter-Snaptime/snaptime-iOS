@@ -12,8 +12,6 @@ final class AuthTextField: UITextField {
     private let customPlaceholder: String
     private let secureToggle: Bool
     
-//    var lineColorToggle: Bool?
-
     init(_ placeholder: String, secureToggle: Bool = false) {
         self.customPlaceholder = placeholder
         self.secureToggle = secureToggle
@@ -25,46 +23,24 @@ final class AuthTextField: UITextField {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private let underLine : UIView = {
-        let view = UIView()
-        view.backgroundColor = .snaptimeGray
-        
-        return view
-    }()
-    
+
     private func setupStyles() {
-        self.borderStyle = .none
-        self.placeholder = customPlaceholder
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        self.layer.cornerRadius = 8
+        self.layer.masksToBounds = true
+        self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
+        self.leftViewMode = .always
+        self.attributedPlaceholder = NSAttributedString(string: customPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
         
         if secureToggle == true {
             self.isSecureTextEntry = true
         }
     }
     
-    func setLineColorTrue() {
-        underLine.backgroundColor = .init(hexCode: "3B6DFF")
-    }
-    
-    func setLineColorFalse() {
-        underLine.backgroundColor = .snaptimeGray
-    }
-    
-    func setLineColorPasswordFalse() {
-        underLine.backgroundColor = .red
-    }
-    
     private func setupConstraints() {
         self.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
-        
-        addSubview(underLine)
-        
-        underLine.snp.makeConstraints {
-            $0.top.equalTo(self.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(49)
         }
     }
 }

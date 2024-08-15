@@ -28,6 +28,9 @@
 		2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0B2C5233E700CAECBC /* OAuthButton.swift */; };
 		2932DB0E2C52694100CAECBC /* APIInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0D2C52694100CAECBC /* APIInterceptor.swift */; };
 		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
+		294820452C674B8000229D65 /* LoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820442C674B8000229D65 /* LoadingService.swift */; };
+		294820472C69D7BC00229D65 /* ModifyUserInfoResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */; };
+		294820492C69E90900229D65 /* CommonMsgRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820482C69E90900229D65 /* CommonMsgRes.swift */; };
 		294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */; };
 		294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */; };
 		294FF9F22B6CA0DB00EDD005 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */; };
@@ -146,6 +149,9 @@
 		2932DB0B2C5233E700CAECBC /* OAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthButton.swift; sourceTree = "<group>"; };
 		2932DB0D2C52694100CAECBC /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
 		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		294820442C674B8000229D65 /* LoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingService.swift; sourceTree = "<group>"; };
+		294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyUserInfoResDto.swift; sourceTree = "<group>"; };
+		294820482C69E90900229D65 /* CommonMsgRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMsgRes.swift; sourceTree = "<group>"; };
 		294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		294FF9EE2B6C9ED200EDD005 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		294FF9F12B6CA0DB00EDD005 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -312,6 +318,7 @@
 			children = (
 				29E6EA122BFF8B13004F154F /* APIService.swift */,
 				2932DB0D2C52694100CAECBC /* APIInterceptor.swift */,
+				294820442C674B8000229D65 /* LoadingService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -523,6 +530,8 @@
 				29F1591C2C60951B00AB0BA9 /* UserPagingResDto.swift */,
 				2962F1682C60D8B2009C7C8B /* UserFindResDto.swift */,
 				2962F16A2C60DBAF009C7C8B /* SignUpReqDto.swift */,
+				294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */,
+				294820482C69E90900229D65 /* CommonMsgRes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -738,6 +747,7 @@
 				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				A62FE22B2BE24CD600BACF77 /* Album.swift in Sources */,
+				294820452C674B8000229D65 /* LoadingService.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
@@ -780,6 +790,7 @@
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */,
 				A66C413C2BBC680600AC4284 /* CommentSupplementaryHeaderView.swift in Sources */,
+				294820492C69E90900229D65 /* CommonMsgRes.swift in Sources */,
 				297090292C38014A004A151B /* IconButton.swift in Sources */,
 				294FF9F42B6CA0FD00EDD005 /* AuthCoordinator.swift in Sources */,
 				A66C413A2BBC4D8A00AC4284 /* CommentCollectionViewCell.swift in Sources */,
@@ -811,6 +822,7 @@
 				2932DB0A2C5216BB00CAECBC /* FindSnapPreviewResDto.swift in Sources */,
 				297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */,
 				296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */,
+				294820472C69D7BC00229D65 /* ModifyUserInfoResDto.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,

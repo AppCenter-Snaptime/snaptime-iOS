@@ -127,7 +127,7 @@ struct KeyChain {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
             kSecReturnData as String: kCFBooleanTrue!,
-            kSecMatchLimit as String: kSecMatchLimitOne // 중복되는 경우, 하나의 값만 불러오기
+            kSecMatchLimit as String: kSecMatchLimitOne /// 중복되는 경우, 하나의 값만 불러오기
         ]
         
         var data: AnyObject?
@@ -143,7 +143,7 @@ struct KeyChain {
             }
             return token
         } else if status == errSecItemNotFound {
-            // 해당 키에 대한 아이템이 없는 경우
+            /// 해당 키에 대한 아이템이 없는 경우
             if key == TokenType.accessToken.rawValue {
                 print("AccessToken 존재하지 않음")
             } else {
@@ -151,7 +151,7 @@ struct KeyChain {
             }
             return nil
         } else {
-            // 다른 오류 발생
+            /// 다른 오류 발생
             print("Keychain load error: \(status)")
             return nil
         }
@@ -168,11 +168,11 @@ struct KeyChain {
         
         switch status {
         case errSecItemNotFound:
-            // 기존 데이터가 없음
+            /// 기존 데이터가 없음
             print("KeyChain Key 존재하지 않음")
             return false
         case errSecSuccess:
-            // 삭제 성공
+            /// 삭제 성공
             if key == TokenType.accessToken.rawValue {
                 print("AccessToken 삭제 성공")
             } else {
@@ -180,8 +180,8 @@ struct KeyChain {
             }
             return true
         default:
-            // 다른 오류 발생
-            print("🍞⛔️Keychain delete error: \(status)")
+            /// 다른 오류 발생
+            print("Keychain delete error: \(status)")
             return false
         }
     }

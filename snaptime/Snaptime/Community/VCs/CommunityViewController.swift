@@ -19,18 +19,21 @@ final class CommunityViewController: BaseViewController {
     weak var delegate: CommunityViewControllerDelegate?
     
     private var snaps: [FindSnapResDto] = []
+    private var hasNextPage: Bool = false
+    private var pageNum: Int = 1
+    private var isInfiniteScroll: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupNavigationBar()
-        self.fetchSnaps(pageNum: 1)
+        self.fetchSnaps(pageNum: pageNum) {}
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.fetchSnaps(pageNum: 1)
+        self.fetchSnaps(pageNum: pageNum) {}
     }
     
     private let titleLabel: UILabel = {
@@ -45,7 +48,7 @@ final class CommunityViewController: BaseViewController {
     private lazy var findUserButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBackground
+        config.baseBackgroundColor = .clear
         config.baseForegroundColor = .black
         config.image = UIImage(systemName: "magnifyingglass")
         button.configuration = config
@@ -69,13 +72,15 @@ final class CommunityViewController: BaseViewController {
         return collectionView
     }()
     
-    private func fetchSnaps(pageNum: Int) {
+    private func fetchSnaps(pageNum: Int, completion: @escaping (() -> ())) {
         APIService.fetchCommunitySnap(pageNum: pageNum).performRequest { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let snap):
                     if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
-                        self.snaps = snap.result.snapDetailInfoResDtos
+                        self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
+                        self.hasNextPage = snap.result.hasNextPage
+                        self.pageNum += 1
                     }
                     self.contentCollectionView.reloadData()
                 case .failure(let error):
@@ -122,6 +127,19 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         cell.delegate = self
         cell.configureData(data: self.snaps[indexPath.row])
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    /// 남은 content size 의 높이보다 스크롤을 많이 했다. 즉, 다음 컨텐츠가 필요한 경우.
+        if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height {
+            if isInfiniteScroll && hasNextPage {
+                isInfiniteScroll = false
+                
+                fetchSnaps(pageNum: pageNum) {
+                    self.isInfiniteScroll = true
+                }
+            }
+        }
     }
 }
 

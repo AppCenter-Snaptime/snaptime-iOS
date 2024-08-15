@@ -50,7 +50,7 @@ final class MainAlbumViewController : BaseViewController {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.image = UIImage(systemName: "folder")
-        config.baseBackgroundColor = .white.withAlphaComponent(0)
+        config.baseBackgroundColor = .clear
         config.baseForegroundColor = .black
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in

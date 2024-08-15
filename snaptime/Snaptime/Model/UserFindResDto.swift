@@ -9,13 +9,13 @@ import Foundation
 
 struct CommonResponseDtoUserFindResDto: Codable {
     let msg: String
-    let result: [UserFindResDto]
+    let result: UserFindResDto
 }
 
 struct UserFindResDto: Codable {
-    var userId: String?
-    var name: String?
-    var loginId: String?
-    var email: String?
-    var birthDay: String?
+    var userId: String
+    var name: String
+    var loginId: String
+    var email: String
+    var birthDay: String
 }
