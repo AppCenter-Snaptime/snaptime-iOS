@@ -109,10 +109,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             self.isLikeSnap.toggle()
             APIService.postLikeToggle(snapId: snap.snapId).performRequest { result in
                 switch result {
-                case .success(let data):
-                    if let data = data as? Data {
-                        print(String(data: data, encoding: .utf8))
-                    }
+                case .success(_):
+                    print("좋아요 Toggle Success")
                 case .failure(let error):
                     print(error)
                 }

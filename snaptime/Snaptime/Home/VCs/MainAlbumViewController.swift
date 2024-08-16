@@ -207,9 +207,10 @@ final class MainAlbumViewController : BaseViewController {
         let param: [String: String] = [
             "name": name
         ]
+        
         APIService.postAlbum.performRequest(with: param) { result in
             switch result {
-            case .success(let albumList):
+            case .success(_):
                 print("앨범 추가 성공")
                 DispatchQueue.main.async {
                     self.fetchAlbumList()

@@ -217,7 +217,7 @@ final class AddSnapViewController: BaseViewController {
                 print("스냅 전송 성공!")
             }
         case .failure(let error):
-            print(error.errorDescription)
+            print(error)
         }
     }
     
@@ -257,7 +257,8 @@ final class AddSnapViewController: BaseViewController {
                 print("스냅 수정 성공!")
             }
         case .failure(let error):
-            print(error.errorDescription)
+            guard let errorMessage = error.errorDescription else { return }
+            print(errorMessage)
         }
     }
     

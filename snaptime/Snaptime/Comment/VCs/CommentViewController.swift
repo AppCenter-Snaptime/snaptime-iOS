@@ -195,8 +195,6 @@ final class CommentViewController: BaseViewController {
         .responseJSON { response in
             switch response.result {
             case .success(let data):
-//                print("success")
-//                print(data)
                 guard let data = response.data else { return }
                 
                 do {
@@ -254,8 +252,6 @@ final class CommentViewController: BaseViewController {
         .responseJSON(queue: queue) { response in
             switch response.result {
             case .success(let data):
-                print("success")
-                print(data)
                 guard let data = response.data else { return }
                 
                 do {
