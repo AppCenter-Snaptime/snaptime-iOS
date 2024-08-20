@@ -24,14 +24,12 @@ class SingleCommentView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Jocelyn"
         label.font = .systemFont(ofSize: 14)
         return label
     }()
     
     private lazy var beforeDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "30분 전"
         label.font = .systemFont(ofSize: 12)
         label.textColor = UIColor(hexCode: "747474")
         return label
@@ -40,7 +38,6 @@ class SingleCommentView: UIView {
     private lazy var commentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui.Lorem ipsum dolor sit amet consectetur. Vitae sed malesu ada ornare enim eu sed tortor dui."
         label.font = .systemFont(ofSize: 13)
         return label
     }()

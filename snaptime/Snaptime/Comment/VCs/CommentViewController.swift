@@ -79,7 +79,7 @@ final class CommentViewController: BaseViewController {
                 let containerGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(1)),
+                        heightDimension: .estimated(20)),
                     subitems: [item])
                 containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
@@ -90,7 +90,7 @@ final class CommentViewController: BaseViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(10)
+                        heightDimension: .estimated(20)
                     ),
                     elementKind: "header",
                     alignment: .top
@@ -100,7 +100,7 @@ final class CommentViewController: BaseViewController {
                 let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(40)
+                        heightDimension: .estimated(10)
                     ),
                     elementKind: "footer",
                     alignment: .bottom)
@@ -111,6 +111,7 @@ final class CommentViewController: BaseViewController {
                 
                 return section
             }, configuration: config)
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return collectionView
@@ -143,10 +144,15 @@ final class CommentViewController: BaseViewController {
             }
             let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
             print("post success")
-            APIService.postReply.performRequest(with: param, responseType: CommonResDtoVoid.self) { [weak self] _ in
-                guard let id = self?.snapID else { return }
-                self?.fetchComment(pageNum: 1, snapId: id)
-                self?.commentCollectionView.layoutIfNeeded()
+            APIService.postReply.performRequest(
+                with: param,
+                responseType: CommonResDtoVoid.self
+            ) { [weak self] _ in
+                DispatchQueue.main.async {
+                    guard let id = self?.snapID else { return }
+                    self?.fetchComment(pageNum: 1, snapId: id)
+                    self?.replyTextField.text = ""
+                }
             }
         }, for: .touchUpInside)
         return button
@@ -178,10 +184,10 @@ final class CommentViewController: BaseViewController {
         ).performRequest(responseType: CommonResponseDtoListFindParentReplyResDto.self) { result in
             switch result {
             case .success(let result):
-                self.parentComments = result.result.parentReplyInfoResDtos
-                self.fetchChildComments()
                 DispatchQueue.main.async {
+                    self.parentComments = result.result.parentReplyInfoResDtos
                     self.applySnapShot(data: self.parentComments)
+                    self.commentCollectionView.layoutIfNeeded()
                 }
             case .failure(let error):
                 print(error)
