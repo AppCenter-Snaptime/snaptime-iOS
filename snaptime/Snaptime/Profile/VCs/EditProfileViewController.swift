@@ -126,30 +126,27 @@ final class EditProfileViewController: BaseViewController {
     
     // MARK: - 사용자 정보 서버에서 불러오기
     private func fetchUserInfo() {
-        APIService.fetchUserInfo.performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let userProfileInfo):
-                    if let profile = userProfileInfo as? CommonResponseDtoUserResDto {
-                        self.editIDTextField.editTextField.text = profile.result.loginId
-                        self.editEmailTextField.editTextField.text = profile.result.email
-                        self.editDateOfBirthTextField.editTextField.text = profile.result.birthDay
-                        self.editNameTextField.editTextField.text = profile.result.name
-                    }
-                case .failure(let error):
-                    print(error)
+        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserResDto.self) { result in
+            switch result {
+            case .success(let userProfileInfo):
+                DispatchQueue.main.async {
+                    self.editIDTextField.editTextField.text = userProfileInfo.result.loginId
+                    self.editEmailTextField.editTextField.text = userProfileInfo.result.email
+                    self.editDateOfBirthTextField.editTextField.text = userProfileInfo.result.birthDay
+                    self.editNameTextField.editTextField.text = userProfileInfo .result.name
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
     
     private func modifyUserInfo(userInfo: UserUpdateDto) {
-        APIService.modifyUserInfo.performRequest(with: userInfo) { result in
+        APIService.modifyUserInfo.performRequest(with: userInfo, responseType: CommonResDtoVoid.self) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let msg):
-                    guard let msg = msg as? String else { return }
-                    print(msg)
+                case .success(let result):
+                    print(result.msg)
                 case .failure(let error):
                     print(error)
                 }

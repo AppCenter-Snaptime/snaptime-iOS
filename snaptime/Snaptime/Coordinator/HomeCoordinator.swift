@@ -133,6 +133,9 @@ extension HomeCoordinator:
         navigationController.popViewController(animated: true)
     }
     
+    func backToRoot() {
+        navigationController.popToRootViewController(animated: true)
+    }
     
     func presentMoveAlbumVC(snap: FindSnapResDto) {
         let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)

@@ -44,14 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// 저장된 토큰이 유효한지 확인
     func checkLogin(completion: @escaping (Bool) -> Void) {
-        APIService.fetchUserInfo.performRequest { result in
+        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserResDto.self) { result in
             switch result {
             case .success(let result):
-                if let result = result as? CommonResponseDtoUserResDto {
-                    ProfileBasicUserDefaults().loginId = result.result.loginId
-                    completion(true)
-                    print("🍀로그인 되어있음🍀")
-                }
+                ProfileBasicUserDefaults().loginId = result.result.loginId
+                completion(true)
+                print("🍀로그인 되어있음🍀")
             case .failure(_):
                 completion(false)
                 _ = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)

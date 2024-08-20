@@ -73,19 +73,17 @@ final class CommunityViewController: BaseViewController {
     }()
     
     private func fetchSnaps(pageNum: Int, completion: @escaping (() -> ())) {
-        APIService.fetchCommunitySnap(pageNum: pageNum).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let snap):
-                    if let snap = snap as? CommonResponseDtoListFindSnapPagingResDto {
-                        self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
-                        self.hasNextPage = snap.result.hasNextPage
-                        self.pageNum += 1
-                    }
+        APIService.fetchCommunitySnap(pageNum: pageNum).performRequest(responseType: CommonResponseDtoListFindSnapPagingResDto.self) { result in
+            switch result {
+            case .success(let snap):
+                DispatchQueue.main.async {
+                    self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
+                    self.hasNextPage = snap.result.hasNextPage
+                    self.pageNum += 1
                     self.contentCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }

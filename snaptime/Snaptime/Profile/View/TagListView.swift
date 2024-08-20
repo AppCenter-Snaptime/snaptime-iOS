@@ -51,17 +51,15 @@ final class TagListView: UIView {
     }
     
     private func fetchTagList(loginId: String) {
-        APIService.fetchUserTagSnap(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let result):
-                    if let result = result as? CommonResponseDtoListProfileTagSnapResDto {
-                        self.tagList = result.result
-                        self.reloadData()
-                    }
-                case .failure(let error):
-                    print(error)
+        APIService.fetchUserTagSnap(loginId: loginId).performRequest(responseType: CommonResponseDtoListProfileTagSnapResDto.self) { result in
+            switch result {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    self.tagList = result.result
+                    self.reloadData()
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }

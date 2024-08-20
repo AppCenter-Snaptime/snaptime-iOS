@@ -192,13 +192,11 @@ final class ProfileViewController: BaseViewController {
     
     // MARK: - 네트워크 로직
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        self.profileStatusView.setupUserProfile(profile.result, loginId: self.loginId)
-                    }
+                    self.profileStatusView.setupUserProfile(userProfile.result, loginId: self.loginId)
                 case .failure(let error):
                     print("fetchUserProfile",error)
                 }
@@ -207,13 +205,11 @@ final class ProfileViewController: BaseViewController {
     }
     
     private func fetchUserProfileCount(loginId: String) {
-        APIService.fetchUserProfileCount(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfileCount(loginId: loginId).performRequest(responseType: CommonResponseDtoProfileCntResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
-                    if let profileCount = userProfileCount as? CommonResponseDtoProfileCntResDto {
-                        self.profileStatusView.setupUserNumber(profileCount.result)
-                    }
+                    self.profileStatusView.setupUserNumber(userProfileCount.result)
                 case .failure(let error):
                     print("fetchUserProfileCount", error)
                 }
@@ -292,7 +288,7 @@ extension ProfileViewController: CustomAlertDelegate {
     func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
-        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
+        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):

@@ -72,11 +72,10 @@ final class JoinIdViewController: BaseViewController {
     }
     
     private func postSignUp(info: SignUpReqDto) {
-        APIService.postSignUp.performRequest(with: info) { result in
+        APIService.postSignUp.performRequest(with: info, responseType: CommonResDtoVoid.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    print("회원가입 성공")
                     self.delegate?.presentLogin()
                 case .failure(let error):
                     self.show(

@@ -39,18 +39,16 @@ final class SnapPreviewViewController: BaseViewController {
     }
     
     private func fetchAlbumDetail(id: Int) {
-        APIService.fetchSnapPreview(albumId: id).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let snapPreview):
-                    if let snapPreview = snapPreview as? CommonResponseDtoFindAlbumResDto {
-                        self.snapPreviews = snapPreview.result.snap
-                        self.setNavigationItemTitle(title: snapPreview.result.name)
-                    }
+        APIService.fetchSnapPreview(albumId: id).performRequest(responseType: CommonResponseDtoFindAlbumResDto.self) { result in
+            switch result {
+            case .success(let snapPreview):
+                DispatchQueue.main.async {
+                    self.snapPreviews = snapPreview.result.snap
+                    self.setNavigationItemTitle(title: snapPreview.result.name)
                     self.albumDetailCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -108,7 +106,7 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
 
-extension SnapPreviewViewController : UICollectionViewDelegateFlowLayout {
+extension SnapPreviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let numberOfItemsPerRow: CGFloat = 2

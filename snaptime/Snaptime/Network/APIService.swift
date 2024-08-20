@@ -30,7 +30,7 @@ enum APIService {
     case fetchUserInfo
     case modifyUserInfo
     case fetchSearchUserInfo(pageNum: Int, keyword: String)
-    case deleteUser
+    case deleteUser(password: String)
     
     case postLikeToggle(snapId: Int)
     case fetchCommunitySnap(pageNum: Int)
@@ -83,8 +83,8 @@ extension APIService {
         case .modifyUserInfo:
             "/users"
             
-        case .deleteUser:
-            "/users"
+        case .deleteUser(let password):
+            "/users?password=\(password)"
             
         case .fetchSearchUserInfo(let pageNum, let keyword):
             "/users/\(pageNum)?searchKeyword=\(keyword)"
@@ -209,7 +209,11 @@ extension APIService {
         return request
     }
     
-    func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
+    func performRequest<T: Decodable>(
+        with parameters: Encodable? = nil,
+        responseType: T.Type,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
         
         var request = self.request
         
@@ -225,110 +229,140 @@ extension APIService {
         
         AF.request(request, interceptor: APIInterceptor.shared)
             .validate(statusCode: 200..<300)
-            .responseJSON { response in
+            .responseDecodable(of: responseType) { response in
                 switch response.result {
-                case .success(_):
-                    guard let data = response.data else { return }
-                    
-                    do {
-                        if case .fetchUserProfile = self {
-                            let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
-                            completion(.success(userProfile))
-                        }
-                        
-                        else if case .postSignIn = self {
-                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
-                            completion(.success(token.result))
-                        }
-                        
-                        else if case .postTestSignIn = self {
-                            let token = try JSONDecoder().decode(TestCommonResponseDtoSignInResDto.self, from: data)
-                            completion(.success(token.result))
-                        }
-                        
-                        else if case .postReissue = self {
-                            let result = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
-                            completion(.success(result))
-                        }
-                        
-                        
-                        else if case .fetchUserProfileCount = self {
-                            let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
-                            completion(.success(userProfileCount))
-                        }
-                        
-                        else if case .fetchUserAlbum = self {
-                            let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
-                            completion(.success(userAlbum))
-                        }
-                        
-                        else if case .fetchUserTagSnap = self {
-                            let tagList = try JSONDecoder().decode(CommonResponseDtoListProfileTagSnapResDto.self, from: data)
-                            completion(.success(tagList))
-                        }
-                        
-                        else if case .fetchSearchUserInfo = self {
-                            let searchUserInfo = try JSONDecoder().decode(CommonResponseDtoUserPagingResDto.self, from: data)
-                            completion(.success(searchUserInfo))
-                        }
-                        
-                        else if case .fetchCommunitySnap = self {
-                            let snap = try JSONDecoder().decode(CommonResponseDtoListFindSnapPagingResDto.self, from: data)
-                            completion(.success(snap))
-                        }
-                        
-                        else if case .fetchSnap = self {
-                            let snap = try JSONDecoder().decode(CommonResponseDtoFindSnapResDto.self, from: data)
-                            completion(.success(snap))
-                        }
-                        
-                        else if case .fetchUserInfo = self {
-                            let profileInfo = try JSONDecoder().decode(CommonResponseDtoUserResDto.self, from: data)
-                            completion(.success(profileInfo))
-                        }
-                        
-                        else if case .fetchSnapPreview = self {
-                            let snapPreview = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
-                            completion(.success(snapPreview))
-                        }
-                        
-                        else if case .fetchAlbumList = self {
-                            let albumList = try JSONDecoder().decode(CommonResponseDtoListFindAllAlbumsResDto.self, from: data)
-                            completion(.success(albumList))
-                        }
-                        
-                        else if case .fetchFollow = self {
-                            let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
-                            completion(.success(friendList))
-                        }
-                        
-                        else if case .postFollow = self {
-                            completion(.success(data))
-                        }
-                        
-                        else if case .deleteFollowing = self {
-                            let result = try JSONDecoder().decode(CommonResDtoVoid.self, from: data)
-                            completion(.success(result))
-                        }
-                        
-                        else if case .postReply = self {
-                            completion(.success(data))
-                        }
-                        
-                        else {
-                            let result = try JSONDecoder().decode(CommonMsgRes.self, from: data)
-                            completion(.success(result))
-                        }
-                    }
-                    catch {
-                        completion(.failure(FetchError.jsonDecodeError))
-                    }
+                case .success(let decodedData):
+                    print(decodedData)
+                    completion(.success(decodedData))
                 case .failure(let error):
+                    print("API 에러입니다.")
                     completion(.failure(error))
                 }
             }
+        
     }
+
     
+//    func performRequest(with parameters: Encodable? = nil, completion: @escaping (Result<Any, Error>) -> Void) {
+//        
+//        var request = self.request
+//        
+//        if let parameters = parameters {
+//            do {
+//                let jsonData = try JSONEncoder().encode(parameters)
+//                request.httpBody = jsonData
+//            } catch {
+//                completion(.failure(FetchError.jsonEncodeError))
+//                return
+//            }
+//        }
+//        
+//        AF.request(request, interceptor: APIInterceptor.shared)
+//            .validate(statusCode: 200..<300)
+//            .responseJSON { response in
+//                switch response.result {
+//                case .success(_):
+//                    guard let data = response.data else { return }
+//                    
+//                    do {
+//                        if case .fetchUserProfile = self {
+//                            let userProfile = try JSONDecoder().decode(CommonResponseDtoUserProfileResDto.self, from: data)
+//                            completion(.success(userProfile))
+//                        }
+//                        
+//                        else if case .postSignIn = self {
+//                            let token = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+//                            completion(.success(token.result))
+//                        }
+//                        
+//                        else if case .postTestSignIn = self {
+//                            let token = try JSONDecoder().decode(TestCommonResponseDtoSignInResDto.self, from: data)
+//                            completion(.success(token.result))
+//                        }
+//                        
+//                        else if case .postReissue = self {
+//                            let result = try JSONDecoder().decode(CommonResponseDtoSignInResDto.self, from: data)
+//                            completion(.success(result))
+//                        }
+//                        
+//                        
+//                        else if case .fetchUserProfileCount = self {
+//                            let userProfileCount = try JSONDecoder().decode(CommonResponseDtoProfileCntResDto.self, from: data)
+//                            completion(.success(userProfileCount))
+//                        }
+//                        
+//                        else if case .fetchUserAlbum = self {
+//                            let userAlbum = try JSONDecoder().decode(CommonResponseDtoListAlbumSnapResDto.self, from: data)
+//                            completion(.success(userAlbum))
+//                        }
+//                        
+//                        else if case .fetchUserTagSnap = self {
+//                            let tagList = try JSONDecoder().decode(CommonResponseDtoListProfileTagSnapResDto.self, from: data)
+//                            completion(.success(tagList))
+//                        }
+//                        
+//                        else if case .fetchSearchUserInfo = self {
+//                            let searchUserInfo = try JSONDecoder().decode(CommonResponseDtoUserPagingResDto.self, from: data)
+//                            completion(.success(searchUserInfo))
+//                        }
+//                        
+//                        else if case .fetchCommunitySnap = self {
+//                            let snap = try JSONDecoder().decode(CommonResponseDtoListFindSnapPagingResDto.self, from: data)
+//                            completion(.success(snap))
+//                        }
+//                        
+//                        else if case .fetchSnap = self {
+//                            let snap = try JSONDecoder().decode(CommonResponseDtoFindSnapResDto.self, from: data)
+//                            completion(.success(snap))
+//                        }
+//                        
+//                        else if case .fetchUserInfo = self {
+//                            let profileInfo = try JSONDecoder().decode(CommonResponseDtoUserResDto.self, from: data)
+//                            completion(.success(profileInfo))
+//                        }
+//                        
+//                        else if case .fetchSnapPreview = self {
+//                            let snapPreview = try JSONDecoder().decode(CommonResponseDtoFindAlbumResDto.self, from: data)
+//                            completion(.success(snapPreview))
+//                        }
+//                        
+//                        else if case .fetchAlbumList = self {
+//                            let albumList = try JSONDecoder().decode(CommonResponseDtoListFindAllAlbumsResDto.self, from: data)
+//                            completion(.success(albumList))
+//                        }
+//                        
+//                        else if case .fetchFollow = self {
+//                            let friendList = try JSONDecoder().decode(CommonResponseDtoListFindFriendResDto.self, from: data)
+//                            completion(.success(friendList))
+//                        }
+//                        
+//                        else if case .postFollow = self {
+//                            completion(.success(data))
+//                        }
+//                        
+//                        else if case .deleteFollowing = self {
+//                            let result = try JSONDecoder().decode(CommonResDtoVoid.self, from: data)
+//                            completion(.success(result))
+//                        }
+//                        
+//                        else if case .postReply = self {
+//                            completion(.success(data))
+//                        }
+//                        
+//                        else {
+//                            let result = try JSONDecoder().decode(CommonMsgRes.self, from: data)
+//                            completion(.success(result))
+//                        }
+//                    }
+//                    catch {
+//                        completion(.failure(FetchError.jsonDecodeError))
+//                    }
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                }
+//            }
+//    }
+//    
     // MARK: - 이미지 네트워킹 메서드
     static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),

@@ -60,15 +60,9 @@ final class APIInterceptor: RequestInterceptor {
 
         print("retry 코드:", response.statusCode)
         /// 토큰 갱신 API 호출
-        APIService.postReissue.performRequest { [weak self] result in
+        APIService.postReissue.performRequest(responseType: CommonResponseDtoSignInResDto.self) { [weak self] result in
             switch result {
             case .success(let result):
-                guard let result = result as? CommonResponseDtoSignInResDto
-                else {
-                    completion(.doNotRetry)
-                    return
-                }
-                
                 let keyChainResult = KeyChain.saveTokens(accessKey: result.result.accessToken, refreshKey: result.result.refreshToken)
                 
                 if keyChainResult.accessResult == true && keyChainResult.refreshResult == true {

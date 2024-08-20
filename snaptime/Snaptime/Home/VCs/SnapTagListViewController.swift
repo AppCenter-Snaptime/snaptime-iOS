@@ -114,18 +114,17 @@ extension SnapTagListViewController: UISearchBarDelegate {
               let loginId = ProfileBasicUserDefaults().loginId
         else { return }
   
-        APIService.fetchFollow(type: FollowTarget.following.description, 
-                               loginId:loginId,
-                               keyword: text,
-                               pageNum: 1).performRequest { result in
+        APIService.fetchFollow(
+            type: FollowTarget.following.description,
+            loginId:loginId,
+            keyword: text,
+            pageNum: 1
+        ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        print(result.result.friendInfoResDtos)
-                        self.searchResults = result.result.friendInfoResDtos
-                        self.addTagListCollectionView.reloadData()
-                    }
+                    self.searchResults = result.result.friendInfoResDtos
+                    self.addTagListCollectionView.reloadData()
                 case .failure(let error):
                     print(error)
                     self.searchResults = []
@@ -143,17 +142,16 @@ extension SnapTagListViewController: UISearchBarDelegate {
               let loginId = ProfileBasicUserDefaults().loginId
         else { return }
         
-        APIService.fetchFollow(type: FollowTarget.following.description,
-                               loginId: loginId,
-                               keyword: text,
-                               pageNum: 1).performRequest { result in
-            
+        APIService.fetchFollow(
+            type: FollowTarget.following.description,
+            loginId: loginId,
+            keyword: text,
+            pageNum: 1
+        ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        print(result.result.friendInfoResDtos)
-                    }
+                    print(result.result.friendInfoResDtos)
                 case .failure(let error):
                     print(error)
                 }

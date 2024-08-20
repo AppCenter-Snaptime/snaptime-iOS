@@ -143,7 +143,7 @@ final class CommentViewController: BaseViewController {
             }
             let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
             print("post success")
-            APIService.postReply.performRequest(with: param) { [weak self] _ in
+            APIService.postReply.performRequest(with: param, responseType: CommonResDtoVoid.self) { [weak self] _ in
                 self?.fetchComment()
                 self?.commentCollectionView.layoutIfNeeded()
             }
@@ -168,6 +168,7 @@ final class CommentViewController: BaseViewController {
         
         self.fetchUserProfile(loginId: id)
     }
+    
     
     
     // MARK: -- 댓글 목록 서버 통신
@@ -275,13 +276,11 @@ final class CommentViewController: BaseViewController {
     }
     
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        APIService.loadImageNonToken(data: profile.result.profileURL, imageView: self.replyImageView)
-                    }
+                    APIService.loadImageNonToken(data: userProfile.result.profileURL, imageView: self.replyImageView)
                 case .failure(let error):
                     print(error)
                 }

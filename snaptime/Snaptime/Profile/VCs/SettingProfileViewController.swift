@@ -133,11 +133,10 @@ final class SettingProfileViewController: BaseViewController {
         }
     }
     
-    private func deleteUserLogic() {
-        APIService.deleteUser.performRequest { result in
+    private func deleteUserLogic(password: String) {
+        APIService.deleteUser(password: password).performRequest(responseType: CommonResDtoVoid.self) { result in
             switch result {
             case .success(_):
-                print("유저 삭제 성공")
                 let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
                 
                 ProfileBasicUserDefaults().loginId = nil
@@ -235,7 +234,7 @@ extension SettingProfileViewController: CustomAlertDelegate {
         case "signout":
             self.signoutLogic()
         case "deleteUser":
-            self.deleteUserLogic()
+            self.deleteUserLogic(password: "")
         default:
             print("none")
         }

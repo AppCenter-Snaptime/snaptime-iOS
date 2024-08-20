@@ -76,15 +76,14 @@ final class FollowTableViewCell: UITableViewCell {
                     // TODO: - 이후 팔로잉 삭제 요청 필요
                 case false:
                     if let loginId = self?.loginId {
-                        APIService.postFollow(loginId: loginId).performRequest { result in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success(_):
+                        APIService.postFollow(loginId: loginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+                            switch result {
+                            case .success(_):
+                                DispatchQueue.main.async {
                                     self?.follow.toggle()
-                                    
-                                case .failure(let error):
-                                    print(error)
                                 }
+                            case .failure(let error):
+                                print(error)
                             }
                         }
                     }
