@@ -194,7 +194,7 @@ final class CommentViewController: BaseViewController {
         .validate(statusCode: 200..<300)
         .responseJSON { response in
             switch response.result {
-            case .success(let data):
+            case .success(_):
                 guard let data = response.data else { return }
                 
                 do {
@@ -251,7 +251,7 @@ final class CommentViewController: BaseViewController {
         .validate(statusCode: 200..<300)
         .responseJSON(queue: queue) { response in
             switch response.result {
-            case .success(let data):
+            case .success(_):
                 guard let data = response.data else { return }
                 
                 do {
