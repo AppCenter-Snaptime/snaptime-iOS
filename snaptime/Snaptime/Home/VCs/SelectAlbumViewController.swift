@@ -90,7 +90,7 @@ final class SelectAlbumViewController: BaseViewController {
             self.processButton.setTitle("앨범 삭제", for: .normal)
             self.processButton.addAction(UIAction { _ in
                 self.deleteAlbum()
-                self.delegate?.backToPrevious()
+                self.delegate?.backToRoot()
             }, for: .touchUpInside)
         }
         else if self.selectMode == .moveSnap {

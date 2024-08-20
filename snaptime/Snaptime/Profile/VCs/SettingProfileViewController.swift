@@ -144,8 +144,9 @@ final class SettingProfileViewController: BaseViewController {
                 if checkTokenDeleted.access && checkTokenDeleted.refresh {
                     self.delegate?.presentLogin()
                 }
-            case .failure(let failure):
+            case .failure(let error):
                 print("유저 삭제 성공")
+                print(error)
             }
         }
     }

@@ -11,7 +11,7 @@ import UIKit
 class SingleCommentView: UIView {
     private lazy var profileImageView: RoundImageView = {
         let imageView = RoundImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.backgroundColor = .snaptimeGray
         return imageView
     }()
     

@@ -48,7 +48,6 @@ extension HomeCoordinator:
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)
-        //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
     
     func presentAddSnap() {

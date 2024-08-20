@@ -47,6 +47,8 @@ enum APIService {
     case deleteFollowing(loginId: String)
     
     case postReply
+    case getChildReply(pageNum: Int, parentReplyId: Int)
+    case fetchParentReply(pageNum: Int, snapId: Int)
 }
 
 extension APIService {
@@ -127,6 +129,12 @@ extension APIService {
             
         case .postReply:
             "/parent-replies"
+            
+        case .getChildReply(let pageNum, let parentReplyId):
+            "/child-replies/\(pageNum)?parentReplyId=\(parentReplyId)"
+            
+        case .fetchParentReply(let pageNum, let snapId):
+            "/parent-replies/\(pageNum)?snapId=\(snapId)"
         }
     }
     
@@ -142,7 +150,9 @@ extension APIService {
             .fetchUserInfo,
             .fetchSnapPreview,
             .fetchAlbumList,
-            .fetchFollow:
+            .fetchFollow,
+            .getChildReply,
+            .fetchParentReply:
                 .get
             
         case .modifyUserInfo:
@@ -232,7 +242,6 @@ extension APIService {
             .responseDecodable(of: responseType) { response in
                 switch response.result {
                 case .success(let decodedData):
-                    print(decodedData)
                     completion(.success(decodedData))
                 case .failure(let error):
                     print("API 에러입니다.")

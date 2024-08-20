@@ -118,7 +118,7 @@ final class CommentViewController: BaseViewController {
     
     private lazy var replyImageView: UIImageView = {
         let imageView = RoundImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.backgroundColor = .snaptimeGray
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -144,7 +144,8 @@ final class CommentViewController: BaseViewController {
             let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
             print("post success")
             APIService.postReply.performRequest(with: param, responseType: CommonResDtoVoid.self) { [weak self] _ in
-                self?.fetchComment()
+                guard let id = self?.snapID else { return }
+                self?.fetchComment(pageNum: 1, snapId: id)
                 self?.commentCollectionView.layoutIfNeeded()
             }
         }, for: .touchUpInside)
@@ -162,57 +163,28 @@ final class CommentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
-        self.fetchComment()
+        self.fetchComment(pageNum: 1, snapId: self.snapID)
         
         guard let id = ProfileBasicUserDefaults().loginId else { return }
         
         self.fetchUserProfile(loginId: id)
     }
     
-    
-    
     // MARK: -- 댓글 목록 서버 통신
-    private func fetchComment() {
-        // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
-        let url = "http://na2ru2.me:6308/parent-replies/1"
-        
-        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else {return}
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token)",
-            "accept": "*/*"
-        ]
-        let parameters: Parameters = [
-            "snapId" : self.snapID,
-            "pageNum" : 1
-        ]
-        AF.request(
-            url,
-            method: .get,
-            parameters: parameters,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(_):
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
-                    print(result)
-                    self.parentComments = result.result.parentReplyInfoResDtos
-                    self.fetchChildComments()
-                    DispatchQueue.main.async {
-                        self.applySnapShot(data: self.parentComments)
-                    }
-                    
-                } catch {
-                    print(error)
+    private func fetchComment(pageNum: Int, snapId: Int) {
+        APIService.fetchParentReply(
+            pageNum: pageNum,
+            snapId: snapId
+        ).performRequest(responseType: CommonResponseDtoListFindParentReplyResDto.self) { result in
+            switch result {
+            case .success(let result):
+                self.parentComments = result.result.parentReplyInfoResDtos
+                self.fetchChildComments()
+                DispatchQueue.main.async {
+                    self.applySnapShot(data: self.parentComments)
                 }
             case .failure(let error):
-                print(String(describing: error.errorDescription))
+                print(error)
             }
         }
     }
@@ -237,10 +209,9 @@ final class CommentViewController: BaseViewController {
             "accept": "*/*"
         ]
         let parameters: Parameters = [
-            "parentReplyId" : parentReplyId,
-            "pageNum" : 1
+            "parentReplyId": parentReplyId,
+            "pageNum": 1
         ]
-        
         
         AF.request(
             url,
@@ -250,31 +221,21 @@ final class CommentViewController: BaseViewController {
             headers: headers
         )
         .validate(statusCode: 200..<300)
-        .responseJSON(queue: queue) { response in
+        .responseDecodable(of: CommonResponseDtoFindChildReplyResDto.self, queue: queue) { response in
             switch response.result {
-            case .success(_):
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoFindChildReplyResDto.self, from: data)
-                    print(result)
-                    
-                    childInfo = result.result.childReplyInfoList
-                    semaphore.signal()
-                } catch {
-                    print(error)
-                    semaphore.signal()
-                }
+            case .success(let result):
+                print(result)
+                childInfo = result.result.childReplyInfoList
             case .failure(let error):
                 print(String(describing: error.errorDescription))
-                semaphore.signal()
             }
+            semaphore.signal()
         }
+        
         semaphore.wait()
         return childInfo
     }
-    
+
     private func fetchUserProfile(loginId: String) {
         APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
