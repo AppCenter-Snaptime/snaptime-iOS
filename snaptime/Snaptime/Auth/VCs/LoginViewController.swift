@@ -178,21 +178,16 @@ final class LoginViewController: BaseViewController {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
                 LoadingService.showLoading()
-                APIService.postSignIn.performRequest(with: loginInfo) { result in
+                APIService.postSignIn.performRequest(with: loginInfo, responseType: CommonResponseDtoSignInResDto.self) { result in
                     DispatchQueue.main.async {
                         switch result {
-                        case .success(let token):
-                            if let token = token as? SignInResDto {
-                                let token = KeyChain.saveTokens(accessKey: token.accessToken, refreshKey: token.refreshToken)
+                        case .success(let result):
+                            let token = KeyChain.saveTokens(accessKey: result.result.accessToken, refreshKey: result.result.refreshToken)
                                 
                                 /// 토큰이 keychain에 저장되었을 경우
-                                if token.accessResult && token.refreshResult {
-                                    ProfileBasicUserDefaults().loginId = id
-                                    self?.delegate?.presentHome()
-                                }
-                                
-                            } else {
-                                print(FetchError.jsonDecodeError)
+                            if token.accessResult && token.refreshResult {
+                                ProfileBasicUserDefaults().loginId = id
+                                self?.delegate?.presentHome()
                             }
                         case .failure(let error):
                             self?.warningLoginAlertToggle(state: false)

@@ -172,33 +172,28 @@ final class MainAlbumViewController : BaseViewController {
     }()
     
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let profile):
-                    if let profile = profile as? CommonResponseDtoUserProfileResDto {
-                        UserProfileManager.shared.profile = profile
-                    }
-                case .failure(let error):
-                    print(error)
+        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async {
+                    UserProfileManager.shared.profile = profile
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
     
     private func fetchAlbumList() {
-        APIService.fetchAlbumList.performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let albumList):
-                    if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto {
-                        self.albumData = albumList.result.map { Album($0) }
-                    }
-                    
+        APIService.fetchAlbumList.performRequest(responseType: CommonResponseDtoListFindAllAlbumsResDto.self) { result in
+            switch result {
+            case .success(let albumList):
+                DispatchQueue.main.async {
+                    self.albumData = albumList.result.map { Album($0) }
                     self.mainAlbumCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -207,10 +202,10 @@ final class MainAlbumViewController : BaseViewController {
         let param: [String: String] = [
             "name": name
         ]
-        APIService.postAlbum.performRequest(with: param) { result in
+        
+        APIService.postAlbum.performRequest(with: param, responseType: CommonResDtoVoid.self) { result in
             switch result {
-            case .success(let albumList):
-                print("앨범 추가 성공")
+            case .success(_):
                 DispatchQueue.main.async {
                     self.fetchAlbumList()
                 }

@@ -107,12 +107,13 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             guard let self = self,
                   let snap = self.snap else { return }
             self.isLikeSnap.toggle()
-            APIService.postLikeToggle(snapId: snap.snapId).performRequest { result in
+            APIService.postLikeToggle(snapId: snap.snapId).performRequest(
+                responseType: CommonResDtoVoid.self
+            ) { result in
+                
                 switch result {
-                case .success(let data):
-                    if let data = data as? Data {
-                        print(String(data: data, encoding: .utf8))
-                    }
+                case .success(_):
+                    print("좋아요 Toggle Success")
                 case .failure(let error):
                     print(error)
                 }
@@ -189,7 +190,13 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 0.5, y: self.bounds.origin.y , width: self.bounds.width + 0.5, height: self.bounds.height + 0.5)).cgPath
+        self.layer.shadowPath = UIBezierPath(
+            rect: CGRect(
+                x: self.bounds.origin.x - 0.5,
+                y: self.bounds.origin.y ,
+                width: self.bounds.width + 0.5,
+                height: self.bounds.height + 0.5
+            )).cgPath
         self.layer.shadowOpacity = 20
         self.layer.shadowRadius = 6
         self.contentView.layer.cornerRadius = 15

@@ -49,23 +49,21 @@ final class SnapViewController: BaseViewController {
     }
     
     private func fetchSnap(id: Int) {
-        APIService.fetchSnap(albumId: id).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let snap):
-                    if let snap = snap as? CommonResponseDtoFindSnapResDto {
-                        self.snap = snap.result
-                    }
+        APIService.fetchSnap(albumId: id).performRequest(responseType: CommonResponseDtoFindSnapResDto.self) { result in
+            switch result {
+            case .success(let snap):
+                DispatchQueue.main.async {
+                    self.snap = snap.result
                     self.snapCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
     
     private func deleteSnap(id: Int) {
-        APIService.deleteSnap(snapId: self.snapId).performRequest { result in
+        APIService.deleteSnap(snapId: self.snapId).performRequest(responseType: CommonResDtoVoid.self) { result in
             switch result {
             case .success(_):
                 print("Snap 삭제 성공!")

@@ -48,7 +48,6 @@ extension HomeCoordinator:
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)
-        //        navigationController.pushViewController(addAlbumVC, animated: true)
     }
     
     func presentAddSnap() {
@@ -133,6 +132,9 @@ extension HomeCoordinator:
         navigationController.popViewController(animated: true)
     }
     
+    func backToRoot() {
+        navigationController.popToRootViewController(animated: true)
+    }
     
     func presentMoveAlbumVC(snap: FindSnapResDto) {
         let selectAlbumVC = SelectAlbumViewController(selectMode: .moveSnap, snap: snap)

@@ -50,18 +50,16 @@ final class AlbumListView: UIView {
     }
     
     private func fetchUserAlbum(loginId: String) {
-        APIService.fetchUserAlbum(loginId: loginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let result):
-                    if let result = result as? CommonResponseDtoListAlbumSnapResDto {
-                        self.albumList = []
-                        self.albumList = result.result
-                        self.reloadData()
-                    }
-                case .failure(let error):
-                    print(error)
+        APIService.fetchUserAlbum(loginId: loginId).performRequest(responseType: CommonResponseDtoListAlbumSnapResDto.self) { result in
+            switch result {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    self.albumList = []
+                    self.albumList = result.result
+                    self.reloadData()
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }

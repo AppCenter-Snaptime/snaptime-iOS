@@ -79,7 +79,7 @@ final class CommentViewController: BaseViewController {
                 let containerGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(1)),
+                        heightDimension: .estimated(20)),
                     subitems: [item])
                 containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
@@ -90,7 +90,7 @@ final class CommentViewController: BaseViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(10)
+                        heightDimension: .estimated(20)
                     ),
                     elementKind: "header",
                     alignment: .top
@@ -100,7 +100,7 @@ final class CommentViewController: BaseViewController {
                 let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(40)
+                        heightDimension: .estimated(10)
                     ),
                     elementKind: "footer",
                     alignment: .bottom)
@@ -111,6 +111,7 @@ final class CommentViewController: BaseViewController {
                 
                 return section
             }, configuration: config)
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return collectionView
@@ -118,7 +119,7 @@ final class CommentViewController: BaseViewController {
     
     private lazy var replyImageView: UIImageView = {
         let imageView = RoundImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.backgroundColor = .snaptimeGray
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -143,9 +144,15 @@ final class CommentViewController: BaseViewController {
             }
             let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
             print("post success")
-            APIService.postReply.performRequest(with: param) { [weak self] _ in
-                self?.fetchComment()
-                self?.commentCollectionView.layoutIfNeeded()
+            APIService.postReply.performRequest(
+                with: param,
+                responseType: CommonResDtoVoid.self
+            ) { [weak self] _ in
+                DispatchQueue.main.async {
+                    guard let id = self?.snapID else { return }
+                    self?.fetchComment(pageNum: 1, snapId: id)
+                    self?.replyTextField.text = ""
+                }
             }
         }, for: .touchUpInside)
         return button
@@ -162,58 +169,28 @@ final class CommentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
-        self.fetchComment()
+        self.fetchComment(pageNum: 1, snapId: self.snapID)
         
         guard let id = ProfileBasicUserDefaults().loginId else { return }
         
         self.fetchUserProfile(loginId: id)
     }
     
-    
     // MARK: -- 댓글 목록 서버 통신
-    private func fetchComment() {
-        // TODO: 우선 pageNum 1로 고정했는데, 2,3페이지가 있는지 어떻게 알까
-        let url = "http://na2ru2.me:6308/parent-replies/1"
-        
-        guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else {return}
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token)",
-            "accept": "*/*"
-        ]
-        let parameters: Parameters = [
-            "snapId" : self.snapID,
-            "pageNum" : 1
-        ]
-        AF.request(
-            url,
-            method: .get,
-            parameters: parameters,
-            encoding: URLEncoding.default,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-//                print("success")
-//                print(data)
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoListFindParentReplyResDto.self, from: data)
-                    print(result)
+    private func fetchComment(pageNum: Int, snapId: Int) {
+        APIService.fetchParentReply(
+            pageNum: pageNum,
+            snapId: snapId
+        ).performRequest(responseType: CommonResponseDtoListFindParentReplyResDto.self) { result in
+            switch result {
+            case .success(let result):
+                DispatchQueue.main.async {
                     self.parentComments = result.result.parentReplyInfoResDtos
-                    self.fetchChildComments()
-                    DispatchQueue.main.async {
-                        self.applySnapShot(data: self.parentComments)
-                    }
-                    
-                } catch {
-                    print(error)
+                    self.applySnapShot(data: self.parentComments)
+                    self.commentCollectionView.layoutIfNeeded()
                 }
             case .failure(let error):
-                print(String(describing: error.errorDescription))
+                print(error)
             }
         }
     }
@@ -238,10 +215,9 @@ final class CommentViewController: BaseViewController {
             "accept": "*/*"
         ]
         let parameters: Parameters = [
-            "parentReplyId" : parentReplyId,
-            "pageNum" : 1
+            "parentReplyId": parentReplyId,
+            "pageNum": 1
         ]
-        
         
         AF.request(
             url,
@@ -251,41 +227,27 @@ final class CommentViewController: BaseViewController {
             headers: headers
         )
         .validate(statusCode: 200..<300)
-        .responseJSON(queue: queue) { response in
+        .responseDecodable(of: CommonResponseDtoFindChildReplyResDto.self, queue: queue) { response in
             switch response.result {
-            case .success(let data):
-                print("success")
-                print(data)
-                guard let data = response.data else { return }
-                
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(CommonResponseDtoFindChildReplyResDto.self, from: data)
-                    print(result)
-                    
-                    childInfo = result.result.childReplyInfoList
-                    semaphore.signal()
-                } catch {
-                    print(error)
-                    semaphore.signal()
-                }
+            case .success(let result):
+                print(result)
+                childInfo = result.result.childReplyInfoList
             case .failure(let error):
                 print(String(describing: error.errorDescription))
-                semaphore.signal()
             }
+            semaphore.signal()
         }
+        
         semaphore.wait()
         return childInfo
     }
-    
+
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest { result in
+        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    if let profile = userProfile as? CommonResponseDtoUserProfileResDto {
-                        APIService.loadImageNonToken(data: profile.result.profileURL, imageView: self.replyImageView)
-                    }
+                    APIService.loadImageNonToken(data: userProfile.result.profileURL, imageView: self.replyImageView)
                 case .failure(let error):
                     print(error)
                 }

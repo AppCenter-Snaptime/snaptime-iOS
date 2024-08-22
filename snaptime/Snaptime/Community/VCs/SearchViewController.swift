@@ -77,14 +77,14 @@ final class SearchViewController: BaseViewController {
     
     private func fetchSearchUserList(pageNum: Int, keyword: String) {
         APIService.fetchSearchUserInfo(pageNum: pageNum, 
-                                       keyword: keyword).performRequest { result in
+                                       keyword: keyword).performRequest(
+                                        responseType: CommonResponseDtoUserPagingResDto.self
+                                       ) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    if let result = result as? CommonResponseDtoUserPagingResDto {
-                        self.userList = result.result.userFindByNameResDtos
-                        self.searchResultCollectionView.reloadData()
-                    }
+                    self.userList = result.result.userFindByNameResDtos
+                    self.searchResultCollectionView.reloadData()
                 case .failure(let error):
                     print(error)
                     self.userList = []

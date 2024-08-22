@@ -11,6 +11,7 @@ import SnapKit
 protocol SelectAlbumViewControllerDelegate: AnyObject {
     func backToPrevious()
     func backToPrevious(albumId: Int)
+    func backToRoot()
 }
 
 enum AlbumSelectMode {
@@ -70,19 +71,16 @@ final class SelectAlbumViewController: BaseViewController {
     }
     
     private func fetchAlbumList() {
-        APIService.fetchAlbumList.performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let albumList):
-                    if let albumList = albumList as? CommonResponseDtoListFindAllAlbumsResDto {
-                        self.albumData = albumList.result.map { Album($0) }
-                        self.albumChecked = Array(repeating: false, count: self.albumData.count)
-                    }
-                    
+        APIService.fetchAlbumList.performRequest(responseType: CommonResponseDtoListFindAllAlbumsResDto.self) { result in
+            switch result {
+            case .success(let albumList):
+                DispatchQueue.main.async {
+                    self.albumData = albumList.result.map { Album($0) }
+                    self.albumChecked = Array(repeating: false, count: self.albumData.count)
                     self.mainAlbumCollectionView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -92,14 +90,14 @@ final class SelectAlbumViewController: BaseViewController {
             self.processButton.setTitle("앨범 삭제", for: .normal)
             self.processButton.addAction(UIAction { _ in
                 self.deleteAlbum()
-                self.delegate?.backToPrevious()
+                self.delegate?.backToRoot()
             }, for: .touchUpInside)
         }
         else if self.selectMode == .moveSnap {
             self.processButton.setTitle("폴더 이동", for: .normal)
             self.processButton.addAction(UIAction { _ in
                 self.moveSnap()
-                self.delegate?.backToPrevious()
+                self.delegate?.backToRoot()
             }, for: .touchUpInside)
         }
         
@@ -128,9 +126,9 @@ final class SelectAlbumViewController: BaseViewController {
                 deleteAlbums.append(self.albumData[i])
             }
         }
-//        print(deleteAlbums)
+
         for album in deleteAlbums {
-            APIService.deleteAlbum(albumId: album.id).performRequest { result in
+            APIService.deleteAlbum(albumId: album.id).performRequest(responseType: CommonResDtoVoid.self) { result in
                 switch result {
                 case .success(_):
                     print(album.name + " 앨범 삭제 성공")
@@ -159,7 +157,7 @@ final class SelectAlbumViewController: BaseViewController {
         guard let snap = self.snap,
               let albumId = selectAlbums.first?.id else { return }
         
-        APIService.moveSnap(snapId: snap.snapId, albumId: albumId).performRequest { result in
+        APIService.moveSnap(snapId: snap.snapId, albumId: albumId).performRequest(responseType: CommonResDtoVoid.self) { result in
             switch result {
             case .success:
                 print("앨범 이동 성공!")

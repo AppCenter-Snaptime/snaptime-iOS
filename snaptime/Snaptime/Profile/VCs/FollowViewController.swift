@@ -118,17 +118,20 @@ final class FollowViewController: BaseViewController {
     private func fetchFriendList(keyword: String? = "") {
         guard let keyword = keyword else { return }
         
-        APIService.fetchFollow(type: target.description, loginId: loginId, keyword: keyword, pageNum: 1).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let result):
-                    if let result = result as? CommonResponseDtoListFindFriendResDto {
-                        self.friendList = result.result.friendInfoResDtos
-                        self.followTableView.reloadData()
-                    }
-                case .failure(let error):
-                    print(error)
+        APIService.fetchFollow(
+            type: target.description,
+            loginId: loginId,
+            keyword: keyword,
+            pageNum: 1
+        ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in
+            switch result {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    self.friendList = result.result.friendInfoResDtos
+                    self.followTableView.reloadData()
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -199,16 +202,15 @@ extension FollowViewController: CustomAlertDelegate {
     func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
-        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    print("팔로우 취소")
+        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
                     self.friendList = self.removeFriend(byLoginId: unfollowLoginId, from: self.friendList)
                     self.followTableView.reloadData()
-                case .failure(let error):
-                    print(error)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
