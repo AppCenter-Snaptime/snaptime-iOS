@@ -78,6 +78,8 @@
 		29AA38072BF261E5009EF296 /* ProfileCntResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */; };
 		29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */; };
 		29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */; };
+		29C5F1392C7F0F92002A6FFA /* SelectBrandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5F1382C7F0F92002A6FFA /* SelectBrandViewController.swift */; };
+		29C5F13B2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5F13A2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
 		29F1591B2C608DEC00AB0BA9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */; };
@@ -199,6 +201,8 @@
 		29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCntResDto.swift; sourceTree = "<group>"; };
 		29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReqDto.swift; sourceTree = "<group>"; };
+		29C5F1382C7F0F92002A6FFA /* SelectBrandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBrandViewController.swift; sourceTree = "<group>"; };
+		29C5F13A2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBrandCollectionViewCell.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
 		29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -462,6 +466,7 @@
 				296167AB2BBBE74F003CA89C /* AddSnapViewController.swift */,
 				296167AD2BBC1C41003CA89C /* SnapTagListViewController.swift */,
 				A69D6D772C59236900292BFD /* SelectAlbumViewController.swift */,
+				29C5F1382C7F0F92002A6FFA /* SelectBrandViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 			children = (
 				296167AF2BBC20AA003CA89C /* AddTagListCollectionViewCell.swift */,
 				A69D6D7B2C5A565400292BFD /* TagButton.swift */,
+				29C5F13A2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +754,7 @@
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				A62FE22B2BE24CD600BACF77 /* Album.swift in Sources */,
 				294820452C674B8000229D65 /* LoadingService.swift in Sources */,
+				29C5F1392C7F0F92002A6FFA /* SelectBrandViewController.swift in Sources */,
 				298F7F6B2B6BA5DB00A8DBC5 /* EditProfileViewController.swift in Sources */,
 				A69A816C2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift in Sources */,
 				A69A81C22B877DBF006BAEB2 /* RecommendTableViewCell.swift in Sources */,
@@ -769,6 +776,7 @@
 				29625E162C42884500D51841 /* CommonResponseDtoListProfileTagSnapResDto.swift in Sources */,
 				29F80C702B8657C8003614AB /* TagListView.swift in Sources */,
 				294FF9F62B6CA11200EDD005 /* HomeCoordinator.swift in Sources */,
+				29C5F13B2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift in Sources */,
 				29AA37B52BF242A4009EF296 /* ProfileBasicUserDefaults.swift in Sources */,
 				29839F3F2C4E5D3F001A57E5 /* UIViewController+.swift in Sources */,
 				294FF9EF2B6C9ED200EDD005 /* AppCoordinator.swift in Sources */,

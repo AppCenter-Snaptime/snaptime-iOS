@@ -32,7 +32,8 @@ extension HomeCoordinator:
     AddSnapViewControllerDelegate,
     SnapTagListViewControllerDelegate,
     CommentViewControllerDelegate,
-    SelectAlbumViewControllerDelegate {
+    SelectAlbumViewControllerDelegate,
+    SelectBrandViewControllerDelegate {
     
     // ----------------------------
     // MainAlbumViewControllerDelegate
@@ -48,6 +49,12 @@ extension HomeCoordinator:
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)
+    }
+    
+    func presentSelectBrand() {
+        let selectBrandVC = SelectBrandViewController()
+        selectBrandVC.delegate = self
+        navigationController.pushViewController(selectBrandVC, animated: true)
     }
     
     func presentAddSnap() {
