@@ -11,7 +11,6 @@ import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
     func presentAlbumDetail(albumID: Int)
-    func presentQRReaderView()
     func presentSelectBrand()
     func presentAddSnap()
     func presentAlbumDelete()

@@ -44,8 +44,8 @@ extension HomeCoordinator:
         navigationController.pushViewController(albumDetailVC, animated: true)
     }
     
-    func presentQRReaderView() {
-        let qrReaderVC = QRReaderViewController()
+    func presentQRReaderView(didSelectedBrand: FourCutBrand) {
+        let qrReaderVC = QRReaderViewController(didSelectedBrand: didSelectedBrand)
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)

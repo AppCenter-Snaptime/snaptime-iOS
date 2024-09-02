@@ -9,6 +9,17 @@ import UIKit
 import SnapKit
 
 final class SelectBrandCollectionViewCell: UICollectionViewCell {
+    override var isSelected: Bool {
+        didSet{
+            if isSelected {
+                contentView.layer.borderColor = UIColor.snaptimeBlue.cgColor
+            }
+            else {
+                contentView.layer.borderColor = UIColor.init(hexCode: "E0E0E0").cgColor
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

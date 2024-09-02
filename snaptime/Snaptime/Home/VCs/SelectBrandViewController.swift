@@ -9,16 +9,19 @@ import UIKit
 import SnapKit
 
 protocol SelectBrandViewControllerDelegate: AnyObject {
-    
+    func presentQRReaderView(didSelectedBrand: FourCutBrand)
 }
 
 final class SelectBrandViewController: BaseViewController {
     weak var delegate: SelectBrandViewControllerDelegate?
     
+    private var selectedBrand: Int = 0
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isTappedNextButton()
     }
     
     private let instructionLabel: UILabel = {
@@ -44,6 +47,15 @@ final class SelectBrandViewController: BaseViewController {
     }()
     
     private lazy var nextButton = SnapTimeCustomButton("다음")
+    
+    private func isTappedNextButton() {
+        nextButton.addAction(UIAction { [weak self] _ in
+            guard let brandIndex = self?.selectedBrand,
+                  let brand = FourCutBrand(index: brandIndex) else { return }
+
+            self?.delegate?.presentQRReaderView(didSelectedBrand: brand)
+        }, for: .touchUpInside)
+    }
     
     override func setupLayouts() {
         super.setupLayouts()
@@ -91,12 +103,15 @@ extension SelectBrandViewController: UICollectionViewDelegate, UICollectionViewD
             return UICollectionViewCell()
         }
         
-        let brandName = ["하루필름", "포토시그니처", "Studio808", "1Percent"]
-        let brandImageName = ["haruBrandImage", "photoSigBrandImage", "studio808BrandImage", "1percentBrandImage"]
+        guard let brand = FourCutBrand(index: indexPath.row) else { return UICollectionViewCell() }
         
-        cell.configData(brandName: brandName[indexPath.row], brandImageName: brandImageName[indexPath.row])
+        cell.configData(brandName: brand.toUIName(), brandImageName: brand.toImageName())
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedBrand = indexPath.row
     }
 }
 
