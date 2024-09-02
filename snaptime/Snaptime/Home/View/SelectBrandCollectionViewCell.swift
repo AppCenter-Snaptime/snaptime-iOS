@@ -32,7 +32,6 @@ final class SelectBrandCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .gray
-        label.text = "포토시그니처"
         
         return label
     }()
