@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 import PhotosUI
+import Kingfisher
 
 protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
@@ -30,12 +31,36 @@ final class AddSnapViewController: BaseViewController {
     private var editMode: EditSnapMode = .add
     private var snapId: Int = -1
     
+    private var qrImageUrl: String?
+    
+    init(qrImageUrl: String? = nil) {
+        self.qrImageUrl = qrImageUrl
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
         
         APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
+        
+        if let qrImageUrl = self.qrImageUrl,
+           let url = URL(string: qrImageUrl),
+           let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue){
+            let modifier = AnyModifier { request in
+                var r = request
+                r.setValue("*/*", forHTTPHeaderField: "accept")
+                r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                return r
+            }
+            
+            addImageButton.kf.setImage(with: url, for: .normal, options: [.requestModifier(modifier)])
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -160,7 +185,7 @@ final class AddSnapViewController: BaseViewController {
             if self.editMode == .edit {
                 Task {
                     await self.putNewSnap()
-                    self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             }
             else {

@@ -49,6 +49,8 @@ enum APIService {
     case postReply
     case getChildReply(pageNum: Int, parentReplyId: Int)
     case fetchParentReply(pageNum: Int, snapId: Int)
+    
+    case fetchImageFromQR(brand: FourCutBrand, url: String)
 }
 
 extension APIService {
@@ -135,6 +137,9 @@ extension APIService {
             
         case .fetchParentReply(let pageNum, let snapId):
             "/parent-replies/\(pageNum)?snapId=\(snapId)"
+            
+        case .fetchImageFromQR(let brand, let url):
+            "/crawler/\(brand.toString())?url=\(url)"
         }
     }
     
@@ -152,7 +157,8 @@ extension APIService {
             .fetchAlbumList,
             .fetchFollow,
             .getChildReply,
-            .fetchParentReply:
+            .fetchParentReply,
+            .fetchImageFromQR:
                 .get
             
         case .modifyUserInfo:

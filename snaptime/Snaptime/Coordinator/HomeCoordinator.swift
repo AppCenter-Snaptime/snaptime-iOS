@@ -32,7 +32,8 @@ extension HomeCoordinator:
     AddSnapViewControllerDelegate,
     SnapTagListViewControllerDelegate,
     CommentViewControllerDelegate,
-    SelectAlbumViewControllerDelegate {
+    SelectAlbumViewControllerDelegate,
+    SelectBrandViewControllerDelegate {
     
     // ----------------------------
     // MainAlbumViewControllerDelegate
@@ -43,11 +44,17 @@ extension HomeCoordinator:
         navigationController.pushViewController(albumDetailVC, animated: true)
     }
     
-    func presentQRReaderView() {
-        let qrReaderVC = QRReaderViewController()
+    func presentQRReaderView(didSelectedBrand: FourCutBrand) {
+        let qrReaderVC = QRReaderViewController(didSelectedBrand: didSelectedBrand)
         qrReaderVC.delegate = self
         self.presentedViewController = qrReaderVC
         navigationController.present(qrReaderVC, animated: true)
+    }
+    
+    func presentSelectBrand() {
+        let selectBrandVC = SelectBrandViewController()
+        selectBrandVC.delegate = self
+        navigationController.pushViewController(selectBrandVC, animated: true)
     }
     
     func presentAddSnap() {
@@ -112,12 +119,13 @@ extension HomeCoordinator:
         }
     }
     
-    func didFinishAddAlbum() {
+    func didFinishAddAlbum(qrImageUrl: String) {
         if let vc = presentedViewController as? QRReaderViewController {
             vc.dismiss(animated: true)
             self.presentedViewController = nil
         }
-        let addSnapVC = AddSnapViewController()
+        
+        let addSnapVC = AddSnapViewController(qrImageUrl: qrImageUrl)
         addSnapVC.delegate = self
         navigationController.pushViewController(addSnapVC, animated: true)
     }

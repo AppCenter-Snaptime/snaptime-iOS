@@ -23,6 +23,8 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
     private lazy var snapImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     

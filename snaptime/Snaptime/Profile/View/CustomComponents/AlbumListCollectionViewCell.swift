@@ -40,6 +40,8 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
     private var snapImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -47,6 +49,8 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
     private var snapImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         return imageView
     }()

@@ -11,7 +11,7 @@ import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
     func presentAlbumDetail(albumID: Int)
-    func presentQRReaderView()
+    func presentSelectBrand()
     func presentAddSnap()
     func presentAlbumDelete()
 }
@@ -147,7 +147,7 @@ final class MainAlbumViewController : BaseViewController {
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
         button.addAction(UIAction { [weak self] _ in
-            self?.delegate?.presentQRReaderView()
+            self?.delegate?.presentSelectBrand()
         }, for: .touchUpInside)
         button.snp.makeConstraints { make in
             make.width.height.equalTo(50)

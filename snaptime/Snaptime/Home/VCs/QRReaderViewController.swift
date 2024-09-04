@@ -10,12 +10,22 @@ import SnapKit
 import UIKit
 
 protocol QRReaderViewControllerDelegate: AnyObject {
-    func didFinishAddAlbum()
+    func didFinishAddAlbum(qrImageUrl: String)
 }
 
 final class QRReaderViewController: UIViewController {
+    private let brand: FourCutBrand
     private let captureSession = AVCaptureSession()
     weak var delegate: QRReaderViewControllerDelegate?
+    
+    init(didSelectedBrand: FourCutBrand) {
+        self.brand = didSelectedBrand
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +33,7 @@ final class QRReaderViewController: UIViewController {
     }
     
 }
+
 extension QRReaderViewController {
     private func setQRReader() {
         guard let captureDevice = AVCaptureDevice.default(for: AVMediaType.video) else {
@@ -148,8 +159,12 @@ extension QRReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
             print("stringValue: " + stringValue)
             
             self.captureSession.stopRunning()
-            // 여기에 api 호출
-            delegate?.didFinishAddAlbum()
+            /// 여기에 api 호출
+
+            let crawlingUrl = "http://na2ru2.me:6308/crawler/\(brand.toString())?url=\(stringValue)"
+
+            print(crawlingUrl)
+            delegate?.didFinishAddAlbum(qrImageUrl: crawlingUrl)
         }
     }
 }
