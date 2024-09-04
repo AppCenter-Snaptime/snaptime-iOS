@@ -41,7 +41,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
-        
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleToFill
 //        let tapGesture = UITapGestureRecognizer(target: self, action: action))
 //        imageView.addGestureRecognizer(tapGesture)
 //        imageView.isUserInteractionEnabled = true
@@ -173,7 +174,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         isLikeSnap = data.isLikedSnap
     }
     
-    /// 토큰이 들어가면 안되는듯? -> 기본 이미지가 뜨는데..
     private func loadImage(data: String, imageView: UIImageView) {
         guard let url = URL(string: data)  else { return }
         

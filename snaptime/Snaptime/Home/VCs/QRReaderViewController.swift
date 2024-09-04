@@ -10,7 +10,7 @@ import SnapKit
 import UIKit
 
 protocol QRReaderViewControllerDelegate: AnyObject {
-    func didFinishAddAlbum()
+    func didFinishAddAlbum(qrImageUrl: String)
 }
 
 final class QRReaderViewController: UIViewController {
@@ -157,18 +157,14 @@ extension QRReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
                 return
             }
             print("stringValue: " + stringValue)
-            print(brand)
             
             self.captureSession.stopRunning()
             /// 여기에 api 호출
-//            APIService.fetchImageFromQR(
-//                brand: brand,
-//                url: stringValue
-//            ).performRequest(responseType: ) { result in
-//                print(result)
-//            }
-            
-            delegate?.didFinishAddAlbum()
+
+            let crawlingUrl = "http://na2ru2.me:6308/crawler/\(brand.toString())?url=\(stringValue)"
+
+            print(crawlingUrl)
+            delegate?.didFinishAddAlbum(qrImageUrl: crawlingUrl)
         }
     }
 }

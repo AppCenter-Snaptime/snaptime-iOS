@@ -119,12 +119,13 @@ extension HomeCoordinator:
         }
     }
     
-    func didFinishAddAlbum() {
+    func didFinishAddAlbum(qrImageUrl: String) {
         if let vc = presentedViewController as? QRReaderViewController {
             vc.dismiss(animated: true)
             self.presentedViewController = nil
         }
-        let addSnapVC = AddSnapViewController()
+        
+        let addSnapVC = AddSnapViewController(qrImageUrl: qrImageUrl)
         addSnapVC.delegate = self
         navigationController.pushViewController(addSnapVC, animated: true)
     }
