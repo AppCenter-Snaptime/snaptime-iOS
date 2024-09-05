@@ -48,6 +48,13 @@ final class MainAlbumViewController : BaseViewController {
         self.fetchAlbumList()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isAddButtonActive {
+            isAddButtonActive = false
+            onTouchAddButton()
+        }
+    }
+    
     private let contentView = UIView()
     
     private lazy var albumButton : UIButton = {
