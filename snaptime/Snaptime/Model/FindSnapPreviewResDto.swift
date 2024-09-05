@@ -11,4 +11,5 @@ struct FindSnapPreviewResDto: Codable {
     var snapId: Int
     var oneLineJournal: String
     var snapPhotoURL: String
+    var snapCreatedDate: String
 }

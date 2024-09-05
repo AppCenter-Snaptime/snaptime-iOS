@@ -35,9 +35,8 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var date: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2024.01.20"
         label.font = .systemFont(ofSize: 10, weight: .light)
         label.textColor = UIColor.init(hexCode: "#A9A9A9")
         
@@ -46,7 +45,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     
     func setupUI(_ snapPreiviews: FindSnapPreviewResDto) {
         descriptionLabel.text = snapPreiviews.oneLineJournal
-        
+        dateLabel.text = snapPreiviews.snapCreatedDate.toDateString()
         APIService.loadImage(data: snapPreiviews.snapPhotoURL, imageView: snapImageView)
     }
     
@@ -62,7 +61,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         
         [snapImageView,
          descriptionLabel,
-         date].forEach {
+         dateLabel].forEach {
             self.contentView.addSubview($0)
         }
     }
@@ -79,7 +78,7 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
             $0.right.equalTo(snapImageView).offset(-15)
         }
         
-        date.snp.makeConstraints {
+        dateLabel.snp.makeConstraints {
             $0.right.equalTo(snapImageView).offset(-15)
             $0.bottom.equalToSuperview().offset(-3)
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(5)
