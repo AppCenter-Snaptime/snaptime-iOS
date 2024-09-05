@@ -89,6 +89,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var commentButton = IconButton(
         name: "message",
+        size: 15,
         action: UIAction { [weak self] _ in
             if let snap = self?.snap {
                 self?.delegate?.didTapCommentButton(snap: snap)
@@ -104,6 +105,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var likeButton = IconButton(
         name: "heart",
+        size: 20,
         action: UIAction { [weak self] _ in
             guard let self = self,
                   let snap = self.snap else { return }
@@ -124,6 +126,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
 
     private lazy var shareButton = IconButton(
         name: "square.and.arrow.up",
+        size: 15,
         action: UIAction { [weak self] _ in })
     
     private lazy var postLabel: UILabel = {

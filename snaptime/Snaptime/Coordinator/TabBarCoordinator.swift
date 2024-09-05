@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabBarCoordinator : Coordinator {
+final class TabBarCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     

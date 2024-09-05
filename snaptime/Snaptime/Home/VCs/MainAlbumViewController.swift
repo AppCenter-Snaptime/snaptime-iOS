@@ -35,13 +35,17 @@ final class MainAlbumViewController : BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
-        self.fetchAlbumList()
-        
+            
         if isAddButtonActive {
             isAddButtonActive = false
             onTouchAddButton()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.fetchAlbumList()
     }
     
     private let contentView = UIView()
