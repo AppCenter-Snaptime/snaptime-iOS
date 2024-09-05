@@ -25,6 +25,16 @@ final class CommentViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupDataSource()
+        self.fetchComment(pageNum: 1, snapId: self.snapID)
+        
+        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        
+        self.fetchUserProfile(loginId: id)
+    }
+    
     private let snapID: Int
     private let snapUserName: String
     private var parentComments: [ParentReplyInfo] = []
@@ -54,6 +64,8 @@ final class CommentViewController: BaseViewController {
         view.backgroundColor = UIColor(hexCode: "dddddd")
         return view
     }()
+    
+    private let inputContentView = UIView()
     
     private lazy var commentCollectionView: UICollectionView = {
         let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -165,16 +177,6 @@ final class CommentViewController: BaseViewController {
         stackView.alignment = .center
         return stackView
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupDataSource()
-        self.fetchComment(pageNum: 1, snapId: self.snapID)
-        
-        guard let id = ProfileBasicUserDefaults().loginId else { return }
-        
-        self.fetchUserProfile(loginId: id)
-    }
     
     // MARK: -- 댓글 목록 서버 통신
     private func fetchComment(pageNum: Int, snapId: Int) {
@@ -329,8 +331,6 @@ final class CommentViewController: BaseViewController {
         dataSource.apply(snapshot)
     }
     
-    
-    
     // MARK: -- Setup UI
     override func setupLayouts() {
         self.view.backgroundColor = .systemBackground
@@ -342,13 +342,17 @@ final class CommentViewController: BaseViewController {
             replyStackView.addArrangedSubview($0)
         }
         
+        [separatorView2,
+         separatorView3,
+         replyStackView].forEach {
+            inputContentView.addSubview($0)
+        }
+        
         [
             titleLabel,
             separatorView,
-            separatorView2,
-            separatorView3,
             commentCollectionView,
-            replyStackView
+            inputContentView
         ].forEach {
             self.view.addSubview($0)
         }
@@ -383,22 +387,29 @@ final class CommentViewController: BaseViewController {
             $0.width.height.equalTo(24)
         }
         
-        replyStackView.snp.makeConstraints {
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(60)
+        inputContentView.snp.makeConstraints {
+            $0.left.equalTo(view.safeAreaLayoutGuide)
+            $0.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top)
+            $0.height.equalTo(62)
         }
-        
+     
         separatorView2.snp.makeConstraints {
-            $0.top.equalTo(replyStackView.snp.top)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(replyStackView.snp.top)
             $0.height.equalTo(1)
         }
         
+        replyStackView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().offset(-20)
+            $0.bottom.equalTo(separatorView3.snp.top)
+            $0.height.equalTo(60)
+        }
+        
         separatorView3.snp.makeConstraints {
-            $0.top.equalTo(replyStackView.snp.bottom)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
         
