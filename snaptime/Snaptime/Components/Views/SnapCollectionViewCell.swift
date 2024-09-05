@@ -164,7 +164,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         print("partnerProfileTap")
     }
 
-    func configureData(data: FindSnapResDto) {
+    func configureData(data: FindSnapResDto, editButtonToggle: Bool = true) {
         self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.writerUserName
@@ -175,6 +175,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
         : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
         isLikeSnap = data.isLikedSnap
+        
+        if !editButtonToggle {
+            editButton.isHidden = true
+        }
     }
     
     private func loadImage(data: String, imageView: UIImageView) {

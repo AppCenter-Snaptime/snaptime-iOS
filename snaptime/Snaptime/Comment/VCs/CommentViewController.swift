@@ -33,6 +33,7 @@ final class CommentViewController: BaseViewController {
         guard let id = ProfileBasicUserDefaults().loginId else { return }
         
         self.fetchUserProfile(loginId: id)
+        self.view.gestureRecognizers?.removeAll()
     }
     
     private let snapID: Int
@@ -141,6 +142,7 @@ final class CommentViewController: BaseViewController {
         textField.backgroundColor = .systemGray5
         textField.placeholder = "\(self.snapUserName)에게 댓글달기"
         textField.font = .systemFont(ofSize: 12)
+        textField.delegate = self
         textField.addLeftPadding(16)
         return textField
     }()
@@ -418,5 +420,12 @@ final class CommentViewController: BaseViewController {
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(replyStackView.snp.top)
         }
+    }
+}
+
+extension CommentViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
