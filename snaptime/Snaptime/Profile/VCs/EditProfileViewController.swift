@@ -187,6 +187,7 @@ final class EditProfileViewController: BaseViewController {
                 print("프로필 이미지 수정 완료")
                 
                 DispatchQueue.main.async {
+                    print(res.result)
                     let profileUrl = "http://na2ru2.me:6308/profile-photos/" + String(res.result.profilePhotoId)
                     UserProfileManager.shared.profile.result.profileURL = profileUrl
                 }

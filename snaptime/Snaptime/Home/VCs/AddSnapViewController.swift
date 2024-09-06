@@ -96,6 +96,9 @@ final class AddSnapViewController: BaseViewController {
         self.snapId = snap.snapId
         self.oneLineDiaryTextView.text = snap.oneLineJournal
         self.oneLineDiaryTextView.textColor = .black
+        self.isSnapPrivate = snap.snapPhotoURL.contains("isEncrypted=true")
+        self.privateButton.isSelected = snap.snapPhotoURL.contains("isEncrypted=true")
+        
         if let url = URL(string: snap.snapPhotoURL),
            let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             let modifier = AnyModifier { request in
@@ -140,6 +143,7 @@ final class AddSnapViewController: BaseViewController {
     private lazy var addImageButton: UIButton = {
         let button = UIButton()
         button.layer.backgroundColor = UIColor.snaptimeGray.cgColor
+        button.imageView?.contentMode = .scaleAspectFit
         button.addAction(UIAction { _ in
             self.tabImageButton()
         }, for: .touchUpInside)
@@ -297,7 +301,6 @@ final class AddSnapViewController: BaseViewController {
     }
     
     private func putNewSnap() async {
-        // 아직 parameter isPrivate 안 보냄
         guard self.snapId != -1 else { return }
         var url = "http://na2ru2.me:6308/snap?isPrivate=\(self.isSnapPrivate)&snapId=\(self.snapId)"
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }

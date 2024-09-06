@@ -83,6 +83,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.contentMode = .scaleAspectFit
 
         return imageView
     }()
