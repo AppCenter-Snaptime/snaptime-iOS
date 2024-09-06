@@ -65,6 +65,7 @@ final class CommunityViewController: BaseViewController {
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self

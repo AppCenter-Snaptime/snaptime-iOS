@@ -80,6 +80,7 @@ final class SettingProfileViewController: BaseViewController {
     private let contentView = UIView()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
         
         return scrollView
     }()

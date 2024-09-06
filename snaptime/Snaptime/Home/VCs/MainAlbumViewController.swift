@@ -80,6 +80,7 @@ final class MainAlbumViewController : BaseViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -358,11 +359,13 @@ final class MainAlbumViewController : BaseViewController {
     
     override func setupConstraints() {
         super.setupConstraints()
+        
         contentView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(contentView).offset(25)
+            $0.top.equalTo(contentView)
             $0.left.right.equalTo(contentView)
             $0.bottom.equalTo(contentView)
         }
