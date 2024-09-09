@@ -20,6 +20,12 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        snapImageView.image = UIImage()
+    }
+    
     private lazy var snapImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
