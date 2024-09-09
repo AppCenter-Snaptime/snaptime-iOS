@@ -11,10 +11,12 @@ import SnapKit
 final class IconButton: UIButton {
     private var imageName: String
     private var action: UIAction
+    private var size: Int
     
-    init(name: String, action: UIAction) {
+    init(name: String, size: Int, action: UIAction) {
         self.imageName = name
         self.action = action
+        self.size = size
         super.init(frame: .zero)
         self.setupStyles()
         self.addAction(action, for: .touchUpInside)
@@ -27,7 +29,7 @@ final class IconButton: UIButton {
     private func setupStyles() {
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = .black
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .medium)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: CGFloat(size), weight: .light)
         let setImage = UIImage(systemName: imageName, withConfiguration: imageConfig)
         config.image = setImage
         

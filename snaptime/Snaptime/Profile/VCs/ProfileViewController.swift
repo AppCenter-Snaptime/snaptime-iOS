@@ -14,7 +14,7 @@ protocol ProfileViewControllerDelegate: AnyObject {
     func presentSnapPreview(albumId: Int)
     func presentNotification()
     func presentFollow(target: FollowTarget, loginId: String)
-    func presentSnap(snapId: Int)
+    func presentSnap(snapId: Int, profileType: ProfileTarget)
 }
 
 enum ProfileTarget {
@@ -175,7 +175,8 @@ final class ProfileViewController: BaseViewController {
     
     private var sendFlowTagList: (Int) -> Void {
         return { [weak self] snapId in
-            self?.delegate?.presentSnap(snapId: snapId)
+            guard let target = self?.target else { return }
+            self?.delegate?.presentSnap(snapId: snapId, profileType: target)
         }
     }
     

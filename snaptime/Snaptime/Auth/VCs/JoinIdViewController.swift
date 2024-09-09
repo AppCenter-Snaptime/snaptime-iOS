@@ -61,6 +61,7 @@ final class JoinIdViewController: BaseViewController {
         nextButton.addAction(UIAction {[weak self] _ in
             self?.registrationInfo.loginId = self?.idInputTextField.text
             guard let info = self?.registrationInfo else { return }
+            print(info)
 
             self?.postSignUp(info: info)
         }, for: .touchUpInside)

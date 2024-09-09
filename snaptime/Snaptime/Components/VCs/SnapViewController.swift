@@ -14,11 +14,15 @@ protocol SnapViewControllerDelegate: AnyObject {
     func presentEditSnapVC(snap: FindSnapResDto)
     func presentMoveAlbumVC(snap: FindSnapResDto)
     func backToPrevious()
+    func backToRoot()
 }
+
+
 
 final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
+    private let profileTarget: ProfileTarget
     
     private var snap: FindSnapResDto = FindSnapResDto(
         snapId: 0,
@@ -34,8 +38,9 @@ final class SnapViewController: BaseViewController {
         isLikedSnap: false
     )
     
-    init(snapId: Int) {
+    init(snapId: Int, profileType: ProfileTarget) {
         self.snapId = snapId
+        self.profileTarget = profileType
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -116,7 +121,13 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
 
         cell.delegate = self
-        cell.configureData(data: self.snap)
+        
+        switch profileTarget {
+        case .myself:
+            cell.configureData(data: self.snap)
+        case .others:
+            cell.configureData(data: self.snap, editButtonToggle: false)
+        }
         
         return cell
     }
@@ -155,7 +166,7 @@ extension SnapViewController: SnapCollectionViewCellDelegate {
         actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
             // NOTE: 추가로 삭제 확인할 팝업 달아도 좋을 듯
             self.deleteSnap(id: self.snapId)
-            self.delegate?.backToPrevious()
+            self.delegate?.backToRoot()
         }))
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
         

@@ -29,9 +29,9 @@ final class CommunityViewController: BaseViewController {
         self.setupNavigationBar()
         self.fetchSnaps(pageNum: pageNum) {}
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         self.fetchSnaps(pageNum: pageNum) {}
     }
@@ -65,6 +65,7 @@ final class CommunityViewController: BaseViewController {
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -77,10 +78,13 @@ final class CommunityViewController: BaseViewController {
             switch result {
             case .success(let snap):
                 DispatchQueue.main.async {
-                    self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
-                    self.hasNextPage = snap.result.hasNextPage
-                    self.pageNum += 1
+                    self.snaps = snap.result.snapDetailInfoResDtos
                     self.contentCollectionView.reloadData()
+                    
+                    if snap.result.hasNextPage {
+                        self.hasNextPage = snap.result.hasNextPage
+                        self.pageNum += 1
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -123,7 +127,7 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.delegate = self
-        cell.configureData(data: self.snaps[indexPath.row])
+        cell.configureData(data: self.snaps[indexPath.row], editButtonToggle: false)
         return cell
     }
     
@@ -153,26 +157,10 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CommunityViewController: SnapCollectionViewCellDelegate {
+    func didTapEditButton(snap: FindSnapResDto) {}
+    
     func didTapCommentButton(snap: FindSnapResDto) {
         // TODO: snap id 추가하기
         delegate?.presentCommentVC(snap: snap)
-    }
-    
-    func didTapEditButton(snap: FindSnapResDto) {
-        // NOTE: 이후 작업 해야함!
-//        // ActionSheet 관련 설정
-//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        actionSheet.addAction(UIAlertAction(title: "수정하기", style: .default, handler: { _ in
-//            //            self.presentAddAlbumPopup()
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "폴더 이동", style: .default, handler: { _ in
-//            //            self.presentAddAlbumPopup()
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
-//            //            self.delegate?.presentAlbumDelete()
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
-//        
-//        self.present(actionSheet, animated: true)
     }
 }

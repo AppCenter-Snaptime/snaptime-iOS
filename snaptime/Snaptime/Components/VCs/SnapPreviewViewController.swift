@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol SnapPreviewViewControllerDelegate: AnyObject {
-    func presentSnap(snapId: Int)
+    func presentSnap(snapId: Int, profileType: ProfileTarget)
 }
 
 final class SnapPreviewViewController: BaseViewController {
@@ -102,7 +102,13 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentSnap(snapId: snapPreviews[indexPath.row].snapId)
+        var target: ProfileTarget = .others
+        
+        if snapPreviews[indexPath.row].loginId == ProfileBasicUserDefaults().loginId {
+            target = .myself
+        }
+        
+        delegate?.presentSnap(snapId: snapPreviews[indexPath.row].snapId, profileType: target)
     }
 }
 

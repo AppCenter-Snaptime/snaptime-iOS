@@ -83,12 +83,14 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
+        imageView.contentMode = .scaleAspectFit
 
         return imageView
     }()
     
     private lazy var commentButton = IconButton(
         name: "message",
+        size: 15,
         action: UIAction { [weak self] _ in
             if let snap = self?.snap {
                 self?.delegate?.didTapCommentButton(snap: snap)
@@ -104,6 +106,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var likeButton = IconButton(
         name: "heart",
+        size: 20,
         action: UIAction { [weak self] _ in
             guard let self = self,
                   let snap = self.snap else { return }
@@ -124,6 +127,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
 
     private lazy var shareButton = IconButton(
         name: "square.and.arrow.up",
+        size: 15,
         action: UIAction { [weak self] _ in })
     
     private lazy var postLabel: UILabel = {
@@ -161,7 +165,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         print("partnerProfileTap")
     }
 
-    func configureData(data: FindSnapResDto) {
+    func configureData(data: FindSnapResDto, editButtonToggle: Bool = true) {
         self.snap = data
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.writerUserName
@@ -172,6 +176,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
         : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
         isLikeSnap = data.isLikedSnap
+        
+        if !editButtonToggle {
+            editButton.isHidden = true
+        }
     }
     
     private func loadImage(data: String, imageView: UIImageView) {

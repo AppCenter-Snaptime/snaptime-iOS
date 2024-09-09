@@ -16,6 +16,7 @@ protocol AddSnapViewControllerDelegate: AnyObject {
     func presentAddSnap()
     func presentSnapTagList()
     func presentSelectAlbumVC()
+    func backToRoot()
 }
 
 enum EditSnapMode {
@@ -30,6 +31,7 @@ final class AddSnapViewController: BaseViewController {
     private var tagList: [FindTagUserResDto] = []
     private var editMode: EditSnapMode = .add
     private var snapId: Int = -1
+    private var isSnapPrivate: Bool = false
     
     private var qrImageUrl: String?
     
@@ -46,6 +48,7 @@ final class AddSnapViewController: BaseViewController {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
+        setupNavigationBar()
         
         APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
         
@@ -93,6 +96,9 @@ final class AddSnapViewController: BaseViewController {
         self.snapId = snap.snapId
         self.oneLineDiaryTextView.text = snap.oneLineJournal
         self.oneLineDiaryTextView.textColor = .black
+        self.isSnapPrivate = snap.snapPhotoURL.contains("isEncrypted=true")
+        self.privateButton.isSelected = snap.snapPhotoURL.contains("isEncrypted=true")
+        
         if let url = URL(string: snap.snapPhotoURL),
            let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             let modifier = AnyModifier { request in
@@ -137,9 +143,40 @@ final class AddSnapViewController: BaseViewController {
     private lazy var addImageButton: UIButton = {
         let button = UIButton()
         button.layer.backgroundColor = UIColor.snaptimeGray.cgColor
+        button.imageView?.contentMode = .scaleAspectFit
         button.addAction(UIAction { _ in
             self.tabImageButton()
         }, for: .touchUpInside)
+        
+        return button
+    }()
+    
+    private lazy var privateButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.borderedTinted()
+        
+        config.background.strokeWidth = 1
+        config.background.strokeColor = UIColor.init(hexCode: "bebebe")
+        button.configuration = config
+        button.isSelected = false
+        
+        button.addAction(UIAction{ [weak self] _ in
+            self?.isTappedPrivateButton()
+        }, for: .touchUpInside)
+        
+        button.configurationUpdateHandler = { btn in
+            switch btn.state {
+            case .selected:
+                btn.configuration?.image = UIImage(systemName: "lock")
+                btn.configuration?.baseForegroundColor = .white
+                btn.configuration?.baseBackgroundColor = UIColor.init(hexCode: "bebebe")
+            default:
+                btn.configuration?.image = UIImage(systemName: "lock.open")
+                btn.configuration?.baseForegroundColor = UIColor.init(hexCode: "bebebe")
+                btn.configuration?.baseBackgroundColor = .white
+            }
+        }
         
         return button
     }()
@@ -185,7 +222,7 @@ final class AddSnapViewController: BaseViewController {
             if self.editMode == .edit {
                 Task {
                     await self.putNewSnap()
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self.delegate?.backToRoot()
                 }
             }
             else {
@@ -206,10 +243,27 @@ final class AddSnapViewController: BaseViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
+    private func isTappedPrivateButton() {
+        if !isSnapPrivate {
+            privateButton.isSelected.toggle()
+        }
+        
+        else {
+            privateButton.isSelected.toggle()
+        }
+        
+        isSnapPrivate.toggle()
+    }
+    
+    private func setupNavigationBar() {
+        self.showNavigationBar()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: privateButton)
+    }
+    
     func postNewSnap(albumId: Int) async {
         // 아직 parameter isPrivate 안 보냄
         
-        var url = "http://na2ru2.me:6308/snap?isPrivate=false&albumId=\(albumId)"
+        var url = "http://na2ru2.me:6308/snap?isPrivate=\(self.isSnapPrivate)&albumId=\(albumId)"
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
@@ -247,9 +301,8 @@ final class AddSnapViewController: BaseViewController {
     }
     
     private func putNewSnap() async {
-        // 아직 parameter isPrivate 안 보냄
         guard self.snapId != -1 else { return }
-        var url = "http://na2ru2.me:6308/snap?isPrivate=false&snapId=\(self.snapId)"
+        var url = "http://na2ru2.me:6308/snap?isPrivate=\(self.isSnapPrivate)&snapId=\(self.snapId)"
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
@@ -308,6 +361,10 @@ final class AddSnapViewController: BaseViewController {
     
     override func setupConstraints() {
         super.setupConstraints()
+        
+        privateButton.snp.makeConstraints {
+            $0.width.height.equalTo(35)
+        }
         
         profileImage.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)

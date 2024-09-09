@@ -165,14 +165,14 @@ extension APIService {
                 .patch
             
         case .postReply,
-                .postFollow,
-                .postAlbum,
-                .postSignIn,
-                .postTestSignIn,
-                .postSignUp,
-                .postLikeToggle,
-                .postReissue,
-                .moveSnap:
+            .postFollow,
+            .postAlbum,
+            .postSignIn,
+            .postTestSignIn,
+            .postSignUp,
+            .postLikeToggle,
+            .postReissue,
+            .moveSnap:
                 .post
             
         case .deleteFollowing,
