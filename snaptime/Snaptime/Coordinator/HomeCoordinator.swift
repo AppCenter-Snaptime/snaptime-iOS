@@ -103,8 +103,8 @@ extension HomeCoordinator:
     
     // ----------------------------
     
-    func presentSnap(snapId: Int) {
-        let snapVC = SnapViewController(snapId: snapId)
+    func presentSnap(snapId: Int, profileType: ProfileTarget) {
+        let snapVC = SnapViewController(snapId: snapId, profileType: profileType)
         snapVC.delegate = self
         navigationController.pushViewController(snapVC, animated: true)
     }

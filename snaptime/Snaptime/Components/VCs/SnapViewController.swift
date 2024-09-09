@@ -17,9 +17,12 @@ protocol SnapViewControllerDelegate: AnyObject {
     func backToRoot()
 }
 
+
+
 final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
     private let snapId: Int
+    private let profileTarget: ProfileTarget
     
     private var snap: FindSnapResDto = FindSnapResDto(
         snapId: 0,
@@ -35,8 +38,9 @@ final class SnapViewController: BaseViewController {
         isLikedSnap: false
     )
     
-    init(snapId: Int) {
+    init(snapId: Int, profileType: ProfileTarget) {
         self.snapId = snapId
+        self.profileTarget = profileType
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -117,7 +121,13 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
 
         cell.delegate = self
-        cell.configureData(data: self.snap)
+        
+        switch profileTarget {
+        case .myself:
+            cell.configureData(data: self.snap)
+        case .others:
+            cell.configureData(data: self.snap, editButtonToggle: false)
+        }
         
         return cell
     }

@@ -108,8 +108,8 @@ extension CommunityCoordinator:
         navigationController.pushViewController(selectAlbumVC, animated: true)
     }
 
-    func presentSnap(snapId: Int) {
-        let albumSnapVC = SnapViewController(snapId: snapId)
+    func presentSnap(snapId: Int, profileType: ProfileTarget) {
+        let albumSnapVC = SnapViewController(snapId: snapId, profileType: profileType)
         albumSnapVC.delegate = self
         navigationController.pushViewController(albumSnapVC, animated: true)
     }
