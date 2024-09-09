@@ -13,11 +13,10 @@ protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentEditSnapVC(snap: FindSnapResDto)
     func presentMoveAlbumVC(snap: FindSnapResDto)
+    func presentProfile(target: ProfileTarget, loginId: String)
     func backToPrevious()
     func backToRoot()
 }
-
-
 
 final class SnapViewController: BaseViewController {
     weak var delegate: SnapViewControllerDelegate?
@@ -120,7 +119,16 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
             return UICollectionViewCell()
         }
 
+        var profileTarget: ProfileTarget = .others
+        
         cell.delegate = self
+        cell.action = {
+            if self.snap.writerLoginId == ProfileBasicUserDefaults().loginId {
+                profileTarget = .myself
+            }
+            
+            self.delegate?.presentProfile(target: profileTarget, loginId: self.snap.writerLoginId)
+        }
         
         switch profileTarget {
         case .myself:

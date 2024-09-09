@@ -43,9 +43,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = .snaptimeGray
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
-//        let tapGesture = UITapGestureRecognizer(target: self, action: action))
-//        imageView.addGestureRecognizer(tapGesture)
-//        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
         
         return imageView
     }()
@@ -163,6 +163,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
         print("partnerProfileTap")
+        guard let action = self.action else { return }
+        action()
     }
 
     func configureData(data: FindSnapResDto, editButtonToggle: Bool = true) {

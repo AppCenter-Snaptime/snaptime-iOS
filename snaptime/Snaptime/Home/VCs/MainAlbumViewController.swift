@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol MainAlbumViewControllerDelegate: AnyObject {
-    func presentAlbumDetail(albumID: Int)
+    func presentSnapPreview(albumId: Int)
     func presentSelectBrand()
     func presentAddSnap()
     func presentAlbumDelete()
@@ -406,7 +406,7 @@ extension MainAlbumViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.presentAlbumDetail(albumID: albumData[indexPath.row].id)
+        delegate?.presentSnapPreview(albumId: albumData[indexPath.row].id)
     }
 }
 

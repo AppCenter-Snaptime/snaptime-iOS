@@ -13,6 +13,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
     func presentNotification()
     func presentCommentVC(snap: FindSnapResDto)
     func presentSearch() 
+    func presentProfile(target: ProfileTarget, loginId: String)
 }
 
 final class CommunityViewController: BaseViewController {
@@ -127,6 +128,17 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.delegate = self
+        
+        var profileTarget: ProfileTarget = .others
+        
+        cell.action = {
+            if self.snaps[indexPath.row].writerLoginId == ProfileBasicUserDefaults().loginId {
+                profileTarget = .myself
+            }
+            
+            self.delegate?.presentProfile(target: profileTarget, loginId: self.snaps[indexPath.row].writerLoginId)
+        }
+        
         cell.configureData(data: self.snaps[indexPath.row], editButtonToggle: false)
         return cell
     }
