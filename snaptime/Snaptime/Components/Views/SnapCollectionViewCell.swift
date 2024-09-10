@@ -182,6 +182,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         if !editButtonToggle {
             editButton.isHidden = true
         }
+        
+        else {
+            editButton.isHidden = false
+        }
     }
     
     private func loadImage(data: String, imageView: UIImageView) {

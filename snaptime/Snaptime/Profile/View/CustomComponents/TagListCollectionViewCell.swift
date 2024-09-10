@@ -24,6 +24,7 @@ final class TagListCollectionViewCell: UICollectionViewCell {
     private var tagImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SnapExample")
+        imageView.contentMode = .scaleAspectFit
         
         return imageView
     }()

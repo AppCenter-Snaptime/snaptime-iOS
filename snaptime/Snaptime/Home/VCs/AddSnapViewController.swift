@@ -218,11 +218,13 @@ final class AddSnapViewController: BaseViewController {
     private lazy var snapSaveButton: UIButton = {
         let button = SnapTimeCustomButton("작성 완료")
         button.addAction(UIAction { [weak self] _ in
+            LoadingService.showLoading()
             guard let self = self else { return }
             if self.editMode == .edit {
                 Task {
                     await self.putNewSnap()
                     self.delegate?.backToRoot()
+                    LoadingService.hideLoading()
                 }
             }
             else {
@@ -306,7 +308,7 @@ final class AddSnapViewController: BaseViewController {
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
-            url += "&tagUserLoginIds=\($0.tagUserName)"
+            url += "&tagUserLoginIds=\($0.tagUserLoginId)"
         }
         
         var headers: HTTPHeaders {
@@ -324,7 +326,6 @@ final class AddSnapViewController: BaseViewController {
         }, to: url, method: .put, headers: headers)
             .serializingDecodable(CommonResponseDtoLong.self)
             .response
-        print("hi")
         print(response)
         switch response.result {
         case .success(let res):

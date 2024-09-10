@@ -121,12 +121,12 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         var profileTarget: ProfileTarget = .others
         
+        if self.snap.writerLoginId == ProfileBasicUserDefaults().loginId {
+            profileTarget = .myself
+        }
+        
         cell.delegate = self
         cell.action = {
-            if self.snap.writerLoginId == ProfileBasicUserDefaults().loginId {
-                profileTarget = .myself
-            }
-            
             self.delegate?.presentProfile(target: profileTarget, loginId: self.snap.writerLoginId)
         }
         
