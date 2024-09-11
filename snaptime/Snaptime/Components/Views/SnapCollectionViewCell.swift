@@ -173,7 +173,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         userNameLabel.text = data.writerUserName
         APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         postLabel.text = data.oneLineJournal
-        postDateLabel.text = data.snapModifiedDate.toDateString()
+        postDateLabel.text = data.snapCreatedDate.toDateString()
         tagLabel.text = data.tagUserFindResDtos.count == 0 ? ""
         : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
         : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
