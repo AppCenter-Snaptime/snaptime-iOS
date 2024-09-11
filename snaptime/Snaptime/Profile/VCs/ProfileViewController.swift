@@ -183,8 +183,14 @@ final class ProfileViewController: BaseViewController {
     // MARK: - navigationBar 설정
     private func setupNavigationBar() {
         self.showNavigationBar()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
+        
+        switch target {
+        case .myself:
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
+        case .others:
+            break
+        }
     }
     
     private func followButtonClick() {
