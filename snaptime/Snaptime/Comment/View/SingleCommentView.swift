@@ -21,7 +21,7 @@ class SingleCommentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var profileImageView: RoundImageView = {
+    lazy var profileImageView: RoundImageView = {
         let imageView = RoundImageView()
         imageView.backgroundColor = .snaptimeGray
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap))
@@ -113,11 +113,11 @@ class SingleCommentView: UIView {
         
         upperStackView.snp.makeConstraints {
             $0.left.equalTo(profileImageView.snp.right).offset(15)
-            $0.top.equalTo(profileImageView).offset(-3)
+            $0.top.equalToSuperview().offset(18)
         }
         
         commentLabel.snp.makeConstraints {
-            $0.left.equalTo(upperStackView)
+            $0.left.equalTo(upperStackView.snp.left)
             $0.top.equalTo(upperStackView.snp.bottom).offset(2)
             $0.right.equalToSuperview().offset(-20)
         }

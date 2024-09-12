@@ -110,14 +110,15 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
     }
     
     func presentSnap(snapId: Int, profileType: ProfileTarget) {
-        let albumSnapVC = SnapViewController(snapId: snapId, profileType: profileType)
-        albumSnapVC.delegate = self
-        navigationController.pushViewController(albumSnapVC, animated: true)
+        let snapVC = SnapViewController(snapId: snapId, profileType: profileType)
+        snapVC.delegate = self
+        navigationController.pushViewController(snapVC, animated: true)
     }
     
     func presentNotification() {
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
+        notificationVC.navigationItem.backButtonDisplayMode = .generic
         navigationController.pushViewController(notificationVC, animated: true)
     }
     

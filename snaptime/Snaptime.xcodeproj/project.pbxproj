@@ -18,6 +18,7 @@
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
 		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
 		29257C5E2C5A526B00B2B0FB /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29257C5D2C5A526B00B2B0FB /* UIButton+.swift */; };
+		2928AE6D2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
 		2929777A2B6618FA00FDC799 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977792B6618FA00FDC799 /* SceneDelegate.swift */; };
 		292977812B6618FB00FDC799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 292977802B6618FB00FDC799 /* Assets.xcassets */; };
@@ -140,6 +141,7 @@
 		2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		29257C5D2C5A526B00B2B0FB /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoAlarmFindAllResDto.swift; sourceTree = "<group>"; };
 		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		292977792B6618FA00FDC799 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -277,6 +279,31 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		2928AE682C92D22B004ACB67 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				2928AE6E2C92D504004ACB67 /* Views */,
+				2928AE6B2C92D29A004ACB67 /* VCs */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		2928AE6B2C92D29A004ACB67 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		2928AE6E2C92D504004ACB67 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2929776B2B6618FA00FDC799 = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +326,7 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
+				2928AE682C92D22B004ACB67 /* Notification */,
 				2932DB102C538CBA00CAECBC /* Network */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				29FF6B8C2C1F057300CD5DCD /* Model */,
@@ -443,7 +471,6 @@
 			isa = PBXGroup;
 			children = (
 				298F7F602B6BA38000A8DBC5 /* CommunityViewController.swift */,
-				2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */,
 				29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */,
 			);
 			path = VCs;
@@ -541,6 +568,7 @@
 				294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */,
 				294820482C69E90900229D65 /* CommonMsgRes.swift */,
 				298958AA2C859DD8002D94CC /* FourCutBrand.swift */,
+				2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -565,7 +593,6 @@
 		A661F3F62BB157930093336A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */,
 				29F1591E2C6096B300AB0BA9 /* SearchResultCollectionViewCell.swift */,
 			);
 			path = View;
@@ -835,6 +862,7 @@
 				297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */,
 				296167AC2BBBE74F003CA89C /* AddSnapViewController.swift in Sources */,
 				294820472C69D7BC00229D65 /* ModifyUserInfoResDto.swift in Sources */,
+				2928AE6D2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift in Sources */,
 				298F7F692B6BA5CE00A8DBC5 /* SettingProfileViewController.swift in Sources */,
 				29F80C6E2B8657C0003614AB /* AlbumListView.swift in Sources */,
 				298F7F752B6BA79C00A8DBC5 /* AuthTextField.swift in Sources */,

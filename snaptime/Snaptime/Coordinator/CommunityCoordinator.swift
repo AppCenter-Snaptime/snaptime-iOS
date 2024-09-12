@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CommunityCoordinator: Coordinator, SelectAlbumViewControllerDelegate {
+final class CommunityCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -36,7 +36,8 @@ extension CommunityCoordinator:
     EditProfileViewControllerDelegate,
     SettingProfileViewControllerDelegate,
     AddSnapViewControllerDelegate,
-    SnapTagListViewControllerDelegate {
+    SnapTagListViewControllerDelegate,
+    SelectAlbumViewControllerDelegate {
     
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)
@@ -109,9 +110,10 @@ extension CommunityCoordinator:
     }
 
     func presentSnap(snapId: Int, profileType: ProfileTarget) {
-        let albumSnapVC = SnapViewController(snapId: snapId, profileType: profileType)
-        albumSnapVC.delegate = self
-        navigationController.pushViewController(albumSnapVC, animated: true)
+        print(presentSnap)
+        let snapVC = SnapViewController(snapId: snapId, profileType: profileType)
+        snapVC.delegate = self
+        navigationController.pushViewController(snapVC, animated: true)
     }
     
     func presentSnapPreview(albumId: Int) {

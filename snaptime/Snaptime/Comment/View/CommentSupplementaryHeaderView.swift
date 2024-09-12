@@ -23,6 +23,23 @@ final class CommentSupplementaryHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        contentView.setupUI(comment:
+            ParentReplyInfo(
+                writerLoginId: "",
+                writerProfilePhotoURL: "",
+                writerUserName: "",
+                content: "",
+                replyId: 0,
+                timeAgo: ""
+            )
+        )
+        
+        contentView.profileImageView.image = UIImage()
+    }
+    
     func setupUI(comment: ParentReplyInfo) {
         contentView.setupUI(comment: comment)
     }

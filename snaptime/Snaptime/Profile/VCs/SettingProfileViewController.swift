@@ -153,7 +153,8 @@ final class SettingProfileViewController: BaseViewController {
     }
     
     private func setNavigationBar() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconButton)
+        //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconButton)
+        self.showNavigationBar()
     }
 
     // MARK: - Set Layouts

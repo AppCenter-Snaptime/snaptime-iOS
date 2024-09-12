@@ -21,6 +21,23 @@ final class CommentCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        commentView.setupUI(comment:
+            ParentReplyInfo(
+                writerLoginId: "",
+                writerProfilePhotoURL: "",
+                writerUserName: "",
+                content: "",
+                replyId: 0,
+                timeAgo: ""
+            )
+        )
+        
+        commentView.profileImageView.image = UIImage()
+    }
+    
     func setupUI(comment: ChildReplyInfo) {
         self.commentView.setupUI(comment: comment)
         self.commentView.action = action

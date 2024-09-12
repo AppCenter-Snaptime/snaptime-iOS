@@ -62,6 +62,32 @@ final class CommunityViewController: BaseViewController {
         return button
     }()
     
+    private lazy var alertButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.borderedTinted()
+        
+        var titleAttr = AttributedString.init("볼 수 있는 스냅이 없습니다! \n 사용자를 팔로우하세요!")
+        titleAttr.font = .systemFont(ofSize: 14, weight: .semibold)
+        
+        config.attributedTitle = titleAttr
+        config.imagePlacement = .leading
+        config.imagePadding = 8
+        config.image = UIImage(systemName: "magnifyingglass")
+        config.cornerStyle = .large
+        config.baseForegroundColor = .black
+        config.baseBackgroundColor = .white
+        config.background.strokeWidth = 1
+        config.background.strokeColor = .snaptimeGray
+        button.configuration = config
+
+        button.addAction(UIAction { [weak self] _ in
+            self?.delegate?.presentSearch()
+        }, for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -86,6 +112,8 @@ final class CommunityViewController: BaseViewController {
             switch result {
             case .success(let snap):
                 DispatchQueue.main.async {
+                    self.alertButton.isHidden = true
+                    self.contentCollectionView.isHidden = false
                     if pageNum == 1 {
                         self.snaps = snap.result.snapDetailInfoResDtos
                     }
@@ -101,6 +129,8 @@ final class CommunityViewController: BaseViewController {
                     }
                 }
             case .failure(let error):
+                self.contentCollectionView.isHidden = true
+                self.alertButton.isHidden = false
                 print(error)
             }
             
@@ -117,14 +147,21 @@ final class CommunityViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
-        [contentCollectionView].forEach {
+        [contentCollectionView,
+         alertButton].forEach {
             view.addSubview($0)
         }
     }
     
     override func setupConstraints() {
         super.setupConstraints()
-        
+
+        alertButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(50)
+            $0.height.equalTo(60)
+        }
+
         contentCollectionView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
