@@ -12,6 +12,7 @@ import Kingfisher
 
 protocol CommentViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
+    func presentProfile(target: ProfileTarget, loginId: String)
 }
 
 final class CommentViewController: BaseViewController {
@@ -288,7 +289,16 @@ final class CommentViewController: BaseViewController {
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<CommentSupplementaryHeaderView>(elementKind: "header") { supplementaryView, elementKind, indexPath in
             // header 세팅
-            supplementaryView.setupUI(comment: self.parentComments[indexPath.section])
+            supplementaryView.setupUI(comment: self.parentComments[indexPath.section]) 
+            supplementaryView.action = {
+                var target: ProfileTarget = .others
+                
+                if self.parentComments[indexPath.section].writerLoginId == ProfileBasicUserDefaults().loginId {
+                    target = .myself
+                }
+                
+                self.delegate?.presentProfile(target: target, loginId: self.parentComments[indexPath.section].writerLoginId)
+            }
         }
         
         let footerRegistration = UICollectionView.SupplementaryRegistration<CommentSupplementaryFooterView>(elementKind: "footer") { supplementaryView, elementKind, indexPath in

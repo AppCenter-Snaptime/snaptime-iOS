@@ -80,12 +80,15 @@ final class SnapViewController: BaseViewController {
     
     private lazy var snapCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
+        layout.minimumInteritemSpacing = 16
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(SnapCollectionViewCell.self,
                                 forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
+        collectionView.contentInsetAdjustmentBehavior = .always
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -104,7 +107,7 @@ final class SnapViewController: BaseViewController {
         super.setupConstraints()
         
         snapCollectionView.snp.makeConstraints {
-            $0.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -148,7 +151,7 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension SnapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = collectionView.bounds.width
+        let width = view.window?.screen.bounds.width ?? .zero
         let numberOfItemsPerRow: CGFloat = 1
         let spacing: CGFloat = 20
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)

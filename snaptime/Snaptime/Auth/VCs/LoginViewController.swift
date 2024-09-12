@@ -129,6 +129,7 @@ final class LoginViewController: BaseViewController {
     private let separatedLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.init(hexCode: "#DBD5D0")
+        view.isHidden = true
         
         return view
     }()
@@ -140,6 +141,7 @@ final class LoginViewController: BaseViewController {
         label.textColor = UIColor.init(hexCode: "#9B9189")
         label.textAlignment = .center
         label.backgroundColor = .white
+        label.isHidden = true
         
         return label
     }()
@@ -162,6 +164,7 @@ final class LoginViewController: BaseViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "kakao"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.isHidden = true
         
         return button
     }()

@@ -62,14 +62,19 @@ final class CommunityViewController: BaseViewController {
     
     private lazy var contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
+        layout.minimumInteritemSpacing = 16
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
-        
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
-        collectionView.dataSource = self
+        collectionView.register(SnapCollectionViewCell.self,
+                                forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
+        collectionView.contentInsetAdjustmentBehavior = .always
         collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
@@ -111,8 +116,7 @@ final class CommunityViewController: BaseViewController {
         super.setupConstraints()
         
         contentCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

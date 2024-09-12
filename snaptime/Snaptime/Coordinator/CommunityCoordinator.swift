@@ -89,9 +89,9 @@ extension CommunityCoordinator:
     }
     
     func presentProfile(target: ProfileTarget, loginId: String) {
-        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
-        myProfileVC.delegate = self
-        navigationController.pushViewController(myProfileVC, animated: true)
+        let profileVC = ProfileViewController(target: target, loginId: loginId)
+        profileVC.delegate = self
+        navigationController.pushViewController(profileVC, animated: true)
     }
     
     func backToPrevious() {

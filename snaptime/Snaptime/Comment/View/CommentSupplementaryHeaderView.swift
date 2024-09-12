@@ -10,11 +10,13 @@ import UIKit
 
 final class CommentSupplementaryHeaderView: UICollectionReusableView {
     let contentView = SingleCommentView()
+    var action: (()->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
         setConstraints()
+        contentView.action = action
     }
     
     required init?(coder: NSCoder) {

@@ -130,12 +130,22 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         size: 15,
         action: UIAction { [weak self] _ in })
     
-    private lazy var postLabel: UILabel = {
+    private lazy var oneLineJournalLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.numberOfLines = 0 // NOTE: 글이 너무 길어지면 곤란하니까 최대 몇줄까지 보여줄 지 정하는 게 좋을듯
+        label.numberOfLines = 0
         
         return label
+    }()
+    
+    private lazy var plusOneLineJournalButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더보기", for: .normal)
+        button.setTitleColor(UIColor.init(hexCode: "#B2B2B2"), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
+        button.isHidden = true
+        
+        return button
     }()
     
     private lazy var commentCheckButton: UIButton = {
@@ -156,13 +166,11 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.textColor = .black
-        label.text = "24.01.15"
         
         return label
     }()
     
     @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
-        print("partnerProfileTap")
         guard let action = self.action else { return }
         action()
     }
@@ -172,7 +180,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         self.loadImage(data: data.profilePhotoURL, imageView: userImageView)
         userNameLabel.text = data.writerUserName
         APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
-        postLabel.text = data.oneLineJournal
+        oneLineJournalLabel.text = data.oneLineJournal
         postDateLabel.text = data.snapCreatedDate.toDateString()
         tagLabel.text = data.tagUserFindResDtos.count == 0 ? ""
         : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
@@ -204,14 +212,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowPath = UIBezierPath(
-            rect: CGRect(
-                x: self.bounds.origin.x - 0.5,
-                y: self.bounds.origin.y ,
-                width: self.bounds.width + 0.5,
-                height: self.bounds.height + 0.5
-            )).cgPath
-        self.layer.shadowOpacity = 20
+        self.layer.shadowOpacity = 10
         self.layer.shadowRadius = 6
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
@@ -225,7 +226,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
          commentButton,
          likeButton,
          shareButton,
-         postLabel,
+         oneLineJournalLabel,
+         plusOneLineJournalButton,
          commentCheckButton,
          postDateLabel].forEach {
             self.contentView.addSubview($0)
@@ -233,6 +235,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     }
     
     private func setConstraints() {
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         userImageView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
             $0.top.equalToSuperview().offset(20)
@@ -256,8 +262,11 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         }
         
         photoImageView.snp.makeConstraints {
+            let width = UIScreen.main.bounds.width
+            
             $0.top.equalTo(editButton.snp.bottom).offset(20)
-            $0.left.right.equalToSuperview().inset(20)
+            $0.width.equalTo(width-80)
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(photoImageView.snp.width).multipliedBy(1.33) // 4:3 비율로 설정
         }
         
@@ -279,20 +288,27 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             $0.width.height.equalTo(24)
         }
         
-        postLabel.snp.makeConstraints {
+        oneLineJournalLabel.snp.makeConstraints {
             $0.top.equalTo(commentButton.snp.bottom).offset(8)
             $0.left.right.equalTo(photoImageView)
+//            $0.height.equalTo(35).priority(999)
+        }
+        
+        plusOneLineJournalButton.snp.makeConstraints {
+            $0.top.equalTo(oneLineJournalLabel.snp.bottom)
+            $0.left.equalTo(oneLineJournalLabel.snp.left)
         }
         
         commentCheckButton.snp.makeConstraints {
-            $0.top.equalTo(postLabel.snp.bottom).offset(10)
+            $0.top.equalTo(plusOneLineJournalButton.snp.bottom).offset(15)
             $0.left.equalTo(photoImageView.snp.left)
             $0.height.equalTo(postDateLabel)
         }
         
         postDateLabel.snp.makeConstraints {
-            $0.top.equalTo(postLabel.snp.bottom).offset(10)
+            $0.top.equalTo(commentCheckButton.snp.top)
             $0.right.equalTo(photoImageView.snp.right)
+            $0.bottom.equalToSuperview().offset(-10)
         }
     }
 }
