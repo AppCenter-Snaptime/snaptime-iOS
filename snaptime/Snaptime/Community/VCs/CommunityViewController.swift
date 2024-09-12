@@ -122,6 +122,7 @@ final class CommunityViewController: BaseViewController {
                     }
                     
                     self.contentCollectionView.reloadData()
+                    LoadingService.hideLoading()
                     self.hasNextPage = snap.result.hasNextPage
                     
                     if self.hasNextPage {
