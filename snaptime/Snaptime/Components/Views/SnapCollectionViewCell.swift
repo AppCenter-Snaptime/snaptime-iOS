@@ -106,7 +106,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var likeButton = IconButton(
         name: "heart",
-        size: 20,
+        size: 15,
         action: UIAction { [weak self] _ in
             guard let self = self,
                   let snap = self.snap else { return }
@@ -124,6 +124,13 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             }
         }
     )
+    
+    private lazy var likeButtonCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .medium)
+        
+        return label
+    }()
 
     private lazy var shareButton = IconButton(
         name: "square.and.arrow.up",
@@ -186,6 +193,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
         : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
         isLikeSnap = data.isLikedSnap
+        likeButtonCountLabel.text = String(data.likeCnt)
         
         if !editButtonToggle {
             editButton.isHidden = true
@@ -225,6 +233,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
          photoImageView,
          commentButton,
          likeButton,
+         likeButtonCountLabel,
          shareButton,
          oneLineJournalLabel,
          plusOneLineJournalButton,
@@ -282,6 +291,12 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             $0.width.height.equalTo(24)
         }
         
+        likeButtonCountLabel.snp.makeConstraints {
+            $0.left.equalTo(likeButton.snp.right).offset(5)
+            $0.top.equalTo(likeButton)
+            $0.height.equalTo(likeButton)
+        }
+        
         shareButton.snp.makeConstraints {
             $0.right.equalTo(photoImageView.snp.right)
             $0.top.equalTo(commentButton)
@@ -291,7 +306,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         oneLineJournalLabel.snp.makeConstraints {
             $0.top.equalTo(commentButton.snp.bottom).offset(8)
             $0.left.right.equalTo(photoImageView)
-//            $0.height.equalTo(35).priority(999)
         }
         
         plusOneLineJournalButton.snp.makeConstraints {

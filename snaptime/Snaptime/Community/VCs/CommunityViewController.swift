@@ -28,12 +28,14 @@ final class CommunityViewController: BaseViewController {
         super.viewDidLoad()
         
         self.setupNavigationBar()
-        self.fetchSnaps(pageNum: pageNum) {}
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        pageNum = 1
+        hasNextPage = false
+        isInfiniteScroll = true
         self.fetchSnaps(pageNum: pageNum) {}
     }
     
@@ -84,17 +86,25 @@ final class CommunityViewController: BaseViewController {
             switch result {
             case .success(let snap):
                 DispatchQueue.main.async {
-                    self.snaps = snap.result.snapDetailInfoResDtos
-                    self.contentCollectionView.reloadData()
+                    if pageNum == 1 {
+                        self.snaps = snap.result.snapDetailInfoResDtos
+                    }
+                    else {
+                        self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
+                    }
                     
-                    if snap.result.hasNextPage {
-                        self.hasNextPage = snap.result.hasNextPage
+                    self.contentCollectionView.reloadData()
+                    self.hasNextPage = snap.result.hasNextPage
+                    
+                    if self.hasNextPage {
                         self.pageNum += 1
                     }
                 }
             case .failure(let error):
                 print(error)
             }
+            
+            completion()
         }
     }
     
