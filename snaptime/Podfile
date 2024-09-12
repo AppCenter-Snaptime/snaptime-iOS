@@ -9,6 +9,9 @@ target 'Snaptime' do
   pod 'SnapKit','~> 5.6.0'
   pod 'Alamofire', '~>5.6.4'
   pod 'Kingfisher', '~> 7.0'
+  pod 'KakaoSDKCommon','~> 2.14.0' 
+  pod 'KakaoSDKAuth','~> 2.14.0'
+  pod 'KakaoSDKUser','~>2.14.0'  
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

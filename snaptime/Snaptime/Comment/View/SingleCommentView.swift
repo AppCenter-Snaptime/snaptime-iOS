@@ -9,9 +9,24 @@ import Kingfisher
 import UIKit
 
 class SingleCommentView: UIView {
+    var action: (()->())?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setLayout()
+        self.setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var profileImageView: RoundImageView = {
         let imageView = RoundImageView()
         imageView.backgroundColor = .snaptimeGray
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -50,16 +65,6 @@ class SingleCommentView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setLayout()
-        self.setConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func setupUI(comment: ParentReplyInfo) {
         self.nameLabel.text = comment.writerUserName
         self.commentLabel.text = comment.content
@@ -73,6 +78,11 @@ class SingleCommentView: UIView {
         self.commentLabel.text = comment.content
         self.beforeDateLabel.text = comment.timeAgo
         APIService.loadImageNonToken(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
+    }
+    
+    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+        guard let action = self.action else { return }
+        action()
     }
     
     private func setLayout() {

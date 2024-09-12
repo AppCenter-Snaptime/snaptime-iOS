@@ -33,13 +33,32 @@ extension HomeCoordinator:
     SnapTagListViewControllerDelegate,
     CommentViewControllerDelegate,
     SelectAlbumViewControllerDelegate,
-    SelectBrandViewControllerDelegate {
+    SelectBrandViewControllerDelegate,
+    ProfileViewControllerDelegate {
+    
+    func presentProfile(target: ProfileTarget, loginId: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
+        myProfileVC.delegate = self
+        navigationController.pushViewController(myProfileVC, animated: true)
+    }
+    
+    func presentSettingProfile() {
+        
+    }
+    
+    func presentNotification() {
+        
+    }
+    
+    func presentFollow(target: FollowTarget, loginId: String) {
+        
+    }
     
     // ----------------------------
     // MainAlbumViewControllerDelegate
     
-    func presentAlbumDetail(albumID: Int) {
-        let albumDetailVC = SnapPreviewViewController(albumID: albumID)
+    func presentSnapPreview(albumId: Int) {
+        let albumDetailVC = SnapPreviewViewController(albumID: albumId)
         albumDetailVC.delegate = self
         navigationController.pushViewController(albumDetailVC, animated: true)
     }

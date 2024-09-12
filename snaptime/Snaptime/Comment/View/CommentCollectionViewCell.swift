@@ -9,6 +9,7 @@ import UIKit
 
 final class CommentCollectionViewCell: UICollectionViewCell {
     let commentView = SingleCommentView()
+    var action: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +23,7 @@ final class CommentCollectionViewCell: UICollectionViewCell {
     
     func setupUI(comment: ChildReplyInfo) {
         self.commentView.setupUI(comment: comment)
+        self.commentView.action = action
     }
     
     private func setLayout() {

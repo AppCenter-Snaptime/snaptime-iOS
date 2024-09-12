@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import KakaoSDKUser
 
 protocol LoginViewControllerDelegate: AnyObject {
     func presentLogin()
@@ -23,6 +24,12 @@ final class LoginViewController: BaseViewController {
         self.hideNavigationBar()
         tabLoginButton()
         textFieldEditing()
+        googleButton.isHidden = true
+        appleButton.isHidden = true
+        
+        kakaoButton.addAction(UIAction { [weak self] _ in
+            self?.didTappedkakaoOAuthButton()
+        }, for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +129,7 @@ final class LoginViewController: BaseViewController {
     private let separatedLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.init(hexCode: "#DBD5D0")
+        view.isHidden = true
         
         return view
     }()
@@ -133,6 +141,7 @@ final class LoginViewController: BaseViewController {
         label.textColor = UIColor.init(hexCode: "#9B9189")
         label.textAlignment = .center
         label.backgroundColor = .white
+        label.isHidden = true
         
         return label
     }()
@@ -148,14 +157,39 @@ final class LoginViewController: BaseViewController {
     }()
     
     private lazy var googleButton = OAuthButton(imageName: "")
-    private lazy var kakaoButton = OAuthButton(imageName: "")
+//    private lazy var kakaoButton = OAuthButton(imageName: "")
     private lazy var appleButton = OAuthButton(imageName: "")
+    
+    private lazy var kakaoButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "kakao"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.isHidden = true
+        
+        return button
+    }()
     
     private func textFieldEditing() {
         [idInputTextField,
          passwordInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        }
+    }
+    
+    private func didTappedkakaoOAuthButton() {
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("loginWithKakaoTalk() success.")
+
+                    //do something
+                    _ = oauthToken
+                }
+            }
         }
     }
     
@@ -213,11 +247,11 @@ final class LoginViewController: BaseViewController {
             inputStackView.addArrangedSubview($0)
         }
         
-        [googleButton,
-         kakaoButton,
-         appleButton].forEach {
-            oAuthStackView.addArrangedSubview($0)
-        }
+//        [googleButton,
+//         kakaoButton,
+//         appleButton].forEach {
+//            oAuthStackView.addArrangedSubview($0)
+//        }
         
         [loginImageView,
          inputStackView,
@@ -227,7 +261,7 @@ final class LoginViewController: BaseViewController {
          joinButton,
          separatedLine,
          oAuthLabel,
-         oAuthStackView].forEach {
+        kakaoButton].forEach {
             view.addSubview($0)
         }
     }
@@ -290,10 +324,16 @@ final class LoginViewController: BaseViewController {
             $0.width.equalTo(70)
         }
         
-        oAuthStackView.snp.makeConstraints {
+        kakaoButton.snp.makeConstraints {
             $0.top.equalTo(separatedLine.snp.bottom).offset(40)
-            $0.centerX.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(46)
+            $0.height.equalTo(50)
         }
+        
+//        oAuthStackView.snp.makeConstraints {
+//            $0.top.equalTo(separatedLine.snp.bottom).offset(40)
+//            $0.centerX.equalTo(view.safeAreaLayoutGuide)
+//        }
     }
 }
 

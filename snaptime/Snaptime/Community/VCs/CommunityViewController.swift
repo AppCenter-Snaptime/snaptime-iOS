@@ -13,6 +13,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
     func presentNotification()
     func presentCommentVC(snap: FindSnapResDto)
     func presentSearch() 
+    func presentProfile(target: ProfileTarget, loginId: String)
 }
 
 final class CommunityViewController: BaseViewController {
@@ -27,12 +28,14 @@ final class CommunityViewController: BaseViewController {
         super.viewDidLoad()
         
         self.setupNavigationBar()
-        self.fetchSnaps(pageNum: pageNum) {}
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        pageNum = 1
+        hasNextPage = false
+        isInfiniteScroll = true
         self.fetchSnaps(pageNum: pageNum) {}
     }
     
@@ -61,14 +64,19 @@ final class CommunityViewController: BaseViewController {
     
     private lazy var contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
+        layout.minimumInteritemSpacing = 16
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
-        
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(SnapCollectionViewCell.self, forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
-        collectionView.dataSource = self
+        collectionView.register(SnapCollectionViewCell.self,
+                                forCellWithReuseIdentifier: SnapCollectionViewCell.identifier)
+        collectionView.contentInsetAdjustmentBehavior = .always
         collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
@@ -78,17 +86,25 @@ final class CommunityViewController: BaseViewController {
             switch result {
             case .success(let snap):
                 DispatchQueue.main.async {
-                    self.snaps = snap.result.snapDetailInfoResDtos
-                    self.contentCollectionView.reloadData()
+                    if pageNum == 1 {
+                        self.snaps = snap.result.snapDetailInfoResDtos
+                    }
+                    else {
+                        self.snaps.append(contentsOf: snap.result.snapDetailInfoResDtos)
+                    }
                     
-                    if snap.result.hasNextPage {
-                        self.hasNextPage = snap.result.hasNextPage
+                    self.contentCollectionView.reloadData()
+                    self.hasNextPage = snap.result.hasNextPage
+                    
+                    if self.hasNextPage {
                         self.pageNum += 1
                     }
                 }
             case .failure(let error):
                 print(error)
             }
+            
+            completion()
         }
     }
     
@@ -110,8 +126,7 @@ final class CommunityViewController: BaseViewController {
         super.setupConstraints()
         
         contentCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -127,6 +142,17 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         cell.delegate = self
+        
+        var profileTarget: ProfileTarget = .others
+        
+        cell.action = {
+            if self.snaps[indexPath.row].writerLoginId == ProfileBasicUserDefaults().loginId {
+                profileTarget = .myself
+            }
+            
+            self.delegate?.presentProfile(target: profileTarget, loginId: self.snaps[indexPath.row].writerLoginId)
+        }
+        
         cell.configureData(data: self.snaps[indexPath.row], editButtonToggle: false)
         return cell
     }
