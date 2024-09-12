@@ -133,7 +133,7 @@ final class CustomAlertViewController: UIViewController {
         titleLabel.text = alertText
         titleLabel.textColor = UIColor.init(hexCode: "282828")
         titleLabel.textAlignment = .center
-        titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: 13, weight: .regular)
         
         cancelButton.layer.cornerRadius = 20
         cancelButton.setTitleColor(.snaptimeBlue, for: .normal)

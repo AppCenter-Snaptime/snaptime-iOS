@@ -93,7 +93,7 @@ final class CommentViewController: BaseViewController {
                 let containerGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(20)),
+                        heightDimension: .estimated(50)),
                     subitems: [item])
                 containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
@@ -104,7 +104,7 @@ final class CommentViewController: BaseViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .estimated(20)
+                        heightDimension: .estimated(50)
                     ),
                     elementKind: "header",
                     alignment: .top
@@ -158,7 +158,7 @@ final class CommentViewController: BaseViewController {
                 return
             }
             let param = AddParentReplyReqDto(replyMessage: comment, snapId: self.snapID)
-            print("post success")
+
             APIService.postReply.performRequest(
                 with: param,
                 responseType: CommonResDtoVoid.self

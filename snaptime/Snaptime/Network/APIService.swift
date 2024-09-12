@@ -41,6 +41,8 @@ enum APIService {
     case fetchAlbumList
     case postAlbum
     case deleteAlbum(albumId: Int)
+    case fetchAlarms
+    case fetchAlarmSnap(alarmId: Int)
     
     case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
     case postFollow(loginId: String)
@@ -120,6 +122,12 @@ extension APIService {
         case .deleteAlbum(let albumId):
             "/album?albumId=\(albumId)"
             
+        case .fetchAlarms:
+            "/alarms"
+            
+        case .fetchAlarmSnap(let alarmId):
+            "/alarms/snaps/\(alarmId)"
+            
         case .fetchFollow(let type, let loginId, let keyword, let pageNum):
             "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)&searchKeyword=\(keyword)"
             
@@ -158,7 +166,9 @@ extension APIService {
             .fetchFollow,
             .getChildReply,
             .fetchParentReply,
-            .fetchImageFromQR:
+            .fetchImageFromQR,
+            .fetchAlarms,
+            .fetchAlarmSnap:
                 .get
             
         case .modifyUserInfo:
@@ -243,18 +253,64 @@ extension APIService {
             }
         }
         
+        LoadingService.showLoading()
+
+//        AF.request(request, interceptor: APIInterceptor.shared)
+//            .validate(statusCode: 200..<300)
+//            .responseDecodable(of: responseType) { response in
+//                switch response.result {
+//                case .success(let decodedData):
+//                    completion(.success(decodedData))
+//                    LoadingService.hideLoading()
+//                case .failure(let error):
+//                    print("API 에러입니다.")
+//                    completion(.failure(error))
+//                    LoadingService.hideLoading()
+//                }
+//            }
         AF.request(request, interceptor: APIInterceptor.shared)
-            .validate(statusCode: 200..<300)
             .responseDecodable(of: responseType) { response in
-                switch response.result {
-                case .success(let decodedData):
-                    completion(.success(decodedData))
-                case .failure(let error):
-                    print("API 에러입니다.")
+                let statusCode = response.response?.statusCode ?? 0
+                
+                switch statusCode {
+                case 200..<300:
+                    switch response.result {
+                    case .success(let decodedData):
+                        completion(.success(decodedData))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                case 400..<500:
+                    // 400대 에러 처리
+                    if let data = response.data {
+                        do {
+                            // CommonMsgRes로 디코딩 시도
+                            let errorResponse = try JSONDecoder().decode(CommonMsgRes.self, from: data)
+                            let errorMessage = errorResponse.msg
+                            let error = NSError(domain: "Bad Request",
+                                                code: statusCode,
+                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                            completion(.failure(error))
+                        } catch {
+                            // 디코딩 실패 시 일반 에러 처리
+                            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+                            let error = NSError(domain: "Bad Request",
+                                                code: statusCode,
+                                                userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                            completion(.failure(error))
+                        }
+                    }
+                default:
+                    // 그 외의 상태 코드 처리
+                    let error = NSError(domain: "Unknown Error",
+                                        code: statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: "Unexpected error occurred"])
                     completion(.failure(error))
                 }
+                
+                LoadingService.hideLoading()
             }
-        
+
     }
 
     // MARK: - 이미지 네트워킹 메서드

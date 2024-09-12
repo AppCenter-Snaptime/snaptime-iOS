@@ -49,7 +49,6 @@ final class ProfileViewController: BaseViewController {
         self.tagListView.send = sendFlowTagList
         self.profileStatusView.setAction(action: followButtonAction)
         
-        self.setupNavigationBar()
 
         self.fetchUserProfile(loginId: loginId)
         self.fetchUserProfileCount(loginId: loginId)
@@ -180,19 +179,6 @@ final class ProfileViewController: BaseViewController {
         }
     }
     
-    // MARK: - navigationBar 설정
-    private func setupNavigationBar() {
-        self.showNavigationBar()
-        
-        switch target {
-        case .myself:
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "HeaderLogo")))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: notificationButton)
-        case .others:
-            break
-        }
-    }
-    
     private func followButtonClick() {
         profileStatusView.followButtonclick()
     }
@@ -247,7 +233,7 @@ final class ProfileViewController: BaseViewController {
         super.setupConstraints()
         
         profileStatusView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10.5)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         
