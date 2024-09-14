@@ -34,8 +34,15 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                               FollowViewControllerDelegate,
                               AddSnapViewControllerDelegate,
                               SnapTagListViewControllerDelegate,
-                              SelectAlbumViewControllerDelegate
+                              SelectAlbumViewControllerDelegate,
+                              CancelAccountViewControllerDelegate
 {
+    func presentCancelAccount() {
+        let cancelAccountVC = CancelAccountViewController()
+        cancelAccountVC.delegate = self
+        navigationController.pushViewController(cancelAccountVC, animated: true)
+    }
+    
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }

@@ -203,7 +203,6 @@ final class MainAlbumViewController : BaseViewController {
                 DispatchQueue.main.async {
                     self.albumData = albumList.result.map { Album($0) }
                     self.mainAlbumCollectionView.reloadData()
-                    LoadingService.hideLoading()
                 }
             case .failure(let error):
                 print(error)

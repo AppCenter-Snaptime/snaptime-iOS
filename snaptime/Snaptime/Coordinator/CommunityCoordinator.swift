@@ -39,6 +39,9 @@ extension CommunityCoordinator:
     SnapTagListViewControllerDelegate,
     SelectAlbumViewControllerDelegate {
     
+    func presentCancelAccount() {}
+    
+    
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }

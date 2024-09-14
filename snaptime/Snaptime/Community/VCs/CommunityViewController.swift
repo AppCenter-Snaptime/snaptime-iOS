@@ -108,6 +108,7 @@ final class CommunityViewController: BaseViewController {
     }()
     
     private func fetchSnaps(pageNum: Int, completion: @escaping (() -> ())) {
+        LoadingService.showLoading()
         APIService.fetchCommunitySnap(pageNum: pageNum).performRequest(responseType: CommonResponseDtoListFindSnapPagingResDto.self) { result in
             switch result {
             case .success(let snap):
@@ -122,7 +123,6 @@ final class CommunityViewController: BaseViewController {
                     }
                     
                     self.contentCollectionView.reloadData()
-                    LoadingService.hideLoading()
                     self.hasNextPage = snap.result.hasNextPage
                     
                     if self.hasNextPage {
@@ -136,6 +136,7 @@ final class CommunityViewController: BaseViewController {
             }
             
             completion()
+            LoadingService.hideLoading()
         }
     }
     

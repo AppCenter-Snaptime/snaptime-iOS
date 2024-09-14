@@ -64,6 +64,7 @@ final class NotificationViewController: BaseViewController {
     }()
     
     private func fetchAlarms() {
+        LoadingService.showLoading()
         APIService.fetchAlarms.performRequest(
             responseType: CommonResponseDtoAlarmFindAllResDto.self
         ) { result in
@@ -73,11 +74,11 @@ final class NotificationViewController: BaseViewController {
                     // NOTE: - 읽은알림, 안읽은 알림 구별방법 생각해보기
                     self.notifications = notifications.result.notReadAlarmInfoResDtos + notifications.result.readAlarmInfoResDtos
                     self.notificationCollectionView.reloadData()
-                    LoadingService.hideLoading()
                 }
             case .failure(let error):
                 print(error)
             }
+            LoadingService.hideLoading()
         }
     }
     

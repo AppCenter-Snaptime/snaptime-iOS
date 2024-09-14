@@ -82,6 +82,8 @@
 		29BFFF1F2C4F896D003DDE24 /* UserReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */; };
 		29C5F1392C7F0F92002A6FFA /* SelectBrandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5F1382C7F0F92002A6FFA /* SelectBrandViewController.swift */; };
 		29C5F13B2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5F13A2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift */; };
+		29D432832C93D5A7007F37D0 /* CancelAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D432822C93D5A7007F37D0 /* CancelAccountViewController.swift */; };
+		29D432852C942078007F37D0 /* CancelReasonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D432842C942078007F37D0 /* CancelReasonButton.swift */; };
 		29E6EA132BFF8B13004F154F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6EA122BFF8B13004F154F /* APIService.swift */; };
 		29EC04E82C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */; };
 		29F1591B2C608DEC00AB0BA9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */; };
@@ -207,6 +209,8 @@
 		29BFFF1E2C4F896D003DDE24 /* UserReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReqDto.swift; sourceTree = "<group>"; };
 		29C5F1382C7F0F92002A6FFA /* SelectBrandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBrandViewController.swift; sourceTree = "<group>"; };
 		29C5F13A2C7F108C002A6FFA /* SelectBrandCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBrandCollectionViewCell.swift; sourceTree = "<group>"; };
+		29D432822C93D5A7007F37D0 /* CancelAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAccountViewController.swift; sourceTree = "<group>"; };
+		29D432842C942078007F37D0 /* CancelReasonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelReasonButton.swift; sourceTree = "<group>"; };
 		29E6EA122BFF8B13004F154F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindParentReplyResDto.swift; sourceTree = "<group>"; };
 		29F1591A2C608DEC00AB0BA9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -389,6 +393,7 @@
 				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
 				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
 				2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */,
+				29D432842C942078007F37D0 /* CancelReasonButton.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 		298F7F6E2B6BA76700A8DBC5 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				29D432822C93D5A7007F37D0 /* CancelAccountViewController.swift */,
 				298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */,
 				298F7F682B6BA5CE00A8DBC5 /* SettingProfileViewController.swift */,
 				298F7F6A2B6BA5DB00A8DBC5 /* EditProfileViewController.swift */,
@@ -781,6 +787,7 @@
 				A69A81D62B8F77DD006BAEB2 /* QRReaderViewController.swift in Sources */,
 				298F7F792B6BA7E600A8DBC5 /* LoginViewController.swift in Sources */,
 				A66C41382BBC4D5700AC4284 /* SingleCommentView.swift in Sources */,
+				29D432852C942078007F37D0 /* CancelReasonButton.swift in Sources */,
 				2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */,
 				A62FE22B2BE24CD600BACF77 /* Album.swift in Sources */,
 				294820452C674B8000229D65 /* LoadingService.swift in Sources */,
@@ -818,6 +825,7 @@
 				298F7F7D2B6BA83C00A8DBC5 /* JoinNameViewController.swift in Sources */,
 				29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */,
 				2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */,
+				29D432832C93D5A7007F37D0 /* CancelAccountViewController.swift in Sources */,
 				A68185062C3573B000ECBDE3 /* FindParentReplyResDto.swift in Sources */,
 				292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */,
 				294B12BC2B7C850B00D19E60 /* TabBarItemType.swift in Sources */,
@@ -1032,11 +1040,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = AANGG4Q668;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -1052,10 +1058,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.inuapp.snaptime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inuapp.snaptime1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Snaptime3Profile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1069,11 +1074,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = AANGG4Q668;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -1089,10 +1092,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.inuapp.snaptime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inuapp.snaptime1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Snaptime3Profile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

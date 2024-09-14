@@ -253,21 +253,6 @@ extension APIService {
             }
         }
         
-        LoadingService.showLoading()
-
-//        AF.request(request, interceptor: APIInterceptor.shared)
-//            .validate(statusCode: 200..<300)
-//            .responseDecodable(of: responseType) { response in
-//                switch response.result {
-//                case .success(let decodedData):
-//                    completion(.success(decodedData))
-//                    LoadingService.hideLoading()
-//                case .failure(let error):
-//                    print("API 에러입니다.")
-//                    completion(.failure(error))
-//                    LoadingService.hideLoading()
-//                }
-//            }
         AF.request(request, interceptor: APIInterceptor.shared)
             .responseDecodable(of: responseType) { response in
                 let statusCode = response.response?.statusCode ?? 0
@@ -307,10 +292,7 @@ extension APIService {
                                         userInfo: [NSLocalizedDescriptionKey: "Unexpected error occurred"])
                     completion(.failure(error))
                 }
-                
-                LoadingService.hideLoading()
             }
-
     }
 
     // MARK: - 이미지 네트워킹 메서드
