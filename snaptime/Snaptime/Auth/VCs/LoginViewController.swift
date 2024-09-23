@@ -211,6 +211,7 @@ final class LoginViewController: BaseViewController {
                let password = self?.passwordInputTextField.text {
                 let loginInfo = SignInReqDto(loginId: id, password: password)
                 
+                LoadingService.showLoading()
                 APIService.postSignIn.performRequest(with: loginInfo, responseType: CommonResponseDtoSignInResDto.self) { result in
                     DispatchQueue.main.async {
                         switch result {
@@ -227,6 +228,7 @@ final class LoginViewController: BaseViewController {
                             print(error)
                         }
                     }
+                    LoadingService.hideLoading()
                 }
             }
         }, for: .touchUpInside)

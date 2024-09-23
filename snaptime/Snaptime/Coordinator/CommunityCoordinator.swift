@@ -37,7 +37,16 @@ extension CommunityCoordinator:
     SettingProfileViewControllerDelegate,
     AddSnapViewControllerDelegate,
     SnapTagListViewControllerDelegate,
-    SelectAlbumViewControllerDelegate {
+    SelectAlbumViewControllerDelegate,
+    TagViewControllerDelegate {
+    
+    func presentCancelAccount() {}
+    
+    func presentTag(tagList: [FindTagUserResDto]) {
+        let tagVC = TagViewController(tagList: tagList)
+        tagVC.delegate = self
+        navigationController.pushViewController(tagVC, animated: true)
+    }
     
     func backToAddSnapView(tagList: [FriendInfo]) {
         navigationController.popViewController(animated: true)

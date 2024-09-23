@@ -30,7 +30,7 @@ final class NotificationViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        fetchAlarms()
+        fetchAlarms()
     }
     
     private lazy var topTextLabel: UILabel = {
@@ -64,6 +64,7 @@ final class NotificationViewController: BaseViewController {
     }()
     
     private func fetchAlarms() {
+        LoadingService.showLoading()
         APIService.fetchAlarms.performRequest(
             responseType: CommonResponseDtoAlarmFindAllResDto.self
         ) { result in
@@ -77,6 +78,7 @@ final class NotificationViewController: BaseViewController {
             case .failure(let error):
                 print(error)
             }
+            LoadingService.hideLoading()
         }
     }
     

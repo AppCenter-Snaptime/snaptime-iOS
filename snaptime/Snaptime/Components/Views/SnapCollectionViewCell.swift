@@ -17,9 +17,9 @@ protocol SnapCollectionViewCellDelegate: AnyObject {
 final class SnapCollectionViewCell: UICollectionViewCell {
     /// 버튼 event 전달 delegate
     weak var delegate: SnapCollectionViewCellDelegate?
-    var action: (()->())?
+    var profileTapAction: (()->())?
+    var tagButtonTapAction: (()->())?
     private var snap: FindSnapResDto?
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,15 +31,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        userImageView.layer.cornerRadius = userImageView.frame.height/2
-        userImageView.clipsToBounds = true
-    }
-        
-    private lazy var userImageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var userImageView: RoundImageView = {
+        let imageView = RoundImageView()
         imageView.backgroundColor = .snaptimeGray
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
@@ -58,13 +51,16 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var tagLabel: UILabel = {
-        let label = UILabel()
-        label.text = "with @Lorem"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor.init(hexCode: "#909090")
+    private lazy var tagButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+        button.setTitleColor(UIColor.init(hexCode: "#909090"), for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            guard let action = self?.tagButtonTapAction else { return }
+            action()
+        }, for: .touchUpInside)
         
-        return label
+        return button
     }()
     
     private lazy var editButton: UIButton = {
@@ -72,10 +68,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         button.tintColor = .black
         button.addAction(UIAction { [weak self] _ in
-            if let snap = self?.snap {
-                self?.delegate?.didTapEditButton(snap: snap)
-            }
-            
+            guard let snap = self?.snap else { return }
+            self?.delegate?.didTapEditButton(snap: snap)
         }, for: .touchUpInside)
         return button
     }()
@@ -92,9 +86,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         name: "message",
         size: 15,
         action: UIAction { [weak self] _ in
-            if let snap = self?.snap {
-                self?.delegate?.didTapCommentButton(snap: snap)
-            }
+            guard let snap = self?.snap else { return }
+            self?.delegate?.didTapCommentButton(snap: snap)
         })
     
     private var isLikeSnap: Bool = false {
@@ -178,7 +171,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     }()
     
     @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
-        guard let action = self.action else { return }
+        guard let action = self.profileTapAction else { return }
         action()
     }
 
@@ -189,9 +182,9 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         APIService.loadImage(data: data.snapPhotoURL, imageView: photoImageView)
         oneLineJournalLabel.text = data.oneLineJournal
         postDateLabel.text = data.snapCreatedDate.toDateString()
-        tagLabel.text = data.tagUserFindResDtos.count == 0 ? ""
-        : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
-        : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others"
+        tagButton.setTitle(data.tagUserFindResDtos.count == 0 ? ""
+                           : data.tagUserFindResDtos.count == 1 ? "with @\(data.tagUserFindResDtos[0].tagUserName)"
+                           : "with @\(data.tagUserFindResDtos[0].tagUserName) + \(data.tagUserFindResDtos.count - 1) others", for: .normal)
         isLikeSnap = data.isLikedSnap
         likeButtonCountLabel.text = String(data.likeCnt)
         
@@ -228,7 +221,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         
         [userImageView,
          userNameLabel,
-         tagLabel,
+         tagButton,
          editButton,
          photoImageView,
          commentButton,
@@ -259,9 +252,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(userImageView)
         }
         
-        tagLabel.snp.makeConstraints {
+        tagButton.snp.makeConstraints {
             $0.left.equalTo(userNameLabel)
-            $0.top.equalTo(userNameLabel.snp.bottom).offset(5)
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(2)
+            $0.height.equalTo(15)
         }
         
         editButton.snp.makeConstraints {

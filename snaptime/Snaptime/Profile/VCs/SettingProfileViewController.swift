@@ -14,6 +14,7 @@ protocol SettingProfileViewControllerDelegate: AnyObject {
     func presentEditProfile()
     func backToPrevious()
     func presentLogin()
+    func presentCancelAccount()
 }
 
 final class SettingProfileViewController: BaseViewController {
@@ -116,12 +117,7 @@ final class SettingProfileViewController: BaseViewController {
         )
     },
                                                         secondAction: UIAction { [weak self] _ in
-        self?.show(
-            alertText: "탈퇴 하시겠습니까?",
-            cancelButtonText: "취소하기",
-            confirmButtonText: "네",
-            identifier: "deleteUser"
-        )
+        self?.delegate?.presentCancelAccount()
     })
     
     private func signoutLogic() {
@@ -153,7 +149,6 @@ final class SettingProfileViewController: BaseViewController {
     }
     
     private func setNavigationBar() {
-        //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iconButton)
         self.showNavigationBar()
     }
 
@@ -236,8 +231,6 @@ extension SettingProfileViewController: CustomAlertDelegate {
         switch identifier {
         case "signout":
             self.signoutLogic()
-        case "deleteUser":
-            self.deleteUserLogic(password: "")
         default:
             print("none")
         }

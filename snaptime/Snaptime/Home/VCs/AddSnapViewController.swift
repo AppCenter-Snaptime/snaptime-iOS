@@ -218,13 +218,11 @@ final class AddSnapViewController: BaseViewController {
     private lazy var snapSaveButton: UIButton = {
         let button = SnapTimeCustomButton("작성 완료")
         button.addAction(UIAction { [weak self] _ in
-            LoadingService.showLoading()
             guard let self = self else { return }
             if self.editMode == .edit {
                 Task {
                     await self.putNewSnap()
                     self.delegate?.backToRoot()
-                    LoadingService.hideLoading()
                 }
             }
             else {

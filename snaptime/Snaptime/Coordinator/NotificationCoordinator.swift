@@ -8,9 +8,6 @@
 import UIKit
 
 final class NotificationCoordinator: Coordinator {
-
-
-    
     var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     
@@ -28,7 +25,14 @@ final class NotificationCoordinator: Coordinator {
 
 extension NotificationCoordinator: NotificationViewControllerDelegate,
                                    ProfileViewControllerDelegate,
-                                   SnapViewControllerDelegate {
+                                   SnapViewControllerDelegate,
+                                   TagViewControllerDelegate {
+    func presentTag(tagList: [FindTagUserResDto]) {
+        let tagVC = TagViewController(tagList: tagList)
+        tagVC.delegate = self
+        navigationController.pushViewController(tagVC, animated: true)
+    }
+    
     func presentNotification() {
         let notificationVC = NotificationViewController()
         notificationVC.delegate = self
