@@ -16,6 +16,7 @@ protocol SnapViewControllerDelegate: AnyObject {
     func presentProfile(target: ProfileTarget, loginId: String)
     func backToPrevious()
     func backToRoot()
+    func presentTag(tagList: [FindTagUserResDto])
 }
 
 final class SnapViewController: BaseViewController {
@@ -129,8 +130,14 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         cell.delegate = self
-        cell.action = {
+        cell.profileTapAction = {
             self.delegate?.presentProfile(target: profileTarget, loginId: self.snap.writerLoginId)
+        }
+        
+        if !self.snap.tagUserFindResDtos.isEmpty {
+            cell.tagButtonTapAction = {
+                self.delegate?.presentTag(tagList: self.snap.tagUserFindResDtos)
+            }
         }
         
         switch profileTarget {

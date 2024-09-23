@@ -34,12 +34,19 @@ extension HomeCoordinator:
     CommentViewControllerDelegate,
     SelectAlbumViewControllerDelegate,
     SelectBrandViewControllerDelegate,
-    ProfileViewControllerDelegate {
+    ProfileViewControllerDelegate,
+    TagViewControllerDelegate {
     
     func presentProfile(target: ProfileTarget, loginId: String) {
         let myProfileVC = ProfileViewController(target: target, loginId: loginId)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
+    }
+    
+    func presentTag(tagList: [FindTagUserResDto]) {
+        let tagVC = TagViewController(tagList: tagList)
+        tagVC.delegate = self
+        navigationController.pushViewController(tagVC, animated: true)
     }
     
     func presentSettingProfile() {

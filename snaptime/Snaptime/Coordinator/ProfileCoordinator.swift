@@ -35,7 +35,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
                               AddSnapViewControllerDelegate,
                               SnapTagListViewControllerDelegate,
                               SelectAlbumViewControllerDelegate,
-                              CancelAccountViewControllerDelegate
+                              CancelAccountViewControllerDelegate,
+                              TagViewControllerDelegate
 {
     func presentCancelAccount() {
         let cancelAccountVC = CancelAccountViewController()
@@ -60,6 +61,12 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         let selectAlbumVC = SelectAlbumViewController(selectMode: .albumSelect)
         selectAlbumVC.delegate = self
         navigationController.pushViewController(selectAlbumVC, animated: true)
+    }
+    
+    func presentTag(tagList: [FindTagUserResDto]) {
+        let tagVC = TagViewController(tagList: tagList)
+        tagVC.delegate = self
+        navigationController.pushViewController(tagVC, animated: true)
     }
     
     // albumId를 addSnapVC에 전달

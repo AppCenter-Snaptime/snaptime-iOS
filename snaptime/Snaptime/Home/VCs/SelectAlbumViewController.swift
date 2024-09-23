@@ -211,6 +211,7 @@ extension SelectAlbumViewController : UICollectionViewDataSource, UICollectionVi
         ) as? AlbumSelectCollectionViewCell else { return UICollectionViewCell() }
         cell.setupUI(albumData[indexPath.row])
         cell.check(albumChecked[indexPath.row])
+        
         return cell
     }
     

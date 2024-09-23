@@ -94,6 +94,33 @@ final class CancelAccountViewController: BaseViewController {
         return textField
     }()
     
+    private lazy var checkButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+    
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)
+        let setImage = UIImage(
+            systemName: "ccheckmark.square",
+            withConfiguration: imageConfig
+        )?.withTintColor(UIColor.init(hexCode: "d0d0d0"), renderingMode: .alwaysOriginal)
+
+        config.image = setImage
+//        config.baseForegroundColor = .black
+//        config.baseBackgroundColor = .white
+        button.configuration = config
+        
+        return button
+    }()
+    
+    private let checkDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "위 내용을 모두 확인했으며, 회원 탈퇴를 진행합니다."
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        
+        return label
+    }()
+    
     private lazy var cancelAccountButton = SnapTimeCustomButton("탈퇴하기")
     
     private func setButtonAction() {
@@ -163,6 +190,8 @@ final class CancelAccountViewController: BaseViewController {
         radioButtonStackView,
          passwordLabel,
          passwordTextField,
+         checkButton,
+         checkDescriptionLabel,
         cancelAccountButton].forEach {
             view.addSubview($0)
         }
@@ -214,6 +243,18 @@ final class CancelAccountViewController: BaseViewController {
             $0.height.equalTo(49)
         }
         
+        checkButton.snp.makeConstraints {
+            $0.bottom.equalTo(cancelAccountButton.snp.top).offset(-10)
+            $0.left.equalTo(cancelAccountButton.snp.left).offset(8)
+            $0.height.width.equalTo(20)
+        }
+        
+        checkDescriptionLabel.snp.makeConstraints {
+            $0.left.equalTo(checkButton.snp.right).offset(12)
+            $0.right.equalTo(cancelAccountButton.snp.right)
+            $0.centerY.equalTo(checkButton.snp.centerY)
+        }
+        
         cancelAccountButton.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
             $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -233,5 +274,4 @@ extension CancelAccountViewController: CustomAlertDelegate {
             print("none")
         }
     }
-    
 }

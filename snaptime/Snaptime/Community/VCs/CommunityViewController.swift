@@ -14,6 +14,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentSearch() 
     func presentProfile(target: ProfileTarget, loginId: String)
+    func presentTag(tagList: [FindTagUserResDto])
 }
 
 final class CommunityViewController: BaseViewController {
@@ -176,22 +177,35 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SnapCollectionViewCell.identifier, for: indexPath) as? SnapCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: SnapCollectionViewCell.identifier,
+            for: indexPath
+        ) as? SnapCollectionViewCell else {
             return UICollectionViewCell()
         }
         
         cell.delegate = self
         
         var profileTarget: ProfileTarget = .others
+        let tagList = self.snaps[indexPath.row].tagUserFindResDtos
         
-        cell.action = {
+        cell.profileTapAction = {
             if self.snaps[indexPath.row].writerLoginId == ProfileBasicUserDefaults().loginId {
                 profileTarget = .myself
             }
             
-            self.delegate?.presentProfile(target: profileTarget, loginId: self.snaps[indexPath.row].writerLoginId)
+            self.delegate?.presentProfile(
+                target: profileTarget,
+                loginId: self.snaps[indexPath.row].writerLoginId
+            )
         }
         
+        cell.tagButtonTapAction = {
+            if !tagList.isEmpty {
+                self.delegate?.presentTag(tagList: tagList)
+            }
+        }
+                
         cell.configureData(data: self.snaps[indexPath.row], editButtonToggle: false)
         return cell
     }
