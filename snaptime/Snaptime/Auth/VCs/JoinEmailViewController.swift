@@ -101,7 +101,13 @@ final class JoinEmailViewController: BaseViewController {
             APIService.postEmailVerfied(email: email, code: code).performRequest(responseType: CommonResDtoVoid.self) { result in
                 switch result {
                 case .success(let success):
-                    break
+                    self?.show(
+                        alertText: "인증에 성공하였습니다.",
+                        cancelButtonText: "아니오",
+                        confirmButtonText: "예",
+                        identifier: "successVerifyEmail"
+                    )
+                    
                 case .failure(let failure):
                     let errorMessage = failure.localizedDescription
 
@@ -127,7 +133,6 @@ final class JoinEmailViewController: BaseViewController {
         nextButton.addAction(UIAction {[weak self] _ in
             let info = SignUpReqDto(email: self?.emailInputTextField.text)
             
-            print(info)
             self?.delegate?.presentJoinPassword(info: info)
         }, for: .touchUpInside)
     }
@@ -211,7 +216,16 @@ extension JoinEmailViewController: UITextFieldDelegate {
 
 extension JoinEmailViewController: CustomAlertDelegate {
     func action(identifier: String) {
-        
+        switch identifier {
+        case "successVerifyEmail":
+            let info = SignUpReqDto(email: self.emailInputTextField.text)
+            
+            self.delegate?.presentJoinPassword(info: info)
+        case "failVerifyEmail":
+            break
+        default:
+            break
+        }
     }
     
     func exit(identifier: String) {}

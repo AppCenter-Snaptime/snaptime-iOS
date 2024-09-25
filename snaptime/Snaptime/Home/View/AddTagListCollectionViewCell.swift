@@ -32,20 +32,30 @@ final class AddTagListCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var nickNameLabel: UILabel = {
+    private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
         
         return label
     }()
     
+    private let nickNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .gray
+        label.text = "bowon0000"
+        
+        return label
+    }()
+    
     func setupUI(info: FriendInfo) {
-        nickNameLabel.text = info.foundUserName
+        userNameLabel.text = info.foundUserName
         APIService.loadImage(data: info.profilePhotoURL, imageView: profileImage)
     }
     
     private func setupLayouts() {
         [profileImage,
+         userNameLabel,
          nickNameLabel].forEach {
             addSubview($0)
         }
@@ -53,13 +63,18 @@ final class AddTagListCollectionViewCell: UICollectionViewCell {
         profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(20)
-            $0.height.equalTo(32)
-            $0.width.equalTo(32)
+            $0.height.equalTo(35)
+            $0.width.equalTo(35)
+        }
+        
+        userNameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(13)
+            $0.left.equalTo(profileImage.snp.right).offset(15)
         }
         
         nickNameLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.left.equalTo(profileImage.snp.right).offset(15)
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(3)
+            $0.left.equalTo(userNameLabel.snp.left)
         }
     }
 }

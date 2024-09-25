@@ -47,7 +47,15 @@ final class FollowTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .black
-        label.text = "한보원"
+        
+        return label
+    }()
+    
+    private lazy var nickNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .gray
+        label.text = "bowon0000"
         
         return label
     }()
@@ -168,6 +176,7 @@ final class FollowTableViewCell: UITableViewCell {
     private func setupLayouts() {
         [profileImageView, 
          nameLabel,
+         nickNameLabel,
          followButton].forEach {
             contentView.addSubview($0)
         }
@@ -182,9 +191,14 @@ final class FollowTableViewCell: UITableViewCell {
         }
         
         nameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(profileImageView.snp.centerY)
+            $0.top.equalToSuperview().offset(20)
             $0.left.equalTo(profileImageView.snp.right).offset(20)
             $0.right.equalTo(followButton.snp.left).offset(-20)
+        }
+        
+        nickNameLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(3)
+            $0.left.equalTo(nameLabel.snp.left)
         }
         
         followButton.snp.makeConstraints {

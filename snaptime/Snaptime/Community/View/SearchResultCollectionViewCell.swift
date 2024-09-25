@@ -41,14 +41,24 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let nickNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .gray
+        
+        return label
+    }()
+    
     func configData(userInfo: UserFindByNameResDto) {
         APIService.loadImageNonToken(data: userInfo.profilePhotoURL, imageView: profileImageView)
-        self.userNameLabel.text = userInfo.foundUserName
+        userNameLabel.text = userInfo.foundUserName
+        nickNameLabel.text = userInfo.foundNickName
     }
     
     private func setupLayouts() {
         [profileImageView,
-         userNameLabel].forEach {
+         userNameLabel,
+         nickNameLabel].forEach {
             addSubview($0)
         }
         
@@ -59,9 +69,14 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         }
         
         userNameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(profileImageView.snp.centerY)
+            $0.top.equalToSuperview().offset(13)
             $0.left.equalTo(profileImageView.snp.right).offset(16)
             $0.right.equalToSuperview().offset(-16)
+        }
+        
+        nickNameLabel.snp.makeConstraints {
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(3)
+            $0.left.equalTo(userNameLabel.snp.left)
         }
     }
 }
