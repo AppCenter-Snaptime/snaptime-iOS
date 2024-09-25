@@ -10,6 +10,7 @@ import SnapKit
 
 protocol CancelAccountViewControllerDelegate: AnyObject {
     func presentCancelAccount()
+    func presentLogin()
 }
 
 final class CancelAccountViewController: BaseViewController {
@@ -19,6 +20,7 @@ final class CancelAccountViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
         setButtonAction()
     }
     
@@ -171,6 +173,34 @@ final class CancelAccountViewController: BaseViewController {
         }
     }
     
+    private func deleteUser(password: String) {
+        APIService.deleteUser(password: password).performRequest(
+            responseType: CommonResDtoVoid.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
+                    
+                    ProfileBasicUserDefaults().email = nil
+                    
+                    if checkTokenDeleted.access && checkTokenDeleted.refresh {
+                        self.delegate?.presentLogin()
+                    }
+                case .failure(let failure):
+                    let errorMessage = failure.localizedDescription
+                                            
+                    self.show(
+                        alertText: errorMessage,
+                        cancelButtonText: "yes",
+                        confirmButtonText: "네",
+                        identifier: "failDeleteUser"
+                    )
+                }
+            }
+        }
+    }
+    
     override func setupLayouts() {
         super.setupLayouts()
         
@@ -269,6 +299,10 @@ extension CancelAccountViewController: CustomAlertDelegate {
     func action(identifier: String) {
         switch identifier {
         case "deleteUser":
+            guard let password = passwordTextField.text else { return }
+            deleteUser(password: password)
+            
+        case "failDeleteUser":
             break
         default:
             print("none")
