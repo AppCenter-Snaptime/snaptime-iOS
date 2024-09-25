@@ -14,8 +14,8 @@ final class ProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     func start() {
-        guard let id = ProfileBasicUserDefaults().loginId else { return }
-        presentProfile(target: .myself,loginId: id)
+        guard let id = ProfileBasicUserDefaults().email else { return }
+        presentProfile(target: .myself,email: id)
     }
     
     init(navigationController: UINavigationController) {
@@ -48,7 +48,7 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
         addSnapVC.addTagList(tagList: tagList
-            .map { return FindTagUserResDto(tagUserLoginId: $0.foundLoginId, tagUserName: $0.foundUserName) })
+            .map { return FindTagUserResDto(tagUserEmail: $0.foundEmail, tagUserName: $0.foundUserName) })
     }
     
     func presentAddSnap() {
@@ -99,8 +99,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.pushViewController(addSnapVC, animated: true)
     }
     
-    func presentProfile(target: ProfileTarget, loginId: String) {
-        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
+    func presentProfile(target: ProfileTarget, email: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: email)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
@@ -136,8 +136,8 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.pushViewController(notificationVC, animated: true)
     }
     
-    func presentFollow(target: FollowTarget, loginId: String) {
-        let followVC = FollowViewController(target: target, loginId: loginId)
+    func presentFollow(target: FollowTarget, email: String) {
+        let followVC = FollowViewController(target: target, loginId: email)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
     }

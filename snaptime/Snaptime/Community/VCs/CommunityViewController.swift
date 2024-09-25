@@ -13,7 +13,7 @@ protocol CommunityViewControllerDelegate: AnyObject {
     func presentNotification()
     func presentCommentVC(snap: FindSnapResDto)
     func presentSearch() 
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
     func presentTag(tagList: [FindTagUserResDto])
 }
 
@@ -190,13 +190,13 @@ extension CommunityViewController: UICollectionViewDataSource, UICollectionViewD
         let tagList = self.snaps[indexPath.row].tagUserFindResDtos
         
         cell.profileTapAction = {
-            if self.snaps[indexPath.row].writerLoginId == ProfileBasicUserDefaults().loginId {
+            if self.snaps[indexPath.row].writerEmail == ProfileBasicUserDefaults().email {
                 profileTarget = .myself
             }
             
             self.delegate?.presentProfile(
                 target: profileTarget,
-                loginId: self.snaps[indexPath.row].writerLoginId
+                email: self.snaps[indexPath.row].writerEmail
             )
         }
         

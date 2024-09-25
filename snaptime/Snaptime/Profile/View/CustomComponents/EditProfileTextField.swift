@@ -10,8 +10,10 @@ import SnapKit
 
 final class EditProfileTextField: UIView {
     private let customDescription: String
+    private let isEnabledEditTextField: Bool
     
-    init(_ description: String) {
+    init(_ description: String, isEnabledEdit: Bool = true) {
+        self.isEnabledEditTextField = isEnabledEdit
         self.customDescription = description
         super.init(frame: .zero)
         self.setupStyles()
@@ -30,10 +32,11 @@ final class EditProfileTextField: UIView {
         return label
     }()
     
-    let editTextField = AuthTextField("")
+    var editTextField = AuthTextField("")
     
     private func setupStyles() {
         self.descriptionLabel.text = customDescription
+        editTextField.delegate = self
     }
     
     private func setupConstraints() {
@@ -50,8 +53,18 @@ final class EditProfileTextField: UIView {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(5)
             $0.left.equalTo(descriptionLabel.snp.left)
             $0.right.equalToSuperview()
-//            $0.width.equalTo(324)
             $0.bottom.equalToSuperview()
         }
+    }
+}
+
+extension EditProfileTextField: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if isEnabledEditTextField {
+            textField.tintColor = .clear
+        }
+        
+        return isEnabledEditTextField
     }
 }

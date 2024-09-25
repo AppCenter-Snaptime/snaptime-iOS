@@ -8,11 +8,11 @@
 import Foundation
 
 struct ChildReplyInfo: Codable {
-    let writerLoginId: String
+    let writerEmail: String
     let writerUserName: String
     let writerProfilePhotoURL: String
     let content: String
-    let tagUserLoginId: String?
+    let tagUserEmail: String?
     let tagUserName: String?
     let parentReplyId: Int
     let childReplyId: Int

@@ -28,15 +28,4 @@ extension String {
         let passwordRegExp = "(?=.*[A-Za-z])(?=.*[0-9]).{8,20}"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegExp).evaluate(with: self)
     }
-    
-    var isVaildDate: Bool {
-        let components = self.split(separator: ".")
-        if components.count == 3 {
-            let year = components[0]
-            let month = components[1]
-            let day = components[2]
-            return year.count == 4 && month.count == 2 && day.count == 2
-        }
-        return false
-    }
 }

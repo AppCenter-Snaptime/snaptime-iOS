@@ -9,7 +9,5 @@ import Foundation
 
 struct UserUpdateDto: Codable {
     var name: String
-    var loginId: String
-    var email: String
-    var birthDay: String
+    var nickName: String
 }

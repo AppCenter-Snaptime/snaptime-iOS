@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol TagViewControllerDelegate: AnyObject {
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
 }
 
 final class TagViewController: BaseViewController {
@@ -77,13 +77,13 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let loginId = tagList[indexPath.row].tagUserLoginId
+        let loginId = tagList[indexPath.row].tagUserEmail
         var profileTarget: ProfileTarget = .others
         
-        if ProfileBasicUserDefaults().loginId == loginId {
+        if ProfileBasicUserDefaults().email == loginId {
             profileTarget = .myself
         }
         
-        delegate?.presentProfile(target: profileTarget, loginId: loginId)
+        delegate?.presentProfile(target: profileTarget, email: loginId)
     }
 }

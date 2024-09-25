@@ -52,7 +52,7 @@ extension CommunityCoordinator:
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
         addSnapVC.addTagList(tagList: tagList
-            .map { return FindTagUserResDto(tagUserLoginId: $0.foundLoginId, tagUserName: $0.foundUserName) })
+            .map { return FindTagUserResDto(tagUserEmail: $0.foundEmail, tagUserName: $0.foundUserName) })
     }
     
     func presentAddSnap() {
@@ -98,8 +98,8 @@ extension CommunityCoordinator:
         navigationController.pushViewController(searchVC, animated: true)
     }
     
-    func presentProfile(target: ProfileTarget, loginId: String) {
-        let profileVC = ProfileViewController(target: target, loginId: loginId)
+    func presentProfile(target: ProfileTarget, email: String) {
+        let profileVC = ProfileViewController(target: target, loginId: email)
         profileVC.delegate = self
         navigationController.pushViewController(profileVC, animated: true)
     }
@@ -143,8 +143,8 @@ extension CommunityCoordinator:
         navigationController.pushViewController(settingProfileVC, animated: true)
     }
     
-    func presentFollow(target: FollowTarget, loginId: String) {
-        let followVC = FollowViewController(target: target, loginId: loginId)
+    func presentFollow(target: FollowTarget, email: String) {
+        let followVC = FollowViewController(target: target, loginId: email)
         followVC.delegate = self
         navigationController.pushViewController(followVC, animated: true)
     }

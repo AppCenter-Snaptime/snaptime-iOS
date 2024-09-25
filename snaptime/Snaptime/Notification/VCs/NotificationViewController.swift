@@ -11,7 +11,7 @@ import Alamofire
 
 protocol NotificationViewControllerDelegate: AnyObject {
     func presentNotification()
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
     func presentSnap(snapId: Int, profileType: ProfileTarget)
 }
 
@@ -121,7 +121,7 @@ extension NotificationViewController: UICollectionViewDelegate, UICollectionView
             break
         case .reply:
             break
-        case .like, .snapTag:
+        case .snapTag, .like:
             cell.previewImageClickAction = {
                 var snapResult = FindSnapResDto(
                     snapId: 0,
@@ -129,7 +129,7 @@ extension NotificationViewController: UICollectionViewDelegate, UICollectionView
                     snapPhotoURL: "",
                     snapCreatedDate: "",
                     snapModifiedDate: "",
-                    writerLoginId: "",
+                    writerEmail: "",
                     profilePhotoURL: "",
                     writerUserName: "",
                     tagUserFindResDtos: [],
@@ -137,9 +137,14 @@ extension NotificationViewController: UICollectionViewDelegate, UICollectionView
                     isLikedSnap: false
                 )
                 
-                APIService.fetchAlarmSnap(
-                    alarmId: self.notifications[indexPath.row].alarmId
-                ).performRequest(responseType: CommonResponseDtoFindSnapResDto.self) { result in
+                guard let snapId = self.notifications[indexPath.row].snapId else { return }
+                
+                APIService.fetchSnap(
+                    albumId: snapId
+                ).performRequest(
+                    responseType: CommonResponseDtoFindSnapResDto.self
+                ) { result in
+                    
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let snap):
@@ -148,7 +153,7 @@ extension NotificationViewController: UICollectionViewDelegate, UICollectionView
                             
                             var profileType: ProfileTarget = .others
                             
-                            if snapResult.writerLoginId == ProfileBasicUserDefaults().loginId {
+                            if snapResult.writerEmail == ProfileBasicUserDefaults().email {
                                 profileType = .myself
                             }
                             
@@ -157,18 +162,31 @@ extension NotificationViewController: UICollectionViewDelegate, UICollectionView
                             self.delegate?.presentSnap(snapId: snapResult.snapId, profileType: profileType)
                             
                         case .failure(let failure):
-                            // NSError로부터 에러 메시지를 추출
                             let errorMessage = failure.localizedDescription
-
+                            
                             print("에러 발생: \(errorMessage)")
                             
-                            // 알림 팝업 등에 에러 메시지 표시
                             self.show(
                                 alertText: errorMessage,
                                 cancelButtonText: "알겠습니다",
                                 confirmButtonText: "네",
                                 identifier: "error"
                             )
+                        }
+                    }
+                }
+                
+                APIService.fetchAlarmSnap(
+                    alarmId: self.notifications[indexPath.row].alarmId
+                ).performRequest(responseType: CommonResDtoVoid.self) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_):
+                            break
+                        case .failure(let failure):
+                            let errorMessage = failure.localizedDescription
+
+                            print("에러 발생: \(errorMessage)")
                         }
                     }
                 }

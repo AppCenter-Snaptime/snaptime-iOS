@@ -21,7 +21,7 @@ final class FollowTableViewCell: UITableViewCell {
         }
     }
     
-    private var loginId: String?
+    private var email: String?
     private var action: ((String, String)->())?
     private var name: String = ""
         
@@ -69,14 +69,14 @@ final class FollowTableViewCell: UITableViewCell {
                 case true:
                     if let action = self?.action,
                         let name = self?.name,
-                       let loginId = self?.loginId{
+                       let loginId = self?.email{
                         action(name, loginId)
                     }
                     
                     // TODO: - 이후 팔로잉 삭제 요청 필요
                 case false:
-                    if let loginId = self?.loginId {
-                        APIService.postFollow(loginId: loginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+                    if let loginId = self?.email {
+                        APIService.postFollow(email: loginId).performRequest(responseType: CommonResDtoVoid.self) { result in
                             switch result {
                             case .success(_):
                                 DispatchQueue.main.async {
@@ -148,10 +148,10 @@ final class FollowTableViewCell: UITableViewCell {
     
     /// VC로부터 데이터를 받아오는 메서드
     func configData(data: FriendInfo) {
-        self.loginId = data.foundLoginId
+        self.email = data.foundEmail
         /// 현재 사용자 자신의 프로필이라면 type을 myself로 설정
         
-        data.foundLoginId == ProfileBasicUserDefaults().loginId ?
+        data.foundEmail == ProfileBasicUserDefaults().email ?
         (type = .myself) :
         (follow = data.isMyFriend)
         

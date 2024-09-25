@@ -136,12 +136,12 @@ final class ProfileStatusView: UIView {
         
         else if !follow {
             guard let loginId = self.loginId else { return }
-            APIService.postFollow(loginId: loginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+            APIService.postFollow(email: loginId).performRequest(responseType: CommonResDtoVoid.self) { result in
                 switch result {
                 case .success(_):
                     DispatchQueue.main.async {
                         self.followButtonToggle()
-                        self.fetchUserProfileCount(loginId: loginId)
+                        self.fetchUserProfileCount(email: loginId)
                     }
                 case .failure(let error):
                     print(error)
@@ -150,8 +150,8 @@ final class ProfileStatusView: UIView {
         }
     }
     
-    private func fetchUserProfileCount(loginId: String) {
-        APIService.fetchUserProfileCount(loginId: loginId).performRequest(responseType: CommonResponseDtoProfileCntResDto.self) { result in
+    private func fetchUserProfileCount(email: String) {
+        APIService.fetchUserProfileCount(email: email).performRequest(responseType: CommonResponseDtoProfileCntResDto.self) { result in
             switch result {
             case .success(let userProfileCount):
                 DispatchQueue.main.async {

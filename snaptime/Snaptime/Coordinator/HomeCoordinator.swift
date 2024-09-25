@@ -37,8 +37,8 @@ extension HomeCoordinator:
     ProfileViewControllerDelegate,
     TagViewControllerDelegate {
     
-    func presentProfile(target: ProfileTarget, loginId: String) {
-        let myProfileVC = ProfileViewController(target: target, loginId: loginId)
+    func presentProfile(target: ProfileTarget, email: String) {
+        let myProfileVC = ProfileViewController(target: target, loginId: email)
         myProfileVC.delegate = self
         navigationController.pushViewController(myProfileVC, animated: true)
     }
@@ -57,7 +57,7 @@ extension HomeCoordinator:
         
     }
     
-    func presentFollow(target: FollowTarget, loginId: String) {
+    func presentFollow(target: FollowTarget, email: String) {
         
     }
     
@@ -182,7 +182,7 @@ extension HomeCoordinator:
         addSnapVC.addTagList(tagList:
                                 tagList
             .map { return FindTagUserResDto(
-                tagUserLoginId: $0.foundLoginId,
+                tagUserEmail: $0.foundEmail,
                 tagUserName: $0.foundUserName
             )}
         )

@@ -29,7 +29,7 @@ final class MainAlbumViewController : BaseViewController {
         
         self.fetchAlbumList()
         
-        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        guard let id = ProfileBasicUserDefaults().email else { return }
         self.fetchUserProfile(loginId: id)
     }
     
@@ -184,7 +184,7 @@ final class MainAlbumViewController : BaseViewController {
     }()
     
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
+        APIService.fetchUserProfile(email: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             switch result {
             case .success(let profile):
                 DispatchQueue.main.async {

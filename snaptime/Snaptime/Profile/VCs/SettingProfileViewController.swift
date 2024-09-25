@@ -21,7 +21,7 @@ final class SettingProfileViewController: BaseViewController {
     weak var delegate: SettingProfileViewControllerDelegate?
     private var userProfile = UserProfileManager.shared.profile.result
     
-    private let loginId = ProfileBasicUserDefaults().loginId
+    private let loginId = ProfileBasicUserDefaults().email
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +123,7 @@ final class SettingProfileViewController: BaseViewController {
     private func signoutLogic() {
         let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
-        ProfileBasicUserDefaults().loginId = nil
+        ProfileBasicUserDefaults().email = nil
         
         if checkTokenDeleted.access && checkTokenDeleted.refresh {
             delegate?.presentLogin()
@@ -136,7 +136,7 @@ final class SettingProfileViewController: BaseViewController {
             case .success(_):
                 let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
                 
-                ProfileBasicUserDefaults().loginId = nil
+                ProfileBasicUserDefaults().email = nil
                 
                 if checkTokenDeleted.access && checkTokenDeleted.refresh {
                     self.delegate?.presentLogin()

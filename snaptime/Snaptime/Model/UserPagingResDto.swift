@@ -13,12 +13,13 @@ struct CommonResponseDtoUserPagingResDto: Codable {
 }
 
 struct UserPagingResDto: Codable {
-    let userFindByNameResDtos: [userFindByNameResDto]
+    let userFindByNameResDtos: [UserFindByNameResDto]
     let hasNextPage: Bool
 }
 
-struct userFindByNameResDto: Codable {
-    let foundLoginId: String
+struct UserFindByNameResDto: Codable {
+    let foundEmail: String
     let profilePhotoURL: String
     let foundUserName: String
+    let foundNickName: String
 }

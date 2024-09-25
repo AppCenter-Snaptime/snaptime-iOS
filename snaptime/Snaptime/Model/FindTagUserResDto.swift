@@ -8,6 +8,6 @@
 import Foundation
 
 struct FindTagUserResDto: Codable {
-    let tagUserLoginId: String
+    let tagUserEmail: String
     let tagUserName: String
 }

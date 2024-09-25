@@ -13,9 +13,8 @@ struct CommonResponseDtoUserFindResDto: Codable {
 }
 
 struct UserFindResDto: Codable {
-    var userId: String
+    var userId: Int
     var name: String
-    var loginId: String
     var email: String
-    var birthDay: String
+    var nickName: String
 }

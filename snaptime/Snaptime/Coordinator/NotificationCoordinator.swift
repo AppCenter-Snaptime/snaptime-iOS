@@ -39,8 +39,8 @@ extension NotificationCoordinator: NotificationViewControllerDelegate,
         navigationController.pushViewController(notificationVC, animated: true)
     }
     
-    func presentProfile(target: ProfileTarget, loginId: String) {
-        let profileVC = ProfileViewController(target: target, loginId: loginId)
+    func presentProfile(target: ProfileTarget, email: String) {
+        let profileVC = ProfileViewController(target: target, loginId: email)
         profileVC.delegate = self
         navigationController.pushViewController(profileVC, animated: true)
     }
@@ -59,7 +59,7 @@ extension NotificationCoordinator: NotificationViewControllerDelegate,
         
     }
     
-    func presentFollow(target: FollowTarget, loginId: String) {
+    func presentFollow(target: FollowTarget, email: String) {
         
     }
     

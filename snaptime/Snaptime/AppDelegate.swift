@@ -56,10 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// 저장된 토큰이 유효한지 확인
     func checkLogin(completion: @escaping (Bool) -> Void) {
-        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserResDto.self) { result in
+        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserFindResDto.self) { result in
             switch result {
             case .success(let result):
-                ProfileBasicUserDefaults().loginId = result.result.loginId
+                ProfileBasicUserDefaults().email = result.result.email
                 completion(true)
                 print("🍀로그인 되어있음🍀")
             case .failure(_):

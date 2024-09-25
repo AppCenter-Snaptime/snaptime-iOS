@@ -12,7 +12,7 @@ import Kingfisher
 
 protocol CommentViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
 }
 
 final class CommentViewController: BaseViewController {
@@ -31,7 +31,7 @@ final class CommentViewController: BaseViewController {
         self.setupDataSource()
         self.fetchComment(pageNum: 1, snapId: self.snapID)
         
-        guard let id = ProfileBasicUserDefaults().loginId else { return }
+        guard let id = ProfileBasicUserDefaults().email else { return }
         
         self.fetchUserProfile(loginId: id)
         self.view.gestureRecognizers?.removeAll()
@@ -248,7 +248,7 @@ final class CommentViewController: BaseViewController {
     }
 
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
+        APIService.fetchUserProfile(email: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
@@ -293,11 +293,11 @@ final class CommentViewController: BaseViewController {
             supplementaryView.action = {
                 var target: ProfileTarget = .others
                 
-                if self.parentComments[indexPath.section].writerLoginId == ProfileBasicUserDefaults().loginId {
+                if self.parentComments[indexPath.section].writerEmail == ProfileBasicUserDefaults().email {
                     target = .myself
                 }
                 
-                self.delegate?.presentProfile(target: target, loginId: self.parentComments[indexPath.section].writerLoginId)
+                self.delegate?.presentProfile(target: target, email: self.parentComments[indexPath.section].writerEmail)
             }
         }
         

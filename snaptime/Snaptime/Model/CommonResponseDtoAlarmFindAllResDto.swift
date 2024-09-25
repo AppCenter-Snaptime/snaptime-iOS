@@ -25,5 +25,7 @@ struct AlarmInfoResDto: Codable {
     let timeAgo: String
     let previewText: String?
     let alarmType: String
+    let snapId: Int?
+    let senderEmail: String
     let createdDate: String
 }

@@ -9,39 +9,39 @@ import Foundation
 
 /// 로그인 아이디를 저장하는 UserDefaults 클래스
 class ProfileBasicUserDefaults {
-    private var loginIdKey: String = "LoginIdKey"
+    private var emailKey: String = "LoginIdKey"
     
-    var loginId: String? {
+    var email: String? {
         get {
-            loadLoginId(key: loginIdKey)
+            loadEmail(key: emailKey)
         }
         
         set {
             if let newValue = newValue {
-                saveLoginId(id: newValue, key: loginIdKey)
+                saveEmail(email: newValue, key: emailKey)
             } else {
-                deleteLoginId(key: loginIdKey)
+                deleteEmail(key: emailKey)
             }
         }
     }
     
-    private func saveLoginId(id: String, key: String) {
+    private func saveEmail(email: String, key: String) {
         let userDefault = UserDefaults.standard
-        userDefault.set(id, forKey: key)
+        userDefault.set(email, forKey: key)
     }
     
-    private func loadLoginId(key: String) -> String? {
+    private func loadEmail(key: String) -> String? {
         let userDefaults = UserDefaults.standard
         
-        guard let id = userDefaults.string(forKey: key) else {
+        guard let email = userDefaults.string(forKey: key) else {
             print("⚠️userDefault data 찾기 실패⚠️")
             return ""
         }
     
-        return id
+        return email
     }
     
-    private func deleteLoginId(key: String) {
+    private func deleteEmail(key: String) {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: key)
     }

@@ -26,7 +26,7 @@ final class CommentCollectionViewCell: UICollectionViewCell {
         
         commentView.setupUI(comment:
             ParentReplyInfo(
-                writerLoginId: "",
+                writerEmail: "",
                 writerProfilePhotoURL: "",
                 writerUserName: "",
                 content: "",

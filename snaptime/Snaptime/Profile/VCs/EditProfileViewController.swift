@@ -91,11 +91,10 @@ final class EditProfileViewController: BaseViewController {
         
         button.configuration = buttonConfig
         button.addAction(UIAction{ [weak self] _ in
-            if let id = self?.editIDTextField.editTextField.text,
+            if let nickName = self?.editNickNameTextField.editTextField.text,
                let email = self?.editEmailTextField.editTextField.text,
-               let birthDate = self?.editDateOfBirthTextField.editTextField.text,
                let name = self?.editNameTextField.editTextField.text {
-                let param = UserUpdateDto(name: name, loginId: id, email: email, birthDay: birthDate)
+                let param = UserUpdateDto(name: name, nickName: nickName)
                 
                 Task {
                     await self?.modifyProfileImage()
@@ -107,9 +106,8 @@ final class EditProfileViewController: BaseViewController {
         return button
     }()
     
-    private let editIDTextField = EditProfileTextField("아이디")
-    private let editEmailTextField = EditProfileTextField("이메일")
-    private let editDateOfBirthTextField = EditProfileTextField("생년월일")
+    private let editNickNameTextField = EditProfileTextField("닉네임")
+    private let editEmailTextField = EditProfileTextField("이메일", isEnabledEdit: false)
     private let editNameTextField = EditProfileTextField("이름")
     
     private func tabImageButton(tag: Int) {
@@ -126,13 +124,12 @@ final class EditProfileViewController: BaseViewController {
     
     // MARK: - 사용자 정보 서버에서 불러오기
     private func fetchUserInfo() {
-        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserResDto.self) { result in
+        APIService.fetchUserInfo.performRequest(responseType: CommonResponseDtoUserFindResDto.self) { result in
             switch result {
             case .success(let userProfileInfo):
                 DispatchQueue.main.async {
-                    self.editIDTextField.editTextField.text = userProfileInfo.result.loginId
+                    self.editNickNameTextField.editTextField.text = userProfileInfo.result.nickName
                     self.editEmailTextField.editTextField.text = userProfileInfo.result.email
-                    self.editDateOfBirthTextField.editTextField.text = userProfileInfo.result.birthDay
                     self.editNameTextField.editTextField.text = userProfileInfo .result.name
                 }
             case .failure(let error):
@@ -209,9 +206,8 @@ final class EditProfileViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
          
-        [editIDTextField,
+        [editNickNameTextField,
          editEmailTextField,
-         editDateOfBirthTextField,
          editNameTextField].forEach {
             stackView.addArrangedSubview($0)
         }

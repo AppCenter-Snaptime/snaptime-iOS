@@ -41,7 +41,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configData(userInfo: userFindByNameResDto) {
+    func configData(userInfo: UserFindByNameResDto) {
         APIService.loadImageNonToken(data: userInfo.profilePhotoURL, imageView: profileImageView)
         self.userNameLabel.text = userInfo.foundUserName
     }

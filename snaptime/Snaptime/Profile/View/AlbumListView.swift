@@ -46,11 +46,11 @@ final class AlbumListView: UIView {
     }
     
     func setLoginId(loginId: String) {
-        self.fetchUserAlbum(loginId: loginId)
+        self.fetchUserAlbum(email: loginId)
     }
     
-    private func fetchUserAlbum(loginId: String) {
-        APIService.fetchUserAlbum(loginId: loginId).performRequest(responseType: CommonResponseDtoListAlbumSnapResDto.self) { result in
+    private func fetchUserAlbum(email: String) {
+        APIService.fetchUserAlbum(email: email).performRequest(responseType: CommonResponseDtoListAlbumSnapResDto.self) { result in
             switch result {
             case .success(let result):
                 DispatchQueue.main.async {

@@ -13,7 +13,7 @@ protocol SnapViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentEditSnapVC(snap: FindSnapResDto)
     func presentMoveAlbumVC(snap: FindSnapResDto)
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
     func backToPrevious()
     func backToRoot()
     func presentTag(tagList: [FindTagUserResDto])
@@ -30,7 +30,7 @@ final class SnapViewController: BaseViewController {
         snapPhotoURL: "",
         snapCreatedDate: "",
         snapModifiedDate: "",
-        writerLoginId: "",
+        writerEmail: "",
         profilePhotoURL: "",
         writerUserName: "",
         tagUserFindResDtos: [],
@@ -125,13 +125,13 @@ extension SnapViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         var profileTarget: ProfileTarget = .others
         
-        if self.snap.writerLoginId == ProfileBasicUserDefaults().loginId {
+        if self.snap.writerEmail == ProfileBasicUserDefaults().email {
             profileTarget = .myself
         }
         
         cell.delegate = self
         cell.profileTapAction = {
-            self.delegate?.presentProfile(target: profileTarget, loginId: self.snap.writerLoginId)
+            self.delegate?.presentProfile(target: profileTarget, email: self.snap.writerEmail)
         }
         
         if !self.snap.tagUserFindResDtos.isEmpty {

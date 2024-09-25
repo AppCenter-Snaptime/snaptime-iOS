@@ -111,12 +111,12 @@ extension SnapTagListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("textDidChange")
         guard let text = searchBar.text,
-              let loginId = ProfileBasicUserDefaults().loginId
+              let loginId = ProfileBasicUserDefaults().email
         else { return }
   
         APIService.fetchFollow(
             type: FollowTarget.following.description,
-            loginId:loginId,
+            email:loginId,
             keyword: text,
             pageNum: 1
         ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in
@@ -139,12 +139,12 @@ extension SnapTagListViewController: UISearchBarDelegate {
         dismissKeyboard()
         
         guard let text = searchBar.text,
-              let loginId = ProfileBasicUserDefaults().loginId
+              let loginId = ProfileBasicUserDefaults().email
         else { return }
         
         APIService.fetchFollow(
             type: FollowTarget.following.description,
-            loginId: loginId,
+            email: loginId,
             keyword: text,
             pageNum: 1
         ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in

@@ -18,7 +18,7 @@ struct FindSnapResDto: Codable {
     var snapPhotoURL: String
     var snapCreatedDate: String
     var snapModifiedDate: String
-    var writerLoginId: String
+    var writerEmail: String
     var profilePhotoURL: String
     var writerUserName: String
     var tagUserFindResDtos: [FindTagUserResDto]
