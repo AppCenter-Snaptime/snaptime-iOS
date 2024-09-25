@@ -267,7 +267,7 @@ final class AddSnapViewController: BaseViewController {
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
-            url += "&tagUserLoginIds=\($0.tagUserLoginId)"
+            url += "&tagUserEmails=\($0.tagUserEmail)"
         }
         
         var headers: HTTPHeaders {
@@ -279,6 +279,8 @@ final class AddSnapViewController: BaseViewController {
         else {
             return
         }
+        
+        print(url)
         let response = await AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(Data(oneLineJournal.utf8), withName: "oneLineJournal")
             multipartFormData.append(jpgimageData, withName: "multipartFile", fileName: "image.png", mimeType: "image/jpeg")
@@ -306,7 +308,7 @@ final class AddSnapViewController: BaseViewController {
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return }
         
         self.tagList.forEach {
-            url += "&tagUserLoginIds=\($0.tagUserLoginId)"
+            url += "&tagUserEmails=\($0.tagUserEmail)"
         }
         
         var headers: HTTPHeaders {

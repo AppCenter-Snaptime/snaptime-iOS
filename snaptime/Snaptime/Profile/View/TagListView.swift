@@ -12,7 +12,7 @@ import SnapKit
 final class TagListView: UIView {
     var send: ((Int) -> Void)?
     private var tagList: [ProfileTagSnapResDto] = []
-    private var loginId: String = ""
+    private var email: String = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,12 +46,12 @@ final class TagListView: UIView {
         self.tagImageCollectionView.reloadData()
     }
     
-    func setLoginId(loginId: String) {
-        self.fetchTagList(loginId: loginId)
+    func setEmail(email: String) {
+        self.fetchTagList(email: email)
     }
     
-    private func fetchTagList(loginId: String) {
-        APIService.fetchUserTagSnap(loginId: loginId).performRequest(responseType: CommonResponseDtoListProfileTagSnapResDto.self) { result in
+    private func fetchTagList(email: String) {
+        APIService.fetchUserTagSnap(email: email).performRequest(responseType: CommonResponseDtoListProfileTagSnapResDto.self) { result in
             switch result {
             case .success(let result):
                 DispatchQueue.main.async {

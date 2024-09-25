@@ -8,6 +8,6 @@
 import Foundation
 
 struct SignInReqDto: Codable {
-    let loginId: String
+    let email: String
     let password: String
 }

@@ -10,12 +10,12 @@ import SnapKit
 
 protocol SearchViewControllerDelegate: AnyObject {
     func backToPrevious()
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
 }
 
 final class SearchViewController: BaseViewController {
     weak var delegate: SearchViewControllerDelegate?
-    private var userList: [userFindByNameResDto] = []
+    private var userList: [UserFindByNameResDto] = []
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -163,14 +163,14 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let loginId = userList[indexPath.row].foundLoginId
+        let email = userList[indexPath.row].foundEmail
         
-        if ProfileBasicUserDefaults().loginId == loginId {
-            delegate?.presentProfile(target: .myself, loginId: loginId)
+        if ProfileBasicUserDefaults().email == email {
+            delegate?.presentProfile(target: .myself, email: email)
         }
         
         else {
-            delegate?.presentProfile(target: .others, loginId: loginId)
+            delegate?.presentProfile(target: .others, email: email)
         }
     }
 }

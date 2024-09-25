@@ -18,7 +18,7 @@ struct FindFriendResDto: Codable {
 }
 
 struct FriendInfo: Codable {
-    let foundLoginId: String
+    let foundEmail: String
     let profilePhotoURL: String
     let foundUserName: String
     let friendId: Int

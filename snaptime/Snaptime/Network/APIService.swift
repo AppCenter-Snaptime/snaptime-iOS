@@ -22,11 +22,13 @@ enum APIService {
     case postSignUp
     case postTestSignIn
     case postReissue
+    case postSendEmailCode(email: String)
+    case postEmailVerfied(email: String, code: String)
     
-    case fetchUserProfile(loginId: String)
-    case fetchUserProfileCount(loginId: String)
-    case fetchUserAlbum(loginId: String)
-    case fetchUserTagSnap(loginId: String)
+    case fetchUserProfile(email: String)
+    case fetchUserProfileCount(email: String)
+    case fetchUserAlbum(email: String)
+    case fetchUserTagSnap(email: String)
     case fetchUserInfo
     case modifyUserInfo
     case fetchSearchUserInfo(pageNum: Int, keyword: String)
@@ -44,9 +46,9 @@ enum APIService {
     case fetchAlarms
     case fetchAlarmSnap(alarmId: Int)
     
-    case fetchFollow(type: String, loginId: String, keyword: String, pageNum: Int)
-    case postFollow(loginId: String)
-    case deleteFollowing(loginId: String)
+    case fetchFollow(type: String, email: String, keyword: String, pageNum: Int)
+    case postFollow(email: String)
+    case deleteFollowing(email: String)
     
     case postReply
     case getChildReply(pageNum: Int, parentReplyId: Int)
@@ -71,17 +73,23 @@ extension APIService {
         case .postTestSignIn:
             "/users/test/sign-in"
             
-        case .fetchUserProfile(let loginId):
-            "/profiles/profile?targetLoginId=\(loginId)"
+        case .postSendEmailCode(let email):
+            "/emails/send?email=\(email)"
             
-        case .fetchUserProfileCount(let loginId):
-            "/profiles/count?loginId=\(loginId)"
+        case .postEmailVerfied(let email, let code):
+            "/emails/verify?email=\(email)&code=\(code)"
             
-        case .fetchUserAlbum(let loginId):
-            "/profiles/album-snap?targetLoginId=\(loginId)"
+        case .fetchUserProfile(let email):
+            "/profiles/profile?targetEmail=\(email)"
             
-        case .fetchUserTagSnap(let loginId):
-            "/profiles/tag-snap?loginId=\(loginId)"
+        case .fetchUserProfileCount(let email):
+            "/profiles/count?email=\(email)"
+            
+        case .fetchUserAlbum(let email):
+            "/profiles/album-snap?targetEmail=\(email)"
+            
+        case .fetchUserTagSnap(let email):
+            "/profiles/tag-snap?email=\(email)"
             
         case .fetchUserInfo:
             "/users/my"
@@ -128,14 +136,14 @@ extension APIService {
         case .fetchAlarmSnap(let alarmId):
             "/alarms/snaps/\(alarmId)"
             
-        case .fetchFollow(let type, let loginId, let keyword, let pageNum):
-            "/friends/\(pageNum)?targetLoginId=\(loginId)&friendSearchType=\(type)&searchKeyword=\(keyword)"
+        case .fetchFollow(let type, let email, let keyword, let pageNum):
+            "/friends/\(pageNum)?targetEmail=\(email)&friendSearchType=\(type)&searchKeyword=\(keyword)"
             
-        case .postFollow(let loginId):
-            "/friends?receiverLoginId=\(loginId)"
+        case .postFollow(let email):
+            "/friends?receiverEmail=\(email)"
             
-        case .deleteFollowing(let loginId):
-            "/friends?deletedUserLoginId=\(loginId)"
+        case .deleteFollowing(let email):
+            "/friends?deletedUserEmail=\(email)"
             
         case .postReply:
             "/parent-replies"
@@ -180,6 +188,8 @@ extension APIService {
             .postSignIn,
             .postTestSignIn,
             .postSignUp,
+            .postSendEmailCode,
+            .postEmailVerfied,
             .postLikeToggle,
             .postReissue,
             .moveSnap:

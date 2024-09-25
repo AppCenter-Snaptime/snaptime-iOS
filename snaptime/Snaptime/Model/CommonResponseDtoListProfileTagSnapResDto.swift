@@ -14,6 +14,6 @@ struct CommonResponseDtoListProfileTagSnapResDto: Codable {
 
 struct ProfileTagSnapResDto: Codable {
     let taggedSnapId: Int
-    let snapOwnLoginId: String
+    let snapOwnEmail: String
     let taggedSnapUrl: String
 }

@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 protocol ProfileViewControllerDelegate: AnyObject {
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
     func presentSettingProfile()
     func presentSnapPreview(albumId: Int)
     func presentNotification()
-    func presentFollow(target: FollowTarget, loginId: String)
+    func presentFollow(target: FollowTarget, email: String)
     func presentSnap(snapId: Int, profileType: ProfileTarget)
 }
 
@@ -27,14 +27,14 @@ final class ProfileViewController: BaseViewController {
         
     private let count: ProfileCntResDto? = nil
     
-    private var loginId: String
+    private var email: String
     private let target: ProfileTarget
     
     private var unfollowLoginId: String?
     
     init(target: ProfileTarget, loginId: String) {
         self.target = target
-        self.loginId = loginId
+        self.email = loginId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,17 +50,19 @@ final class ProfileViewController: BaseViewController {
         self.profileStatusView.setAction(action: followButtonAction)
         
 
-        self.fetchUserProfile(loginId: loginId)
-        self.fetchUserProfileCount(loginId: loginId)
+        self.fetchUserProfile(email: email)
+        self.fetchUserProfileCount(email: email)
         
         self.sendData()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.fetchUserProfile(loginId: loginId)
-        self.fetchUserProfileCount(loginId: loginId)
+        self.fetchUserProfile(email: email)
+        self.fetchUserProfileCount(email: email)
         self.sendData()
     }
     
@@ -103,11 +105,11 @@ final class ProfileViewController: BaseViewController {
         },
         followingAction: UIAction { [weak self] _ in
             guard let strongSelf = self else { return }
-            strongSelf.delegate?.presentFollow(target: .following, loginId: strongSelf.loginId)
+            strongSelf.delegate?.presentFollow(target: .following, email: strongSelf.email)
         },
         followerAction: UIAction { [weak self] _ in
             guard let strongSelf = self else { return }
-            strongSelf.delegate?.presentFollow(target: .follower, loginId: strongSelf.loginId)
+            strongSelf.delegate?.presentFollow(target: .follower, email: strongSelf.email)
         }
     )
         
@@ -151,8 +153,8 @@ final class ProfileViewController: BaseViewController {
     
     /// albumList, tagList에 각각 데이터 fetch할 수 있도록 loginId 전달
     private func sendData() {
-        self.albumListView.setLoginId(loginId: self.loginId)
-        self.tagListView.setLoginId(loginId: self.loginId)
+        self.albumListView.setLoginId(loginId: self.email)
+        self.tagListView.setEmail(email: self.email)
     }
     
     private func followButtonAction(name: String, loginId: String) {
@@ -184,12 +186,12 @@ final class ProfileViewController: BaseViewController {
     }
     
     // MARK: - 네트워크 로직
-    private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(loginId: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
+    private func fetchUserProfile(email: String) {
+        APIService.fetchUserProfile(email: email).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfile):
-                    self.profileStatusView.setupUserProfile(userProfile.result, loginId: self.loginId)
+                    self.profileStatusView.setupUserProfile(userProfile.result, loginId: self.email)
                 case .failure(let error):
                     print("fetchUserProfile",error)
                 }
@@ -197,8 +199,8 @@ final class ProfileViewController: BaseViewController {
         }
     }
     
-    private func fetchUserProfileCount(loginId: String) {
-        APIService.fetchUserProfileCount(loginId: loginId).performRequest(responseType: CommonResponseDtoProfileCntResDto.self) { result in
+    private func fetchUserProfileCount(email: String) {
+        APIService.fetchUserProfileCount(email: email).performRequest(responseType: CommonResponseDtoProfileCntResDto.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userProfileCount):
@@ -281,7 +283,7 @@ extension ProfileViewController: CustomAlertDelegate {
     func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
-        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+        APIService.deleteFollowing(email: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):

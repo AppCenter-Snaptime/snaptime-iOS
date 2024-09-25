@@ -57,7 +57,7 @@ final class LoginViewController: BaseViewController {
         return stackView
     }()
     
-    private let idInputTextField: UITextField = {
+    private let emailInputTextField: UITextField = {
         let textField = UITextField()
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
@@ -170,7 +170,7 @@ final class LoginViewController: BaseViewController {
     }()
     
     private func textFieldEditing() {
-        [idInputTextField,
+        [emailInputTextField,
          passwordInputTextField].forEach {
             $0.delegate = self
             $0.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
@@ -207,9 +207,9 @@ final class LoginViewController: BaseViewController {
     // MARK: - button click method
     private func tabLoginButton() {
         loginButton.addAction(UIAction {[weak self] _ in
-            if let id = self?.idInputTextField.text,
+            if let email = self?.emailInputTextField.text,
                let password = self?.passwordInputTextField.text {
-                let loginInfo = SignInReqDto(loginId: id, password: password)
+                let loginInfo = SignInReqDto(email: email, password: password)
                 
                 LoadingService.showLoading()
                 APIService.postSignIn.performRequest(with: loginInfo, responseType: CommonResponseDtoSignInResDto.self) { result in
@@ -220,7 +220,7 @@ final class LoginViewController: BaseViewController {
                                 
                                 /// 토큰이 keychain에 저장되었을 경우
                             if token.accessResult && token.refreshResult {
-                                ProfileBasicUserDefaults().loginId = id
+                                ProfileBasicUserDefaults().email = email
                                 self?.delegate?.presentHome()
                             }
                         case .failure(let error):
@@ -242,7 +242,7 @@ final class LoginViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
-        [idInputTextField,
+        [emailInputTextField,
          passwordInputTextField].forEach {
             inputStackView.addArrangedSubview($0)
         }
@@ -276,15 +276,15 @@ final class LoginViewController: BaseViewController {
             $0.width.equalTo(110)
         }
         
-        [idInputTextField, passwordInputTextField].forEach {
+        [emailInputTextField, passwordInputTextField].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(48)
             }
         }
         
         warningIdImageView.snp.makeConstraints {
-            $0.right.equalTo(idInputTextField.snp.right).offset(-20)
-            $0.centerY.equalTo(idInputTextField.snp.centerY)
+            $0.right.equalTo(emailInputTextField.snp.right).offset(-20)
+            $0.centerY.equalTo(emailInputTextField.snp.centerY)
             $0.width.height.equalTo(16)
         }
         
@@ -347,7 +347,7 @@ extension LoginViewController: UITextFieldDelegate {
         }
         
         guard
-            let id = idInputTextField.text, !id.isEmpty,
+            let id = emailInputTextField.text, !id.isEmpty,
             let password = passwordInputTextField.text, !password.isEmpty, password.count >= 8
         else {
             loginButton.backgroundColor = UIColor.init(hexCode: "D3D9E0")

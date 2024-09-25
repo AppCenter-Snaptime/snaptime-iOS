@@ -8,7 +8,7 @@
 import Foundation
 
 struct ParentReplyInfo: Codable {
-    let writerLoginId: String
+    let writerEmail: String
     let writerProfilePhotoURL: String
     let writerUserName: String
     let content: String

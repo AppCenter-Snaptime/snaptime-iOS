@@ -91,6 +91,8 @@ final class JoinPasswordViewController: BaseViewController {
         nextButton.addAction(UIAction {[weak self] _ in
             self?.registrationInfo.password = self?.passwordInputTextField.text
             
+            print(self?.registrationInfo)
+            
             if let info = self?.registrationInfo {
                 self?.delegate?.presentJoinName(info: info)
             }

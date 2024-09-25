@@ -9,8 +9,6 @@ import Foundation
 
 struct SignUpReqDto: Codable {
     var name: String?
-    var loginId: String?
     var password: String?
     var email: String?
-    var birthDay: String?
 }

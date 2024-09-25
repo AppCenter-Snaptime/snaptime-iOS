@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol FollowViewControllerDelegate: AnyObject {
-    func presentProfile(target: ProfileTarget, loginId: String)
+    func presentProfile(target: ProfileTarget, email: String)
     func backToPrevious()
 }
 
@@ -32,12 +32,12 @@ final class FollowViewController: BaseViewController {
     private var friendList: [FriendInfo] = []
     
     private let target: FollowTarget
-    private let loginId: String
+    private let email: String
     private var unfollowLoginId: String?
     
     init(target: FollowTarget, loginId: String) {
         self.target = target
-        self.loginId = loginId
+        self.email = loginId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -120,7 +120,7 @@ final class FollowViewController: BaseViewController {
         
         APIService.fetchFollow(
             type: target.description,
-            loginId: loginId,
+            email: email,
             keyword: keyword,
             pageNum: 1
         ).performRequest(responseType: CommonResponseDtoListFindFriendResDto.self) { result in
@@ -183,17 +183,17 @@ extension FollowViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedLoginId = friendList[indexPath.row].foundLoginId
+        let selectedLoginId = friendList[indexPath.row].foundEmail
         
 //        guard let selectedLoginId = selectedLoginId else { return }
         
-        if selectedLoginId == ProfileBasicUserDefaults().loginId
+        if selectedLoginId == ProfileBasicUserDefaults().email
         {
-            self.delegate?.presentProfile(target: .myself, loginId: selectedLoginId)
+            self.delegate?.presentProfile(target: .myself, email: selectedLoginId)
         }
         
         else {
-            self.delegate?.presentProfile(target: .others, loginId: selectedLoginId)
+            self.delegate?.presentProfile(target: .others, email: selectedLoginId)
         }
     }
 }
@@ -202,7 +202,7 @@ extension FollowViewController: CustomAlertDelegate {
     func action(identifier: String) {
         guard let unfollowLoginId = self.unfollowLoginId else { return }
         
-        APIService.deleteFollowing(loginId: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
+        APIService.deleteFollowing(email: unfollowLoginId).performRequest(responseType: CommonResDtoVoid.self) { result in
             switch result {
             case .success(_):
                 DispatchQueue.main.async {
@@ -216,7 +216,7 @@ extension FollowViewController: CustomAlertDelegate {
     }
     
     func removeFriend(byLoginId loginId: String, from friends: [FriendInfo]) -> [FriendInfo] {
-        return friends.filter { $0.foundLoginId != loginId }
+        return friends.filter { $0.foundEmail != loginId }
     }
     
     func exit(identifier: String) {}

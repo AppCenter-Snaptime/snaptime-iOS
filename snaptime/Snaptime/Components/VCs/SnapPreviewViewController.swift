@@ -104,7 +104,7 @@ extension SnapPreviewViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var target: ProfileTarget = .others
         
-        if snapPreviews[indexPath.row].loginId == ProfileBasicUserDefaults().loginId {
+        if snapPreviews[indexPath.row].email == ProfileBasicUserDefaults().email {
             target = .myself
         }
         

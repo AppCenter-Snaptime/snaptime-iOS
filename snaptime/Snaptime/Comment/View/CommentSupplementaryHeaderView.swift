@@ -28,7 +28,7 @@ final class CommentSupplementaryHeaderView: UICollectionReusableView {
         
         contentView.setupUI(comment:
             ParentReplyInfo(
-                writerLoginId: "",
+                writerEmail: "",
                 writerProfilePhotoURL: "",
                 writerUserName: "",
                 content: "",
