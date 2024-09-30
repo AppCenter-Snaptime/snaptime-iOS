@@ -65,7 +65,7 @@ final class LoginViewController: BaseViewController {
         textField.layer.masksToBounds = true
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         textField.leftViewMode = .always
-        textField.attributedPlaceholder = NSAttributedString(string: "아이디", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
+        textField.attributedPlaceholder = NSAttributedString(string: "이메일", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
 
         return textField
     }()
