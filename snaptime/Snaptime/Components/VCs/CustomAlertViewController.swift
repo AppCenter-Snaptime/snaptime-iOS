@@ -158,23 +158,24 @@ final class CustomAlertViewController: UIViewController {
     
     private func setupConstraints() {
         backgroundView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
         alertView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(300)
-            $0.leading.equalToSuperview().offset(42)
-            $0.trailing.equalToSuperview().offset(-42)
+            $0.left.equalToSuperview().offset(42)
+            $0.right.equalToSuperview().offset(-42)
             $0.height.equalTo(172)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
-            $0.leading.trailing.equalToSuperview().inset(21)
+            $0.left.right.equalToSuperview().inset(21)
             $0.height.equalTo(20)
         }
         
-        [cancelButton, confirmButton].forEach {
+        [cancelButton, 
+         confirmButton].forEach {
             $0.snp.makeConstraints {
                 $0.width.equalToSuperview()
             }
@@ -182,7 +183,7 @@ final class CustomAlertViewController: UIViewController {
         
         buttonStackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalTo(titleLabel)
+            $0.left.right.equalTo(titleLabel)
             $0.bottom.equalToSuperview().offset(-16)
         }
     }
