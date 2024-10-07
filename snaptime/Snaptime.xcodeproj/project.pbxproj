@@ -62,6 +62,7 @@
 		29839F3B2C4E4293001A57E5 /* SignInReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */; };
 		29839F3D2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */; };
 		29839F3F2C4E5D3F001A57E5 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3E2C4E5D3F001A57E5 /* UIViewController+.swift */; };
+		2985D9A62CAC07180061E1D9 /* ChildReplyAddReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985D9A52CAC07180061E1D9 /* ChildReplyAddReqDto.swift */; };
 		298958AB2C859DD8002D94CC /* FourCutBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298958AA2C859DD8002D94CC /* FourCutBrand.swift */; };
 		298F7F5D2B6BA34700A8DBC5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */; };
 		298F7F5F2B6BA36300A8DBC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */; };
@@ -188,6 +189,7 @@
 		29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInReqDto.swift; sourceTree = "<group>"; };
 		29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoSignInResDto.swift; sourceTree = "<group>"; };
 		29839F3E2C4E5D3F001A57E5 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		2985D9A52CAC07180061E1D9 /* ChildReplyAddReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildReplyAddReqDto.swift; sourceTree = "<group>"; };
 		298958AA2C859DD8002D94CC /* FourCutBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCutBrand.swift; sourceTree = "<group>"; };
 		298F7F5C2B6BA34700A8DBC5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		298F7F5E2B6BA36300A8DBC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 				294820482C69E90900229D65 /* CommonMsgRes.swift */,
 				298958AA2C859DD8002D94CC /* FourCutBrand.swift */,
 				2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */,
+				2985D9A52CAC07180061E1D9 /* ChildReplyAddReqDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -698,7 +701,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					292977732B6618FA00FDC799 = {
 						CreatedOnToolsVersion = 15.2;
@@ -878,6 +881,7 @@
 				297BA2C02CA13E26006CE73C /* TagTableViewCell.swift in Sources */,
 				29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */,
 				297090232C37D8B5004A151B /* FollowViewController.swift in Sources */,
+				2985D9A62CAC07180061E1D9 /* ChildReplyAddReqDto.swift in Sources */,
 				29176FB42C412C6E00CD9A24 /* CommonResponseDtoListFindAllAlbumsResDto.swift in Sources */,
 				29B7D3CD2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift in Sources */,
 				296167AE2BBC1C41003CA89C /* SnapTagListViewController.swift in Sources */,

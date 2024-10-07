@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct ChildReplyAddReqDto: Codable {
+    let replyMessage: String
+    let parentReplyId: Int
+    let tagEmail: String
+}

@@ -11,12 +11,14 @@ import UIKit
 final class CommentSupplementaryHeaderView: UICollectionReusableView {
     let contentView = SingleCommentView()
     var action: (()->())?
+    var addReplyButtonAction: (()->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
         setConstraints()
-        contentView.action = action
+//        contentView.action = action
+//        contentView.addReplyButtonAction = addReplyButtonAction
     }
     
     required init?(coder: NSCoder) {

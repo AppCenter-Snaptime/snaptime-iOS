@@ -10,6 +10,7 @@ import UIKit
 
 class SingleCommentView: UIView {
     var action: (()->())?
+    var addReplyButtonAction: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,26 +58,31 @@ class SingleCommentView: UIView {
         return label
     }()
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
-        label.text = "답글 달기"
-        label.font = .systemFont(ofSize: 12)
-        label.textColor = UIColor(hexCode: "747474")
-        return label
+    private lazy var replyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("답글 달기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.setTitleColor(UIColor(hexCode: "747474"), for: .normal)
+        button.addAction(UIAction{ [weak self] _ in
+            guard let action = self?.addReplyButtonAction else { return }
+            action()
+        }, for: .touchUpInside)
+        return button
     }()
     
     func setupUI(comment: ParentReplyInfo) {
-        self.nameLabel.text = comment.writerUserName
-        self.commentLabel.text = comment.content
-        self.beforeDateLabel.text = comment.timeAgo
+        nameLabel.text = comment.writerUserName
+        commentLabel.text = comment.content
+        beforeDateLabel.text = comment.timeAgo
         
         APIService.loadImageNonToken(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
     func setupUI(comment: ChildReplyInfo) {
-        self.nameLabel.text = comment.writerUserName
-        self.commentLabel.text = comment.content
-        self.beforeDateLabel.text = comment.timeAgo
+        nameLabel.text = comment.writerUserName
+        commentLabel.text = comment.content
+        beforeDateLabel.text = comment.timeAgo
+        
         APIService.loadImageNonToken(data: comment.writerProfilePhotoURL, imageView: self.profileImageView)
     }
     
@@ -91,7 +97,7 @@ class SingleCommentView: UIView {
             profileImageView,
             upperStackView,
             commentLabel,
-            replyLabel
+            replyButton
         ].forEach {
             self.addSubview($0)
         }
@@ -122,10 +128,10 @@ class SingleCommentView: UIView {
             $0.right.equalToSuperview().offset(-20)
         }
         
-        replyLabel.snp.makeConstraints {
+        replyButton.snp.makeConstraints {
             $0.top.equalTo(commentLabel.snp.bottom).offset(4)
             $0.left.equalTo(commentLabel)
-            $0.bottom.equalToSuperview().offset(-10)
+            $0.bottom.equalToSuperview().offset(-1)
         }
     }
 }
