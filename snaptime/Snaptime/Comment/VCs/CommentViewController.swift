@@ -32,7 +32,7 @@ final class CommentViewController: BaseViewController {
     
     weak var delegate: CommentViewControllerDelegate?
     
-    var dataSource: UICollectionViewDiffableDataSource<Int, Int>!
+    var dataSource: UICollectionViewDiffableDataSource<Int, ChildReplyInfo>!
     
     init(snapID: Int, userName snapUserName: String) {
         self.snapID = snapID
@@ -268,28 +268,26 @@ final class CommentViewController: BaseViewController {
     }
     
     private func setupDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, Int> {(
+        let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, ChildReplyInfo> {(
                 cell,
                 indexPath,
-                identifier
+                item
             ) in
             
-            if let section = self.childComments[indexPath.section] {
-                cell.setupUI(comment: section[indexPath.row])
-            }
+            cell.setupUI(comment: item)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Int, Int>(
-            collectionView: commentCollectionView, 
+        dataSource = UICollectionViewDiffableDataSource<Int, ChildReplyInfo>(
+            collectionView: commentCollectionView,
             cellProvider: ({(
                 collectionView: UICollectionView,
                 indexPath: IndexPath,
-                identifier: Int
+                item: ChildReplyInfo
             ) -> UICollectionViewCell? in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: cellRegistration, 
                     for: indexPath,
-                    item: identifier)
+                    item: item)
             })
         )
         
@@ -351,29 +349,8 @@ final class CommentViewController: BaseViewController {
         }
     }
     
-//    private func applySnapShot(data: [ParentReplyInfo]) {
-//        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
-//
-//        var identifierOffset = 0 // 아이템의 identifier
-//
-//        for idx in 0..<data.count {
-//            var itemPerSection = 0
-//            if idx < self.childComments.count,
-//               let childData = self.childComments[idx] {
-//                itemPerSection = childData.count
-//            }
-//            snapshot.appendSections([idx])
-//
-//            let maxIdentifier = identifierOffset + itemPerSection
-//            snapshot.appendItems(Array(identifierOffset..<maxIdentifier))
-//            identifierOffset += itemPerSection
-//        }
-//
-//        dataSource.apply(snapshot)
-//    }
-    
     private func applySnapShot(data: [ParentReplyInfo]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, ChildReplyInfo>()
         var identifierOffset = 0 // 아이템의 identifier
             
         for idx in 0..<data.count {
@@ -381,43 +358,14 @@ final class CommentViewController: BaseViewController {
             
             // 숨김 상태일 경우, 아이템 추가하지 않음
             if !isRepliesHidden[idx] {
-                var itemPerSection = 0
-                if let childData = self.childComments[idx] {
-                    itemPerSection = childData.count
-                }
-                
-                let maxIdentifier = identifierOffset + itemPerSection
-                snapshot.appendItems(Array(identifierOffset..<maxIdentifier), toSection: idx)
-                identifierOffset += itemPerSection
+                guard let comment = self.childComments[idx] else { return }
+                snapshot.appendItems(comment, toSection: idx)
             }
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
         self.commentCollectionView.layoutIfNeeded()
     }
-    
-//    private func toggleRepliesVisibility(for section: Int) {
-////        guard let currentSnapshot = dataSource.snapshot() else { return }
-//        
-//        // 해당 섹션의 자식 댓글을 가져옴
-//        guard let childData = self.childComments[section] else { return }
-//        
-//        var newSnapshot = dataSource.snapshot()
-//        
-//        if isRepliesHidden[section] {
-//            // 자식 댓글을 보이게 할 경우: 자식 댓글 추가
-//            let identifierOffset = newSnapshot.numberOfItems(inSection: section)
-//            let itemRange = Array(identifierOffset..<identifierOffset + childData.count)
-//            newSnapshot.appendItems(itemRange, toSection: section)
-//        } else {
-//            // 자식 댓글을 숨길 경우: 해당 섹션에서 자식 댓글 삭제
-//            let itemsToRemove = newSnapshot.itemIdentifiers(inSection: section)
-//            newSnapshot.deleteItems(itemsToRemove)
-//        }
-//        
-//        // 스냅샷을 적용
-//        dataSource.apply(newSnapshot, animatingDifferences: true)
-//    }
 
     // MARK: -- Setup UI
     override func setupLayouts() {
