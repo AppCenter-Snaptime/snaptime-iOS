@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CommentCollectionViewCell: UICollectionViewCell {
     let commentView = SingleCommentView()

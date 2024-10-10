@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChildReplyInfo: Codable {
+struct ChildReplyInfo: Codable, Hashable {
     let writerEmail: String
     let writerUserName: String
     let writerProfilePhotoURL: String

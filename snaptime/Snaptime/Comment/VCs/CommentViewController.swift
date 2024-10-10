@@ -32,6 +32,8 @@ final class CommentViewController: BaseViewController {
     
     weak var delegate: CommentViewControllerDelegate?
     
+    var dataSource: UICollectionViewDiffableDataSource<Int, Int>!
+    
     init(snapID: Int, userName snapUserName: String) {
         self.snapID = snapID
         self.snapUserName = snapUserName
@@ -95,7 +97,7 @@ final class CommentViewController: BaseViewController {
         return collectionView
     }()
     
-    private lazy var replyImageView: UIImageView = {
+    private lazy var replyImageView: RoundImageView = {
         let imageView = RoundImageView()
         imageView.backgroundColor = .snaptimeGray
         imageView.contentMode = .scaleAspectFit
@@ -206,7 +208,7 @@ final class CommentViewController: BaseViewController {
             ) -> NSCollectionLayoutSection? in
                 
                 // child 댓글이 숨겨져 있는지 여부에 따라 높이 설정
-                let itemHeight: NSCollectionLayoutDimension = self.isRepliesHidden[sectionIndex] ? .absolute(0) : .estimated(40)
+                let itemHeight: NSCollectionLayoutDimension = self.isRepliesHidden[sectionIndex] ? .estimated(0) : .estimated(40)
                 
                 /*
                 
@@ -264,15 +266,14 @@ final class CommentViewController: BaseViewController {
         
         return layout
     }
-
-    // collectionView dataSource
-    var dataSource: UICollectionViewDiffableDataSource<Int, Int>!
     
     private func setupDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, Int> {
-            (cell,
-             indexPath,
-             identifier) in
+        let cellRegistration = UICollectionView.CellRegistration<CommentCollectionViewCell, Int> {(
+                cell,
+                indexPath,
+                identifier
+            ) in
+            
             if let section = self.childComments[indexPath.section] {
                 cell.setupUI(comment: section[indexPath.row])
             }
@@ -335,9 +336,7 @@ final class CommentViewController: BaseViewController {
                 // 답글 가리기/보이기 버튼의 액션 설정
             supplementaryView.action = {
                 self.isRepliesHidden[indexPath.section].toggle() // 숨김 상태 변경
-                supplementaryView.setupHideButton(
-                    isHidden: self.isRepliesHidden[indexPath.section]
-                )
+                supplementaryView.setupHideButton(isHidden: self.isRepliesHidden[indexPath.section])
                 
                 self.applySnapShot(data: self.parentComments) // 스냅샷 업데이트
             }
@@ -354,9 +353,9 @@ final class CommentViewController: BaseViewController {
     
 //    private func applySnapShot(data: [ParentReplyInfo]) {
 //        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
-//        
+//
 //        var identifierOffset = 0 // 아이템의 identifier
-//        
+//
 //        for idx in 0..<data.count {
 //            var itemPerSection = 0
 //            if idx < self.childComments.count,
@@ -364,19 +363,19 @@ final class CommentViewController: BaseViewController {
 //                itemPerSection = childData.count
 //            }
 //            snapshot.appendSections([idx])
-//            
+//
 //            let maxIdentifier = identifierOffset + itemPerSection
 //            snapshot.appendItems(Array(identifierOffset..<maxIdentifier))
 //            identifierOffset += itemPerSection
 //        }
-//        
+//
 //        dataSource.apply(snapshot)
 //    }
     
     private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         var identifierOffset = 0 // 아이템의 identifier
-        
+            
         for idx in 0..<data.count {
             snapshot.appendSections([idx])
             
@@ -391,16 +390,37 @@ final class CommentViewController: BaseViewController {
                 snapshot.appendItems(Array(identifierOffset..<maxIdentifier), toSection: idx)
                 identifierOffset += itemPerSection
             }
-            
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
         self.commentCollectionView.layoutIfNeeded()
     }
+    
+//    private func toggleRepliesVisibility(for section: Int) {
+////        guard let currentSnapshot = dataSource.snapshot() else { return }
+//        
+//        // 해당 섹션의 자식 댓글을 가져옴
+//        guard let childData = self.childComments[section] else { return }
+//        
+//        var newSnapshot = dataSource.snapshot()
+//        
+//        if isRepliesHidden[section] {
+//            // 자식 댓글을 보이게 할 경우: 자식 댓글 추가
+//            let identifierOffset = newSnapshot.numberOfItems(inSection: section)
+//            let itemRange = Array(identifierOffset..<identifierOffset + childData.count)
+//            newSnapshot.appendItems(itemRange, toSection: section)
+//        } else {
+//            // 자식 댓글을 숨길 경우: 해당 섹션에서 자식 댓글 삭제
+//            let itemsToRemove = newSnapshot.itemIdentifiers(inSection: section)
+//            newSnapshot.deleteItems(itemsToRemove)
+//        }
+//        
+//        // 스냅샷을 적용
+//        dataSource.apply(newSnapshot, animatingDifferences: true)
+//    }
 
     // MARK: -- Setup UI
     override func setupLayouts() {
-        self.view.backgroundColor = .systemBackground
         [replyImageView,
         replyTextField,
         replySubmitButton].forEach {
