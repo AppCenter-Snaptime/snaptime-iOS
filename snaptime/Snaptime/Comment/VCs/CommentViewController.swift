@@ -19,8 +19,9 @@ final class CommentViewController: BaseViewController {
     private let snapID: Int
     private let snapUserName: String
     private var parentComments: [ParentReplyInfo] = []
-    private var childComments: [[ChildReplyInfo]?] = []
-    private var isRepliesHidden: [Bool] = []
+    private var isRepliesHidden: [Int:Bool] = [:]
+    
+    private var childComments: [Int:[ChildReplyInfo]] = [:]
     
     private var selectedCommentInfo: ParentReplyInfo?
     private var replyType: ReplyType = .parent
@@ -47,7 +48,13 @@ final class CommentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
-        self.fetchComment(pageNum: 1, snapId: self.snapID)
+        self.fetchComment(pageNum: 1, snapId: self.snapID) {
+            print(self.parentComments)
+            self.parentComments.forEach {
+                self.childComments[$0.replyId] = nil
+                self.isRepliesHidden[$0.replyId] = true
+            }
+        }
         
         guard let id = ProfileBasicUserDefaults().email else { return }
         
@@ -131,11 +138,25 @@ final class CommentViewController: BaseViewController {
                 APIService.postParentReply.performRequest(
                     with: param,
                     responseType: CommonResDtoVoid.self
-                ) { [weak self] _ in
+                ) { result in
                     DispatchQueue.main.async {
-                        guard let id = self?.snapID else { return }
-                        self?.fetchComment(pageNum: 1, snapId: id)
-                        self?.replyTextField.text = ""
+                        switch result {
+                        case .success(let success):
+                            self.fetchComment(pageNum: 1, snapId: self.snapID) {
+                                self.parentComments.forEach {
+                                    self.childComments[$0.replyId] = nil
+                                }
+                                                                
+                                self.isRepliesHidden[self.parentComments[self.parentComments.count-1].replyId] = true
+                                self.applySnapShot(data: self.parentComments)
+                            }
+                            
+                            self.replyTextField.text = ""
+                            
+                        case .failure(let failure):
+                            let errorMessage = failure.localizedDescription
+                            print("에러입니다: ",errorMessage)
+                        }
                     }
                 }
             case .child:
@@ -146,7 +167,6 @@ final class CommentViewController: BaseViewController {
                 }
                 
                 let param = ChildReplyAddReqDto(replyMessage: comment, parentReplyId: commentInfo.replyId, tagEmail: "")
-                print(param)
                 
                 APIService.postChildReply.performRequest(
                     with: param,
@@ -155,7 +175,10 @@ final class CommentViewController: BaseViewController {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let success):
-                            self.fetchComment(pageNum: 1, snapId: self.snapID)
+                            self.fetchComment(pageNum: 1, snapId: self.snapID) {}
+                            self.childComments[commentInfo.replyId] = self.childReplies(parentReplyId: commentInfo.replyId)
+                            self.isRepliesHidden[commentInfo.replyId] = false
+                            self.applySnapShot(data: self.parentComments)
                             self.replyTextField.text = ""
                             self.replyType = .parent
                             
@@ -207,16 +230,16 @@ final class CommentViewController: BaseViewController {
                 layoutEnvironment: NSCollectionLayoutEnvironment
             ) -> NSCollectionLayoutSection? in
                 
-                // child 댓글이 숨겨져 있는지 여부에 따라 높이 설정
-                let itemHeight: NSCollectionLayoutDimension = self.isRepliesHidden[sectionIndex] ? .estimated(0) : .estimated(40)
-                
-                /*
+                /// child 댓글이 숨겨져 있는지 여부에 따라 높이 설정
+                let itemHeight: NSCollectionLayoutDimension = self.parentComments[sectionIndex].childReplyCnt <= 0 ? .estimated(0) : .estimated(40)
+
+                /***
                 
                  원 댓글 : Header
                  답글 : item
                  답글 추가/가리기 : Footer
 
-                 */
+                 **/
                 
                 /// 대댓글 item
                 let item = NSCollectionLayoutItem(
@@ -226,7 +249,7 @@ final class CommentViewController: BaseViewController {
                     )
                 )
                 
-                // 대댓글 item의 그룹
+                /// 대댓글 item의 그룹
                 let containerGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
@@ -234,10 +257,10 @@ final class CommentViewController: BaseViewController {
                     subitems: [item])
                 containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
-                // 그룹을 section에 추가
+                /// 그룹을 section에 추가
                 let section = NSCollectionLayoutSection(group: containerGroup)
                 
-                // Header 설정
+                /// Header 설정
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
@@ -247,9 +270,9 @@ final class CommentViewController: BaseViewController {
                     alignment: .top
                 )
                 section.boundarySupplementaryItems.append(sectionHeader)
-                
-                // Footer 설정 (child 댓글이 있는 경우만 추가)
-                if let childComments = self.childComments[sectionIndex], !childComments.isEmpty {
+
+                /// childReplyCnt > 0인 경우(대댓글이 존재하는 경우)에만 footer 보여주기
+                if self.parentComments[sectionIndex].childReplyCnt > 0 {
                     let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(1.0),
@@ -275,6 +298,12 @@ final class CommentViewController: BaseViewController {
             ) in
             
             cell.setupUI(comment: item)
+            cell.commentView.addReplyButtonAction = {
+                self.selectedCommentInfo = self.parentComments[indexPath.section]
+                self.replyType = .child
+                self.replyTextField.text = "@\(self.selectedCommentInfo?.writerUserName ?? "") "
+                self.replyTextField.becomeFirstResponder()
+            }
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, ChildReplyInfo>(
@@ -297,11 +326,9 @@ final class CommentViewController: BaseViewController {
                 supplementaryView,
                 elementKind,
                 indexPath in
-            // header 세팅
+
             supplementaryView.setupUI(comment: self.parentComments[indexPath.section])
             supplementaryView.contentView.action = {
-                print("event")
-                
                 var target: ProfileTarget = .others
                 
                 if self.parentComments[indexPath.section].writerEmail == ProfileBasicUserDefaults().email {
@@ -325,18 +352,28 @@ final class CommentViewController: BaseViewController {
             supplementaryView,
             elementKind,
             indexPath in
-            // footer 세팅
-            if self.childComments[indexPath.section] != nil {
+
+            let parentComment = self.parentComments[indexPath.section]
+            
+            if parentComment.childReplyCnt > 0 {
                 supplementaryView.changeButtonIsHidden()
-                supplementaryView.setupHideButton(isHidden: self.isRepliesHidden[indexPath.section])
+                guard let isRepliesHidden = self.isRepliesHidden[parentComment.replyId] else { return }
+                supplementaryView.setupHideButton(isHidden: isRepliesHidden)
             }
             
-                // 답글 가리기/보이기 버튼의 액션 설정
+            /// 답글 가리기/보이기 버튼의 액션 설정
             supplementaryView.action = {
-                self.isRepliesHidden[indexPath.section].toggle() // 숨김 상태 변경
-                supplementaryView.setupHideButton(isHidden: self.isRepliesHidden[indexPath.section])
+                self.isRepliesHidden[parentComment.replyId]?.toggle() // 숨김 상태 변경
+                guard let isRepliesHidden = self.isRepliesHidden[parentComment.replyId] else { return }
+
+                supplementaryView.setupHideButton(isHidden: isRepliesHidden)
                 
-                self.applySnapShot(data: self.parentComments) // 스냅샷 업데이트
+                if !isRepliesHidden {
+                    let parentReplyId = self.parentComments[indexPath.section].replyId
+                    self.childComments[parentReplyId] = self.childReplies(parentReplyId: parentReplyId)
+                }
+                
+                self.applySnapShot(data: self.parentComments)
             }
         }
         
@@ -349,15 +386,18 @@ final class CommentViewController: BaseViewController {
         }
     }
     
+    // MARK: -- Diffable DataSource apply 메서드
     private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, ChildReplyInfo>()
             
         for idx in 0..<data.count {
             snapshot.appendSections([idx])
             
-            // 숨김 상태일 경우, 아이템 추가하지 않음
-            if !isRepliesHidden[idx] {
-                guard let comment = self.childComments[idx] else { return }
+            /// 숨김 상태일 경우, 아이템 추가하지 않음
+            if let isRepliesHidden = isRepliesHidden[data[idx].replyId],
+                !isRepliesHidden
+            {
+                guard let comment = self.childComments[data[idx].replyId] else { return }
                 snapshot.appendItems(comment, toSection: idx)
             }
         }
@@ -386,9 +426,7 @@ final class CommentViewController: BaseViewController {
         inputContentView].forEach {
             self.view.addSubview($0)
         }
-        
-        // setup UI
-        
+                
         replyTextField.layer.cornerRadius = 15
         replyTextField.clipsToBounds = true
     }
@@ -451,9 +489,9 @@ final class CommentViewController: BaseViewController {
     }
 }
 
+// MARK: -- 댓글 목록 서버 통신
 extension CommentViewController {
-    // MARK: -- 댓글 목록 서버 통신
-    private func fetchComment(pageNum: Int, snapId: Int) {
+    private func fetchComment(pageNum: Int, snapId: Int, completion: @escaping () -> Void) {
         APIService.fetchParentReply(
             pageNum: pageNum,
             snapId: snapId
@@ -462,8 +500,7 @@ extension CommentViewController {
             case .success(let result):
                 DispatchQueue.main.async {
                     self.parentComments = result.result.parentReplyInfoResDtos
-                    self.fetchChildComments()
-                    self.isRepliesHidden = Array(repeating: true, count: self.parentComments.count)
+                    completion()
                     self.applySnapShot(data: self.parentComments)
                 }
             case .failure(let error):
@@ -472,13 +509,6 @@ extension CommentViewController {
         }
     }
 
-    private func fetchChildComments() {
-        self.childComments = self.parentComments.map { reply in
-            return self.childReplies(parentReplyId: reply.replyId)
-        }
-        print("fetchChildComments")
-        print(self.childComments)
-    }
     
     private func childReplies(parentReplyId: Int) -> [ChildReplyInfo]? {
         let semaphore = DispatchSemaphore(value: 0)

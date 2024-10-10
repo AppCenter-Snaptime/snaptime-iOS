@@ -32,7 +32,8 @@ final class CommentCollectionViewCell: UICollectionViewCell {
                 writerUserName: "",
                 content: "",
                 replyId: 0,
-                timeAgo: ""
+                timeAgo: "",
+                childReplyCnt: 0
             )
         )
         
@@ -41,7 +42,6 @@ final class CommentCollectionViewCell: UICollectionViewCell {
     
     func setupUI(comment: ChildReplyInfo) {
         self.commentView.setupUI(comment: comment)
-        self.commentView.action = action
     }
     
     private func setLayout() {
