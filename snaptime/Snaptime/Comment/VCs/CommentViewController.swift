@@ -144,14 +144,13 @@ final class CommentViewController: BaseViewController {
                         case .success(let success):
                             self.fetchComment(pageNum: 1, snapId: self.snapID) {
                                 self.parentComments.forEach {
-                                    print($0.replyId)
                                     self.childComments[$0.replyId] = nil
                                 }
                                                                 
-                                guard let lastElement = self.parentComments.popLast() else { return }
-                                self.isRepliesHidden[lastElement.replyId] = true
+                                self.isRepliesHidden[self.parentComments[self.parentComments.count-1].replyId] = true
                                 self.applySnapShot(data: self.parentComments)
                             }
+                            
                             self.replyTextField.text = ""
                             
                         case .failure(let failure):
@@ -299,6 +298,12 @@ final class CommentViewController: BaseViewController {
             ) in
             
             cell.setupUI(comment: item)
+            cell.commentView.addReplyButtonAction = {
+                self.selectedCommentInfo = self.parentComments[indexPath.section]
+                self.replyType = .child
+                self.replyTextField.text = "@\(self.selectedCommentInfo?.writerUserName ?? "") "
+                self.replyTextField.becomeFirstResponder()
+            }
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, ChildReplyInfo>(
@@ -384,7 +389,6 @@ final class CommentViewController: BaseViewController {
     // MARK: -- Diffable DataSource apply 메서드
     private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, ChildReplyInfo>()
-        print("apply -----------------\n",data)
             
         for idx in 0..<data.count {
             snapshot.appendSections([idx])
