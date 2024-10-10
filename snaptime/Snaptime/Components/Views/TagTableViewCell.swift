@@ -19,7 +19,7 @@ final class TagTableViewCell: UITableViewCell {
         fatalError()
     }
     
-    private lazy var profileImage: RoundImageView = {
+    private lazy var profileImageView: RoundImageView = {
         let imageView = RoundImageView()
         imageView.backgroundColor = .snaptimeGray
         
@@ -36,25 +36,27 @@ final class TagTableViewCell: UITableViewCell {
     
     func configData(tagInfo: FindTagUserResDto) {
         userNameLabel.text = tagInfo.tagUserName
+        APIService.loadImage(data: tagInfo.tagUserProfileUrl, imageView: profileImageView)
     }
     
     private func setupLayouts() {
-        [profileImage, userNameLabel].forEach {
+        [profileImageView,
+         userNameLabel].forEach {
             addSubview($0)
         }
     }
     
     private func setupConstraints() {
-        profileImage.snp.makeConstraints {
+        profileImageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(15)
             $0.left.equalToSuperview().offset(25)
-            $0.width.equalTo(profileImage.snp.height)
+            $0.width.equalTo(profileImageView.snp.height)
             $0.height.equalTo(40)
         }
         
         userNameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(profileImage.snp.centerY)
-            $0.left.equalTo(profileImage.snp.right).offset(15)
+            $0.centerY.equalTo(profileImageView.snp.centerY)
+            $0.left.equalTo(profileImageView.snp.right).offset(15)
         }
     }
 }

@@ -48,7 +48,13 @@ extension ProfileCoordinator: ProfileViewControllerDelegate,
         navigationController.popViewController(animated: true)
         guard let addSnapVC = navigationController.topViewController as? AddSnapViewController else { return }
         addSnapVC.addTagList(tagList: tagList
-            .map { return FindTagUserResDto(tagUserEmail: $0.foundEmail, tagUserName: $0.foundUserName) })
+            .map { return FindTagUserResDto(
+                tagUserEmail: $0.foundEmail,
+                tagUserName: $0.foundUserName,
+                tagUserProfileUrl: $0.profilePhotoURL,
+                isFollow: $0.isMyFriend
+            )
+            })
     }
     
     func presentAddSnap() {
