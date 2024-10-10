@@ -50,8 +50,9 @@ enum APIService {
     case postFollow(email: String)
     case deleteFollowing(email: String)
     
-    case postReply
-    case getChildReply(pageNum: Int, parentReplyId: Int)
+    case postParentReply
+    case postChildReply
+    case fetchChildReply(pageNum: Int, parentReplyId: Int)
     case fetchParentReply(pageNum: Int, snapId: Int)
     
     case fetchImageFromQR(brand: FourCutBrand, url: String)
@@ -145,10 +146,13 @@ extension APIService {
         case .deleteFollowing(let email):
             "/friends?deletedUserEmail=\(email)"
             
-        case .postReply:
+        case .postParentReply:
             "/parent-replies"
             
-        case .getChildReply(let pageNum, let parentReplyId):
+        case .postChildReply:
+            "/child-replies"
+            
+        case .fetchChildReply(let pageNum, let parentReplyId):
             "/child-replies/\(pageNum)?parentReplyId=\(parentReplyId)"
             
         case .fetchParentReply(let pageNum, let snapId):
@@ -172,7 +176,7 @@ extension APIService {
             .fetchSnapPreview,
             .fetchAlbumList,
             .fetchFollow,
-            .getChildReply,
+            .fetchChildReply,
             .fetchParentReply,
             .fetchImageFromQR,
             .fetchAlarms,
@@ -182,7 +186,8 @@ extension APIService {
         case .modifyUserInfo:
                 .patch
             
-        case .postReply,
+        case .postParentReply,
+            .postChildReply,
             .postFollow,
             .postAlbum,
             .postSignIn,

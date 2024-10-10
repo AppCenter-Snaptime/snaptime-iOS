@@ -8,6 +8,6 @@
 import Foundation
 
 struct FindChildReplyResDto: Codable {
-    let childReplyInfoList: [ChildReplyInfo]
+    let childReplyInfoResDtos: [ChildReplyInfo]
     let hasNextPage: Bool
 }
