@@ -351,7 +351,6 @@ final class CommentViewController: BaseViewController {
     
     private func applySnapShot(data: [ParentReplyInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, ChildReplyInfo>()
-        var identifierOffset = 0 // 아이템의 identifier
             
         for idx in 0..<data.count {
             snapshot.appendSections([idx])
