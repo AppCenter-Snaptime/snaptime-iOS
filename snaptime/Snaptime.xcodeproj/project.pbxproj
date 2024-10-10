@@ -58,6 +58,7 @@
 		2970902B2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */; };
 		297BA2BE2CA13C1D006CE73C /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA2BD2CA13C1D006CE73C /* TagViewController.swift */; };
 		297BA2C02CA13E26006CE73C /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA2BF2CA13E26006CE73C /* TagTableViewCell.swift */; };
+		2981463E2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2981463D2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift */; };
 		29839F392C4E425C001A57E5 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F382C4E425C001A57E5 /* KeyChain.swift */; };
 		29839F3B2C4E4293001A57E5 /* SignInReqDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */; };
 		29839F3D2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */; };
@@ -185,6 +186,7 @@
 		2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindFriendResDto.swift; sourceTree = "<group>"; };
 		297BA2BD2CA13C1D006CE73C /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		297BA2BF2CA13E26006CE73C /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
+		2981463D2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoSnapLikeResDto.swift; sourceTree = "<group>"; };
 		29839F382C4E425C001A57E5 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		29839F3A2C4E4293001A57E5 /* SignInReqDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInReqDto.swift; sourceTree = "<group>"; };
 		29839F3C2C4E42A6001A57E5 /* CommonResponseDtoSignInResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoSignInResDto.swift; sourceTree = "<group>"; };
@@ -332,12 +334,13 @@
 		292977762B6618FA00FDC799 /* Snaptime */ = {
 			isa = PBXGroup;
 			children = (
-				2928AE682C92D22B004ACB67 /* Notification */,
+				2981463C2CB76B4000783B56 /* Data */,
 				2932DB102C538CBA00CAECBC /* Network */,
 				294FF9F02B6CA00200EDD005 /* Coordinator */,
 				29FF6B8C2C1F057300CD5DCD /* Model */,
 				A69A81BD2B877719006BAEB2 /* Components */,
 				290585532B71FE8600B80F68 /* Extension */,
+				2928AE682C92D22B004ACB67 /* Notification */,
 				298F7F592B6BA30F00A8DBC5 /* Auth */,
 				298F7F582B6BA30700A8DBC5 /* Community */,
 				A66C41322BBC40DC00AC4284 /* Comment */,
@@ -381,7 +384,6 @@
 				294FF9F72B6CA12B00EDD005 /* CommunityCoordinator.swift */,
 				294FF9FB2B6CB1A700EDD005 /* NotificationCoordinator.swift */,
 				294FF9F92B6CA13C00EDD005 /* ProfileCoordinator.swift */,
-				294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -426,6 +428,18 @@
 				297BA2BF2CA13E26006CE73C /* TagTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2981463C2CB76B4000783B56 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				29839F382C4E425C001A57E5 /* KeyChain.swift */,
+				298958AA2C859DD8002D94CC /* FourCutBrand.swift */,
+				294B12BB2B7C850B00D19E60 /* TabBarItemType.swift */,
+				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
+				29AA37B42BF242A4009EF296 /* ProfileBasicUserDefaults.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		298F7F562B6BA2FC00A8DBC5 /* Home */ = {
@@ -546,9 +560,7 @@
 				A68185052C3573B000ECBDE3 /* FindParentReplyResDto.swift */,
 				2920B7A32C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift */,
 				29EC04E72C369B5B00181AF9 /* CommonResponseDtoListFindParentReplyResDto.swift */,
-				29AA37B22BF23D81009EF296 /* UserProfileManager.swift */,
 				29AA38062BF261E5009EF296 /* ProfileCntResDto.swift */,
-				29AA37B42BF242A4009EF296 /* ProfileBasicUserDefaults.swift */,
 				A62FE22A2BE24CD600BACF77 /* Album.swift */,
 				A68184FB2C0477C800ECBDE3 /* FindAlbumResDto.swift */,
 				2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */,
@@ -575,9 +587,9 @@
 				2962F16A2C60DBAF009C7C8B /* SignUpReqDto.swift */,
 				294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */,
 				294820482C69E90900229D65 /* CommonMsgRes.swift */,
-				298958AA2C859DD8002D94CC /* FourCutBrand.swift */,
 				2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */,
 				2985D9A52CAC07180061E1D9 /* ChildReplyAddReqDto.swift */,
+				2981463D2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -657,7 +669,6 @@
 			children = (
 				297090272C37FF0F004A151B /* Views */,
 				297090262C37FF02004A151B /* VCs */,
-				29839F382C4E425C001A57E5 /* KeyChain.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -852,6 +863,7 @@
 				A69A81BF2B8777A8006BAEB2 /* RecommendSectionView.swift in Sources */,
 				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */,
+				2981463E2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift in Sources */,
 				29176FB22C412C6100CD9A24 /* UserProfileResDto.swift in Sources */,
 				294FF9FC2B6CB1A700EDD005 /* NotificationCoordinator.swift in Sources */,
 				296167AA2BBBC7A7003CA89C /* SnapPreviewViewController.swift in Sources */,
