@@ -183,8 +183,11 @@ extension HomeCoordinator:
                                 tagList
             .map { return FindTagUserResDto(
                 tagUserEmail: $0.foundEmail,
-                tagUserName: $0.foundUserName
-            )}
+                tagUserName: $0.foundUserName,
+                tagUserProfileUrl: $0.profilePhotoURL,
+                isFollow: $0.isMyFriend
+            )
+            }
         )
     }
 }

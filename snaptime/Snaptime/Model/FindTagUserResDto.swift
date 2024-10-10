@@ -10,4 +10,6 @@ import Foundation
 struct FindTagUserResDto: Codable {
     let tagUserEmail: String
     let tagUserName: String
+    let tagUserProfileUrl: String
+    let isFollow: Bool
 }
