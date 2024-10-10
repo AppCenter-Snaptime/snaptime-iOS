@@ -32,7 +32,8 @@ final class CommentCollectionViewCell: UICollectionViewCell {
                 writerUserName: "",
                 content: "",
                 replyId: 0,
-                timeAgo: ""
+                timeAgo: "",
+                childReplyCnt: 0
             )
         )
         

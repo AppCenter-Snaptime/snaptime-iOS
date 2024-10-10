@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct ParentReplyInfo: Codable {
+struct ParentReplyInfo: Codable, Hashable {
     let writerEmail: String
     let writerProfilePhotoURL: String
     let writerUserName: String
     let content: String
     let replyId: Int
     let timeAgo: String
+    let childReplyCnt: Int
 }

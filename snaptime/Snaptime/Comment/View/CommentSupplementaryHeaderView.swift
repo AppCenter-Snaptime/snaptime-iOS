@@ -35,7 +35,8 @@ final class CommentSupplementaryHeaderView: UICollectionReusableView {
                 writerUserName: "",
                 content: "",
                 replyId: 0,
-                timeAgo: ""
+                timeAgo: "",
+                childReplyCnt: 0
             )
         )
         

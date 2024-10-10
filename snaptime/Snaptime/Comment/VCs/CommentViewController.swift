@@ -22,6 +22,8 @@ final class CommentViewController: BaseViewController {
     private var childComments: [[ChildReplyInfo]?] = []
     private var isRepliesHidden: [Bool] = []
     
+//    private var dic: [ParentReplyInfo:[ChildReplyInfo]?] = [:]
+    
     private var selectedCommentInfo: ParentReplyInfo?
     private var replyType: ReplyType = .parent
     
@@ -146,7 +148,6 @@ final class CommentViewController: BaseViewController {
                 }
                 
                 let param = ChildReplyAddReqDto(replyMessage: comment, parentReplyId: commentInfo.replyId, tagEmail: "")
-                print(param)
                 
                 APIService.postChildReply.performRequest(
                     with: param,
@@ -155,7 +156,6 @@ final class CommentViewController: BaseViewController {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let success):
-                            self.fetchComment(pageNum: 1, snapId: self.snapID)
                             self.replyTextField.text = ""
                             self.replyType = .parent
                             
@@ -208,8 +208,8 @@ final class CommentViewController: BaseViewController {
             ) -> NSCollectionLayoutSection? in
                 
                 // child 댓글이 숨겨져 있는지 여부에 따라 높이 설정
-                let itemHeight: NSCollectionLayoutDimension = self.isRepliesHidden[sectionIndex] ? .estimated(0) : .estimated(40)
-                
+                let itemHeight: NSCollectionLayoutDimension = self.parentComments[sectionIndex].childReplyCnt <= 0 ? .estimated(0) : .estimated(40)
+
                 /*
                 
                  원 댓글 : Header
@@ -226,7 +226,7 @@ final class CommentViewController: BaseViewController {
                     )
                 )
                 
-                // 대댓글 item의 그룹
+                /// 대댓글 item의 그룹
                 let containerGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
@@ -234,10 +234,10 @@ final class CommentViewController: BaseViewController {
                     subitems: [item])
                 containerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 0)
                 
-                // 그룹을 section에 추가
+                /// 그룹을 section에 추가
                 let section = NSCollectionLayoutSection(group: containerGroup)
                 
-                // Header 설정
+                /// Header 설정
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1.0),
@@ -247,9 +247,9 @@ final class CommentViewController: BaseViewController {
                     alignment: .top
                 )
                 section.boundarySupplementaryItems.append(sectionHeader)
-                
-                // Footer 설정 (child 댓글이 있는 경우만 추가)
-                if let childComments = self.childComments[sectionIndex], !childComments.isEmpty {
+
+                /// childReplyCnt > 0인 경우(대댓글이 존재하는 경우)에만 footer 보여주기
+                if self.parentComments[sectionIndex].childReplyCnt > 0 {
                     let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
                         layoutSize: NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(1.0),
@@ -325,17 +325,18 @@ final class CommentViewController: BaseViewController {
             supplementaryView,
             elementKind,
             indexPath in
-            // footer 세팅
-            if self.childComments[indexPath.section] != nil {
+
+            if self.parentComments[indexPath.section].childReplyCnt > 0 {
                 supplementaryView.changeButtonIsHidden()
                 supplementaryView.setupHideButton(isHidden: self.isRepliesHidden[indexPath.section])
             }
             
-                // 답글 가리기/보이기 버튼의 액션 설정
+            // 답글 가리기/보이기 버튼의 액션 설정
             supplementaryView.action = {
                 self.isRepliesHidden[indexPath.section].toggle() // 숨김 상태 변경
                 supplementaryView.setupHideButton(isHidden: self.isRepliesHidden[indexPath.section])
                 
+                self.childComments[indexPath.section] = self.childReplies(parentReplyId: self.parentComments[indexPath.section].replyId)
                 self.applySnapShot(data: self.parentComments) // 스냅샷 업데이트
             }
         }
@@ -386,9 +387,7 @@ final class CommentViewController: BaseViewController {
         inputContentView].forEach {
             self.view.addSubview($0)
         }
-        
-        // setup UI
-        
+                
         replyTextField.layer.cornerRadius = 15
         replyTextField.clipsToBounds = true
     }
@@ -462,7 +461,7 @@ extension CommentViewController {
             case .success(let result):
                 DispatchQueue.main.async {
                     self.parentComments = result.result.parentReplyInfoResDtos
-                    self.fetchChildComments()
+                    self.childComments = Array(repeating: nil, count: self.parentComments.count)
                     self.isRepliesHidden = Array(repeating: true, count: self.parentComments.count)
                     self.applySnapShot(data: self.parentComments)
                 }
@@ -476,8 +475,6 @@ extension CommentViewController {
         self.childComments = self.parentComments.map { reply in
             return self.childReplies(parentReplyId: reply.replyId)
         }
-        print("fetchChildComments")
-        print(self.childComments)
     }
     
     private func childReplies(parentReplyId: Int) -> [ChildReplyInfo]? {
