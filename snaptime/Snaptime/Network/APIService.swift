@@ -285,7 +285,7 @@ extension APIService {
                     if let data = response.data {
                         do {
                             // CommonMsgRes로 디코딩 시도
-                            let errorResponse = try JSONDecoder().decode(CommonMsgRes.self, from: data)
+                            let errorResponse = try JSONDecoder().decode(CommonResDtoVoid.self, from: data)
                             let errorMessage = errorResponse.msg
                             let error = NSError(domain: "Bad Request",
                                                 code: statusCode,

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct CommonMsgRes: Codable {
-    let msg: String
-}
+//struct CommonMsgRes: Codable {
+//    let msg: String
+//}

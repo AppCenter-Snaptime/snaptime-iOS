@@ -105,12 +105,11 @@ final class SnapCollectionViewCell: UICollectionViewCell {
                   let snap = self.snap else { return }
             self.isLikeSnap.toggle()
             APIService.postLikeToggle(snapId: snap.snapId).performRequest(
-                responseType: CommonResDtoVoid.self
+                responseType: CommonResponseDtoSnapLikeResDto.self
             ) { result in
-                
                 switch result {
-                case .success(_):
-                    print("좋아요 Toggle Success")
+                case .success(let like):
+                    self.likeButtonCountLabel.text = String(like.result.likeCnt)
                 case .failure(let error):
                     print(error)
                 }
