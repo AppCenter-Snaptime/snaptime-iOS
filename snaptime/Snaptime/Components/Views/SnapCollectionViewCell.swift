@@ -19,6 +19,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     weak var delegate: SnapCollectionViewCellDelegate?
     var profileTapAction: (()->())?
     var tagButtonTapAction: (()->())?
+    var shareButtonTapAction: (()->())?
     private var snap: FindSnapResDto?
     
     override init(frame: CGRect) {
@@ -127,7 +128,91 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var shareButton = IconButton(
         name: "square.and.arrow.up",
         size: 15,
-        action: UIAction { [weak self] _ in })
+        action: UIAction { [weak self] _ in
+            guard let backgroundImage = self?.photoImageView.image else { return }
+            let blurredImage = self?.applyBlurToImage(image: backgroundImage)
+
+            self?.shareToInstagram(background: blurredImage, sticker: self?.instagramShareImage())
+        }
+    )
+
+    private func applyBlurToImage(image: UIImage) -> UIImage? {
+        // UIImage를 CIImage로 변환
+        guard let ciImage = CIImage(image: image) else { return nil }
+
+        // 블러 필터 생성
+        let blurFilter = CIFilter(name: "CIGaussianBlur")
+        blurFilter?.setValue(ciImage, forKey: kCIInputImageKey)
+        blurFilter?.setValue(25.0, forKey: kCIInputRadiusKey) // 블러 정도 설정
+
+        // 필터가 적용된 이미지 추출
+        guard let outputCIImage = blurFilter?.outputImage else { return nil }
+
+        // CIContext를 사용해 최종 UIImage로 변환
+        let context = CIContext()
+        if let cgImage = context.createCGImage(outputCIImage, from: ciImage.extent) {
+            return UIImage(cgImage: cgImage)
+        }
+        
+        return nil
+    }
+
+    private func instagramShareImage() -> UIImage {
+        self.likeButtonCountLabel.isHidden = true
+        self.shareButton.isHidden = true
+        self.commentCheckButton.isHidden = true
+
+        let renderer = UIGraphicsImageRenderer(size: self.bounds.size)
+
+        let renderImage = renderer.image { _ in
+            let roundedPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 15)
+            roundedPath.addClip()
+
+            self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        }
+        
+        self.likeButtonCountLabel.isHidden = false
+        self.shareButton.isHidden = false
+        self.commentCheckButton.isHidden = false
+            
+        return renderImage
+    }
+    
+    private func shareToInstagram(background: UIImage?, sticker: UIImage?) {
+        if
+          let background, let sticker,
+          let imageData = background.pngData(),
+          let stickerData = sticker.pngData() {
+            let key = Bundle.main.infoDictionary?["InstagramKey"] as! String
+            
+          self.backgroundImage(
+            backgroundImage: imageData,
+            stickerImage: stickerData,
+            appID: "instagram-stories://share?source_application=\(key)"
+          )
+        }
+      }
+
+    private func backgroundImage(backgroundImage: Data, stickerImage: Data, appID: String) {
+        if let url = URL(string: appID) {
+          if UIApplication.shared.canOpenURL(url) {
+            let pasteboardItems = [
+              [
+                "com.instagram.sharedSticker.backgroundImage": backgroundImage,
+                "com.instagram.sharedSticker.stickerImage": stickerImage
+              ]
+            ]
+
+            let pasteboardOptions: [UIPasteboard.OptionsKey: Any] = [
+              .expirationDate: Date(timeIntervalSinceNow: 60 * 5)
+            ]
+            UIPasteboard.general.setItems(pasteboardItems, options: pasteboardOptions)
+            UIApplication.shared.open(url, options: [:])
+          } else {
+            // Error Handling
+          }
+        }
+      }
     
     private lazy var oneLineJournalLabel: UILabel = {
         let label = UILabel()
@@ -228,7 +313,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
          likeButtonCountLabel,
          shareButton,
          oneLineJournalLabel,
-         plusOneLineJournalButton,
+//         plusOneLineJournalButton,
          commentCheckButton,
          postDateLabel].forEach {
             self.contentView.addSubview($0)
@@ -266,10 +351,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         photoImageView.snp.makeConstraints {
             let width = UIScreen.main.bounds.width
             
-            $0.top.equalTo(editButton.snp.bottom).offset(20)
+            $0.top.equalTo(editButton.snp.bottom).offset(15)
             $0.width.equalTo(width-80)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(photoImageView.snp.width).multipliedBy(1.33) // 4:3 비율로 설정
+            $0.height.equalTo(photoImageView.snp.width).multipliedBy(1.489) // 4:3 비율로 설정
         }
         
         commentButton.snp.makeConstraints {
@@ -301,13 +386,13 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             $0.left.right.equalTo(photoImageView)
         }
         
-        plusOneLineJournalButton.snp.makeConstraints {
-            $0.top.equalTo(oneLineJournalLabel.snp.bottom)
-            $0.left.equalTo(oneLineJournalLabel.snp.left)
-        }
+//        plusOneLineJournalButton.snp.makeConstraints {
+//            $0.top.equalTo(oneLineJournalLabel.snp.bottom)
+//            $0.left.equalTo(oneLineJournalLabel.snp.left)
+//        }
         
         commentCheckButton.snp.makeConstraints {
-            $0.top.equalTo(plusOneLineJournalButton.snp.bottom).offset(15)
+            $0.top.equalTo(oneLineJournalLabel.snp.bottom).offset(15)
             $0.left.equalTo(photoImageView.snp.left)
             $0.height.equalTo(postDateLabel)
         }

@@ -46,7 +46,7 @@ final class EditProfileViewController: BaseViewController {
         
     private lazy var editProfileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .snaptimeBlue
+        imageView.backgroundColor = .lightGray
 
         return imageView
     }()
