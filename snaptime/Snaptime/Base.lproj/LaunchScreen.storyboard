@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,16 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="YqZ-iw-bAc">
-                                <rect key="frame" x="20" y="209" width="353" height="569"/>
+                                <rect key="frame" x="100" y="309" width="193" height="289"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.64313725490196072" green="0.80784313725490198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YqZ-iw-bAc" secondAttribute="bottom" constant="40" id="X3w-Ct-tkU"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YqZ-iw-bAc" secondAttribute="trailing" constant="20" id="lT9-yw-rp7"/>
-                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sdA-jX-RQC"/>
-                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="ymr-dd-QW3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YqZ-iw-bAc" secondAttribute="trailing" constant="100" id="1hZ-L5-2Y2"/>
+                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="1oz-ac-QHY"/>
+                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="SeY-gN-WcY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YqZ-iw-bAc" secondAttribute="bottom" constant="220" id="fRn-6g-S8d"/>
                         </constraints>
                     </view>
                 </viewController>

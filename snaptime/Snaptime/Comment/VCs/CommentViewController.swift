@@ -26,6 +26,10 @@ final class CommentViewController: BaseViewController {
     private var selectedCommentInfo: ParentReplyInfo?
     private var replyType: ReplyType = .parent
     
+    private var hasNextPage: Bool = false
+    private var pageNum: Int = 1
+    private var isInfiniteScroll: Bool = true
+    
     private enum ReplyType {
         case parent
         case child
@@ -48,8 +52,7 @@ final class CommentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupDataSource()
-        self.fetchComment(pageNum: 1, snapId: self.snapID) {
-            print(self.parentComments)
+        self.fetchComment(pageNum: pageNum, snapId: self.snapID) {
             self.parentComments.forEach {
                 self.childComments[$0.replyId] = nil
                 self.isRepliesHidden[$0.replyId] = true
@@ -63,11 +66,14 @@ final class CommentViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
         
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -101,6 +107,7 @@ final class CommentViewController: BaseViewController {
     private lazy var commentCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.delegate = self
         return collectionView
     }()
     
@@ -142,7 +149,7 @@ final class CommentViewController: BaseViewController {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let success):
-                            self.fetchComment(pageNum: 1, snapId: self.snapID) {
+                            self.fetchComment(pageNum: self.pageNum, snapId: self.snapID) {
                                 self.parentComments.forEach {
                                     self.childComments[$0.replyId] = nil
                                 }
@@ -175,8 +182,8 @@ final class CommentViewController: BaseViewController {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let success):
-                            self.fetchComment(pageNum: 1, snapId: self.snapID) {}
-                            self.childComments[commentInfo.replyId] = self.childReplies(parentReplyId: commentInfo.replyId)
+                            self.fetchComment(pageNum: self.pageNum, snapId: self.snapID) {}
+                            self.childComments[commentInfo.replyId] = self.childReplies(parentReplyId: commentInfo.replyId, pageNum: 1)
                             self.isRepliesHidden[commentInfo.replyId] = false
                             self.applySnapShot(data: self.parentComments)
                             self.replyTextField.text = ""
@@ -370,7 +377,7 @@ final class CommentViewController: BaseViewController {
                 
                 if !isRepliesHidden {
                     let parentReplyId = self.parentComments[indexPath.section].replyId
-                    self.childComments[parentReplyId] = self.childReplies(parentReplyId: parentReplyId)
+                    self.childComments[parentReplyId] = self.childReplies(parentReplyId: parentReplyId,pageNum: 1)
                 }
                 
                 self.applySnapShot(data: self.parentComments)
@@ -408,6 +415,8 @@ final class CommentViewController: BaseViewController {
 
     // MARK: -- Setup UI
     override func setupLayouts() {
+        super.setupLayouts()
+        
         [replyImageView,
         replyTextField,
         replySubmitButton].forEach {
@@ -432,6 +441,8 @@ final class CommentViewController: BaseViewController {
     }
     
     override func setupConstraints() {
+        super.setupConstraints()
+        
         titleLabel.snp.makeConstraints {
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(30)
@@ -499,9 +510,19 @@ extension CommentViewController {
             switch result {
             case .success(let result):
                 DispatchQueue.main.async {
-                    self.parentComments = result.result.parentReplyInfoResDtos
+                    if pageNum == 1 {
+                        self.parentComments = result.result.parentReplyInfoResDtos
+                    }
+                    else {
+                        self.parentComments.append(contentsOf: result.result.parentReplyInfoResDtos)
+                    }
                     completion()
                     self.applySnapShot(data: self.parentComments)
+                    self.hasNextPage = result.result.hasNextPage
+                    
+                    if self.hasNextPage {
+                        self.pageNum += 1
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -510,13 +531,13 @@ extension CommentViewController {
     }
 
     
-    private func childReplies(parentReplyId: Int) -> [ChildReplyInfo]? {
+    private func childReplies(parentReplyId: Int, pageNum: Int) -> [ChildReplyInfo]? {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue.global(qos: .userInteractive)
         var childInfo: [ChildReplyInfo]? = nil
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return nil }
 
-        let url = "http://na2ru2.me:6308/child-replies/1?parentReplyId=\(parentReplyId)"
+        let url = "http://na2ru2.me:6308/child-replies/\(pageNum)?parentReplyId=\(parentReplyId)"
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "accept": "*/*"
@@ -551,6 +572,22 @@ extension CommentViewController {
                     APIService.loadImageNonToken(data: userProfile.result.profileURL, imageView: self.replyImageView)
                 case .failure(let error):
                     print(error)
+                }
+            }
+        }
+    }
+}
+
+extension CommentViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    /// 남은 content size 의 높이보다 스크롤을 많이 했다. 즉, 다음 컨텐츠가 필요한 경우.
+        if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height {
+            print("들어옴")
+            if isInfiniteScroll && hasNextPage {
+                isInfiniteScroll = false
+                
+                fetchComment(pageNum: pageNum, snapId: snapID) {
+                    self.isInfiniteScroll = true
                 }
             }
         }

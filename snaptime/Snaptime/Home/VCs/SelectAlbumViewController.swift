@@ -27,7 +27,7 @@ final class SelectAlbumViewController: BaseViewController {
         layout.minimumLineSpacing = 30
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 20, right: 20)
-        
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(AlbumSelectCollectionViewCell.self, forCellWithReuseIdentifier: AlbumSelectCollectionViewCell.identifier)
@@ -148,7 +148,6 @@ final class SelectAlbumViewController: BaseViewController {
                 selectAlbums.append(self.albumData[i])
             }
         }
-        print(selectAlbums)
         guard selectAlbums.count == 1 else {
             print("앨범 1개 선택되지 않음")
             return
@@ -157,7 +156,9 @@ final class SelectAlbumViewController: BaseViewController {
         guard let snap = self.snap,
               let albumId = selectAlbums.first?.id else { return }
         
-        APIService.moveSnap(snapId: snap.snapId, albumId: albumId).performRequest(responseType: CommonResDtoVoid.self) { result in
+        APIService.moveSnap(snapId: snap.snapId, albumId: albumId).performRequest(
+            responseType: CommonResDtoVoid.self
+        ) { result in
             switch result {
             case .success:
                 print("앨범 이동 성공!")
@@ -171,10 +172,8 @@ final class SelectAlbumViewController: BaseViewController {
     // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
-        [
-            mainAlbumCollectionView,
-            processButton
-        ].forEach {
+        [mainAlbumCollectionView,
+            processButton].forEach {
             view.addSubview($0)
         }
         
@@ -191,10 +190,8 @@ final class SelectAlbumViewController: BaseViewController {
         }
         
         mainAlbumCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
-            $0.left.right.equalTo(processButton)
+            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(processButton.snp.top).offset(-10)
-//            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -216,7 +213,6 @@ extension SelectAlbumViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select row")
         self.albumChecked[indexPath.row].toggle()
         self.mainAlbumCollectionView.reloadData()
     }
