@@ -183,7 +183,7 @@ final class CommentViewController: BaseViewController {
                         switch result {
                         case .success(let success):
                             self.fetchComment(pageNum: self.pageNum, snapId: self.snapID) {}
-                            self.childComments[commentInfo.replyId] = self.childReplies(parentReplyId: commentInfo.replyId)
+                            self.childComments[commentInfo.replyId] = self.childReplies(parentReplyId: commentInfo.replyId, pageNum: 1)
                             self.isRepliesHidden[commentInfo.replyId] = false
                             self.applySnapShot(data: self.parentComments)
                             self.replyTextField.text = ""
@@ -377,7 +377,7 @@ final class CommentViewController: BaseViewController {
                 
                 if !isRepliesHidden {
                     let parentReplyId = self.parentComments[indexPath.section].replyId
-                    self.childComments[parentReplyId] = self.childReplies(parentReplyId: parentReplyId)
+                    self.childComments[parentReplyId] = self.childReplies(parentReplyId: parentReplyId,pageNum: 1)
                 }
                 
                 self.applySnapShot(data: self.parentComments)
@@ -531,13 +531,13 @@ extension CommentViewController {
     }
 
     
-    private func childReplies(parentReplyId: Int) -> [ChildReplyInfo]? {
+    private func childReplies(parentReplyId: Int, pageNum: Int) -> [ChildReplyInfo]? {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue.global(qos: .userInteractive)
         var childInfo: [ChildReplyInfo]? = nil
         guard let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) else { return nil }
 
-        let url = "http://na2ru2.me:6308/child-replies/1?parentReplyId=\(parentReplyId)"
+        let url = "http://na2ru2.me:6308/child-replies/\(pageNum)?parentReplyId=\(parentReplyId)"
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "accept": "*/*"

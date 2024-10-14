@@ -324,7 +324,7 @@ extension APIService {
             imageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
                 switch result {
                 case .success(_):
-                    print("")
+                    break
                 case .failure(let error):
                     print("imageFetchError: \(error)")
                 }
