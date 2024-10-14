@@ -87,9 +87,8 @@ struct KeyChain {
                 let addStatus = SecItemAdd(query as CFDictionary, nil)
                 
                 if addStatus == errSecSuccess {
-                    if key == TokenType.accessToken.rawValue {
-                        print("AccessToken 저장 성공")
-                    } else {
+                    if key == TokenType.accessToken.rawValue {}
+                    else {
                         print("RefreshToken 저장 성공")
                     }
                     return true
@@ -136,9 +135,8 @@ struct KeyChain {
         if status == errSecSuccess, let tokenData = data as? Data,
            let token = String(data: tokenData, encoding: .utf8) {
             
-            if key == TokenType.accessToken.rawValue {
-                print("AccessToken 불러오기 성공")
-            } else {
+            if key == TokenType.accessToken.rawValue {}
+            else {
                 print("RefreshToken 불러오기 성공")
             }
             return token
