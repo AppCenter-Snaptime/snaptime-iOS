@@ -1,0 +1,11 @@
+//
+//  InstagramKey.xcconfig
+//  Snaptime
+//
+//  Created by Bowon Han on 10/14/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+InstagramKey = 1064284124931239

@@ -56,6 +56,7 @@
 		297090252C37DADD004A151B /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090242C37DADD004A151B /* FollowTableViewCell.swift */; };
 		297090292C38014A004A151B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297090282C38014A004A151B /* IconButton.swift */; };
 		2970902B2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */; };
+		297BA1C92CBD2A4500CA92AA /* InstagramKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 297BA1C82CBD2A4500CA92AA /* InstagramKey.xcconfig */; };
 		297BA2BE2CA13C1D006CE73C /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA2BD2CA13C1D006CE73C /* TagViewController.swift */; };
 		297BA2C02CA13E26006CE73C /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA2BF2CA13E26006CE73C /* TagTableViewCell.swift */; };
 		2981463E2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2981463D2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift */; };
@@ -184,6 +185,7 @@
 		297090242C37DADD004A151B /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		297090282C38014A004A151B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		2970902A2C380A71004A151B /* CommonResponseDtoListFindFriendResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindFriendResDto.swift; sourceTree = "<group>"; };
+		297BA1C82CBD2A4500CA92AA /* InstagramKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = InstagramKey.xcconfig; sourceTree = "<group>"; };
 		297BA2BD2CA13C1D006CE73C /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		297BA2BF2CA13E26006CE73C /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		2981463D2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoSnapLikeResDto.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				292977802B6618FB00FDC799 /* Assets.xcassets */,
 				292977822B6618FB00FDC799 /* LaunchScreen.storyboard */,
 				292977852B6618FB00FDC799 /* Info.plist */,
+				297BA1C82CBD2A4500CA92AA /* InstagramKey.xcconfig */,
 			);
 			path = Snaptime;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				292977842B6618FB00FDC799 /* LaunchScreen.storyboard in Resources */,
+				297BA1C92CBD2A4500CA92AA /* InstagramKey.xcconfig in Resources */,
 				292977812B6618FB00FDC799 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -932,6 +936,7 @@
 /* Begin XCBuildConfiguration section */
 		292977862B6618FB00FDC799 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 297BA1C82CBD2A4500CA92AA /* InstagramKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1127,7 +1132,7 @@
 				292977872B6618FB00FDC799 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		292977882B6618FB00FDC799 /* Build configuration list for PBXNativeTarget "Snaptime" */ = {
 			isa = XCConfigurationList;
@@ -1136,7 +1141,7 @@
 				2929778A2B6618FB00FDC799 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

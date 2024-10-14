@@ -12,9 +12,13 @@
 				<string>kakao07033862d1296e447a91638cdaf136d4</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
+	<key>InstagramKey</key>
+	<string>$(InstagramKey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>instagram-stories</string>
 		<string>kakaolink</string>
 		<string>kakaokompassauth</string>
 	</array>
