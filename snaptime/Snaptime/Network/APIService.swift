@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import Kingfisher
+import UIKit
 
 enum FetchError: Error {
     case invalidStatus
@@ -311,7 +312,7 @@ extension APIService {
     }
 
     // MARK: - 이미지 네트워킹 메서드
-    static func loadImage(data: String, imageView: UIImageView) {
+    @MainActor static func loadImage(data: String, imageView: UIImageView) {
         if let url = URL(string: data),
            let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue) {
             let modifier = AnyModifier { request in

@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,17 +17,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="YqZ-iw-bAc">
-                                <rect key="frame" x="100" y="309" width="193" height="289"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="WBd-Yu-vgj">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="splashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Txi-fQ-rg8">
+                                <rect key="frame" x="147" y="329" width="99" height="108"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appcenterLogo" translatesAutoresizingMaskIntoConstraints="NO" id="f1W-KO-odn">
+                                <rect key="frame" x="135" y="706" width="123" height="102"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.64313725490196072" green="0.80784313725490198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YqZ-iw-bAc" secondAttribute="trailing" constant="100" id="1hZ-L5-2Y2"/>
-                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="1oz-ac-QHY"/>
-                            <constraint firstItem="YqZ-iw-bAc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="SeY-gN-WcY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YqZ-iw-bAc" secondAttribute="bottom" constant="220" id="fRn-6g-S8d"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Txi-fQ-rg8" secondAttribute="trailing" constant="147" id="0uF-c7-0Si"/>
+                            <constraint firstAttribute="bottom" secondItem="WBd-Yu-vgj" secondAttribute="bottom" id="3oR-VB-8Mh"/>
+                            <constraint firstItem="Txi-fQ-rg8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="147" id="DQh-1b-0ux"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f1W-KO-odn" secondAttribute="trailing" constant="135" id="Fr2-vL-2VH"/>
+                            <constraint firstAttribute="trailing" secondItem="WBd-Yu-vgj" secondAttribute="trailing" id="fxG-Ik-VJe"/>
+                            <constraint firstItem="WBd-Yu-vgj" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gYr-nQ-b7R"/>
+                            <constraint firstItem="WBd-Yu-vgj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="myT-CN-ffS"/>
+                            <constraint firstItem="f1W-KO-odn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="135" id="pTx-BE-BjG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f1W-KO-odn" secondAttribute="bottom" constant="10" id="rwT-WU-QTu"/>
+                            <constraint firstItem="f1W-KO-odn" firstAttribute="top" secondItem="Txi-fQ-rg8" secondAttribute="bottom" constant="269" id="t6Z-LF-uvS"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,6 +50,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash" width="279" height="525"/>
+        <image name="appcenterLogo" width="369" height="102"/>
+        <image name="splash" width="1179" height="2556"/>
+        <image name="splashIcon" width="306" height="346"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

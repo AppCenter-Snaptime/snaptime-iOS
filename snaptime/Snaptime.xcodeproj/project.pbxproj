@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		290585552B71FE9600B80F68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290585542B71FE9600B80F68 /* UIColor+.swift */; };
+		2915D1342CE5AB20000E03BC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1332CE5AB20000E03BC /* Alamofire */; };
+		2915D1372CE5AB2B000E03BC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1362CE5AB2B000E03BC /* SnapKit */; };
+		2915D13A2CE5AB3F000E03BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1392CE5AB3F000E03BC /* Kingfisher */; };
+		2915D13D2CE5ABF0000E03BC /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D13C2CE5ABF0000E03BC /* KakaoSDK */; };
+		2915D13F2CE5ABF0000E03BC /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D13E2CE5ABF0000E03BC /* KakaoSDKAuth */; };
+		2915D1412CE5ABF0000E03BC /* KakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1402CE5ABF0000E03BC /* KakaoSDKCert */; };
+		2915D1432CE5ABF0000E03BC /* KakaoSDKCertCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1422CE5ABF0000E03BC /* KakaoSDKCertCore */; };
+		2915D1452CE5ABF0000E03BC /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 2915D1442CE5ABF0000E03BC /* KakaoSDKCommon */; };
 		29176FAC2C412BF700CD9A24 /* AlbumSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29176FAB2C412BF700CD9A24 /* AlbumSnapResDto.swift */; };
 		29176FAE2C412C3E00CD9A24 /* FindSnapResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29176FAD2C412C3E00CD9A24 /* FindSnapResDto.swift */; };
 		29176FB02C412C5000CD9A24 /* UserUpdateDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29176FAF2C412C5000CD9A24 /* UserUpdateDto.swift */; };
@@ -99,7 +107,6 @@
 		29F80C702B8657C8003614AB /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C6F2B8657C8003614AB /* TagListView.swift */; };
 		29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */; };
 		29F80C762B8767AC003614AB /* AlbumListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80C752B8767AC003614AB /* AlbumListCollectionViewCell.swift */; };
-		5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */; };
 		A62FE22B2BE24CD600BACF77 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FE22A2BE24CD600BACF77 /* Album.swift */; };
 		A652BD7A2B9AA5C500CA9F37 /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A652BD792B9AA5C500CA9F37 /* CGPoint+.swift */; };
 		A66C412C2BB5774200AC4284 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66C412B2BB5774200AC4284 /* NotificationCollectionViewCell.swift */; };
@@ -132,11 +139,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.release.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.release.xcconfig"; sourceTree = "<group>"; };
-		052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snaptime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snaptime.debug.xcconfig"; path = "Target Support Files/Pods-Snaptime/Pods-Snaptime.debug.xcconfig"; sourceTree = "<group>"; };
 		290585542B71FE9600B80F68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
-		290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
 		29176FAB2C412BF700CD9A24 /* AlbumSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSnapResDto.swift; sourceTree = "<group>"; };
 		29176FAD2C412C3E00CD9A24 /* FindSnapResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapResDto.swift; sourceTree = "<group>"; };
 		29176FAF2C412C5000CD9A24 /* UserUpdateDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateDto.swift; sourceTree = "<group>"; };
@@ -147,7 +150,7 @@
 		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		29257C5D2C5A526B00B2B0FB /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoAlarmFindAllResDto.swift; sourceTree = "<group>"; };
-		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaptime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		292977742B6618FA00FDC799 /* Snaptime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Snaptime.app; path = "/Users/bowonhan/Documents/snaptime-iOS/Snaptime/build/Debug-iphoneos/Snaptime.app"; sourceTree = "<absolute>"; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		292977792B6618FA00FDC799 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		292977802B6618FB00FDC799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -265,8 +268,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2915D1432CE5ABF0000E03BC /* KakaoSDKCertCore in Frameworks */,
+				2915D13A2CE5AB3F000E03BC /* Kingfisher in Frameworks */,
+				2915D13D2CE5ABF0000E03BC /* KakaoSDK in Frameworks */,
+				2915D1372CE5AB2B000E03BC /* SnapKit in Frameworks */,
+				2915D1452CE5ABF0000E03BC /* KakaoSDKCommon in Frameworks */,
 				0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */,
-				5B46AB0F930B41350A298C3E /* Pods_Snaptime.framework in Frameworks */,
+				2915D1342CE5AB20000E03BC /* Alamofire in Frameworks */,
+				2915D1412CE5ABF0000E03BC /* KakaoSDKCert in Frameworks */,
+				2915D13F2CE5ABF0000E03BC /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,19 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				292977762B6618FA00FDC799 /* Snaptime */,
-				292977752B6618FA00FDC799 /* Products */,
-				8FD129918791FC4EABDF2316 /* Pods */,
-				9B13FC2FC03DCACF64B6A2EF /* Frameworks */,
-				294F81422BB5666B001E68B3 /* Recovered References */,
 			);
-			sourceTree = "<group>";
-		};
-		292977752B6618FA00FDC799 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				292977742B6618FA00FDC799 /* Snaptime.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		292977762B6618FA00FDC799 /* Snaptime */ = {
@@ -367,14 +365,6 @@
 				294820442C674B8000229D65 /* LoadingService.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		294F81422BB5666B001E68B3 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				290FD03D2BAC2B6B00E74F6A /* NotificationCollectionViewCell.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		294FF9F02B6CA00200EDD005 /* Coordinator */ = {
@@ -597,23 +587,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		8FD129918791FC4EABDF2316 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */,
-				02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		9B13FC2FC03DCACF64B6A2EF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				052CC9F90658965E1C6CF6C0 /* Pods_Snaptime.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		A661F3F62BB157930093336A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,11 +665,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 292977882B6618FB00FDC799 /* Build configuration list for PBXNativeTarget "Snaptime" */;
 			buildPhases = (
-				3E4C3F4B82221E487297F98A /* [CP] Check Pods Manifest.lock */,
 				292977702B6618FA00FDC799 /* Sources */,
 				292977712B6618FA00FDC799 /* Frameworks */,
 				292977722B6618FA00FDC799 /* Resources */,
-				66A7F76951620B25F6092E1F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -731,7 +702,13 @@
 				Base,
 			);
 			mainGroup = 2929776B2B6618FA00FDC799;
-			productRefGroup = 292977752B6618FA00FDC799 /* Products */;
+			packageReferences = (
+				2915D1322CE5AB20000E03BC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2915D1352CE5AB2B000E03BC /* XCRemoteSwiftPackageReference "SnapKit" */,
+				2915D1382CE5AB3F000E03BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
+			productRefGroup = 2929776B2B6618FA00FDC799;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -752,48 +729,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3E4C3F4B82221E487297F98A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Snaptime-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66A7F76951620B25F6092E1F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Snaptime/Pods-Snaptime-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		292977702B6618FA00FDC799 /* Sources */ = {
@@ -1056,13 +991,12 @@
 		};
 		292977892B6618FB00FDC799 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2608CDA1B42F7E7BA33C8BA3 /* Pods-Snaptime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
@@ -1090,13 +1024,12 @@
 		};
 		2929778A2B6618FB00FDC799 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02D1530B334B76A3EB8999A7 /* Pods-Snaptime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
@@ -1144,6 +1077,84 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2915D1322CE5AB20000E03BC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.1;
+			};
+		};
+		2915D1352CE5AB2B000E03BC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		2915D1382CE5AB3F000E03BC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.0;
+			};
+		};
+		2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.23.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2915D1332CE5AB20000E03BC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D1322CE5AB20000E03BC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		2915D1362CE5AB2B000E03BC /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D1352CE5AB2B000E03BC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		2915D1392CE5AB3F000E03BC /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D1382CE5AB3F000E03BC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		2915D13C2CE5ABF0000E03BC /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		2915D13E2CE5ABF0000E03BC /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		2915D1402CE5ABF0000E03BC /* KakaoSDKCert */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCert;
+		};
+		2915D1422CE5ABF0000E03BC /* KakaoSDKCertCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCertCore;
+		};
+		2915D1442CE5ABF0000E03BC /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2929776C2B6618FA00FDC799 /* Project object */;
 }
