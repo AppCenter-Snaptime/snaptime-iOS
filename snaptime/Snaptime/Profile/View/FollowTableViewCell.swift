@@ -45,7 +45,7 @@ final class FollowTableViewCell: UITableViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont(name: SuitFont.bold, size: 15)
         label.textColor = .black
         
         return label
@@ -53,7 +53,7 @@ final class FollowTableViewCell: UITableViewCell {
     
     private lazy var nickNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 10)
         label.textColor = .gray
         label.text = "bowon0000"
         
@@ -137,14 +137,14 @@ final class FollowTableViewCell: UITableViewCell {
         switch follow {
         case true:
             var titleAttr = AttributedString("팔로잉")
-            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
+            titleAttr.font = UIFont(name: SuitFont.bold, size: 15)
             config?.baseForegroundColor = .black
             config?.background.backgroundColor = .white
             config?.background.strokeColor = .followButtonGray
             config?.attributedTitle = titleAttr
         case false:
             var titleAttr = AttributedString("팔로우하기")
-            titleAttr.font = .systemFont(ofSize: 15, weight: .bold)
+            titleAttr.font = UIFont(name: SuitFont.bold, size: 15)
             config?.baseBackgroundColor = .followButtonGray
             config?.background.backgroundColor = .followButtonGray
             config?.baseForegroundColor = .white

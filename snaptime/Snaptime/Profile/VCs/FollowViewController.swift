@@ -57,6 +57,7 @@ final class FollowViewController: BaseViewController {
         searchBar.backgroundColor = .white
         searchBar.barTintColor = .white
         searchBar.delegate = self
+        searchBar.searchTextField.font = UIFont(name: SuitFont.semiBold, size: 16)
         
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             textfield.backgroundColor = UIColor.white

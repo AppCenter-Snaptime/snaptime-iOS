@@ -27,7 +27,7 @@ final class CancelReasonButton: UIButton {
         var config = UIButton.Configuration.plain()
         
         var titleAttr = AttributedString.init(reason)
-        titleAttr.font = .systemFont(ofSize: 14, weight: .medium)
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 14)
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .thin)
         

@@ -40,7 +40,7 @@ final class SelectBrandCollectionViewCell: UICollectionViewCell {
     
     private let brandNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 12)
         label.textAlignment = .center
         label.textColor = .gray
         

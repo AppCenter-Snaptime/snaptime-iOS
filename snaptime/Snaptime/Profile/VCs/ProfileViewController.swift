@@ -54,8 +54,6 @@ final class ProfileViewController: BaseViewController {
         self.fetchUserProfileCount(email: email)
         
         self.sendData()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,16 +65,6 @@ final class ProfileViewController: BaseViewController {
     }
     
     // MARK: - configUI
-    private let iconLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Profile"
-        label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 25, weight: .semibold)
-        label.textAlignment = .left
-        
-        return label
-    }()
-    
     private lazy var notificationButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()

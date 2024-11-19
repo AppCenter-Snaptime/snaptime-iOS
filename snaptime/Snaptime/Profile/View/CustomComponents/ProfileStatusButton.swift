@@ -34,10 +34,10 @@ final class ProfileStatusButton: UIButton {
         config.baseForegroundColor = .black
 
         var titleAttr = AttributedString.init(customTitle)
-        titleAttr.font = .systemFont(ofSize: 11.0, weight: .light)
+        titleAttr.font = UIFont(name: SuitFont.regular, size: 12)
         
         var numberAttr = AttributedString.init(customNumberToString ?? "0")
-        numberAttr.font = .systemFont(ofSize: 15.0, weight: .regular)
+        numberAttr.font = UIFont(name: SuitFont.bold, size: 16)
         
         config.attributedTitle = titleAttr
         config.attributedSubtitle = numberAttr

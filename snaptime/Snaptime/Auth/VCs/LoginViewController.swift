@@ -63,6 +63,7 @@ final class LoginViewController: BaseViewController {
         textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
+        textField.font = UIFont(name: "SUIT-SemiBold", size: 14)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         textField.leftViewMode = .always
         textField.attributedPlaceholder = NSAttributedString(string: "이메일", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
@@ -76,6 +77,7 @@ final class LoginViewController: BaseViewController {
         textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
+        textField.font = UIFont(name: "SUIT-SemiBold", size: 14)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         textField.isSecureTextEntry = true
         textField.leftViewMode = .always
@@ -103,12 +105,12 @@ final class LoginViewController: BaseViewController {
     private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "SUIT-Bold", size: 15)
         button.isEnabled = true
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.backgroundColor = UIColor.init(hexCode: "D3D9E0")
-        button.setTitleColor(UIColor.init(hexCode: "606060"), for: .normal)
+        button.setTitleColor(.white, for: .normal)
         
         return button
     }()
@@ -116,7 +118,7 @@ final class LoginViewController: BaseViewController {
     private lazy var joinButton: UIButton = {
         let button = UIButton()
         button.setTitle("이메일로 회원가입", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.titleLabel?.font = UIFont(name: "SUIT-Medium", size: 13)
         button.setTitleColor(.lightGray, for: .normal)
         button.setUnderline()
         button.addAction(UIAction { _ in

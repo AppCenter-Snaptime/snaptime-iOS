@@ -66,7 +66,7 @@ final class ProfileStatusView: UIView {
     
     private lazy var nickNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 15)
         label.textAlignment = .left
         
         return label
@@ -84,7 +84,7 @@ final class ProfileStatusView: UIView {
     
     private lazy var followOrSettingButton = UIButton()
     
-    private lazy var postNumber = ProfileStatusButton("사진수")
+    private lazy var postNumber = ProfileStatusButton("사진")
     private lazy var followerNumber = ProfileStatusButton("팔로워")
     private lazy var followingNumber = ProfileStatusButton("팔로잉")
     
@@ -181,7 +181,7 @@ final class ProfileStatusView: UIView {
             }
             
             var titleAttr = AttributedString(follow ? "팔로잉" : "팔로우")
-            titleAttr.font = .systemFont(ofSize: 12, weight: .semibold)
+            titleAttr.font = UIFont(name: SuitFont.semiBold, size: 12)
             config.attributedTitle = titleAttr
             
         case .myself:

@@ -131,9 +131,9 @@ final class AddSnapViewController: BaseViewController {
     
     private lazy var oneLineDiaryTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "글을 입력하세요."
+        textView.text = "글을 작성하세요."
         textView.textColor = .snaptimeGray
-        textView.font = .systemFont(ofSize: 16, weight: .regular)
+        textView.font = UIFont(name: SuitFont.regular, size: 16)
         textView.isScrollEnabled = false
         textView.delegate = self
         

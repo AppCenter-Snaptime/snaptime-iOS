@@ -57,7 +57,7 @@ final class AlbumListCollectionViewCell: UICollectionViewCell {
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 15)
         
         return label
     }()

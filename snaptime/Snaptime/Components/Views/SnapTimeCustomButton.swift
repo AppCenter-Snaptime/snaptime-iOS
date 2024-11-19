@@ -26,7 +26,7 @@ final class SnapTimeCustomButton: UIButton {
     private func setupStyles() {
         self.setTitle(customTitle, for: .normal)
         self.setTitleColor(.white, for: .normal)
-        self.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        self.titleLabel?.font = UIFont(name: SuitFont.bold, size: 15)
         self.layer.cornerRadius = 10
         self.isEnabled = buttonEnabled
         

@@ -20,7 +20,7 @@ final class TopTapBarCollectionViewCell: UICollectionViewCell {
     
     private let tapButtonTitle: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .light)
+        label.font = UIFont(name: SuitFont.medium, size: 15)
         label.textAlignment = .center
         
         return label

@@ -51,7 +51,7 @@ final class ProfileSettingView: UIView {
         descriptionConfig.imagePlacement = .leading
 
         var titleAttr = AttributedString.init(self.firstTitle)
-        titleAttr.font = .systemFont(ofSize: 15.0, weight: .medium)
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 15)
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
         let setImage = UIImage(systemName: "bell", withConfiguration: imageConfig)
@@ -69,8 +69,8 @@ final class ProfileSettingView: UIView {
         description2Config.imagePlacement = .leading
 
         var title2Attr = AttributedString.init(self.secondTitle)
-        title2Attr.font = .systemFont(ofSize: 15.0, weight: .medium)
-        
+        title2Attr.font = UIFont(name: SuitFont.medium, size: 15)
+
         let image2Config = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
         let setImage2 = UIImage(systemName: "person", withConfiguration: image2Config)
         

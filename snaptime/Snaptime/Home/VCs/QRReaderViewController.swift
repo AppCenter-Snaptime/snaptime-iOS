@@ -31,7 +31,6 @@ final class QRReaderViewController: UIViewController {
         super.viewDidLoad()
         setQRReader()
     }
-    
 }
 
 extension QRReaderViewController {
@@ -39,8 +38,9 @@ extension QRReaderViewController {
         guard let captureDevice = AVCaptureDevice.default(for: AVMediaType.video) else {
             fatalError("No video device found")
         }
+        
         do {
-            // 제한하고 싶은 영역
+            /// 제한하고 싶은 영역
             let rectOfInterest = CGRect(x: (UIScreen.main.bounds.width - 200) / 2 , y: (UIScreen.main.bounds.height - 200) / 2, width: 200, height: 200)
             
             let input = try AVCaptureDeviceInput(device: captureDevice)
@@ -64,11 +64,11 @@ extension QRReaderViewController {
     }
     
     private func setVideoLayer(rectOfInterest: CGRect) -> CGRect{
-        // 영상을 담을 공간.
+        /// 영상을 담을 공간.
         let videoLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        //카메라의 크기 지정
+        /// 카메라의 크기 지정
         videoLayer.frame = view.layer.bounds
-        //카메라의 비율지정
+        /// 카메라의 비율지정
         videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         view.layer.addSublayer(videoLayer)
         
@@ -99,13 +99,13 @@ extension QRReaderViewController {
         if cornerRadius > cornerLength { cornerRadius = cornerLength }
         if cornerLength > rectOfInterest.width / 2 { cornerLength = rectOfInterest.width / 2 }
 
-        // Focus Zone의 각 모서리 point
+        /// Focus Zone의 각 모서리 point
         let upperLeftPoint = CGPoint(x: rectOfInterest.minX - cornerLineWidth / 2, y: rectOfInterest.minY - cornerLineWidth / 2)
         let upperRightPoint = CGPoint(x: rectOfInterest.maxX + cornerLineWidth / 2, y: rectOfInterest.minY - cornerLineWidth / 2)
         let lowerRightPoint = CGPoint(x: rectOfInterest.maxX + cornerLineWidth / 2, y: rectOfInterest.maxY + cornerLineWidth / 2)
         let lowerLeftPoint = CGPoint(x: rectOfInterest.minX - cornerLineWidth / 2, y: rectOfInterest.maxY + cornerLineWidth / 2)
         
-        // 각 모서리를 중심으로 한 Edge를 그림.
+        /// 각 모서리를 중심으로 한 Edge를 그림.
         let upperLeftCorner = UIBezierPath()
         upperLeftCorner.move(to: upperLeftPoint.offsetBy(dx: 0, dy: cornerLength))
         upperLeftCorner.addArc(withCenter: upperLeftPoint.offsetBy(dx: cornerRadius, dy: cornerRadius), radius: cornerRadius, startAngle: .pi, endAngle: 3 * .pi / 2, clockwise: true)

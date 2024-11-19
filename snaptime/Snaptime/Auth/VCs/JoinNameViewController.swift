@@ -40,7 +40,7 @@ final class JoinNameViewController: BaseViewController {
         let label = UILabel()
         label.text = "이름을 입력해주세요"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 20)
         
         return label
     }()

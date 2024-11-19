@@ -24,13 +24,15 @@ final class SnapTagListViewController: BaseViewController {
         let searchBar = UISearchBar()
         searchBar.placeholder = "사람 검색하기"
         searchBar.delegate = self
+        searchBar.searchTextField.font = UIFont(name: SuitFont.semiBold, size: 18)
+        
         return searchBar
     }()
     
     private lazy var recentTagLabel: UILabel = {
         let label = UILabel()
         label.text = "검색 결과"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont(name: SuitFont.medium, size: 13)
         label.textColor = UIColor.init(hexCode: "#8b8b8b")
         
         return label

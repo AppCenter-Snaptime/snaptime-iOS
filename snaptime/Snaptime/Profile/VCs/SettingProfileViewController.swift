@@ -37,31 +37,31 @@ final class SettingProfileViewController: BaseViewController {
         profileImage.layer.cornerRadius = profileImage.frame.height/2
     }
     
-    private lazy var iconButton: UIButton = {
-        let button = UIButton()
-
-        var buttonConfig = UIButton.Configuration.filled()
-        buttonConfig.baseBackgroundColor = .white
-        buttonConfig.baseForegroundColor = .snaptimeBlue
-        
-        var titleAttr = AttributedString.init("Profile")
-        titleAttr.font = .systemFont(ofSize: 25, weight: .medium)
-        let imageConfig = UIImage.SymbolConfiguration(hierarchicalColor: .black)
-
-        let setImage = UIImage(systemName: "chevron.backward", withConfiguration: imageConfig)
-        
-        buttonConfig.attributedTitle = titleAttr
-        buttonConfig.image = setImage
-        buttonConfig.imagePlacement = .leading
-        buttonConfig.imagePadding = 5
-        
-        button.configuration = buttonConfig
-        button.addAction(UIAction{ [weak self] _ in
-            self?.delegate?.backToPrevious()
-        }, for: .touchUpInside)
-                
-        return button
-    }()
+//    private lazy var iconButton: UIButton = {
+//        let button = UIButton()
+//
+//        var buttonConfig = UIButton.Configuration.filled()
+//        buttonConfig.baseBackgroundColor = .white
+//        buttonConfig.baseForegroundColor = .snaptimeBlue
+//        
+//        var titleAttr = AttributedString.init("Profile")
+//        titleAttr.font = .systemFont(ofSize: 25, weight: .medium)
+//        let imageConfig = UIImage.SymbolConfiguration(hierarchicalColor: .black)
+//
+//        let setImage = UIImage(systemName: "chevron.backward", withConfiguration: imageConfig)
+//        
+//        buttonConfig.attributedTitle = titleAttr
+//        buttonConfig.image = setImage
+//        buttonConfig.imagePlacement = .leading
+//        buttonConfig.imagePadding = 5
+//        
+//        button.configuration = buttonConfig
+//        button.addAction(UIAction{ [weak self] _ in
+//            self?.delegate?.backToPrevious()
+//        }, for: .touchUpInside)
+//                
+//        return button
+//    }()
     
     private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -73,7 +73,7 @@ final class SettingProfileViewController: BaseViewController {
     
     private lazy var idLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont(name: SuitFont.bold, size: 24)
         
         return label
     }()

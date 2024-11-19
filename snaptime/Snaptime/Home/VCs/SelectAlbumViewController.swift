@@ -48,11 +48,11 @@ final class SelectAlbumViewController: BaseViewController {
     
     // -------------------------
     
-    var selectMode: AlbumSelectMode
+    private var selectMode: AlbumSelectMode
     weak var delegate: SelectAlbumViewControllerDelegate?
-    var albumData: [Album] = []
-    var albumChecked: [Bool] = []
-    var snap: FindSnapResDto? = nil
+    private  var albumData: [Album] = []
+    private var albumChecked: [Bool] = []
+    private var snap: FindSnapResDto? = nil
     
     init(selectMode: AlbumSelectMode, snap: FindSnapResDto? = nil) {
         self.selectMode = selectMode

@@ -27,7 +27,7 @@ final class SelectBrandViewController: BaseViewController {
     private let instructionLabel: UILabel = {
         let label = UILabel()
         label.text = "브랜드를 선택해주세요"
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 20)
         label.textAlignment = .center
         
         return label

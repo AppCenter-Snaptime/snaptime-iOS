@@ -57,7 +57,7 @@ final class MainAlbumViewController : BaseViewController {
     
     private let contentView = UIView()
     
-    private lazy var albumButton : UIButton = {
+    private lazy var albumButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.image = UIImage(systemName: "folder")
@@ -71,7 +71,7 @@ final class MainAlbumViewController : BaseViewController {
         return button
     }()
     
-    private lazy var mainAlbumCollectionView : UICollectionView = {
+    private lazy var mainAlbumCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 30
@@ -116,7 +116,7 @@ final class MainAlbumViewController : BaseViewController {
         let stackView = UIStackView()
         let label = UILabel()
         label.text = "글쓰기"
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: SuitFont.bold, size: 14)
         label.textColor = .white
         let button = UIButton()
         var config = UIButton.Configuration.plain()
@@ -147,7 +147,7 @@ final class MainAlbumViewController : BaseViewController {
         let stackView = UIStackView()
         let label = UILabel()
         label.text = "QR인식하기"
-        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: SuitFont.bold, size: 14)
         label.textColor = .white
         let button = UIButton()
         var config = UIButton.Configuration.plain()
@@ -184,7 +184,9 @@ final class MainAlbumViewController : BaseViewController {
     }()
     
     private func fetchUserProfile(loginId: String) {
-        APIService.fetchUserProfile(email: loginId).performRequest(responseType: CommonResponseDtoUserProfileResDto.self) { result in
+        APIService.fetchUserProfile(email: loginId).performRequest(
+            responseType: CommonResponseDtoUserProfileResDto.self
+        ) { result in
             switch result {
             case .success(let profile):
                 DispatchQueue.main.async {
@@ -197,7 +199,9 @@ final class MainAlbumViewController : BaseViewController {
     }
     
     private func fetchAlbumList() {
-        APIService.fetchAlbumList.performRequest(responseType: CommonResponseDtoListFindAllAlbumsResDto.self) { result in
+        APIService.fetchAlbumList.performRequest(
+            responseType: CommonResponseDtoListFindAllAlbumsResDto.self
+        ) { result in
             switch result {
             case .success(let albumList):
                 DispatchQueue.main.async {
@@ -215,7 +219,10 @@ final class MainAlbumViewController : BaseViewController {
             "name": name
         ]
         
-        APIService.postAlbum.performRequest(with: param, responseType: CommonResDtoVoid.self) { result in
+        APIService.postAlbum.performRequest(
+            with: param,
+            responseType: CommonResDtoVoid.self
+        ) { result in
             switch result {
             case .success(_):
                 DispatchQueue.main.async {
@@ -229,14 +236,14 @@ final class MainAlbumViewController : BaseViewController {
     
     // MARK: -- UI
     
-    // + Floating Button 클릭시 실행
+    /// + Floating Button 클릭시 실행
     private func onTouchAddButton() {
         rotateFloatingButton()
         setAdditionButtons()
         setBackground()
     }
     
-    // 글쓰기, QR 버튼 띄우기
+    /// 글쓰기, QR 버튼 띄우기
     private func setAdditionButtons() {
         if isAddButtonActive {
             [
@@ -263,7 +270,7 @@ final class MainAlbumViewController : BaseViewController {
         }
     }
     
-    // 배경 어둡게 하기
+    /// 배경 어둡게 하기
     private func setBackground() {
         if isAddButtonActive {
             self.floatingBackView.isHidden = false
@@ -280,7 +287,7 @@ final class MainAlbumViewController : BaseViewController {
         }
     }
     
-    // 버튼 + <-> x 모양으로 회전
+    /// 버튼 + <-> x 모양으로 회전
     private func rotateFloatingButton() {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         let fromValue = isAddButtonActive ? 0 : CGFloat.pi / 4
@@ -293,7 +300,7 @@ final class MainAlbumViewController : BaseViewController {
         addSnapFloatingButton.layer.add(animation, forKey: nil)
     }
     
-    // ActionSheet 관련 설정
+    /// ActionSheet 관련 설정
     private func presentAlbumSheet() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "앨범 추가", style: .default, handler: { _ in
@@ -320,31 +327,24 @@ final class MainAlbumViewController : BaseViewController {
         }))
         actionSheet.addAction(UIAlertAction(title: "취소하기", style: .cancel))
         self.present(actionSheet, animated: true)
-        
     }
     
     // MARK: -- Layout & Constraints
     override func setupLayouts() {
         super.setupLayouts()
-        [
-            albumButton,
-            mainAlbumCollectionView,
-        ].forEach {
+        [albumButton,
+        mainAlbumCollectionView,].forEach {
             contentView.addSubview($0)
         }
         
-        [
-            contentView,
-            floatingStackView
-        ].forEach {
+        [contentView,
+        floatingStackView].forEach {
             view.addSubview($0)
         }
         
-        [
-            postFloatingStackView,
-            qrFloatingStackView,
-            addSnapFloatingButton
-        ].forEach {
+        [postFloatingStackView,
+        qrFloatingStackView,
+        addSnapFloatingButton].forEach {
             floatingStackView.addArrangedSubview($0)
         }
         

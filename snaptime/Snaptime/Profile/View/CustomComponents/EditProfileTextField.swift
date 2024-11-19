@@ -26,7 +26,7 @@ final class EditProfileTextField: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.font = UIFont(name: SuitFont.medium, size: 14)
         label.textColor = .snaptimeBlue
         
         return label

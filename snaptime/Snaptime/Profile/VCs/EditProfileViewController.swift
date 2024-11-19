@@ -36,13 +36,13 @@ final class EditProfileViewController: BaseViewController {
         }
     }
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "프로필 편집"
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        
-        return label
-    }()
+//    private lazy var titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "프로필 편집"
+//        label.font = .systemFont(ofSize: 20, weight: .bold)
+//        
+//        return label
+//    }()
         
     private lazy var editProfileImage: UIImageView = {
         let imageView = UIImageView()
@@ -85,7 +85,7 @@ final class EditProfileViewController: BaseViewController {
         buttonConfig.baseForegroundColor = .snaptimeBlue
         
         var titleAttr = AttributedString.init("완료")
-        titleAttr.font = .systemFont(ofSize: 16.0, weight: .semibold)
+        titleAttr.font = UIFont(name: SuitFont.semiBold, size: 16)
         
         buttonConfig.attributedTitle = titleAttr
         

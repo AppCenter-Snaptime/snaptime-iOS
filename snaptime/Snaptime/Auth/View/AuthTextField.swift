@@ -31,6 +31,7 @@ final class AuthTextField: UITextField {
         self.layer.masksToBounds = true
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         self.leftViewMode = .always
+        self.font = UIFont(name: SuitFont.medium, size: 14)
         self.attributedPlaceholder = NSAttributedString(string: customPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
         
         if secureToggle == true {

@@ -9,7 +9,6 @@ import Alamofire
 import UIKit
 import Kingfisher
 
-
 protocol CommentViewControllerDelegate: AnyObject {
     func presentCommentVC(snap: FindSnapResDto)
     func presentProfile(target: ProfileTarget, email: String)

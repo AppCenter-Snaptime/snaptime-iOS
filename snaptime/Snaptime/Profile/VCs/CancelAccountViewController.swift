@@ -27,7 +27,7 @@ final class CancelAccountViewController: BaseViewController {
     private let cancelTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "정말 탈퇴하시겠어요?"
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont(name: SuitFont.bold, size: 18)
         label.textAlignment = .left
         
         return label
@@ -38,7 +38,7 @@ final class CancelAccountViewController: BaseViewController {
         label.text = "스냅 타임에 기록한 소중한 추억들이 모두 사라져요. 탈퇴 전에 중요한 기록이나 알림이 남아있는지 다시 한 번 확인해주세요."
         label.numberOfLines = 0
         label.textColor = UIColor.init(hexCode: "909090")
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.font = UIFont(name: SuitFont.medium, size: 14)
         
         return label
     }()
@@ -46,7 +46,7 @@ final class CancelAccountViewController: BaseViewController {
     private let cancelReasonLabel: UILabel = {
         let label = UILabel()
         label.text = "탈퇴 사유를 알려주세요."
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont(name: SuitFont.bold, size: 18)
         label.textAlignment = .left
         
         return label
@@ -57,8 +57,8 @@ final class CancelAccountViewController: BaseViewController {
         label.text = "탈퇴 사유를 알려주신다면 고객님의 피드백을 받아 어플 개선의 자료로 활용하겠습니다."
         label.numberOfLines = 0
         label.textColor = UIColor.init(hexCode: "909090")
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        
+        label.font = UIFont(name: SuitFont.medium, size: 14)
+
         return label
     }()
     
@@ -82,7 +82,7 @@ final class CancelAccountViewController: BaseViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호를 입력해주세요."
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont(name: SuitFont.bold, size: 18)
         label.textAlignment = .left
         
         return label
@@ -92,6 +92,7 @@ final class CancelAccountViewController: BaseViewController {
         let textField = UITextField()
         textField.placeholder = "비밀번호를 입력해주세요."
         textField.borderStyle = .roundedRect
+        textField.font = UIFont(name: SuitFont.medium, size: 14)
         
         return textField
     }()
@@ -118,7 +119,7 @@ final class CancelAccountViewController: BaseViewController {
     private let checkDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "위 내용을 모두 확인했으며, 회원 탈퇴를 진행합니다."
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: SuitFont.medium, size: 14)
         
         return label
     }()

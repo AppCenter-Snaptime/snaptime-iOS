@@ -36,16 +36,7 @@ final class AlbumSelectCollectionViewCell: UICollectionViewCell {
     
     private lazy var descriptionLabel : UILabel = {
         let label = UILabel()
-        label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
-        return label
-    }()
-    
-    private lazy var date: UILabel = {
-        let label = UILabel()
-        label.text = "2024.01.20"
-        label.font = .systemFont(ofSize: 10, weight: .light)
-        label.textColor = UIColor.init(hexCode: "#A9A9A9")
+        label.font = UIFont(name: SuitFont.semiBold, size: 13)
         
         return label
     }()

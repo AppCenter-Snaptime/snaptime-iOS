@@ -38,7 +38,7 @@ final class JoinPasswordViewController: BaseViewController {
         let label = UILabel()
         label.text = "사용하실 비밀번호를 입력해주세요"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 20)
         
         return label
     }()
@@ -58,7 +58,7 @@ final class JoinPasswordViewController: BaseViewController {
     private let passwordConditionalLabel: UILabel = {
         let label = UILabel()
         label.text = "8~10자의 영문, 숫자를 조합해주세요"
-        label.font = .systemFont(ofSize: 10)
+        label.font = UIFont(name: SuitFont.medium, size: 10)
         label.textColor = .init(hexCode: "3B6DFF")
         
         return label
@@ -78,8 +78,8 @@ final class JoinPasswordViewController: BaseViewController {
     
     private let passwordCheckConditionalLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
         label.textColor = .red
+        label.font = UIFont(name: SuitFont.medium, size: 10)
         
         return label
     }()
