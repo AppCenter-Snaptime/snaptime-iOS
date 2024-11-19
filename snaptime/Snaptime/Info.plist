@@ -16,6 +16,8 @@
 	</array>
 	<key>InstagramKey</key>
 	<string>$(InstagramKey)</string>
+	<key>KakaoAppKey</key>
+	<string>$(KakaoAppkey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>instagram-stories</string>

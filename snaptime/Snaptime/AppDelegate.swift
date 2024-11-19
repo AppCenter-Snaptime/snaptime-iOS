@@ -24,8 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        KakaoSDK.initSDK(appKey: "07033862d1296e447a91638cdaf136d4")
+        let key = Bundle.main.infoDictionary?["KakaoAppKey"] as! String
+
+        KakaoSDK.initSDK(appKey: key)
 
         let result = KeyChain.loadTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
