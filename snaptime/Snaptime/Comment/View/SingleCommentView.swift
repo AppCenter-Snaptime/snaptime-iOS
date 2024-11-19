@@ -40,13 +40,13 @@ class SingleCommentView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = UIFont(name: SuitFont.semiBold, size: 15)
         return label
     }()
     
     private lazy var beforeDateLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
+        label.font = UIFont(name: SuitFont.regular, size: 11)
         label.textColor = UIColor(hexCode: "747474")
         return label
     }()
@@ -54,14 +54,14 @@ class SingleCommentView: UIView {
     private lazy var commentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 13)
+        label.font = UIFont(name: SuitFont.medium, size: 14)
         return label
     }()
     
     private lazy var replyButton: UIButton = {
         let button = UIButton()
         button.setTitle("답글 달기", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.titleLabel?.font = UIFont(name: SuitFont.medium, size: 12)
         button.setTitleColor(UIColor(hexCode: "747474"), for: .normal)
         button.addAction(UIAction{ [weak self] _ in
             guard let action = self?.addReplyButtonAction else { return }

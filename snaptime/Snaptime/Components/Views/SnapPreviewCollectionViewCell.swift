@@ -28,16 +28,16 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var descriptionLabel : UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 12)
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10, weight: .light)
+        label.font = UIFont(name: SuitFont.light, size: 10)
         label.textColor = UIColor.init(hexCode: "#A9A9A9")
         
         return label

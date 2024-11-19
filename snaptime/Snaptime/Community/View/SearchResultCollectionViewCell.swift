@@ -35,15 +35,14 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .bold)
-        label.text = "한보원"
+        label.font = UIFont(name: SuitFont.bold, size: 15)
         
         return label
     }()
     
     private let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 10)
         label.textColor = .gray
         
         return label

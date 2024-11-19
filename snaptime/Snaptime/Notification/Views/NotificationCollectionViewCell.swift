@@ -80,7 +80,7 @@ final class NotificationCollectionViewCell: UICollectionViewCell {
     
     private lazy var commentTitle: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 13)
         label.numberOfLines = 2
         
         return label
@@ -88,7 +88,7 @@ final class NotificationCollectionViewCell: UICollectionViewCell {
     
     private lazy var timeInformation: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 11, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 11)
         label.textColor = .snaptimeGray
         label.textAlignment = .right
         
@@ -97,7 +97,7 @@ final class NotificationCollectionViewCell: UICollectionViewCell {
     
     private lazy var commentContent: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 12)
         label.numberOfLines = 2
         label.textColor = .gray
         

@@ -29,7 +29,7 @@ final class TagTableViewCell: UITableViewCell {
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.text = "한보원"
-        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont(name: SuitFont.medium, size: 15)
         
         return label
     }()

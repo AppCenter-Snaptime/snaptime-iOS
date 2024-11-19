@@ -36,6 +36,7 @@ final class SearchViewController: BaseViewController {
             textfield.layer.borderWidth = 1
             textfield.layer.cornerRadius = 10
             textfield.layer.masksToBounds = true
+            textfield.font = UIFont(name: SuitFont.semiBold, size: 16)
             textfield.layer.borderColor = UIColor.init(hexCode: "bcbcbc").cgColor
             textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
             textfield.textColor = UIColor.black

@@ -32,7 +32,7 @@ final class CommentSupplementaryFooterView: UICollectionReusableView {
         let button = UIButton()
         button.setTitleColor(UIColor(hexCode: "747474"), for: .normal)
         button.setTitle("----- 답글 보기", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
+        button.titleLabel?.font = UIFont(name: SuitFont.medium, size: 12)
         button.isHidden = true
         button.addAction(UIAction { [weak self] _ in
             guard let action = self?.action else { return }

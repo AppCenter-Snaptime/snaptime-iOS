@@ -80,6 +80,7 @@ final class CommentViewController: BaseViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "댓글"
+        label.font = UIFont(name: SuitFont.medium, size: 14)
         return label
     }()
     
@@ -121,7 +122,7 @@ final class CommentViewController: BaseViewController {
         let textField = UITextField()
         textField.backgroundColor = .systemGray5
         textField.placeholder = "\(self.snapUserName)에게 댓글달기"
-        textField.font = .systemFont(ofSize: 12)
+        textField.font = UIFont(name: SuitFont.medium, size: 13)
         textField.delegate = self
         textField.addLeftPadding(16)
         return textField

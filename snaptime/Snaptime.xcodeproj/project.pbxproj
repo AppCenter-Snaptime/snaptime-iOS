@@ -25,7 +25,6 @@
 		2919FBA22CE5F504003698C8 /* AppKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2919FBA12CE5F504003698C8 /* AppKeys.xcconfig */; };
 		2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920B7A32C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift */; };
 		2924E8172BA7FA3C0025AAA9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */; };
-		2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2924E8192BA830190025AAA9 /* CommentView.swift */; };
 		29257C5E2C5A526B00B2B0FB /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29257C5D2C5A526B00B2B0FB /* UIButton+.swift */; };
 		2928AE6D2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */; };
 		292977782B6618FA00FDC799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292977772B6618FA00FDC799 /* AppDelegate.swift */; };
@@ -156,7 +155,6 @@
 		2919FBA12CE5F504003698C8 /* AppKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppKeys.xcconfig; sourceTree = "<group>"; };
 		2920B7A32C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoListFindSnapPagingResDto.swift; sourceTree = "<group>"; };
 		2924E8162BA7FA3C0025AAA9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		2924E8192BA830190025AAA9 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		29257C5D2C5A526B00B2B0FB /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		2928AE6C2C92D336004ACB67 /* CommonResponseDtoAlarmFindAllResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseDtoAlarmFindAllResDto.swift; sourceTree = "<group>"; };
 		292977772B6618FA00FDC799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -426,7 +424,6 @@
 			isa = PBXGroup;
 			children = (
 				298F7F762B6BA7BD00A8DBC5 /* SnapTimeCustomButton.swift */,
-				2924E8192BA830190025AAA9 /* CommentView.swift */,
 				A69A816B2B7E0F00006BAEB2 /* AlbumCollectionViewCell.swift */,
 				292A4D642B7CBD1F002FCC57 /* SnapCollectionViewCell.swift */,
 				29B7D3CC2C020D1F00ADF15E /* SnapPreviewCollectionViewCell.swift */,
@@ -812,7 +809,6 @@
 				A66C41352BBC40FC00AC4284 /* CommentViewController.swift in Sources */,
 				298958AB2C859DD8002D94CC /* FourCutBrand.swift in Sources */,
 				29F1591B2C608DEC00AB0BA9 /* SearchViewController.swift in Sources */,
-				2924E81A2BA830190025AAA9 /* CommentView.swift in Sources */,
 				2920B7A42C0764AC002A7688 /* CommonResponseDtoListFindSnapPagingResDto.swift in Sources */,
 				2981463E2CB76C0F00783B56 /* CommonResponseDtoSnapLikeResDto.swift in Sources */,
 				29176FB22C412C6100CD9A24 /* UserProfileResDto.swift in Sources */,

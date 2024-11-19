@@ -36,7 +36,7 @@ final class NotificationViewController: BaseViewController {
     private lazy var topTextLabel: UILabel = {
         let label = UILabel()
         label.text = "알림"
-        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 20)
         label.textColor = UIColor.init(hexCode: "003E6E")
         
         return label

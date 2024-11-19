@@ -43,7 +43,7 @@ final class CommunityViewController: BaseViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .snaptimeBlue
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont(name: SuitFont.semiBold, size: 20)
         label.text = "Community"
         
         return label
@@ -69,7 +69,7 @@ final class CommunityViewController: BaseViewController {
         var config = UIButton.Configuration.borderedTinted()
         
         var titleAttr = AttributedString.init("볼 수 있는 스냅이 없습니다! \n 사용자를 팔로우하세요!")
-        titleAttr.font = .systemFont(ofSize: 14, weight: .semibold)
+        titleAttr.font = UIFont(name: SuitFont.semiBold, size: 14)
         
         config.attributedTitle = titleAttr
         config.imagePlacement = .leading

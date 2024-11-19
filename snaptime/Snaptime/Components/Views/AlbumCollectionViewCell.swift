@@ -37,7 +37,6 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "2023"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
         label.font = UIFont(name: SuitFont.semiBold, size: 13)
         
         return label

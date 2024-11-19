@@ -47,14 +47,14 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Jocelyn"
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: SuitFont.regular, size: 14)
         
         return label
     }()
     
     private lazy var tagButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+        button.titleLabel?.font = UIFont(name: SuitFont.regular, size: 12)
         button.setTitleColor(UIColor.init(hexCode: "#909090"), for: .normal)
         button.addAction(UIAction { [weak self] _ in
             guard let action = self?.tagButtonTapAction else { return }
@@ -120,7 +120,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private lazy var likeButtonCountLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10, weight: .medium)
+        label.font = UIFont(name: SuitFont.medium, size: 10)
         
         return label
     }()
