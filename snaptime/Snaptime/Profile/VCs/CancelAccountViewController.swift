@@ -16,12 +16,62 @@ protocol CancelAccountViewControllerDelegate: AnyObject {
 final class CancelAccountViewController: BaseViewController {
     weak var delegate: CancelAccountViewControllerDelegate?
     
+    private var selectedReasonTag: Int? // 선택된 라디오 버튼의 태그
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         hideKeyboardWhenTappedAround()
         setButtonAction()
+                
+        checkButtonState()
+                
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    private func checkButtonState() {
+        /// 조건: 라디오 버튼 선택, 체크 버튼 선택, 비밀번호 입력
+        let isRadioButtonSelected = selectedReasonTag != nil
+        let isCheckButtonSelected = checkButton.isSelected
+        let isPasswordEntered = !(passwordTextField.text?.isEmpty ?? true)
+        
+        if isRadioButtonSelected && isCheckButtonSelected && isPasswordEntered {
+            /// 활성화 상태
+            cancelAccountButton.isEnabled = true
+            cancelAccountButton.backgroundColor = .snaptimeBlue
+        } else {
+            /// 비활성화 상태
+            cancelAccountButton.isEnabled = false
+            cancelAccountButton.backgroundColor = UIColor.init(hexCode: "d0d0d0") 
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+        
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardUp(notification:NSNotification) {
+        if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+           let keyboardRectangle = keyboardFrame.cgRectValue
+       
+            UIView.animate(
+                withDuration: 0.3
+                , animations: {
+                    self.view.transform = CGAffineTransform(translationX: 0, y: -keyboardRectangle.height)
+                }
+            )
+        }
+    }
+    
+    @objc func keyboardDown() {
+        self.view.transform = .identity
     }
     
     private let cancelTitleLabel: UILabel = {
@@ -102,15 +152,18 @@ final class CancelAccountViewController: BaseViewController {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
-    
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .thin)
-        let setImage = UIImage(
-            systemName: "ccheckmark.square",
-            withConfiguration: imageConfig
-        )?.withTintColor(UIColor.init(hexCode: "d0d0d0"), renderingMode: .alwaysOriginal)
+        config.baseForegroundColor = UIColor.init(hexCode: "d0d0d0")
+        config.baseBackgroundColor = .white
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .light)
+        let setImage = UIImage(systemName: "checkmark.square", withConfiguration: imageConfig)
 
         config.image = setImage
         button.configuration = config
+        button.isSelected = false
+        button.addAction(UIAction{[weak self] _ in
+            self?.toggleCheckBox()
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -124,6 +177,18 @@ final class CancelAccountViewController: BaseViewController {
     }()
     
     private lazy var cancelAccountButton = SnapTimeCustomButton("탈퇴하기")
+    
+    private func toggleCheckBox() {
+        checkButton.isSelected.toggle()
+        
+        if checkButton.isSelected {
+            checkButton.configuration?.image = UIImage(systemName: "checkmark.square.fill")
+        } else {
+            checkButton.configuration?.image = UIImage(systemName: "checkmark.square")
+        }
+        
+        checkButtonState() // 상태 확인
+    }
     
     private func setButtonAction() {
         [cancelReasonRadioButton,
@@ -146,6 +211,8 @@ final class CancelAccountViewController: BaseViewController {
     }
 
     @objc private func radioButton(_ sender: UIButton) {
+        selectedReasonTag = sender.tag // 선택된 라디오 버튼 태그 저장
+
         [cancelReasonRadioButton,
          cancelReasonRadioButton2,
          cancelReasonRadioButton3,
@@ -171,7 +238,13 @@ final class CancelAccountViewController: BaseViewController {
                 $0.configuration?.image = setImage
             }
         }
+        
+        checkButtonState() // 상태 확인
     }
+    
+    @objc private func textFieldDidChange() {
+           checkButtonState() // 텍스트 필드 입력 상태 확인
+       }
     
     private func deleteUser(password: String) {
         APIService.deleteUser(password: password).performRequest(

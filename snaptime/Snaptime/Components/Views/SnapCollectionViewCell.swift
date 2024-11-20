@@ -298,7 +298,7 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
         self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 3
+        self.layer.shadowRadius = 2
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true

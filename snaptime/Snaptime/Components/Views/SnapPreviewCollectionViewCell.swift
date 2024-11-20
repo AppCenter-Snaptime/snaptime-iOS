@@ -53,8 +53,8 @@ final class SnapPreviewCollectionViewCell: UICollectionViewCell {
     private func setupLayouts() {
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOpacity = 0.5
-        self.layer.shadowRadius = 2
-        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowRadius = 1
+        self.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = .white
