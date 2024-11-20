@@ -93,6 +93,7 @@ final class CancelAccountViewController: BaseViewController {
         textField.placeholder = "비밀번호를 입력해주세요."
         textField.borderStyle = .roundedRect
         textField.font = UIFont(name: SuitFont.medium, size: 14)
+        textField.isSecureTextEntry = true
         
         return textField
     }()
@@ -109,8 +110,6 @@ final class CancelAccountViewController: BaseViewController {
         )?.withTintColor(UIColor.init(hexCode: "d0d0d0"), renderingMode: .alwaysOriginal)
 
         config.image = setImage
-//        config.baseForegroundColor = .black
-//        config.baseBackgroundColor = .white
         button.configuration = config
         
         return button

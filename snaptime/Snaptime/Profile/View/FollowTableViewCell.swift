@@ -51,14 +51,14 @@ final class FollowTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var nickNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: SuitFont.semiBold, size: 10)
-        label.textColor = .gray
-        label.text = "bowon0000"
-        
-        return label
-    }()
+//    private lazy var nickNameLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: SuitFont.semiBold, size: 10)
+//        label.textColor = .gray
+//        label.text = "bowon0000"
+//        
+//        return label
+//    }()
     
     private lazy var followButton: UIButton = {
         let button = UIButton()
@@ -176,7 +176,7 @@ final class FollowTableViewCell: UITableViewCell {
     private func setupLayouts() {
         [profileImageView, 
          nameLabel,
-         nickNameLabel,
+//         nickNameLabel,
          followButton].forEach {
             contentView.addSubview($0)
         }
@@ -191,15 +191,16 @@ final class FollowTableViewCell: UITableViewCell {
         }
         
         nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
+//            $0.top.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
             $0.left.equalTo(profileImageView.snp.right).offset(20)
             $0.right.equalTo(followButton.snp.left).offset(-20)
         }
         
-        nickNameLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(3)
-            $0.left.equalTo(nameLabel.snp.left)
-        }
+//        nickNameLabel.snp.makeConstraints {
+//            $0.top.equalTo(nameLabel.snp.bottom).offset(3)
+//            $0.left.equalTo(nameLabel.snp.left)
+//        }
         
         followButton.snp.makeConstraints {
             $0.centerY.equalTo(profileImageView.snp.centerY)

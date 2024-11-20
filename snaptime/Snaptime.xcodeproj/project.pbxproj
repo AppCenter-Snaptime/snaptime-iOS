@@ -109,6 +109,9 @@
 		29F306A62CEC7193006D4183 /* SUIT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29F3069E2CEC7193006D4183 /* SUIT-Thin.otf */; };
 		29F306A72CEC7193006D4183 /* SUIT-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29F306982CEC7193006D4183 /* SUIT-ExtraLight.otf */; };
 		29F306A92CEC7640006D4183 /* SuitFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F306A82CEC7640006D4183 /* SuitFont.swift */; };
+		29F306AC2CEC9B74006D4183 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 29F306AB2CEC9B74006D4183 /* KakaoSDK */; };
+		29F306AE2CEC9B74006D4183 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 29F306AD2CEC9B74006D4183 /* KakaoSDKAuth */; };
+		29F306B02CEDE9D9006D4183 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F306AF2CEDE9D9006D4183 /* SettingButton.swift */; };
 		29F6709D2C4417460028F356 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6709C2C4417460028F356 /* CustomAlertViewController.swift */; };
 		29F80BF52B8589AC003614AB /* ProfileStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF42B8589AC003614AB /* ProfileStatusView.swift */; };
 		29F80BF72B858CB5003614AB /* ProfileStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */; };
@@ -240,6 +243,7 @@
 		29F3069D2CEC7193006D4183 /* SUIT-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.otf"; sourceTree = "<group>"; };
 		29F3069E2CEC7193006D4183 /* SUIT-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Thin.otf"; sourceTree = "<group>"; };
 		29F306A82CEC7640006D4183 /* SuitFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitFont.swift; sourceTree = "<group>"; };
+		29F306AF2CEDE9D9006D4183 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		29F6709C2C4417460028F356 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		29F80BF42B8589AC003614AB /* ProfileStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusView.swift; sourceTree = "<group>"; };
 		29F80BF62B858CB5003614AB /* ProfileStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusButton.swift; sourceTree = "<group>"; };
@@ -281,10 +285,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2915D1432CE5ABF0000E03BC /* KakaoSDKCertCore in Frameworks */,
+				29F306AC2CEC9B74006D4183 /* KakaoSDK in Frameworks */,
 				2915D13A2CE5AB3F000E03BC /* Kingfisher in Frameworks */,
 				2915D13D2CE5ABF0000E03BC /* KakaoSDK in Frameworks */,
 				2915D1372CE5AB2B000E03BC /* SnapKit in Frameworks */,
 				2915D1452CE5ABF0000E03BC /* KakaoSDKCommon in Frameworks */,
+				29F306AE2CEC9B74006D4183 /* KakaoSDKAuth in Frameworks */,
 				0B6C0FFBBF252B0429515B88 /* (null) in Frameworks */,
 				2915D1342CE5AB20000E03BC /* Alamofire in Frameworks */,
 				2915D1412CE5ABF0000E03BC /* KakaoSDKCert in Frameworks */,
@@ -404,6 +410,7 @@
 				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
 				2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */,
 				29D432842C942078007F37D0 /* CancelReasonButton.swift */,
+				29F306AF2CEDE9D9006D4183 /* SettingButton.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -709,7 +716,7 @@
 				2915D1322CE5AB20000E03BC /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2915D1352CE5AB2B000E03BC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2915D1382CE5AB3F000E03BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				29F306AA2CEC9B74006D4183 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 2929776B2B6618FA00FDC799;
 			projectDirPath = "";
@@ -795,6 +802,7 @@
 				29257C5E2C5A526B00B2B0FB /* UIButton+.swift in Sources */,
 				A67508532C3A6E91001B4059 /* AddParentReplyReqDto.swift in Sources */,
 				29F1591D2C60951B00AB0BA9 /* UserPagingResDto.swift in Sources */,
+				29F306B02CEDE9D9006D4183 /* SettingButton.swift in Sources */,
 				A69D6D782C59236900292BFD /* SelectAlbumViewController.swift in Sources */,
 				29F80C722B865A1E003614AB /* TagListCollectionViewCell.swift in Sources */,
 				29625E142C4280B600D51841 /* CommonResDtoVoid.swift in Sources */,
@@ -1006,7 +1014,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
@@ -1039,7 +1047,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = F7GYZYWC6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaptime/Info.plist;
@@ -1121,6 +1129,14 @@
 				minimumVersion = 2.23.0;
 			};
 		};
+		29F306AA2CEC9B74006D4183 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.23.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1163,6 +1179,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2915D13B2CE5ABF0000E03BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKCommon;
+		};
+		29F306AB2CEC9B74006D4183 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29F306AA2CEC9B74006D4183 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		29F306AD2CEC9B74006D4183 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29F306AA2CEC9B74006D4183 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

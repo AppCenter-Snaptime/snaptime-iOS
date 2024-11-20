@@ -37,32 +37,6 @@ final class SettingProfileViewController: BaseViewController {
         profileImage.layer.cornerRadius = profileImage.frame.height/2
     }
     
-//    private lazy var iconButton: UIButton = {
-//        let button = UIButton()
-//
-//        var buttonConfig = UIButton.Configuration.filled()
-//        buttonConfig.baseBackgroundColor = .white
-//        buttonConfig.baseForegroundColor = .snaptimeBlue
-//        
-//        var titleAttr = AttributedString.init("Profile")
-//        titleAttr.font = .systemFont(ofSize: 25, weight: .medium)
-//        let imageConfig = UIImage.SymbolConfiguration(hierarchicalColor: .black)
-//
-//        let setImage = UIImage(systemName: "chevron.backward", withConfiguration: imageConfig)
-//        
-//        buttonConfig.attributedTitle = titleAttr
-//        buttonConfig.image = setImage
-//        buttonConfig.imagePlacement = .leading
-//        buttonConfig.imagePadding = 5
-//        
-//        button.configuration = buttonConfig
-//        button.addAction(UIAction{ [weak self] _ in
-//            self?.delegate?.backToPrevious()
-//        }, for: .touchUpInside)
-//                
-//        return button
-//    }()
-    
     private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .snaptimeGray
@@ -86,40 +60,122 @@ final class SettingProfileViewController: BaseViewController {
         return scrollView
     }()
     
-    private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
-                                                         second: "알림",
-                                                         firstAction: UIAction { [weak self] _ in
-        self?.delegate?.presentEditProfile()
-    },
-                                                         secondAction: UIAction { [weak self] _ in
-    })
-    private lazy var settingProfileView2 = ProfileSettingView(first: "Help&Support",
-                                                         second: "FAQ",
-                                                         firstAction: UIAction { [weak self] _ in
-    },
-                                                         secondAction: UIAction { [weak self] _ in
-    })
-    private lazy var settingProfileView3 = ProfileSettingView(first: "보안 정책",
-                                                         second: "수정",
-                                                         firstAction: UIAction { [weak self] _ in
-    },
-                                                         secondAction: UIAction { [weak self] _ in
-    })
+//    private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
+//                                                         second: "알림",
+//                                                         firstAction: UIAction { [weak self] _ in
+//        self?.delegate?.presentEditProfile()
+//    },
+//                                                         secondAction: UIAction { [weak self] _ in
+//    })
     
-    private lazy var settingProfileView4 = ProfileSettingView(first: "로그아웃",
-                                                        second: "탈퇴하기",
-                                                        firstAction: UIAction { [weak self] _ in
-        self?.show(
-            alertText: "로그아웃 하시겠습니까?",
-            cancelButtonText: "취소하기",
-            confirmButtonText: "네",
-            identifier: "signout"
-        )
-    },
-                                                        secondAction: UIAction { [weak self] _ in
-        self?.delegate?.presentCancelAccount()
-    })
+    private lazy var settingStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 5
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        
+        let editProfileButton = SettingButton(title: "프로필 편집", imageName: "person")
+        let alertButton = SettingButton(title: "알림", imageName: "bell")
+        
+        editProfileButton.addAction(UIAction{[weak self] _ in
+            self?.delegate?.presentEditProfile()
+        }, for: .touchUpInside)
+        
+        [editProfileButton, alertButton].forEach {
+            stackView.addArrangedSubview($0)
+        }
     
+        return stackView
+    }()
+
+    
+    private lazy var settingLinkStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 5
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        
+        let helpButton = SettingButton(title: "Help & Support", imageName: "person")
+        let faqButton = SettingButton(title: "FAQ", imageName: "bubble.left.and.text.bubble.right")
+        let securityButton = SettingButton(title: "보안정책", imageName: "lock")
+        
+        [helpButton, faqButton, securityButton].forEach {
+            stackView.addArrangedSubview($0)
+        }
+    
+        return stackView
+    }()
+    
+    private lazy var changePasswordButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        var titleAttr = AttributedString.init("비밀번호 변경")
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 14)
+        
+        config.baseBackgroundColor = .white
+        config.baseForegroundColor = .black
+        config.titleAlignment = .leading
+        config.attributedTitle = titleAttr
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 0)
+        
+        button.configuration = config
+        button.contentHorizontalAlignment = .leading
+        
+        return button
+    }()
+    
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        var titleAttr = AttributedString.init("로그아웃")
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 14)
+        
+        config.baseBackgroundColor = .white
+        config.baseForegroundColor = .black
+        config.titleAlignment = .leading
+        config.attributedTitle = titleAttr
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 0)
+        
+        button.configuration = config
+        button.contentHorizontalAlignment = .leading
+        button.addAction(UIAction {[weak self] _ in
+            self?.show(
+                alertText: "로그아웃 하시겠습니까?",
+                cancelButtonText: "취소하기",
+                confirmButtonText: "네",
+                identifier: "signout"
+            )
+        }, for: .touchUpInside)
+
+        return button
+    }()
+    
+    private lazy var deleteUserButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        var titleAttr = AttributedString.init("회원 탈퇴")
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 14)
+        
+        config.baseBackgroundColor = .white
+        config.baseForegroundColor = .black
+        config.titleAlignment = .leading
+        config.attributedTitle = titleAttr
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 0)
+
+        button.configuration = config
+        button.contentHorizontalAlignment = .leading
+        button.addAction(UIAction{[weak self] _ in
+            self?.delegate?.presentCancelAccount()
+        }, for: .touchUpInside)
+        
+        return button
+    }()
+        
     private func signoutLogic() {
         let checkTokenDeleted = KeyChain.deleteTokens(accessKey: TokenType.accessToken.rawValue, refreshKey: TokenType.refreshToken.rawValue)
         
@@ -164,10 +220,12 @@ final class SettingProfileViewController: BaseViewController {
         
         scrollView.addSubview(contentView)
         
-        [settingProfileView1,
-         settingProfileView2,
-         settingProfileView3,
-         settingProfileView4].forEach{
+        [settingStackView,
+         settingLinkStackView,
+         changePasswordButton,
+         logoutButton,
+         deleteUserButton
+        ].forEach{
             contentView.addSubview($0)
         }
     }
@@ -175,14 +233,33 @@ final class SettingProfileViewController: BaseViewController {
     override func setupConstraints() {
         super.setupConstraints()
         
+        [settingLinkStackView,
+         settingStackView
+        ].forEach {
+            $0.isLayoutMarginsRelativeArrangement = true
+        }
+        
+        [settingStackView,
+         settingLinkStackView,
+         changePasswordButton,
+         logoutButton,
+         deleteUserButton].forEach {
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+            $0.layer.cornerRadius = 8
+            $0.layer.masksToBounds = true
+            $0.backgroundColor = .white
+            $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        }
+        
         profileImage.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.height.width.equalTo(120)
         }
         
         idLabel.snp.makeConstraints {
-            $0.top.equalTo(profileImage.snp.bottom).offset(20)
+            $0.top.equalTo(profileImage.snp.bottom).offset(16)
             $0.centerX.equalTo(profileImage.snp.centerX)
         }
         
@@ -198,28 +275,37 @@ final class SettingProfileViewController: BaseViewController {
             $0.height.equalTo(500)
         }
         
-        settingProfileView1.snp.makeConstraints {
+        settingStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
         }
         
-        settingProfileView2.snp.makeConstraints {
-            $0.top.equalTo(settingProfileView1.snp.bottom).offset(30)
+        settingLinkStackView.snp.makeConstraints {
+            $0.top.equalTo(settingStackView.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
         }
         
-        settingProfileView3.snp.makeConstraints {
-            $0.top.equalTo(settingProfileView2.snp.bottom).offset(30)
+        changePasswordButton.snp.makeConstraints {
+            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
+            $0.height.equalTo(50)
         }
         
-        settingProfileView4.snp.makeConstraints {
-            $0.top.equalTo(settingProfileView3.snp.bottom).offset(30)
+        logoutButton.snp.makeConstraints {
+            $0.top.equalTo(changePasswordButton.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
+            $0.height.equalTo(50)
+        }
+        
+        deleteUserButton.snp.makeConstraints {
+            $0.top.equalTo(logoutButton.snp.bottom).offset(20)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview().offset(-30)
+            $0.height.equalTo(50)
         }
     }
 }

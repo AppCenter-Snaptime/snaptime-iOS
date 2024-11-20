@@ -57,7 +57,7 @@ final class SearchViewController: BaseViewController {
         var config = UIButton.Configuration.filled()
         config.baseForegroundColor = .black
         config.baseBackgroundColor = .white
-        config.image = UIImage(systemName: "chevron.backward")
+        config.image = UIImage(systemName: "arrow.left")
         
         button.configuration = config
         button.addAction(UIAction { [weak self] _ in

@@ -103,8 +103,10 @@ final class MainAlbumViewController : BaseViewController {
         config.cornerStyle = .capsule
         config.image = UIImage(systemName: "plus")
         button.configuration = config
-        button.layer.shadowRadius = 10
-        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 5)
         button.addAction(UIAction { [weak self] _ in
             self?.isAddButtonActive.toggle()
             self?.onTouchAddButton()
@@ -114,10 +116,12 @@ final class MainAlbumViewController : BaseViewController {
     
     private lazy var postFloatingStackView: UIStackView = {
         let stackView = UIStackView()
+        
         let label = UILabel()
         label.text = "글쓰기"
-        label.font = UIFont(name: SuitFont.bold, size: 14)
+        label.font = UIFont(name: SuitFont.bold, size: 13)
         label.textColor = .white
+        
         let button = UIButton()
         var config = UIButton.Configuration.plain()
         config.background.backgroundColor = .white
@@ -138,6 +142,8 @@ final class MainAlbumViewController : BaseViewController {
             stackView.addArrangedSubview($0)
         }
         stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 2
         stackView.bounds = view.frame.insetBy(dx: 8, dy: 0)
         stackView.isHidden = true
         return stackView
@@ -145,10 +151,12 @@ final class MainAlbumViewController : BaseViewController {
     
     private lazy var qrFloatingStackView: UIStackView = {
         let stackView = UIStackView()
+        
         let label = UILabel()
         label.text = "QR인식하기"
-        label.font = UIFont(name: SuitFont.bold, size: 14)
+        label.font = UIFont(name: SuitFont.bold, size: 13)
         label.textColor = .white
+        
         let button = UIButton()
         var config = UIButton.Configuration.plain()
         config.background.backgroundColor = .white
@@ -169,6 +177,8 @@ final class MainAlbumViewController : BaseViewController {
             stackView.addArrangedSubview($0)
         }
         stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 2
         stackView.bounds = view.frame.insetBy(dx: 8, dy: 0)
         stackView.isHidden = true
         return stackView

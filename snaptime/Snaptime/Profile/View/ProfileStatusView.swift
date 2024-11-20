@@ -66,7 +66,7 @@ final class ProfileStatusView: UIView {
     
     private lazy var nickNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: SuitFont.semiBold, size: 15)
+        label.font = UIFont(name: SuitFont.semiBold, size: 16)
         label.textAlignment = .left
         
         return label

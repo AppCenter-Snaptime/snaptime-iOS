@@ -36,8 +36,8 @@ final class NotificationViewController: BaseViewController {
     private lazy var topTextLabel: UILabel = {
         let label = UILabel()
         label.text = "알림"
-        label.font = UIFont(name: SuitFont.regular, size: 20)
-        label.textColor = UIColor.init(hexCode: "003E6E")
+        label.font = UIFont(name: SuitFont.semiBold, size: 18)
+        label.textColor = UIColor.black
         
         return label
     }()
@@ -90,7 +90,8 @@ final class NotificationViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
-        [notificationCollectionView].forEach {
+        [notificationCollectionView,
+         topTextLabel].forEach {
             view.addSubview($0)
         }
         

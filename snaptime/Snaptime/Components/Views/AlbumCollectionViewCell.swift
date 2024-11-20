@@ -52,10 +52,10 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
     
     // MARK: - setup Layouts
     private func setupLayouts() {
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x - 1.5, y: self.bounds.origin.y + 10, width: self.bounds.width + 3, height: self.bounds.height - 7)).cgPath
-        self.layer.shadowOpacity = 0.7
-        self.layer.shadowRadius = 7
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 2
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = .white
@@ -74,7 +74,7 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
         
         descriptionLabel.snp.makeConstraints {
             $0.left.equalTo(snapImageView).offset(15)
-            $0.centerY.equalTo(contentView.snp.bottom).offset(-17)
+            $0.centerY.equalTo(contentView.snp.bottom).inset(18)
         }
     }
 }

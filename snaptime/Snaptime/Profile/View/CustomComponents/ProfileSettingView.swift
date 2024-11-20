@@ -54,7 +54,7 @@ final class ProfileSettingView: UIView {
         titleAttr.font = UIFont(name: SuitFont.medium, size: 15)
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
-        let setImage = UIImage(systemName: "bell", withConfiguration: imageConfig)
+        let setImage = UIImage(systemName: "person", withConfiguration: imageConfig)
         
         descriptionConfig.image = setImage
         descriptionConfig.attributedTitle = titleAttr
@@ -72,7 +72,7 @@ final class ProfileSettingView: UIView {
         title2Attr.font = UIFont(name: SuitFont.medium, size: 15)
 
         let image2Config = UIImage.SymbolConfiguration(pointSize: 12, weight: .light)
-        let setImage2 = UIImage(systemName: "person", withConfiguration: image2Config)
+        let setImage2 = UIImage(systemName: "bell", withConfiguration: image2Config)
         
         description2Config.image = setImage2
         description2Config.attributedTitle = title2Attr
@@ -82,12 +82,9 @@ final class ProfileSettingView: UIView {
     }
     
     private func setupLayouts() {
-        self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowOpacity = 0.7
-        self.layer.shadowRadius = 7
-        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        
-        self.stackView.layer.cornerRadius = 15
+        self.stackView.layer.borderWidth = 1
+        self.stackView.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
+        self.stackView.layer.cornerRadius = 8
         self.stackView.layer.masksToBounds = true
         self.stackView.backgroundColor = .white
         self.stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

@@ -8,11 +8,6 @@
 import UIKit
 import SnapKit
 
-//protocol CustomAlertDelegate {
-//    func action()
-//    func exit()
-//}
-
 protocol CustomAlertDelegate {
     func action(identifier: String)
     func exit(identifier: String)
@@ -108,6 +103,7 @@ final class CustomAlertViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.spacing = 8
+        
         [confirmButton, cancelButton].forEach {
             stackView.addArrangedSubview($0)
         }
@@ -133,16 +129,16 @@ final class CustomAlertViewController: UIViewController {
         titleLabel.text = alertText
         titleLabel.textColor = UIColor.init(hexCode: "282828")
         titleLabel.textAlignment = .center
-        titleLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        titleLabel.font = UIFont(name: SuitFont.regular, size: 16)
         
         cancelButton.layer.cornerRadius = 20
         cancelButton.setTitleColor(.snaptimeBlue, for: .normal)
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        cancelButton.titleLabel?.font = UIFont(name: SuitFont.semiBold, size: 16)
         
         confirmButton.backgroundColor = UIColor.init(hexCode: "D9D9D9")
         confirmButton.layer.cornerRadius = 12
         confirmButton.setTitleColor(UIColor.init(hexCode: "606060"), for: .normal)
-        confirmButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        confirmButton.titleLabel?.font = UIFont(name: SuitFont.semiBold, size: 16)
     }
     
     private func setupLayouts() {
@@ -165,11 +161,11 @@ final class CustomAlertViewController: UIViewController {
             $0.top.equalToSuperview().offset(300)
             $0.left.equalToSuperview().offset(42)
             $0.right.equalToSuperview().offset(-42)
-            $0.height.equalTo(172)
+            $0.height.equalTo(180)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(24)
+            $0.top.equalToSuperview().offset(30)
             $0.left.right.equalToSuperview().inset(21)
             $0.height.equalTo(20)
         }
@@ -182,7 +178,7 @@ final class CustomAlertViewController: UIViewController {
         }
         
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.left.right.equalTo(titleLabel)
             $0.bottom.equalToSuperview().offset(-16)
         }

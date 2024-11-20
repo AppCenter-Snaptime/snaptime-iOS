@@ -129,10 +129,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         name: "square.and.arrow.up",
         size: 15,
         action: UIAction { [weak self] _ in
-            guard let backgroundImage = self?.photoImageView.image else { return }
-            let blurredImage = self?.applyBlurToImage(image: backgroundImage)
-
-            self?.shareToInstagram(background: blurredImage, sticker: self?.instagramShareImage())
+//            guard let backgroundImage = self?.photoImageView.image else { return }
+//            let blurredImage = self?.applyBlurToImage(image: backgroundImage)
+//
+//            self?.shareToInstagram(background: blurredImage, sticker: self?.instagramShareImage())
         }
     )
 
@@ -297,9 +297,10 @@ final class SnapCollectionViewCell: UICollectionViewCell {
     
     private func setLayouts() {
         self.layer.shadowColor = UIColor(hexCode: "c4c4c4").cgColor
-        self.layer.shadowOpacity = 10
-        self.layer.shadowRadius = 6
-        self.contentView.layer.cornerRadius = 15
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 3
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true
         self.contentView.backgroundColor = UIColor.init(hexCode: "#F8F8F8")
         
