@@ -287,15 +287,15 @@ final class SettingProfileViewController: BaseViewController {
             $0.right.equalToSuperview().offset(-30)
         }
         
-        changePasswordButton.snp.makeConstraints {
-            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
-            $0.left.equalToSuperview().offset(30)
-            $0.right.equalToSuperview().offset(-30)
-            $0.height.equalTo(50)
-        }
+//        changePasswordButton.snp.makeConstraints {
+//            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
+//            $0.left.equalToSuperview().offset(30)
+//            $0.right.equalToSuperview().offset(-30)
+//            $0.height.equalTo(50)
+//        }
         
         logoutButton.snp.makeConstraints {
-            $0.top.equalTo(changePasswordButton.snp.bottom).offset(20)
+            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
             $0.height.equalTo(50)
