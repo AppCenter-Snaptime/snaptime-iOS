@@ -20,7 +20,6 @@ final class TagViewController: BaseViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     init(tagList: [FindTagUserResDto]) {

@@ -96,7 +96,6 @@ final class SearchViewController: BaseViewController {
     }
     
     private func setNavigationBar() {
-        self.showNavigationBar()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         self.navigationItem.titleView = searchBar
     }

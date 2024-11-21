@@ -16,7 +16,7 @@ protocol CancelAccountViewControllerDelegate: AnyObject {
 final class CancelAccountViewController: BaseViewController {
     weak var delegate: CancelAccountViewControllerDelegate?
     
-    private var selectedReasonTag: Int? // 선택된 라디오 버튼의 태그
+    private var selectedReasonTag: Int? 
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {

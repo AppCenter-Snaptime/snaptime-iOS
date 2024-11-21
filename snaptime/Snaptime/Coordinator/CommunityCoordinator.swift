@@ -19,7 +19,6 @@ final class CommunityCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.navigationBar.isHidden = true
         self.navigationController.navigationBar.tintColor = .black
     }
 }
