@@ -24,6 +24,12 @@ final class SelectBrandViewController: BaseViewController {
         isTappedNextButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     private let instructionLabel: UILabel = {
         let label = UILabel()
         label.text = "브랜드를 선택해주세요"
@@ -71,7 +77,7 @@ final class SelectBrandViewController: BaseViewController {
         super.setupConstraints()
         
         instructionLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(107)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(80)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(30)
         }
@@ -83,8 +89,8 @@ final class SelectBrandViewController: BaseViewController {
         }
         
         nextButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(50)
         }
     }

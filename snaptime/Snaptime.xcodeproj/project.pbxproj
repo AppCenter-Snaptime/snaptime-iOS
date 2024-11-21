@@ -36,7 +36,6 @@
 		2932DB0A2C5216BB00CAECBC /* FindSnapPreviewResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */; };
 		2932DB0C2C5233E700CAECBC /* OAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0B2C5233E700CAECBC /* OAuthButton.swift */; };
 		2932DB0E2C52694100CAECBC /* APIInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932DB0D2C52694100CAECBC /* APIInterceptor.swift */; };
-		2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */; };
 		294820452C674B8000229D65 /* LoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820442C674B8000229D65 /* LoadingService.swift */; };
 		294820472C69D7BC00229D65 /* ModifyUserInfoResDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */; };
 		294820492C69E90900229D65 /* CommonMsgRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294820482C69E90900229D65 /* CommonMsgRes.swift */; };
@@ -170,7 +169,6 @@
 		2932DB092C5216BB00CAECBC /* FindSnapPreviewResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSnapPreviewResDto.swift; sourceTree = "<group>"; };
 		2932DB0B2C5233E700CAECBC /* OAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthButton.swift; sourceTree = "<group>"; };
 		2932DB0D2C52694100CAECBC /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
-		2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		294820442C674B8000229D65 /* LoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingService.swift; sourceTree = "<group>"; };
 		294820462C69D7BC00229D65 /* ModifyUserInfoResDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyUserInfoResDto.swift; sourceTree = "<group>"; };
 		294820482C69E90900229D65 /* CommonMsgRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMsgRes.swift; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 				29F80C712B865A1E003614AB /* TagListCollectionViewCell.swift */,
 				2958C8CA2B91A9CA00902027 /* EditProfileTextField.swift */,
 				2958C8C62B91A98400902027 /* TopTapBarCollectionViewCell.swift */,
-				2936B8DF2B9C607800568E24 /* ProfileSettingView.swift */,
 				29D432842C942078007F37D0 /* CancelReasonButton.swift */,
 				29F306AF2CEDE9D9006D4183 /* SettingButton.swift */,
 			);
@@ -771,7 +768,6 @@
 				29176FAE2C412C3E00CD9A24 /* FindSnapResDto.swift in Sources */,
 				2958C8CB2B91A9CA00902027 /* EditProfileTextField.swift in Sources */,
 				A66C413E2BBC69F200AC4284 /* CommentSupplementaryFooterView.swift in Sources */,
-				2936B8E02B9C607800568E24 /* ProfileSettingView.swift in Sources */,
 				A69D6D7C2C5A565400292BFD /* TagButton.swift in Sources */,
 				A67508572C3BCFB8001B4059 /* CommonResponseDtoFindChildReplyResDto.swift in Sources */,
 				298F7F7B2B6BA80F00A8DBC5 /* JoinPasswordViewController.swift in Sources */,
