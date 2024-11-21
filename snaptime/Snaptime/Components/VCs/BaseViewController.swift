@@ -23,6 +23,7 @@ class BaseViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.tabBarController?.tabBar.isHidden = false
+        self.showNavigationBar()
     }
     
     func setupLayouts() {}

@@ -59,6 +59,7 @@ final class ProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        self.hideNavigationBar()
         self.fetchUserProfile(email: email)
         self.fetchUserProfileCount(email: email)
         self.sendData()
@@ -223,7 +224,7 @@ final class ProfileViewController: BaseViewController {
         super.setupConstraints()
         
         profileStatusView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         

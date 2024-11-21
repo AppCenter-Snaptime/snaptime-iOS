@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import SafariServices
 
 protocol SettingProfileViewControllerDelegate: AnyObject {
     func presentSettingProfile()
@@ -28,7 +29,6 @@ final class SettingProfileViewController: BaseViewController {
         
         self.idLabel.text = userProfile.userName
         APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
-        self.setNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -89,11 +89,19 @@ final class SettingProfileViewController: BaseViewController {
         stackView.distribution = .fill
         stackView.alignment = .leading
         
-        let helpButton = SettingButton(title: "Help & Support", imageName: "person")
+//        let helpButton = SettingButton(title: "Help & Support", imageName: "person")
         let faqButton = SettingButton(title: "FAQ", imageName: "bubble.left.and.text.bubble.right")
         let securityButton = SettingButton(title: "보안정책", imageName: "lock")
         
-        [helpButton, faqButton, securityButton].forEach {
+        faqButton.addAction(UIAction{[weak self] _ in
+            self?.openSafariUrl(url: "https://solid-basil-8aa.notion.site/FAQ-fda037b51f74427f9287fff86f49fbc6?pvs=4")
+        }, for: .touchUpInside)
+        
+        securityButton.addAction(UIAction{[weak self] _ in
+            self?.openSafariUrl(url: "https://solid-basil-8aa.notion.site/1ca3dc222c894f21bacc1c4c1e4633d6?pvs=4")
+        }, for: .touchUpInside)
+        
+        [faqButton, securityButton].forEach {
             stackView.addArrangedSubview($0)
         }
     
@@ -196,8 +204,10 @@ final class SettingProfileViewController: BaseViewController {
         }
     }
     
-    private func setNavigationBar() {
-        self.showNavigationBar()
+    private func openSafariUrl(url: String) {
+        let url = NSURL(string: url)
+        let safariView: SFSafariViewController = SFSafariViewController(url: url! as URL)
+        self.present(safariView, animated: true, completion: nil)
     }
 
     // MARK: - Set Layouts

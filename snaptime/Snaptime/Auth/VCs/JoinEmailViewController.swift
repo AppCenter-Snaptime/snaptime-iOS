@@ -23,7 +23,6 @@ final class JoinEmailViewController: BaseViewController {
         super.viewDidLoad()
         tabNextButton()
         textFieldEditing()
-        self.showNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {

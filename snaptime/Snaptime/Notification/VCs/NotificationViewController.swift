@@ -83,7 +83,6 @@ final class NotificationViewController: BaseViewController {
     }
     
     private func setupNavigationBar() {
-        self.showNavigationBar()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: topTextLabel)
     }
     

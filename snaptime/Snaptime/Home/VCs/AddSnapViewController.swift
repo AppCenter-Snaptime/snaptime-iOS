@@ -273,7 +273,6 @@ final class AddSnapViewController: BaseViewController {
     }
     
     private func setupNavigationBar() {
-        self.showNavigationBar()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: privateButton)
     }
     
