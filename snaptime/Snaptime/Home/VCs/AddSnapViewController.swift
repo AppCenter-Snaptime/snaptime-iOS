@@ -52,7 +52,17 @@ final class AddSnapViewController: BaseViewController {
         
         APIService.loadImageNonToken(data: userProfile.profileURL, imageView: profileImage)
         
-        if let qrImageUrl = self.qrImageUrl,
+        setQRImage(qrImageUrl: self.qrImageUrl)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    private func setQRImage(qrImageUrl: String?) {
+        if let qrImageUrl = qrImageUrl,
            let url = URL(string: qrImageUrl),
            let token = KeyChain.loadAccessToken(key: TokenType.accessToken.rawValue){
             let modifier = AnyModifier { request in
@@ -66,13 +76,6 @@ final class AddSnapViewController: BaseViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        profileImage.layer.cornerRadius = profileImage.frame.height/2
-        profileImage.clipsToBounds = true
-    }
-    
     func addTagList(tagList: [FindTagUserResDto]) {
         // 기존 태그 리스트가 없으면, 초기 '사람 태그' 버튼을 지워주고,
         // + 버튼을 보여줌
@@ -82,8 +85,7 @@ final class AddSnapViewController: BaseViewController {
             }
             self.addTagButton.isHidden = false
         }
-        print("addTagList")
-        print(tagList)
+
         self.tagList.append(contentsOf: tagList)
         tagList.forEach {
             self.tagStackView.addArrangedSubview(TagButton(tagName: $0.tagUserName))
@@ -107,10 +109,16 @@ final class AddSnapViewController: BaseViewController {
                 r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
                 return r
             }
-            KingfisherManager.shared.retrieveImage(with: url, options: [.requestModifier(modifier)]) { result in
+            
+            KingfisherManager.shared.retrieveImage(
+                with: url,
+                options: [.requestModifier(modifier)]
+            ) { result in
                 switch result {
                 case .success(let data):
-                    self.addImageButton.setImage(data.image, for: .normal)
+                    DispatchQueue.main.async {
+                        self.addImageButton.setImage(data.image, for: .normal)
+                    }
                 case .failure(let error):
                     print(error)
                 }
@@ -122,8 +130,8 @@ final class AddSnapViewController: BaseViewController {
         self.snapSaveButton.setTitle("수정 완료", for: .normal)
     }
     
-    private lazy var profileImage: UIImageView = {
-        let image = UIImageView()
+    private lazy var profileImage: RoundImageView = {
+        let image = RoundImageView()
         image.backgroundColor = .snaptimeGray
         
         return image
@@ -142,7 +150,16 @@ final class AddSnapViewController: BaseViewController {
     
     private lazy var addImageButton: UIButton = {
         let button = UIButton()
-        button.layer.backgroundColor = UIColor.snaptimeGray.cgColor
+        
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .snaptimeGray
+        config.baseBackgroundColor = .white
+        config.background.strokeWidth = 1
+        config.background.strokeColor = .snaptimeGray
+        config.image = UIImage(systemName: "camera")
+        
+//        button.layer.backgroundColor = UIColor.snaptimeGray.cgColor
+        button.configuration = config
         button.imageView?.contentMode = .scaleAspectFit
         button.addAction(UIAction { _ in
             self.tabImageButton()
@@ -344,9 +361,7 @@ final class AddSnapViewController: BaseViewController {
     override func setupLayouts() {
         super.setupLayouts()
         
-        [
-            initialAddTagButton
-        ].forEach {
+        [initialAddTagButton].forEach {
             tagStackView.addArrangedSubview($0)
         }
         

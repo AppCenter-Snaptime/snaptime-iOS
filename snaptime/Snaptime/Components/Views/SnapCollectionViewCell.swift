@@ -26,6 +26,8 @@ final class SnapCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.setLayouts()
         self.setConstraints()
+        
+        shareButton.isHidden = true
     }
 
     required init?(coder: NSCoder) {
@@ -376,11 +378,6 @@ final class SnapCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(likeButton)
         }
         
-        shareButton.snp.makeConstraints {
-            $0.right.equalTo(photoImageView.snp.right)
-            $0.top.equalTo(commentButton)
-            $0.width.height.equalTo(24)
-        }
         
         oneLineJournalLabel.snp.makeConstraints {
             $0.top.equalTo(commentButton.snp.bottom).offset(8)

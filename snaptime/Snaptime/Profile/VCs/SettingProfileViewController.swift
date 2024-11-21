@@ -60,14 +60,6 @@ final class SettingProfileViewController: BaseViewController {
         return scrollView
     }()
     
-//    private lazy var settingProfileView1 = ProfileSettingView(first: "프로필 편집",
-//                                                         second: "알림",
-//                                                         firstAction: UIAction { [weak self] _ in
-//        self?.delegate?.presentEditProfile()
-//    },
-//                                                         secondAction: UIAction { [weak self] _ in
-//    })
-    
     private lazy var settingStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 5
@@ -76,13 +68,13 @@ final class SettingProfileViewController: BaseViewController {
         stackView.alignment = .leading
         
         let editProfileButton = SettingButton(title: "프로필 편집", imageName: "person")
-        let alertButton = SettingButton(title: "알림", imageName: "bell")
+//        let alertButton = SettingButton(title: "알림", imageName: "bell")
         
         editProfileButton.addAction(UIAction{[weak self] _ in
             self?.delegate?.presentEditProfile()
         }, for: .touchUpInside)
         
-        [editProfileButton, alertButton].forEach {
+        [editProfileButton].forEach {
             stackView.addArrangedSubview($0)
         }
     
@@ -287,15 +279,15 @@ final class SettingProfileViewController: BaseViewController {
             $0.right.equalToSuperview().offset(-30)
         }
         
-        changePasswordButton.snp.makeConstraints {
-            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
-            $0.left.equalToSuperview().offset(30)
-            $0.right.equalToSuperview().offset(-30)
-            $0.height.equalTo(50)
-        }
+//        changePasswordButton.snp.makeConstraints {
+//            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
+//            $0.left.equalToSuperview().offset(30)
+//            $0.right.equalToSuperview().offset(-30)
+//            $0.height.equalTo(50)
+//        }
         
         logoutButton.snp.makeConstraints {
-            $0.top.equalTo(changePasswordButton.snp.bottom).offset(20)
+            $0.top.equalTo(settingLinkStackView.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview().offset(-30)
             $0.height.equalTo(50)

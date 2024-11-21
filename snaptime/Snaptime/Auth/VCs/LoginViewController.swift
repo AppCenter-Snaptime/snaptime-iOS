@@ -63,7 +63,7 @@ final class LoginViewController: BaseViewController {
         textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
-        textField.font = UIFont(name: "SUIT-SemiBold", size: 14)
+        textField.font = UIFont(name: SuitFont.semiBold, size: 14)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         textField.leftViewMode = .always
         textField.attributedPlaceholder = NSAttributedString(string: "이메일", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
@@ -77,13 +77,35 @@ final class LoginViewController: BaseViewController {
         textField.layer.borderColor = UIColor.init(hexCode: "d0d0d0").cgColor
         textField.layer.cornerRadius = 12
         textField.layer.masksToBounds = true
-        textField.font = UIFont(name: "SUIT-SemiBold", size: 14)
+        textField.font = UIFont(name: SuitFont.semiBold, size: 14)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         textField.isSecureTextEntry = true
         textField.leftViewMode = .always
         textField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(hexCode: "929292")])
 
         return textField
+    }()
+    
+    private lazy var findPasswordButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = UIColor.init(hexCode: "929292")
+        config.baseBackgroundColor = .white
+        
+        var titleAttr = AttributedString.init("비밀번호 찾기")
+        titleAttr.font = UIFont(name: SuitFont.medium, size: 13)
+        config.attributedTitle = titleAttr
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 13, weight: .light)
+        let setImage = UIImage(systemName: "chevron.right", withConfiguration: imageConfig)
+        config.image = setImage
+        config.imagePlacement = .trailing
+        config.imagePadding = 10
+        
+        button.configuration = config
+        
+        return button
     }()
     
     private let warningIdImageView: UIImageView = {
@@ -259,6 +281,7 @@ final class LoginViewController: BaseViewController {
          inputStackView,
          warningIdImageView,
          warningPasswordImageView,
+         findPasswordButton,
          loginButton,
          joinButton,
          separatedLine,
@@ -301,9 +324,14 @@ final class LoginViewController: BaseViewController {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(46)
             $0.right.equalTo(view.safeAreaLayoutGuide).offset(-46)
         }
+        
+        findPasswordButton.snp.makeConstraints {
+            $0.trailing.equalTo(inputStackView.snp.trailing).offset(10)
+            $0.top.equalTo(inputStackView.snp.bottom).offset(5)
+        }
                 
         loginButton.snp.makeConstraints {
-            $0.top.equalTo(inputStackView.snp.bottom).offset(56)
+            $0.top.equalTo(findPasswordButton.snp.bottom).offset(56)
             $0.left.equalTo(inputStackView.snp.left)
             $0.right.equalTo(inputStackView.snp.right)
             $0.height.equalTo(50)
